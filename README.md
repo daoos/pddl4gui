@@ -25,3 +25,16 @@ Fonctionnalités qui vont être integrées par la suite :
   - Une visualisation des solutions (plans) ;
   - Un comportement Anytime ;
   - ...
+  
+### Comment l'utiliser
+Télécharger ou cloner le repository.
+
+Sous windows avec la ligne de commande :
+
+    java -javaagent:libs/pddl4j-3.5.0.jar -server -Xms2048m -Xmx2048m -jar pddl4gui.jar
+
+Sous linux avec le script *pddl4gui.sh* disponible à la racine du repository :
+    
+    ./pddl4gui.sh
+    
+*Note : les dossiers libs et resources sont nécessaires car non intégré dans le jar.*
