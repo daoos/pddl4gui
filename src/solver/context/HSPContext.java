@@ -56,11 +56,13 @@ public class HSPContext {
             ErrorManager errorManager = factory.parse(token.getDomainFile(), token.getProblemFile());
             if (!errorManager.isEmpty()) {
                 if(!errorManager.getMessages(token.getDomainFile()).isEmpty()) {
+                    error = error.concat("Error in " + token.getDomainFile() + "\n");
                     for (Message message : errorManager.getMessages(token.getDomainFile())) {
                         error = error.concat(message.getContent() + "\n");
                     }
                 }
-                if(!errorManager.getMessages(token.getDomainFile()).isEmpty()) {
+                if(!errorManager.getMessages(token.getProblemFile()).isEmpty()) {
+                    error = error.concat("Error in " + token.getProblemFile() + "\n");
                     for (Message message : errorManager.getMessages(token.getDomainFile())) {
                         error = error.concat(message.getContent() + "\n");
                     }

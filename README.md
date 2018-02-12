@@ -26,7 +26,7 @@ Fonctionnalités qui vont être integrées par la suite :
   - Un comportement Anytime ;
   - ...
   
-### Comment l'utiliser
+#### Comment l'utiliser
 Télécharger ou cloner le repository.
 
 Sous windows avec la ligne de commande :
