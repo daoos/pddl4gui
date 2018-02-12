@@ -3,6 +3,7 @@ package solver.gui.panel;
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Planner;
 import solver.gui.Editor;
+import solver.gui.Solver;
 import solver.gui.tools.FileTools;
 import solver.gui.tools.Icons;
 
@@ -10,7 +11,10 @@ import javax.swing.*;
 import java.io.File;
 
 public class SetupSolverPanel extends JPanel {
+    private Solver parent;
+
     private JSpinner weightSpinner, timeoutSpinner;
+    private JButton domainButton, pbButton, editDomainButton, editProblemButton;
     private File domainFile;
     private File problemFile;
     private Heuristic.Type heuristic = Heuristic.Type.FAST_FORWARD;
@@ -40,14 +44,15 @@ public class SetupSolverPanel extends JPanel {
         return planner;
     }
 
-    public SetupSolverPanel(){
+    public SetupSolverPanel(Solver parent){
+        this.parent = parent;
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver parameters"));
 
-        JButton domainButton = new JButton("Choose domain");
-        JButton pbButton = new JButton("Choose problem");
-        JButton editDomainButton = new JButton(Icons.getEditorIcon());
-        JButton editProblemButton = new JButton(Icons.getEditorIcon());
+        domainButton = new JButton("Choose domain");
+        pbButton = new JButton("Choose problem");
+        editDomainButton = new JButton(Icons.getEditorIcon());
+        editProblemButton = new JButton(Icons.getEditorIcon());
 
         domainButton.setBounds(15, 25, 150, 25);
         domainButton.setEnabled(true);
@@ -64,8 +69,8 @@ public class SetupSolverPanel extends JPanel {
         editDomainButton.setBounds(190, 25, 25, 25);
         editDomainButton.setEnabled(false);
         editDomainButton.addActionListener(e -> {
-            editDomainButton.setEnabled(false);
-            new Editor(editDomainButton, domainFile);
+            enableDomainButton(false);
+            new Editor(parent, domainFile,0);
         });
         add(editDomainButton);
 
@@ -85,8 +90,8 @@ public class SetupSolverPanel extends JPanel {
         editProblemButton.setBounds(190, 65, 25, 25);
         editProblemButton.setEnabled(false);
         editProblemButton.addActionListener(e -> {
-            editProblemButton.setEnabled(false);
-            new Editor(editProblemButton, problemFile);
+            enablePBButton(false);
+            new Editor(parent, problemFile,1);
         });
         add(editProblemButton);
 
@@ -116,4 +121,18 @@ public class SetupSolverPanel extends JPanel {
         timeoutSpinner.setBounds(190, 145, 125, 25);
         add(timeoutSpinner);
     }
+
+    public void enableDomainButton(boolean enable) {
+        editDomainButton.setEnabled(enable);
+        domainButton.setEnabled(enable);
+        parent.getPlanButton().setEnabled(enable);
+    }
+
+    public void enablePBButton(boolean enable) {
+        editProblemButton.setEnabled(enable);
+        pbButton.setEnabled(enable);
+        parent.getPlanButton().setEnabled(enable);
+    }
+
+
 }

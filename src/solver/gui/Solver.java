@@ -26,8 +26,16 @@ public class Solver extends JFrame{
 
     private Token token;
 
+    public SetupSolverPanel getSetupPanel() {
+        return setupPanel;
+    }
+
     public MenuSolverPanel getMenuSolverPanel() {
         return menuSolverPanel;
+    }
+
+    public JButton getPlanButton() {
+        return planButton;
     }
 
     public Token getToken() {
@@ -49,7 +57,7 @@ public class Solver extends JFrame{
         menuSolverPanel.setBounds(marging, marging, 330, 40);
         add(menuSolverPanel);
 
-        setupPanel = new SetupSolverPanel();
+        setupPanel = new SetupSolverPanel(this);
         setupPanel.setBounds(marging, 60, 330, 190);
         add(setupPanel);
 

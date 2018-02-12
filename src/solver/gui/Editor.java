@@ -18,7 +18,7 @@ public class Editor extends JFrame {
         return fileToEdit;
     }
 
-    public Editor(JButton parent, File file) {
+    public Editor(Solver parent, File file, int type) {
         fileToEdit = file;
         Container container = getContentPane();
         container.setLayout(new BorderLayout());
@@ -41,12 +41,20 @@ public class Editor extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                parent.setEnabled(true);
+                if(type == 0) {
+                    parent.getSetupPanel().enableDomainButton(true);
+                } else if (type == 1){
+                    parent.getSetupPanel().enablePBButton(true);
+                }
             }
 
             @Override
             public void windowClosing(WindowEvent e) {
-                parent.setEnabled(true);
+                if(type == 0) {
+                    parent.getSetupPanel().enableDomainButton(true);
+                } else if (type == 1){
+                    parent.getSetupPanel().enablePBButton(true);
+                }
             }
         });
         setVisible(true);
