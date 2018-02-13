@@ -1,6 +1,7 @@
 package solver.gui;
 
 import fr.uga.pddl4j.planners.Planner;
+import solver.context.EHCContext;
 import solver.gui.panel.MenuSolverPanel;
 import solver.gui.panel.ResultPanel;
 import solver.gui.panel.SetupSolverPanel;
@@ -21,6 +22,7 @@ public class Solver extends JFrame{
 
     private JButton planButton;
 
+    private EHCContext ehcContext = new EHCContext();
     private FFContext ffContext = new FFContext();
     private HSPContext hspContext = new HSPContext();
 
@@ -104,6 +106,10 @@ public class Solver extends JFrame{
                     hspContext.setHSPContext(token.getHeuristic(),token.getWeight(), token.getTimeout());
                     resolveStatus = hspContext.resolveWithHSP(token);
                 }
+                if(setupPanel.getPlanner() == Planner.Name.EHC) {
+                    ehcContext.setEHCContext(token.getHeuristic(),token.getWeight(), token.getTimeout());
+                    resolveStatus = ehcContext.resolveWithEHC(token);
+                }
             }
             if (resolveStatus) {
                 resultPanel.displayResult(token);
@@ -119,6 +125,9 @@ public class Solver extends JFrame{
                 }
                 if(setupPanel.getPlanner() == Planner.Name.HSP) {
                     resultPanel.setText(hspContext.getError());
+                }
+                if(setupPanel.getPlanner() == Planner.Name.EHC) {
+                    resultPanel.setText(ehcContext.getError());
                 }
                 planButton.setText("Error !");
                 menuSolverPanel.getResetButton().setEnabled(true);
