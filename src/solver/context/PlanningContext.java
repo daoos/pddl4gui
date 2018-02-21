@@ -39,7 +39,7 @@ public class PlanningContext {
                 }
                 if(!errorManager.getMessages(token.getProblemFile()).isEmpty()) {
                     error = error.concat("Error in " + token.getProblemFile() + "\n");
-                    for (Message message : errorManager.getMessages(token.getDomainFile())) {
+                    for (Message message : errorManager.getMessages(token.getProblemFile())) {
                         error = error.concat(message.getContent() + "\n");
                     }
                 }
