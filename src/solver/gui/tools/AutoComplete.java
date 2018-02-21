@@ -1,6 +1,6 @@
 package solver.gui.tools;
 
-import solver.context.PDDLContext;
+import solver.context.pddl.PDDLContext;
 import solver.gui.panel.EditorPanel;
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package solver.context;
+package solver.context.pddl;
 
 import solver.gui.tools.HighlightText;
 

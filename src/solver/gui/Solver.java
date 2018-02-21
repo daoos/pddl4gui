@@ -1,16 +1,16 @@
 package solver.gui;
 
-import solver.context.EHCContext;
-import solver.context.Planner;
-import solver.context.PlanningContext;
+import solver.context.planner.EHCContext;
+import solver.context.planner.FFContext;
+import solver.context.planner.HSPContext;
+import solver.context.planner.Planner;
+import solver.context.planner.PlanningContext;
 import solver.gui.panel.MenuSolverPanel;
 import solver.gui.panel.ResultPanel;
 import solver.gui.panel.SetupSolverPanel;
 import solver.gui.panel.StatisticsPanel;
 import solver.gui.tools.WindowsManager;
 import solver.model.Token;
-import solver.context.FFContext;
-import solver.context.HSPContext;
 
 import javax.swing.*;
 import java.io.IOException;

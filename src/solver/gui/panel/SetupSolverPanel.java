@@ -1,7 +1,7 @@
 package solver.gui.panel;
 
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
-import solver.context.Planner;
+import solver.context.planner.Planner;
 import solver.gui.Editor;
 import solver.gui.Solver;
 import solver.gui.tools.FileTools;

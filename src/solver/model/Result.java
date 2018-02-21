@@ -7,7 +7,7 @@ public class Result {
     private Plan solutionPlan;
     private String solutionString;
     private String solutionJSON;
-    private boolean isSolved = false;
+    private boolean isSolved;
 
     public Statistics getStatistics() {
         return statistics;

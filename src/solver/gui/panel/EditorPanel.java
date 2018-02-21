@@ -1,6 +1,6 @@
 package solver.gui.panel;
 
-import solver.context.PDDLContext;
+import solver.context.pddl.PDDLContext;
 import solver.gui.Editor;
 import solver.gui.tools.AutoComplete;
 import solver.gui.tools.FileTools;
