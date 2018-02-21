@@ -1,7 +1,7 @@
 package solver.gui.panel;
 
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
-import fr.uga.pddl4j.planners.Planner;
+import solver.context.Planner;
 import solver.gui.Editor;
 import solver.gui.Solver;
 import solver.gui.tools.FileTools;
@@ -18,7 +18,7 @@ public class SetupSolverPanel extends JPanel {
     private File domainFile;
     private File problemFile;
     private Heuristic.Type heuristic = Heuristic.Type.FAST_FORWARD;
-    private Planner.Name planner = Planner.Name.HSP;
+    private Planner.Type planner = Planner.Type.HSP;
 
     public JSpinner getWeightSpinner() {
         return weightSpinner;
@@ -40,7 +40,7 @@ public class SetupSolverPanel extends JPanel {
         return heuristic;
     }
 
-    public Planner.Name getPlanner() {
+    public Planner.Type getPlanner() {
         return planner;
     }
 
@@ -108,11 +108,11 @@ public class SetupSolverPanel extends JPanel {
         weightSpinner.setBounds(190, 105, 125, 25);
         add(weightSpinner);
 
-        JComboBox plannerComboBox = new JComboBox(Planner.Name.values());
+        JComboBox plannerComboBox = new JComboBox(Planner.Type.values());
         plannerComboBox.setBounds(15, 145, 150, 25);
         plannerComboBox.setSelectedItem(planner);
         plannerComboBox.addActionListener(e -> {
-            planner = (Planner.Name) plannerComboBox.getSelectedItem();
+            planner = (Planner.Type) plannerComboBox.getSelectedItem();
         });
         add(plannerComboBox);
 

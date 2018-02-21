@@ -1,7 +1,8 @@
 package solver.gui;
 
-import fr.uga.pddl4j.planners.Planner;
 import solver.context.EHCContext;
+import solver.context.Planner;
+import solver.context.PlanningContext;
 import solver.gui.panel.MenuSolverPanel;
 import solver.gui.panel.ResultPanel;
 import solver.gui.panel.SetupSolverPanel;
@@ -21,10 +22,6 @@ public class Solver extends JFrame{
     private MenuSolverPanel menuSolverPanel;
 
     private JButton planButton;
-
-    private EHCContext ehcContext = new EHCContext();
-    private FFContext ffContext = new FFContext();
-    private HSPContext hspContext = new HSPContext();
 
     private Token token;
 
@@ -98,17 +95,20 @@ public class Solver extends JFrame{
                 token.setupToken(setupPanel.getHeuristic(),
                         (double) setupPanel.getWeightSpinner().getValue(),
                         (double) setupPanel.getTimeoutSpinner().getValue());
-                if(setupPanel.getPlanner() == Planner.Name.FF) {
-                    ffContext.setFFContext(token.getHeuristic(),token.getWeight(), token.getTimeout());
-                    resolveStatus = ffContext.resolveWithFF(token);
+                if(setupPanel.getPlanner() == Planner.Type.FF) {
+                    final FFContext ffContext = new FFContext();
+                    ffContext.setFF(token.getHeuristic(),token.getWeight(), token.getTimeout());
+                    resolveStatus = PlanningContext.resolve(token,ffContext);
                 }
-                if(setupPanel.getPlanner() == Planner.Name.HSP) {
-                    hspContext.setHSPContext(token.getHeuristic(),token.getWeight(), token.getTimeout());
-                    resolveStatus = hspContext.resolveWithHSP(token);
+                if(setupPanel.getPlanner() == Planner.Type.HSP) {
+                    final HSPContext hspContext = new HSPContext();
+                    hspContext.setHSP(token.getHeuristic(),token.getWeight(), token.getTimeout());
+                    resolveStatus = PlanningContext.resolve(token,hspContext);
                 }
-                if(setupPanel.getPlanner() == Planner.Name.EHC) {
-                    ehcContext.setEHCContext(token.getHeuristic(),token.getWeight(), token.getTimeout());
-                    resolveStatus = ehcContext.resolveWithEHC(token);
+                if(setupPanel.getPlanner() == Planner.Type.EHC) {
+                    final EHCContext ehcContext = new EHCContext();
+                    ehcContext.setEHC(token.getHeuristic(),token.getWeight(), token.getTimeout());
+                    resolveStatus = PlanningContext.resolve(token,ehcContext);
                 }
             }
             if (resolveStatus) {
@@ -120,15 +120,7 @@ public class Solver extends JFrame{
                 menuSolverPanel.getSaveJsonButton().setEnabled(true);
                 menuSolverPanel.getSaveTxtButton().setEnabled(true);
             } else {
-                if(setupPanel.getPlanner() == Planner.Name.FF) {
-                    resultPanel.setText(ffContext.getError());
-                }
-                if(setupPanel.getPlanner() == Planner.Name.HSP) {
-                    resultPanel.setText(hspContext.getError());
-                }
-                if(setupPanel.getPlanner() == Planner.Name.EHC) {
-                    resultPanel.setText(ehcContext.getError());
-                }
+                resultPanel.setText(PlanningContext.getError());
                 planButton.setText("Error !");
                 menuSolverPanel.getResetButton().setEnabled(true);
             }
