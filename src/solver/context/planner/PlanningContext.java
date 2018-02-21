@@ -79,6 +79,9 @@ public class PlanningContext {
                     return true;
                 } else {
                     error = ("Plan is null !");
+                    statistics.setCost(0);
+                    statistics.setDepth(0);
+                    token.setResult(new Result(statistics, null, "Time out !", null));
                     return true;
                 }
             } catch (NullPointerException e) {

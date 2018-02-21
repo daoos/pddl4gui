@@ -16,6 +16,7 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class Solver extends JFrame{
+
     private SetupSolverPanel setupPanel;
     private StatisticsPanel statisticsPanel;
     private ResultPanel resultPanel;
