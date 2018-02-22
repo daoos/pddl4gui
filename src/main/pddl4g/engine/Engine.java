@@ -9,26 +9,20 @@ import fr.uga.pddl4j.util.MemoryAgent;
 import fr.uga.pddl4j.util.Plan;
 import main.pddl4g.Pddl4G;
 import main.pddl4g.context.planner.Planner;
+import main.pddl4g.gui.panel.EngineStatusPanel;
 import main.pddl4g.model.Result;
 import main.pddl4g.model.Statistics;
 import main.pddl4g.model.Token;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.LinkedList;
 
 public class Engine extends Thread{
 
-    enum Status {
-        IDLE,
-        SOLVING,
-        ERROR
-    }
-
     private Pddl4G pddl4G;
 
     private LinkedList<Token> tokenList;
-
-    private Status status = Status.IDLE;
 
     private String error = "";
 
@@ -43,17 +37,20 @@ public class Engine extends Thread{
 
     @Override
     public void run() {
+        final EngineStatusPanel engineStatusPanel = pddl4G.getSolver().getEngineStatusPanel();
         while (pddl4G.getSolver().isVisible()) {
             try {
                 if(tokenList.size() > 0){
-                    System.out.println("solving");
+                    engineStatusPanel.getEngineLabel().setText("solving token");
+                    engineStatusPanel.getCirclePanel().setColor(Color.ORANGE);
+                    engineStatusPanel.getCirclePanel().repaint();
                     final Token token = tokenList.pop();
-                    status = Status.SOLVING;
                     pddl4G.getSolver().displayResult(this.resolve(token), error);
                 }
                 else {
-                    System.out.println("nothin to solve");
-                    status = Status.IDLE;
+                    engineStatusPanel.getEngineLabel().setText("waiting for token");
+                    engineStatusPanel.getCirclePanel().setColor(Color.GREEN);
+                    engineStatusPanel.getCirclePanel().repaint();
                 }
                 sleep(1000);
             } catch (InterruptedException | IOException e) {
@@ -63,7 +60,7 @@ public class Engine extends Thread{
         }
     }
 
-    public boolean resolve(final Token token) throws IOException {
+    private boolean resolve(final Token token) throws IOException {
         if (token.isRunnable()) {
             final Statistics statistics = new Statistics();
             final ProblemFactory factory = new ProblemFactory();

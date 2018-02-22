@@ -1,6 +1,7 @@
 package main.pddl4g.gui;
 
 import main.pddl4g.context.planner.Planner;
+import main.pddl4g.gui.panel.EngineStatusPanel;
 import main.pddl4g.gui.panel.SetupSolverPanel;
 import main.pddl4g.gui.tools.WindowsManager;
 import main.pddl4g.Pddl4G;
@@ -22,6 +23,7 @@ public class Solver extends JFrame {
     private StatisticsPanel statisticsPanel;
     private ResultPanel resultPanel;
     private MenuSolverPanel menuSolverPanel;
+    private EngineStatusPanel engineStatusPanel;
 
     private JButton planButton;
 
@@ -41,6 +43,10 @@ public class Solver extends JFrame {
 
     public MenuSolverPanel getMenuSolverPanel() {
         return menuSolverPanel;
+    }
+
+    public EngineStatusPanel getEngineStatusPanel() {
+        return engineStatusPanel;
     }
 
     public JButton getPlanButton() {
@@ -72,15 +78,17 @@ public class Solver extends JFrame {
         add(setupPanel);
 
         planButton = new JButton("Resolve this problem !");
-        planButton.setBounds(75, 290, 200, 25);
+        planButton.setBounds(75, 260, 200, 25);
         planButton.setEnabled(true);
         planButton.addActionListener(e -> {
-            planButton.setEnabled(false);
-            planButton.setText("In progress !");
             resolve();
         });
 
         add(planButton);
+
+        engineStatusPanel = new EngineStatusPanel();
+        engineStatusPanel.setBounds(75, 300, 200, 50);
+        add(engineStatusPanel);
 
         statisticsPanel = new StatisticsPanel();
         statisticsPanel.setBounds(marging, 360, 330, 220);
@@ -117,6 +125,8 @@ public class Solver extends JFrame {
 
         if (token.isRunnable()) {
             pddl4G.getEngine().getTokenList().add(token);
+            planButton.setEnabled(false);
+            planButton.setText("In progress !");
         }
 
     }
