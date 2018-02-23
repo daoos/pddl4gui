@@ -19,7 +19,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.LinkedList;
 
-public class Engine extends Thread{
+public class Engine extends Thread {
 
     private Pddl4Gui pddl4Gui;
 
@@ -44,15 +44,14 @@ public class Engine extends Thread{
         final EngineStatusPanel engineStatusPanel = pddl4Gui.getSolver().getEngineStatusPanel();
         while (pddl4Gui.getSolver().isVisible()) {
             try {
-                if(tokenList.size() > 0){
+                if (tokenList.size() > 0) {
                     final Token token = tokenList.pop();
                     engineStatusPanel.getEngineLabel().setText("solving " + token);
                     engineStatusPanel.getCirclePanel().setColor(Color.ORANGE);
                     engineStatusPanel.getCirclePanel().repaint();
                     token.setSolved(resolve(token));
                     token.setError(error);
-                }
-                else {
+                } else {
                     engineStatusPanel.getEngineLabel().setText("waiting for token");
                     engineStatusPanel.getCirclePanel().setColor(Color.GREEN);
                     engineStatusPanel.getCirclePanel().repaint();
@@ -74,13 +73,13 @@ public class Engine extends Thread{
             long begin = System.currentTimeMillis();
             ErrorManager errorManager = factory.parse(token.getDomainFile(), token.getProblemFile());
             if (!errorManager.isEmpty()) {
-                if(!errorManager.getMessages(token.getDomainFile()).isEmpty()) {
+                if (!errorManager.getMessages(token.getDomainFile()).isEmpty()) {
                     error = error.concat("Error in " + token.getDomainFile() + "\n");
                     for (Message message : errorManager.getMessages(token.getDomainFile())) {
                         error = error.concat(message.getContent() + "\n");
                     }
                 }
-                if(!errorManager.getMessages(token.getProblemFile()).isEmpty()) {
+                if (!errorManager.getMessages(token.getProblemFile()).isEmpty()) {
                     error = error.concat("Error in " + token.getProblemFile() + "\n");
                     for (Message message : errorManager.getMessages(token.getProblemFile())) {
                         error = error.concat(message.getContent() + "\n");

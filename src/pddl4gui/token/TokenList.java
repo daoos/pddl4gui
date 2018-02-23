@@ -10,5 +10,6 @@ public class TokenList {
         return listModel;
     }
 
-    private TokenList() {}
+    private TokenList() {
+    }
 }

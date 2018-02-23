@@ -1,8 +1,8 @@
 package pddl4gui.gui;
 
 import pddl4gui.gui.panel.EditorMenuToolBar;
-import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.gui.panel.EditorPanel;
+import pddl4gui.gui.tools.WindowsManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,18 +41,18 @@ public class Editor extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                if(type == 0) {
+                if (type == 0) {
                     parent.getSetupPanel().enableDomainButton(true);
-                } else if (type == 1){
+                } else if (type == 1) {
                     parent.getSetupPanel().enablePBButton(true);
                 }
             }
 
             @Override
             public void windowClosing(WindowEvent e) {
-                if(type == 0) {
+                if (type == 0) {
                     parent.getSetupPanel().enableDomainButton(true);
-                } else if (type == 1){
+                } else if (type == 1) {
                     parent.getSetupPanel().enablePBButton(true);
                 }
             }

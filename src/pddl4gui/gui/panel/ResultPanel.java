@@ -10,15 +10,7 @@ public class ResultPanel extends JPanel {
     private JLabel domain, problem, cost, depth;
     private JTextArea resultArea;
 
-    public JTextArea getResultArea() {
-        return resultArea;
-    }
-
-    public void setText(String result) {
-        this.resultArea.setText(result);
-    }
-
-    public ResultPanel(){
+    public ResultPanel() {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver result"));
 
@@ -71,6 +63,22 @@ public class ResultPanel extends JPanel {
         cost.setText(String.valueOf(df.format(token.getResult().getStatistics().getCost())));
         depth.setText(String.valueOf(df.format(token.getResult().getStatistics().getDepth())));
         resultArea.setText(token.getResult().getSolutionString());
+    }
+
+    public void displayError(Token token) {
+        domain.setText(token.getDomainFile().getName());
+        problem.setText(token.getProblemFile().getName());
+        cost.setText(String.valueOf(0));
+        depth.setText(String.valueOf(0));
+        resultArea.setText(token.getError());
+    }
+
+    public void diplayProgress(Token token) {
+        domain.setText(token.getDomainFile().getName());
+        problem.setText(token.getProblemFile().getName());
+        cost.setText(String.valueOf(0));
+        depth.setText(String.valueOf(0));
+        resultArea.setText("Token not solved yet !");
     }
 
     public void clearResult() {

@@ -1,13 +1,11 @@
 package pddl4gui.gui;
 
+import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.WindowsManager;
-import pddl4gui.gui.tools.FileTools;
 import pddl4gui.token.Token;
 
 import javax.swing.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -23,7 +21,7 @@ public class VAL extends JFrame {
 
     private boolean isValide = false;
 
-    public VAL(Solver parent, Token token) {
+    public VAL(Token token) {
         JButton exitButton, generateTexButton, saveButton;
 
         setTitle("VAL | " + WindowsManager.NAME);
@@ -109,18 +107,6 @@ public class VAL extends JFrame {
         }
 
         setLocation(WindowsManager.setWindowsLocation());
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                parent.getMenuSolverPanel().getValButton().setEnabled(true);
-            }
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                parent.getMenuSolverPanel().getValButton().setEnabled(true);
-            }
-        });
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

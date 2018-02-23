@@ -23,17 +23,17 @@ public class HSPContext implements Planner {
         this.setHSP(heuristic, weight, timeout);
     }
 
-    public void setHSP(Heuristic.Type heuristic, double weight, double timeout){
+    public void setHSP(Heuristic.Type heuristic, double weight, double timeout) {
         hsp.setHeuristicType(heuristic);
         hsp.setWeight(weight);
         hsp.setTimeOut((int) timeout);
     }
 
-    public Statistics getStatistics(){
+    public Statistics getStatistics() {
         return hsp.getStatistics();
     }
 
-    public Plan search(CodedProblem problem){
+    public Plan search(CodedProblem problem) {
         return hsp.search(problem);
     }
 }

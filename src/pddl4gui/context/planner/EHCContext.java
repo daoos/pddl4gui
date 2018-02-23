@@ -23,17 +23,17 @@ public class EHCContext implements Planner {
         this.setEHC(heuristic, weight, timeout);
     }
 
-    public void setEHC(Heuristic.Type heuristic, double weight, double timeout){
+    public void setEHC(Heuristic.Type heuristic, double weight, double timeout) {
         ehc.setHeuristicType(heuristic);
         ehc.setWeight(weight);
         ehc.setTimeOut((int) timeout);
     }
 
-    public Statistics getStatistics(){
+    public Statistics getStatistics() {
         return ehc.getStatistics();
     }
 
-    public Plan search(CodedProblem problem){
+    public Plan search(CodedProblem problem) {
         return ehc.search(problem);
     }
 }

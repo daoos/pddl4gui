@@ -23,7 +23,7 @@ public class Pddl4Gui {
         return engine;
     }
 
-    public Pddl4Gui(){
+    public Pddl4Gui() {
         solver = new Solver(this);
         engine = new Engine(this, 500);
         engine.start();

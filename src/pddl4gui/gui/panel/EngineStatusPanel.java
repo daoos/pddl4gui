@@ -31,8 +31,8 @@ public class EngineStatusPanel extends JPanel {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Engine status"));
 
-        circlePanel = new DrawCircle(20, 20 ,20);
-        circlePanel.setBounds(0,0,40,40);
+        circlePanel = new DrawCircle(20, 20, 20);
+        circlePanel.setBounds(0, 0, 40, 40);
         add(circlePanel);
 
         engineLabel = new JLabel(" -- ");
@@ -42,11 +42,11 @@ public class EngineStatusPanel extends JPanel {
         tokenJList = new JList<>(TokenList.getListModel());
         tokenJList.setLayoutOrientation(JList.VERTICAL);
         tokenJList.setVisibleRowCount(20);
-        tokenJList.setSelectionModel(new DefaultListSelectionModel(){
+        tokenJList.setSelectionModel(new DefaultListSelectionModel() {
 
             @Override
             public void setSelectionInterval(int index0, int index1) {
-                if (index0==index1) {
+                if (index0 == index1) {
                     if (isSelectedIndex(index0)) {
                         removeSelectionInterval(index0, index0);
                         return;
@@ -57,7 +57,7 @@ public class EngineStatusPanel extends JPanel {
 
             @Override
             public void addSelectionInterval(int index0, int index1) {
-                if (index0==index1) {
+                if (index0 == index1) {
                     if (isSelectedIndex(index0)) {
                         removeSelectionInterval(index0, index0);
                         return;
@@ -73,7 +73,7 @@ public class EngineStatusPanel extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                     final Token selectedValue = tokenJList.getSelectedValue();
-                    if(selectedValue != null) {
+                    if (selectedValue != null) {
                         if (selectedValue.isSolved()) {
                             if (selectedValue.getError().equals("")) {
                                 parent.displayResult(selectedValue);
@@ -81,13 +81,13 @@ public class EngineStatusPanel extends JPanel {
                                 parent.displayError(selectedValue);
                             }
                         } else {
-                            parent.displayProgress();
+                            parent.displayProgress(selectedValue);
                         }
                     }
                 }
             }
         });
-        JScrollPane scrollTokenJList= new JScrollPane(tokenJList);
+        JScrollPane scrollTokenJList = new JScrollPane(tokenJList);
         scrollTokenJList.setBounds(20, 50, 290, 200);
         add(scrollTokenJList);
     }

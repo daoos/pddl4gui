@@ -1,24 +1,20 @@
 package pddl4gui.gui;
 
-import pddl4gui.context.planner.Planner;
-import pddl4gui.gui.panel.EngineStatusPanel;
-import pddl4gui.gui.panel.SetupSolverPanel;
-import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.Pddl4Gui;
 import pddl4gui.context.planner.EHCContext;
 import pddl4gui.context.planner.FFContext;
 import pddl4gui.context.planner.HSPContext;
+import pddl4gui.context.planner.Planner;
+import pddl4gui.gui.panel.EngineStatusPanel;
 import pddl4gui.gui.panel.MenuSolverPanel;
 import pddl4gui.gui.panel.ResultPanel;
+import pddl4gui.gui.panel.SetupSolverPanel;
 import pddl4gui.gui.panel.StatisticsPanel;
+import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Token;
 import pddl4gui.token.TokenList;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.awt.*;
-import java.util.List;
 
 public class Solver extends JFrame {
 
@@ -133,12 +129,10 @@ public class Solver extends JFrame {
         token = new Token(setupPanel.getDomainFile(), setupPanel.getProblemFile(), planner);
 
         if (token.isRunnable()) {
-            if(!TokenList.getListModel().contains(token)) {
+            if (!TokenList.getListModel().contains(token)) {
                 TokenList.getListModel().addElement(token);
                 pddl4Gui.getEngine().getTokenList().addLast(token);
             }
-            /*planButton.setEnabled(false);
-            planButton.setText("In progress !");*/
         }
 
     }
@@ -155,11 +149,13 @@ public class Solver extends JFrame {
 
     public void displayError(Token token) {
         statisticsPanel.clearStats();
-        resultPanel.setText(token.getError());
+        resultPanel.clearResult();
+        resultPanel.displayError(token);
     }
 
-    public void displayProgress(){
+    public void displayProgress(Token token) {
         statisticsPanel.clearStats();
-        resultPanel.setText("Token not solved");
+        resultPanel.clearResult();
+        resultPanel.diplayProgress(token);
     }
 }
