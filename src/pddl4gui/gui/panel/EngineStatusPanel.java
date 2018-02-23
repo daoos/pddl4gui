@@ -23,6 +23,10 @@ public class EngineStatusPanel extends JPanel {
         return circlePanel;
     }
 
+    public JList<Token> getTokenJList() {
+        return tokenJList;
+    }
+
     public EngineStatusPanel(Solver parent) {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Engine status"));
@@ -38,6 +42,31 @@ public class EngineStatusPanel extends JPanel {
         tokenJList = new JList<>(TokenList.getListModel());
         tokenJList.setLayoutOrientation(JList.VERTICAL);
         tokenJList.setVisibleRowCount(20);
+        tokenJList.setSelectionModel(new DefaultListSelectionModel(){
+
+            @Override
+            public void setSelectionInterval(int index0, int index1) {
+                if (index0==index1) {
+                    if (isSelectedIndex(index0)) {
+                        removeSelectionInterval(index0, index0);
+                        return;
+                    }
+                }
+                super.setSelectionInterval(index0, index1);
+            }
+
+            @Override
+            public void addSelectionInterval(int index0, int index1) {
+                if (index0==index1) {
+                    if (isSelectedIndex(index0)) {
+                        removeSelectionInterval(index0, index0);
+                        return;
+                    }
+                    super.addSelectionInterval(index0, index1);
+                }
+            }
+
+        });
         tokenJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tokenJList.addListSelectionListener(new ListSelectionListener() {
             @Override
