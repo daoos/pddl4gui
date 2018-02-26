@@ -74,14 +74,26 @@ public class EngineStatusPanel extends JPanel {
                 if (!e.getValueIsAdjusting()) {
                     final Token selectedValue = tokenJList.getSelectedValue();
                     if (selectedValue != null) {
-                        if (selectedValue.isSolved()) {
-                            if (selectedValue.getError().equals("")) {
-                                parent.displayResult(selectedValue);
+                        if(selectedValue.getPlanner().isAnytime()) {
+                            if (selectedValue.isSolved()) {
+                                if (selectedValue.getError().equals("")) {
+                                    parent.displayResult(selectedValue);
+                                } else {
+                                    parent.displayError(selectedValue);
+                                }
                             } else {
-                                parent.displayError(selectedValue);
+                                new AnytimePanel(selectedValue);
                             }
                         } else {
-                            parent.displayProgress(selectedValue);
+                            if (selectedValue.isSolved()) {
+                                if (selectedValue.getError().equals("")) {
+                                    parent.displayResult(selectedValue);
+                                } else {
+                                    parent.displayError(selectedValue);
+                                }
+                            } else {
+                                parent.displayProgress(selectedValue);
+                            }
                         }
                     }
                 }

@@ -2,7 +2,9 @@ package pddl4gui.gui;
 
 import pddl4gui.Pddl4Gui;
 import pddl4gui.context.planner.EHCContext;
+import pddl4gui.context.planner.FFAnytimeContext;
 import pddl4gui.context.planner.FFContext;
+import pddl4gui.context.planner.HCAnytimeContext;
 import pddl4gui.context.planner.HSPContext;
 import pddl4gui.context.planner.Planner;
 import pddl4gui.gui.panel.EngineStatusPanel;
@@ -115,6 +117,11 @@ public class Solver extends JFrame {
                     (double) setupPanel.getWeightSpinner().getValue(),
                     (double) setupPanel.getTimeoutSpinner().getValue());
         }
+        if (setupPanel.getPlanner() == Planner.Type.FFAnytime) {
+            planner = new FFAnytimeContext(setupPanel.getHeuristic(),
+                    (double) setupPanel.getWeightSpinner().getValue(),
+                    (double) setupPanel.getTimeoutSpinner().getValue());
+        }
         if (setupPanel.getPlanner() == Planner.Type.HSP) {
             planner = new HSPContext(setupPanel.getHeuristic(),
                     (double) setupPanel.getWeightSpinner().getValue(),
@@ -122,6 +129,11 @@ public class Solver extends JFrame {
         }
         if (setupPanel.getPlanner() == Planner.Type.EHC) {
             planner = new EHCContext(setupPanel.getHeuristic(),
+                    (double) setupPanel.getWeightSpinner().getValue(),
+                    (double) setupPanel.getTimeoutSpinner().getValue());
+        }
+        if (setupPanel.getPlanner() == Planner.Type.HCAnytime) {
+            planner = new HCAnytimeContext(setupPanel.getHeuristic(),
                     (double) setupPanel.getWeightSpinner().getValue(),
                     (double) setupPanel.getTimeoutSpinner().getValue());
         }

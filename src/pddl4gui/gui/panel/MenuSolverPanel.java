@@ -41,10 +41,12 @@ public class MenuSolverPanel extends JPanel {
         saveTxtButton.setBounds(50, 10, 40, 40);
         saveTxtButton.setToolTipText("Save solution (txt)");
         saveTxtButton.addActionListener(e -> {
-            File tempFile = FileTools.saveFile(this, 1);
-            if (!FileTools.checkFile(tempFile)) {
-                FileTools.writeInFile(tempFile, parent.getEngineStatusPanel().getTokenJList()
-                        .getSelectedValue().getResult().getSolutionString());
+            if (parent.getEngineStatusPanel().getTokenJList().getSelectedValue().isSolved()) {
+                File tempFile = FileTools.saveFile(this, 1);
+                if (!FileTools.checkFile(tempFile)) {
+                    FileTools.writeInFile(tempFile, parent.getEngineStatusPanel().getTokenJList()
+                            .getSelectedValue().getResult().getSolutionString());
+                }
             }
         });
         saveTxtButton.setEnabled(false);
@@ -54,10 +56,12 @@ public class MenuSolverPanel extends JPanel {
         saveJsonButton.setBounds(110, 10, 40, 40);
         saveJsonButton.setToolTipText("Save solution (json)");
         saveJsonButton.addActionListener(e -> {
-            File tempFile = FileTools.saveFile(this, 5);
-            if (!FileTools.checkFile(tempFile)) {
-                FileTools.writeInFile(tempFile, parent.getEngineStatusPanel().getTokenJList()
-                        .getSelectedValue().getResult().getSolutionJSON());
+            if (parent.getEngineStatusPanel().getTokenJList().getSelectedValue().isSolved()) {
+                File tempFile = FileTools.saveFile(this, 5);
+                if (!FileTools.checkFile(tempFile)) {
+                    FileTools.writeInFile(tempFile, parent.getEngineStatusPanel().getTokenJList()
+                            .getSelectedValue().getResult().getSolutionJSON());
+                }
             }
         });
         saveJsonButton.setEnabled(false);

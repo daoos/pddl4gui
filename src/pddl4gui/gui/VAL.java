@@ -37,7 +37,8 @@ public class VAL extends JFrame {
         generateTexButton.setToolTipText("Generate TeX report");
         generateTexButton.addActionListener(e -> {
             if (isValide) {
-                String target = "./resources/apps/validate -l " + domainFile.getAbsolutePath() + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
+                String target = "./resources/apps/validate -l " + domainFile.getAbsolutePath()
+                        + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
                 StringBuilder output = VAL.execVal(target);
                 File tempFile = FileTools.saveFile(this, 2);
                 if (!FileTools.checkFile(tempFile))
@@ -90,7 +91,8 @@ public class VAL extends JFrame {
 
             if (!FileTools.checkFile(domainFile) && !FileTools.checkFile(pbFile) && token.getResult().isSolved()) {
                 try {
-                    String target = "./resources/apps/validate -v " + domainFile.getAbsolutePath() + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
+                    String target = "./resources/apps/validate -v " + domainFile.getAbsolutePath()
+                            + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
                     StringBuilder output = VAL.execVal(target);
 
                     textArea.setText(output.toString());

@@ -4,7 +4,10 @@ import fr.uga.pddl4j.encoding.CodedProblem;
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Statistics;
 import fr.uga.pddl4j.planners.ff.FF;
+import fr.uga.pddl4j.planners.ff.Node;
 import fr.uga.pddl4j.util.Plan;
+
+import java.util.LinkedList;
 
 import static fr.uga.pddl4j.planners.ff.FF.DEFAULT_HEURISTIC;
 import static fr.uga.pddl4j.planners.ff.FF.DEFAULT_WEIGHT;
@@ -12,6 +15,10 @@ import static fr.uga.pddl4j.planners.ff.FF.DEFAULT_WEIGHT;
 public class FFContext implements Planner {
 
     private FF ff;
+
+    public boolean isAnytime() {
+        return false;
+    }
 
     public FFContext() {
         ff = new FF();
@@ -35,5 +42,9 @@ public class FFContext implements Planner {
 
     public Plan search(CodedProblem problem) {
         return ff.search(problem);
+    }
+
+    public LinkedList<Node> getAnytimeSolutions() {
+        return new LinkedList<>();
     }
 }

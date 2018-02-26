@@ -3,15 +3,22 @@ package pddl4gui.context.planner;
 import fr.uga.pddl4j.encoding.CodedProblem;
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Statistics;
-import fr.uga.pddl4j.planners.ehc.EHC;
+import fr.uga.pddl4j.planners.ff.Node;
+import fr.uga.pddl4j.planners.hc.EHC;
 import fr.uga.pddl4j.util.Plan;
 
-import static fr.uga.pddl4j.planners.ehc.EHC.DEFAULT_HEURISTIC;
-import static fr.uga.pddl4j.planners.ehc.EHC.DEFAULT_WEIGHT;
+import java.util.LinkedList;
+
+import static fr.uga.pddl4j.planners.hc.EHC.DEFAULT_HEURISTIC;
+import static fr.uga.pddl4j.planners.hc.EHC.DEFAULT_WEIGHT;
 
 public class EHCContext implements Planner {
 
     private EHC ehc;
+
+    public boolean isAnytime() {
+        return false;
+    }
 
     public EHCContext() {
         ehc = new EHC();
@@ -35,5 +42,9 @@ public class EHCContext implements Planner {
 
     public Plan search(CodedProblem problem) {
         return ehc.search(problem);
+    }
+
+    public LinkedList<Node> getAnytimeSolutions() {
+        return new LinkedList<>();
     }
 }

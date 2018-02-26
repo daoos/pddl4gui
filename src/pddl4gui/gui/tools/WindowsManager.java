@@ -18,6 +18,6 @@ public class WindowsManager {
 
     public static Point setWindowsLocation() {
         int margin = 100;
-        return new Point((int) location.getX() + width + margin, (int) location.getY());
+        return new Point((int) location.getX() + (width / 2) + margin, (int) location.getY());
     }
 }
