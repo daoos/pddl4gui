@@ -13,7 +13,6 @@ import pddl4gui.gui.panel.EngineStatusPanel;
 import pddl4gui.token.Result;
 import pddl4gui.token.Statistics;
 import pddl4gui.token.Token;
-import pddl4gui.token.TokenList;
 
 import java.awt.*;
 import java.io.IOException;

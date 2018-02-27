@@ -1,9 +1,9 @@
 package pddl4gui.gui.panel;
 
+import pddl4gui.gui.tools.DecimalFormatSetup;
 import pddl4gui.token.Statistics;
 
 import javax.swing.*;
-import java.text.DecimalFormat;
 
 public class StatisticsPanel extends JPanel {
 
@@ -92,16 +92,22 @@ public class StatisticsPanel extends JPanel {
     }
 
     public void displayStats(Statistics statistics) {
-        DecimalFormat df = new DecimalFormat("#.###");
-        timeToParse.setText(String.valueOf(df.format(statistics.getTimeToParseInSeconds()) + " seconds"));
-        timeToEncode.setText(String.valueOf(df.format(statistics.getTimeToEncodeInSeconds()) + " seconds"));
-        timeToPlan.setText(String.valueOf(df.format(statistics.getTimeToPlanInSeconds()) + " seconds"));
-        timeTotal.setText(String.valueOf(df.format(statistics.getTotalTimeInSeconds()) + " seconds"));
+        timeToParse.setText(String.valueOf(DecimalFormatSetup.getDf()
+                .format(statistics.getTimeToParseInSeconds()) + " seconds"));
+        timeToEncode.setText(String.valueOf(DecimalFormatSetup.getDf()
+                .format(statistics.getTimeToEncodeInSeconds()) + " seconds"));
+        timeToPlan.setText(String.valueOf(DecimalFormatSetup.getDf()
+                .format(statistics.getTimeToPlanInSeconds()) + " seconds"));
+        timeTotal.setText(String.valueOf(DecimalFormatSetup.getDf()
+                .format(statistics.getTotalTimeInSeconds()) + " seconds"));
         numberActions.setText(String.valueOf(statistics.getNumberOfActions()));
         numberFluents.setText(String.valueOf(statistics.getNumberOfFluents()));
-        memoryPb.setText(String.valueOf(df.format(statistics.getMemoryForProblemInMBytes())) + " MBytes");
-        memorySearch.setText(String.valueOf(df.format(statistics.getMemoryUsedToSearchInMBytes())) + " MBytes");
-        memoryTotal.setText(String.valueOf(df.format(statistics.getTotalMemoryInMBytes())) + " MBytes");
+        memoryPb.setText(String.valueOf(DecimalFormatSetup.getDf()
+                .format(statistics.getMemoryForProblemInMBytes())) + " MBytes");
+        memorySearch.setText(String.valueOf(DecimalFormatSetup.getDf()
+                .format(statistics.getMemoryUsedToSearchInMBytes())) + " MBytes");
+        memoryTotal.setText(String.valueOf(DecimalFormatSetup.getDf()
+                .format(statistics.getTotalMemoryInMBytes())) + " MBytes");
     }
 
     public void clearStats() {

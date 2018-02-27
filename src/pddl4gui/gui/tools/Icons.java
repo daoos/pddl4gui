@@ -13,6 +13,7 @@ public class Icons {
     private static final ImageIcon editorIcon = new ImageIcon("resources/icons/editor.png");
     private static final ImageIcon validateIcon = new ImageIcon("resources/icons/validate.png");
     private static final ImageIcon searchIcon = new ImageIcon("resources/icons/search.png");
+    private static final ImageIcon refreshIcon = new ImageIcon("resources/icons/refresh.png");
 
     public static ImageIcon getSaveIcon() {
         return saveIcon;
@@ -48,5 +49,9 @@ public class Icons {
 
     public static ImageIcon getInvertIcon() {
         return invertIcon;
+    }
+
+    public static ImageIcon getRefreshIcon() {
+        return refreshIcon;
     }
 }

@@ -155,6 +155,7 @@ public class Token {
         this.planner = planner;
         runnable = isTokenRunnable();
         solved = false;
+        error = "";
     }
 
 }

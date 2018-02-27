@@ -1,13 +1,13 @@
 package pddl4gui.context.planner;
-/*
-import fr.uga.pddl4j.encoding.CodedProblem;
+
+/*import fr.uga.pddl4j.encoding.CodedProblem;
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Statistics;
 import fr.uga.pddl4j.planners.ff.FFAnytime;
 import fr.uga.pddl4j.planners.ff.Node;
 import fr.uga.pddl4j.util.Plan;
 
-import java.util.LinkedList;
+import java.util.Vector;
 
 import static fr.uga.pddl4j.planners.ff.FF.DEFAULT_HEURISTIC;
 import static fr.uga.pddl4j.planners.ff.FF.DEFAULT_WEIGHT;
@@ -44,7 +44,7 @@ public class FFAnytimeContext implements Planner {
         return ffAnytime.search(problem);
     }
 
-    public LinkedList<Node> getAnytimeSolutions() {
+    public Vector<Node> getAnytimeSolutions() {
         return ffAnytime.getSolutionNodes();
     }
 }

@@ -1,9 +1,9 @@
 package pddl4gui.gui.panel;
 
+import pddl4gui.gui.tools.DecimalFormatSetup;
 import pddl4gui.token.Token;
 
 import javax.swing.*;
-import java.text.DecimalFormat;
 
 public class ResultPanel extends JPanel {
 
@@ -57,11 +57,12 @@ public class ResultPanel extends JPanel {
     }
 
     public void displayResult(Token token) {
-        DecimalFormat df = new DecimalFormat("#.###");
         domain.setText(token.getDomainFile().getName());
         problem.setText(token.getProblemFile().getName());
-        cost.setText(String.valueOf(df.format(token.getResult().getStatistics().getCost())));
-        depth.setText(String.valueOf(df.format(token.getResult().getStatistics().getDepth())));
+        cost.setText(String.valueOf(DecimalFormatSetup.getDf()
+                .format(token.getResult().getStatistics().getCost())));
+        depth.setText(String.valueOf(DecimalFormatSetup.getDf()
+                .format(token.getResult().getStatistics().getDepth())));
         resultArea.setText(token.getResult().getSolutionString());
     }
 

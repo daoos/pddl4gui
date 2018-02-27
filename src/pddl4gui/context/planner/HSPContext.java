@@ -7,7 +7,7 @@ import fr.uga.pddl4j.planners.ff.Node;
 import fr.uga.pddl4j.planners.hsp.HSP;
 import fr.uga.pddl4j.util.Plan;
 
-import java.util.LinkedList;
+import java.util.Vector;
 
 import static fr.uga.pddl4j.planners.hsp.HSP.DEFAULT_HEURISTIC;
 import static fr.uga.pddl4j.planners.hsp.HSP.DEFAULT_WEIGHT;
@@ -44,7 +44,7 @@ public class HSPContext implements Planner {
         return hsp.search(problem);
     }
 
-    public LinkedList<Node> getAnytimeSolutions() {
-        return new LinkedList<>();
+    public Vector<Node> getAnytimeSolutions() {
+        return new Vector<>();
     }
 }

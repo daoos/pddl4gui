@@ -1,28 +1,29 @@
 package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.planners.ff.Node;
+import pddl4gui.gui.tools.DecimalFormatSetup;
+import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Token;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.util.LinkedList;
+import java.util.Vector;
 
 public class AnytimePanel extends JFrame {
 
     private JLabel currentCost, currentDepth, isSolved;
-    private LinkedList<Node> solutionList;
+    private Vector<Node> solutionList;
     private DefaultListModel<Node> listModel;
     private Token token;
 
     public AnytimePanel(Token token) {
-        solutionList = token.getPlanner().getAnytimeSolutions();
         this.token = token;
 
         setLayout(null);
         setSize(500, 350);
-        setTitle(this.token.getDomainFile().getName()+ " " + this.token.getProblemFile().getName());
+        setTitle(this.token.getDomainFile().getName() + " " + this.token.getProblemFile().getName());
 
         int labWidth = 120;
         int labHeight = 20;
@@ -38,14 +39,14 @@ public class AnytimePanel extends JFrame {
         currentDepth = new JLabel("--");
         isSolved = new JLabel("--");
 
-        currentCostLabel.setBounds(10, labMarging, labWidth, labHeight);
-        currentCost.setBounds(130, labMarging, labWidth - 20, labHeight);
+        currentCostLabel.setBounds(10, labMarging, labWidth - 20, labHeight);
+        currentCost.setBounds(70, labMarging, labWidth - 20, labHeight);
         panel.add(currentCostLabel);
         panel.add(currentCost);
-        labMarging += labHeight;
 
-        currentDepthLabel.setBounds(10, labMarging, labWidth, labHeight);
-        currentDepth.setBounds(130, labMarging, labWidth - 20, labHeight);
+
+        currentDepthLabel.setBounds(220, labMarging, labWidth - 20, labHeight);
+        currentDepth.setBounds(280, labMarging, labWidth - 20, labHeight);
         panel.add(currentDepthLabel);
         panel.add(currentDepth);
         labMarging += labHeight;
@@ -55,17 +56,27 @@ public class AnytimePanel extends JFrame {
         panel.add(isSolvedLabel);
         panel.add(isSolved);
 
-        panel.setBounds(260, 10, 230, 100);
+        panel.setBounds(110, 10, 380, 70);
         add(panel);
 
-        JButton refresh = new JButton("Refresh");
-        refresh.setBounds(70, 50, 120, 25);
-        refresh.setEnabled(true);
-        refresh.addActionListener(e -> {
+        JButton refreshButton = new JButton(Icons.getRefreshIcon());
+        refreshButton.setBounds(10, 15, 40, 40);
+        refreshButton.setEnabled(true);
+        refreshButton.setToolTipText("Refresh");
+        refreshButton.addActionListener(e -> {
             refreshJList();
             isSolved.setText(String.valueOf(token.isSolved()));
         });
-        add(refresh);
+        add(refreshButton);
+
+        JButton exitButton = new JButton(Icons.getExitIcon());
+        exitButton.setBounds(60, 15, 40, 40);
+        exitButton.setEnabled(true);
+        exitButton.setToolTipText("Exit");
+        exitButton.addActionListener(e -> {
+            this.dispose();
+        });
+        add(exitButton);
 
         listModel = new DefaultListModel<>();
         JList<Node> nodeJList = new JList<>(listModel);
@@ -103,13 +114,13 @@ public class AnytimePanel extends JFrame {
                 if (!e.getValueIsAdjusting()) {
                     final Node node = nodeJList.getSelectedValue();
                     if (node != null) {
-                        displayAnytimeResult(node.getCost(),node.getDepth());
+                        displayAnytimeResult(node.getCost(), node.getDepth());
                     }
                 }
             }
         });
         JScrollPane scrollNodeJList = new JScrollPane(nodeJList);
-        scrollNodeJList.setBounds(10, 120, 480, 190);
+        scrollNodeJList.setBounds(10, 110, 480, 200);
         add(scrollNodeJList);
 
         setLocation(WindowsManager.setWindowsLocation());
@@ -118,11 +129,11 @@ public class AnytimePanel extends JFrame {
     }
 
     private void refreshJList() {
-        if(!token.getPlanner().getAnytimeSolutions().isEmpty()) {
-            solutionList = token.getPlanner().getAnytimeSolutions();
+        if (!token.getPlanner().getAnytimeSolutions().isEmpty()) {
+            solutionList = new Vector<>(token.getPlanner().getAnytimeSolutions());
             listModel.clear();
-            for(Node node : solutionList) {
-                if(!listModel.contains(node)) {
+            for (Node node : solutionList) {
+                if (!listModel.contains(node)) {
                     listModel.addElement(node);
                 }
             }
@@ -130,7 +141,7 @@ public class AnytimePanel extends JFrame {
     }
 
     private void displayAnytimeResult(double currentCostL, int currentDepthL) {
-        currentCost.setText(String.valueOf(currentCostL));
+        currentCost.setText(String.valueOf(DecimalFormatSetup.getDf().format(currentCostL)));
         currentDepth.setText(String.valueOf(currentDepthL));
     }
 }

@@ -5,7 +5,7 @@ import fr.uga.pddl4j.planners.Statistics;
 import fr.uga.pddl4j.planners.ff.Node;
 import fr.uga.pddl4j.util.Plan;
 
-import java.util.LinkedList;
+import java.util.Vector;
 
 public interface Planner {
 
@@ -25,5 +25,5 @@ public interface Planner {
 
     Plan search(CodedProblem problem);
 
-    LinkedList<Node> getAnytimeSolutions();
+    Vector<Node> getAnytimeSolutions();
 }

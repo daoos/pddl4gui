@@ -7,7 +7,7 @@ import fr.uga.pddl4j.planners.ff.Node;
 import fr.uga.pddl4j.planners.hc.EHC;
 import fr.uga.pddl4j.util.Plan;
 
-import java.util.LinkedList;
+import java.util.Vector;
 
 import static fr.uga.pddl4j.planners.hc.EHC.DEFAULT_HEURISTIC;
 import static fr.uga.pddl4j.planners.hc.EHC.DEFAULT_WEIGHT;
@@ -44,7 +44,7 @@ public class EHCContext implements Planner {
         return ehc.search(problem);
     }
 
-    public LinkedList<Node> getAnytimeSolutions() {
-        return new LinkedList<>();
+    public Vector<Node> getAnytimeSolutions() {
+        return new Vector<>();
     }
 }
