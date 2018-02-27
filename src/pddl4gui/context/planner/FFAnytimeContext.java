@@ -1,6 +1,6 @@
 package pddl4gui.context.planner;
-
-/*import fr.uga.pddl4j.encoding.CodedProblem;
+/*
+import fr.uga.pddl4j.encoding.CodedProblem;
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Statistics;
 import fr.uga.pddl4j.planners.ff.FFAnytime;
@@ -47,4 +47,5 @@ public class FFAnytimeContext implements Planner {
     public LinkedList<Node> getAnytimeSolutions() {
         return ffAnytime.getSolutionNodes();
     }
-}*/
+}
+*/

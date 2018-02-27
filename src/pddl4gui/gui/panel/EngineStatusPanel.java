@@ -76,21 +76,17 @@ public class EngineStatusPanel extends JPanel {
                     if (selectedValue != null) {
                         if(selectedValue.getPlanner().isAnytime()) {
                             if (selectedValue.isSolved()) {
-                                if (selectedValue.getError().equals("")) {
-                                    parent.displayResult(selectedValue);
-                                } else {
-                                    parent.displayError(selectedValue);
-                                }
+                                parent.displayResult(selectedValue);
+                            } else if (!selectedValue.isSolved() && !selectedValue.getError().equals("")) {
+                                parent.displayError(selectedValue);
                             } else {
                                 new AnytimePanel(selectedValue);
                             }
                         } else {
                             if (selectedValue.isSolved()) {
-                                if (selectedValue.getError().equals("")) {
-                                    parent.displayResult(selectedValue);
-                                } else {
-                                    parent.displayError(selectedValue);
-                                }
+                                parent.displayResult(selectedValue);
+                            } else if (!selectedValue.isSolved() && !selectedValue.getError().equals("")) {
+                                parent.displayError(selectedValue);
                             } else {
                                 parent.displayProgress(selectedValue);
                             }

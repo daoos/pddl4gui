@@ -57,7 +57,6 @@ public class Engine extends Thread {
                     engineStatusPanel.getCirclePanel().repaint();
                 }
                 sleep(refresh);
-                engineStatusPanel.getTokenJList().ensureIndexIsVisible(TokenList.getListModel().getSize());
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
                 break;

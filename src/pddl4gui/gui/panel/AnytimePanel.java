@@ -21,7 +21,7 @@ public class AnytimePanel extends JFrame {
         this.token = token;
 
         setLayout(null);
-        setSize(500, 260);
+        setSize(500, 350);
         setTitle(this.token.getDomainFile().getName()+ " " + this.token.getProblemFile().getName());
 
         int labWidth = 120;
@@ -39,13 +39,13 @@ public class AnytimePanel extends JFrame {
         isSolved = new JLabel("--");
 
         currentCostLabel.setBounds(10, labMarging, labWidth, labHeight);
-        currentCost.setBounds(130, labMarging, labWidth, labHeight);
+        currentCost.setBounds(130, labMarging, labWidth - 20, labHeight);
         panel.add(currentCostLabel);
         panel.add(currentCost);
         labMarging += labHeight;
 
         currentDepthLabel.setBounds(10, labMarging, labWidth, labHeight);
-        currentDepth.setBounds(130, labMarging, labWidth, labHeight);
+        currentDepth.setBounds(130, labMarging, labWidth - 20, labHeight);
         panel.add(currentDepthLabel);
         panel.add(currentDepth);
         labMarging += labHeight;
@@ -59,10 +59,11 @@ public class AnytimePanel extends JFrame {
         add(panel);
 
         JButton refresh = new JButton("Refresh");
-        refresh.setBounds(320, 150, 120, 25);
+        refresh.setBounds(70, 50, 120, 25);
         refresh.setEnabled(true);
         refresh.addActionListener(e -> {
             refreshJList();
+            isSolved.setText(String.valueOf(token.isSolved()));
         });
         add(refresh);
 
@@ -102,13 +103,13 @@ public class AnytimePanel extends JFrame {
                 if (!e.getValueIsAdjusting()) {
                     final Node node = nodeJList.getSelectedValue();
                     if (node != null) {
-                        displayAnytimeResult(node.getCost(),node.getDepth(),token.isSolved());
+                        displayAnytimeResult(node.getCost(),node.getDepth());
                     }
                 }
             }
         });
         JScrollPane scrollNodeJList = new JScrollPane(nodeJList);
-        scrollNodeJList.setBounds(10, 15, 240, 200);
+        scrollNodeJList.setBounds(10, 120, 480, 190);
         add(scrollNodeJList);
 
         setLocation(WindowsManager.setWindowsLocation());
@@ -121,14 +122,15 @@ public class AnytimePanel extends JFrame {
             solutionList = token.getPlanner().getAnytimeSolutions();
             listModel.clear();
             for(Node node : solutionList) {
-                listModel.addElement(node);
+                if(!listModel.contains(node)) {
+                    listModel.addElement(node);
+                }
             }
         }
     }
 
-    private void displayAnytimeResult(double currentCostL, int currentDepthL, boolean solvedL) {
+    private void displayAnytimeResult(double currentCostL, int currentDepthL) {
         currentCost.setText(String.valueOf(currentCostL));
         currentDepth.setText(String.valueOf(currentDepthL));
-        isSolved.setText(String.valueOf(solvedL));
     }
 }
