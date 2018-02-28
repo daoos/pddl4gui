@@ -7,13 +7,12 @@ import pddl4gui.token.TokenList;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 public class EngineStatusPanel extends JPanel {
 
-    private JLabel engineLabel;
-    private DrawCircle circlePanel;
-    private JList<Token> tokenJList;
+    final private JLabel engineLabel;
+    final private DrawCircle circlePanel;
+    final private JList<Token> tokenJList;
 
     public JLabel getEngineLabel() {
         return engineLabel;
@@ -68,28 +67,25 @@ public class EngineStatusPanel extends JPanel {
 
         });
         tokenJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tokenJList.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    final Token selectedValue = tokenJList.getSelectedValue();
-                    if (selectedValue != null) {
-                        if (selectedValue.getPlanner().isAnytime()) {
-                            if (selectedValue.isSolved()) {
-                                parent.displayResult(selectedValue);
-                            } else if (!selectedValue.getError().equals("")) {
-                                parent.displayError(selectedValue);
-                            } else {
-                                new AnytimePanel(selectedValue);
-                            }
+        tokenJList.addListSelectionListener((ListSelectionEvent e) -> {
+            if (!e.getValueIsAdjusting()) {
+                final Token selectedValue = tokenJList.getSelectedValue();
+                if (selectedValue != null) {
+                    if (selectedValue.getPlanner().isAnytime()) {
+                        if (selectedValue.isSolved()) {
+                            parent.displayResult(selectedValue);
+                        } else if (!selectedValue.getError().equals("")) {
+                            parent.displayError(selectedValue);
                         } else {
-                            if (selectedValue.isSolved()) {
-                                parent.displayResult(selectedValue);
-                            } else if (!selectedValue.isSolved() && !selectedValue.getError().equals("")) {
-                                parent.displayError(selectedValue);
-                            } else {
-                                parent.displayProgress(selectedValue);
-                            }
+                            new AnytimePanel(selectedValue);
+                        }
+                    } else {
+                        if (selectedValue.isSolved()) {
+                            parent.displayResult(selectedValue);
+                        } else if (!selectedValue.isSolved() && !selectedValue.getError().equals("")) {
+                            parent.displayError(selectedValue);
+                        } else {
+                            parent.displayProgress(selectedValue);
                         }
                     }
                 }

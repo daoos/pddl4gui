@@ -16,21 +16,27 @@ import java.io.OutputStreamWriter;
 
 public class VAL extends JFrame {
 
-    private JTextArea textArea;
+    final private JTextArea textArea;
     private File domainFile, pbFile, planFile;
 
     private boolean isValide = false;
 
     public VAL(Token token) {
-        JButton exitButton, generateTexButton, saveButton;
+        final JButton exitButton, generateTexButton, saveButton;
 
         setTitle("VAL | " + WindowsManager.NAME);
         setLayout(null);
 
-        int width = 540;
-        int height = 460;
+        final int width = 540;
+        final int height = 460;
 
         setSize(width, height);
+
+        textArea = new JTextArea();
+        textArea.setEditable(false);
+        JScrollPane scrollTextPane = new JScrollPane(textArea);
+        scrollTextPane.setBounds(60, 10, 460, 400);
+        add(scrollTextPane);
 
         generateTexButton = new JButton(Icons.getGenerateIcon());
         generateTexButton.setBounds(10, 10, 40, 40);
@@ -64,9 +70,7 @@ public class VAL extends JFrame {
         exitButton = new JButton(Icons.getExitIcon());
         exitButton.setBounds(10, 110, 40, 40);
         exitButton.setToolTipText("Exit");
-        exitButton.addActionListener(e -> {
-            this.dispose();
-        });
+        exitButton.addActionListener(e -> this.dispose());
         add(exitButton);
 
         JPanel panel = new JPanel();
@@ -74,22 +78,16 @@ public class VAL extends JFrame {
         panel.setBorder(BorderFactory.createTitledBorder(
                 "VAL input"));
 
-        textArea = new JTextArea();
-        textArea.setEditable(false);
-        JScrollPane scrollTextPane = new JScrollPane(textArea);
-        scrollTextPane.setBounds(60, 10, 460, 400);
-        add(scrollTextPane);
-
         domainFile = token.getDomainFile();
         pbFile = token.getProblemFile();
         try {
             planFile = File.createTempFile("result", ".txt");
-            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+            try (final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(planFile), "UTF-8"))) {
                 writer.write(token.getResult().getSolutionString());
             }
 
-            if (!FileTools.checkFile(domainFile) && !FileTools.checkFile(pbFile) && token.getResult().isSolved()) {
+            if (!FileTools.checkFile(domainFile) && !FileTools.checkFile(pbFile) && token.isSolved()) {
                 try {
                     String target = "./resources/apps/validate -v " + domainFile.getAbsolutePath()
                             + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
@@ -115,13 +113,13 @@ public class VAL extends JFrame {
     }
 
     private static StringBuilder execVal(String target) {
-        StringBuilder output = new StringBuilder();
+        final StringBuilder output = new StringBuilder();
         try {
             Runtime rt = Runtime.getRuntime();
             Process proc = rt.exec(target);
             proc.waitFor();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-            String line = "";
+            final BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+            String line;
             while ((line = reader.readLine()) != null) {
                 output.append(line + "\n");
             }

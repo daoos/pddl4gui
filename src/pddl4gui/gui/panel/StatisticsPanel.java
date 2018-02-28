@@ -7,26 +7,26 @@ import javax.swing.*;
 
 public class StatisticsPanel extends JPanel {
 
-    private JLabel timeToParse, timeToEncode, timeToPlan, timeTotal, numberActions,
+    final private JLabel timeToParse, timeToEncode, timeToPlan, timeTotal, numberActions,
             numberFluents, memoryPb, memorySearch, memoryTotal;
 
     public StatisticsPanel() {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver statistics"));
 
-        int labWidth = 140;
-        int labHeight = 20;
+        final int labWidth = 140;
+        final int labHeight = 20;
         int labMarging = 20;
 
-        JLabel timeToParseLabel = new JLabel("Time to parse");
-        JLabel timeToEncodeLabel = new JLabel("Time to encode");
-        JLabel timeToPlanLabel = new JLabel("Time to find plan");
-        JLabel timeTotalLabel = new JLabel("Total time");
-        JLabel numberActionsLabel = new JLabel("Number of actions");
-        JLabel numberFluentsLabel = new JLabel("Number of facts");
-        JLabel memoryPBLabel = new JLabel("Memory for problem");
-        JLabel memorySearchLabel = new JLabel("Memory for search");
-        JLabel memoryTotalLabel = new JLabel("Total memory used");
+        final JLabel timeToParseLabel = new JLabel("Time to parse");
+        final JLabel timeToEncodeLabel = new JLabel("Time to encode");
+        final JLabel timeToPlanLabel = new JLabel("Time to find plan");
+        final JLabel timeTotalLabel = new JLabel("Total time");
+        final JLabel numberActionsLabel = new JLabel("Number of actions");
+        final JLabel numberFluentsLabel = new JLabel("Number of facts");
+        final JLabel memoryPBLabel = new JLabel("Memory for problem");
+        final JLabel memorySearchLabel = new JLabel("Memory for search");
+        final JLabel memoryTotalLabel = new JLabel("Total memory used");
         timeToParse = new JLabel("-- seconds");
         timeToEncode = new JLabel("-- seconds");
         timeToPlan = new JLabel("-- seconds");
@@ -121,5 +121,4 @@ public class StatisticsPanel extends JPanel {
         memorySearch.setText("-- MBytes");
         memoryTotal.setText("-- MBytes");
     }
-
 }

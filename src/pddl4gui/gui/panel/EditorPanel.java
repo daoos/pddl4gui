@@ -16,9 +16,9 @@ import java.util.ArrayList;
 
 public class EditorPanel extends JPanel {
 
-    private Editor parent;
-    private JTextArea textArea;
-    private PDDLContext pddl;
+    final private Editor parent;
+    final private JTextArea textArea;
+    final private PDDLContext pddl;
     private AutoComplete autocomplete;
 
     private boolean hasListener = false;
@@ -57,7 +57,7 @@ public class EditorPanel extends JPanel {
         UndoRedo.addUndoRedo(textArea);
     }
 
-    public void displayFileContent(File file) {
+    private void displayFileContent(File file) {
         textArea.append(FileTools.readFileToString(file));
         this.enableAutoComplete(file);
     }
@@ -68,11 +68,10 @@ public class EditorPanel extends JPanel {
             hasListener = false;
         }
 
-        ArrayList<String> arrayList;
         String extension = pddl.getExtensionFile();
 
         if (file.getName().endsWith(extension)) {
-            arrayList = pddl.setKeywords(pddl.getPDDLKeywords());
+            final ArrayList<String> arrayList = pddl.setKeywords(pddl.getPDDLKeywords());
             autocomplete = new AutoComplete(this, arrayList);
             textArea.getDocument().addDocumentListener(autocomplete);
             hasListener = true;

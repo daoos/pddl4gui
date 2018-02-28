@@ -34,12 +34,10 @@ import java.util.Collections;
  */
 public class AutoComplete implements DocumentListener {
 
-    private ArrayList<String> brackets = new ArrayList<>();
-    private ArrayList<String> bracketCompletions = new ArrayList<>();
-
-    private ArrayList<String> words = new ArrayList<>();
-
-    private PDDLContext pddl;
+    final private ArrayList<String> brackets;
+    final private ArrayList<String> bracketCompletions;
+    final private ArrayList<String> words;
+    final private JTextArea textArea;
 
     //Keep track of when code completion
     //has been activated
@@ -47,23 +45,20 @@ public class AutoComplete implements DocumentListener {
         INSERT, COMPLETION
     }
 
-    private EditorPanel editorFrame;
     private Mode mode = Mode.INSERT;
-    private JTextArea textArea;
     private static final String COMMIT_ACTION = "commit";
     private boolean isKeyword;
     private int pos;
     private String content;
 
-    public AutoComplete(EditorPanel ui, ArrayList<String> al) {
+    public AutoComplete(final EditorPanel editorFrame, ArrayList<String> al) {
         //Set the keywords
         words = al;
-        pddl = new PDDLContext();
+        final PDDLContext pddl = new PDDLContext();
         brackets = pddl.getbrackets();
         bracketCompletions = pddl.getbracketCompletions();
 
         //Access the editor
-        editorFrame = ui;
         textArea = editorFrame.getEditor();
 
         //Set the handler for the enter key
@@ -77,10 +72,9 @@ public class AutoComplete implements DocumentListener {
 
     /**
      * A character has been typed into the document.
-     * This method performs the primary
-     * check to find a keyword completion.
+     * This method performs the primary check to find a keyword completion.
      *
-     * @param e
+     * @param e the character typed into the document.
      */
     @Override
     public void insertUpdate(DocumentEvent e) {
@@ -153,24 +147,6 @@ public class AutoComplete implements DocumentListener {
     }
 
     /**
-     * So that future classes can view the keyword list in the future.
-     *
-     * @return the keywords
-     */
-    private ArrayList<String> getKeywords() {
-        return words;
-    }
-
-    /**
-     * So that these keywords can be modified or added to in the future.
-     *
-     * @param keyword the keyword to set
-     */
-    private void setKeywords(String keyword) {
-        words.add(keyword);
-    }
-
-    /**
      * Handles the auto complete suggestion
      * generated when the user is typing a
      * word that matches a keyword.
@@ -181,7 +157,7 @@ public class AutoComplete implements DocumentListener {
         private final String completion;
         private final int position;
 
-        public CompletionTask(String completion, int position) {
+        CompletionTask(String completion, int position) {
             this.completion = completion;
             this.position = position;
         }

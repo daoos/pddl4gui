@@ -12,25 +12,45 @@ import pddl4gui.gui.Solver;
  */
 public class Pddl4Gui {
 
+    /**
+     * The main frame of PDDL4GUI.
+     */
     private Solver solver;
+
+    /**
+     * The background engine which solve problems.
+     */
     private Engine engine;
 
+    /**
+     * Returns the main frame of PDDL4GUI.
+     *
+     * @return the main frame of PDDL4GUI.
+     */
     public Solver getSolver() {
         return solver;
     }
 
+    /**
+     * Returns the background engine which solve problems.
+     *
+     * @return the background engine which solve problems.
+     */
     public Engine getEngine() {
         return engine;
     }
 
-    public Pddl4Gui() {
+    /**
+     * Creates a new main GUI.
+     */
+    private Pddl4Gui() {
         solver = new Solver(this);
         engine = new Engine(this, 500);
         engine.start();
     }
 
     /**
-     * The pddl4g method of <code>PDDL4GUI</code>.
+     * The pddl4g main method of <code>PDDL4GUI</code>.
      *
      * @param args the arguments of the command line.
      */

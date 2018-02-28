@@ -2,41 +2,45 @@ package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.planners.ff.Node;
 import pddl4gui.gui.tools.DecimalFormatSetup;
+import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Token;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.util.Vector;
 
 public class AnytimePanel extends JFrame {
 
-    private JLabel currentCost, currentDepth, isSolved;
-    private Vector<Node> solutionList;
+    final private JLabel currentCost, currentDepth, bestCost, isSolved;
     private DefaultListModel<Node> listModel;
     private Token token;
+    private double bestCostD;
 
     public AnytimePanel(Token token) {
         this.token = token;
 
         setLayout(null);
         setSize(500, 350);
-        setTitle(this.token.getDomainFile().getName() + " " + this.token.getProblemFile().getName());
+        setTitle(FileTools.removeExtension(this.token.getDomainFile().getName())
+                + " " + FileTools.removeExtension(this.token.getProblemFile().getName()));
 
-        int labWidth = 120;
-        int labHeight = 20;
+        final int labWidth = 120;
+        final int labHeight = 20;
         int labMarging = 20;
 
         final JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setBorder(BorderFactory.createTitledBorder("Anytime in progress"));
-        JLabel currentCostLabel = new JLabel("Cost: ");
-        JLabel currentDepthLabel = new JLabel("Depth: ");
-        JLabel isSolvedLabel = new JLabel("Problem solved ? ");
+
+        final JLabel currentCostLabel = new JLabel("Cost: ");
+        final JLabel currentDepthLabel = new JLabel("Depth: ");
+        final JLabel bestCostlabel = new JLabel("Best cost: ");
+        final JLabel isSolvedLabel = new JLabel("Problem solved ? ");
         currentCost = new JLabel("--");
         currentDepth = new JLabel("--");
+        bestCost = new JLabel("--");
         isSolved = new JLabel("--");
 
         currentCostLabel.setBounds(10, labMarging, labWidth - 20, labHeight);
@@ -51,8 +55,13 @@ public class AnytimePanel extends JFrame {
         panel.add(currentDepth);
         labMarging += labHeight;
 
-        isSolvedLabel.setBounds(10, labMarging, labWidth, labHeight);
-        isSolved.setBounds(130, labMarging, labWidth, labHeight);
+        bestCostlabel.setBounds(10, labMarging, labWidth - 20, labHeight);
+        bestCost.setBounds(70, labMarging, labWidth - 20, labHeight);
+        panel.add(bestCostlabel);
+        panel.add(bestCost);
+
+        isSolvedLabel.setBounds(220, labMarging, labWidth, labHeight);
+        isSolved.setBounds(280, labMarging, labWidth, labHeight);
         panel.add(isSolvedLabel);
         panel.add(isSolved);
 
@@ -65,6 +74,7 @@ public class AnytimePanel extends JFrame {
         refreshButton.setToolTipText("Refresh");
         refreshButton.addActionListener(e -> {
             refreshJList();
+            bestCost.setText(String.valueOf(DecimalFormatSetup.getDf().format(bestCostD)));
             isSolved.setText(String.valueOf(token.isSolved()));
         });
         add(refreshButton);
@@ -73,9 +83,7 @@ public class AnytimePanel extends JFrame {
         exitButton.setBounds(60, 15, 40, 40);
         exitButton.setEnabled(true);
         exitButton.setToolTipText("Exit");
-        exitButton.addActionListener(e -> {
-            this.dispose();
-        });
+        exitButton.addActionListener(e -> this.dispose());
         add(exitButton);
 
         listModel = new DefaultListModel<>();
@@ -108,14 +116,11 @@ public class AnytimePanel extends JFrame {
 
         });
         nodeJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        nodeJList.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    final Node node = nodeJList.getSelectedValue();
-                    if (node != null) {
-                        displayAnytimeResult(node.getCost(), node.getDepth());
-                    }
+        nodeJList.addListSelectionListener((ListSelectionEvent e) -> {
+            if (!e.getValueIsAdjusting()) {
+                final Node node = nodeJList.getSelectedValue();
+                if (node != null) {
+                    displayAnytimeResult(node.getCost(), node.getDepth());
                 }
             }
         });
@@ -130,11 +135,12 @@ public class AnytimePanel extends JFrame {
 
     private void refreshJList() {
         if (!token.getPlanner().getAnytimeSolutions().isEmpty()) {
-            solutionList = new Vector<>(token.getPlanner().getAnytimeSolutions());
+            final Vector<Node> solutionList = new Vector<>(token.getPlanner().getAnytimeSolutions());
             listModel.clear();
             for (Node node : solutionList) {
                 if (!listModel.contains(node)) {
                     listModel.addElement(node);
+                    bestCostD = Math.max(bestCostD, node.getCost());
                 }
             }
         }

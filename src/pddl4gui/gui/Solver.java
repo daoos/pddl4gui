@@ -2,9 +2,7 @@ package pddl4gui.gui;
 
 import pddl4gui.Pddl4Gui;
 import pddl4gui.context.planner.EHCContext;
-//import pddl4gui.context.planner.FFAnytimeContext;
 import pddl4gui.context.planner.FFContext;
-//import pddl4gui.context.planner.HCAnytimeContext;
 import pddl4gui.context.planner.HSPContext;
 import pddl4gui.context.planner.Planner;
 import pddl4gui.gui.panel.EngineStatusPanel;
@@ -18,19 +16,20 @@ import pddl4gui.token.TokenList;
 
 import javax.swing.*;
 
+//import pddl4gui.context.planner.FFAnytimeContext;
+//import pddl4gui.context.planner.HCAnytimeContext;
+
 public class Solver extends JFrame {
 
-    private Pddl4Gui pddl4Gui;
+    final private Pddl4Gui pddl4Gui;
 
-    private SetupSolverPanel setupPanel;
-    private StatisticsPanel statisticsPanel;
-    private ResultPanel resultPanel;
-    private MenuSolverPanel menuSolverPanel;
-    private EngineStatusPanel engineStatusPanel;
+    final private SetupSolverPanel setupPanel;
+    final private StatisticsPanel statisticsPanel;
+    final private ResultPanel resultPanel;
+    final private MenuSolverPanel menuSolverPanel;
+    final private EngineStatusPanel engineStatusPanel;
 
-    private JButton planButton;
-
-    private Token token;
+    final private JButton planButton;
 
     public Pddl4Gui getPddl4Gui() {
         return pddl4Gui;
@@ -48,10 +47,6 @@ public class Solver extends JFrame {
         return resultPanel;
     }
 
-    public MenuSolverPanel getMenuSolverPanel() {
-        return menuSolverPanel;
-    }
-
     public EngineStatusPanel getEngineStatusPanel() {
         return engineStatusPanel;
     }
@@ -60,15 +55,12 @@ public class Solver extends JFrame {
         return planButton;
     }
 
-    public Token getToken() {
-        return token;
-    }
-
     public Solver(Pddl4Gui pddl4Gui) {
         this.pddl4Gui = pddl4Gui;
-        int width = 1200;
-        int height = 600;
-        int marging = 10;
+
+        final int width = 1200;
+        final int height = 600;
+        final int marging = 10;
 
         setLayout(null);
         setSize(width, height);
@@ -87,10 +79,7 @@ public class Solver extends JFrame {
         planButton = new JButton("Resolve this problem !");
         planButton.setBounds(75, 265, 200, 25);
         planButton.setEnabled(true);
-        planButton.addActionListener(e -> {
-            resolve();
-        });
-
+        planButton.addActionListener(e -> resolve());
         add(planButton);
 
         engineStatusPanel = new EngineStatusPanel(this);
@@ -140,7 +129,7 @@ public class Solver extends JFrame {
                     (double) setupPanel.getTimeoutSpinner().getValue());*/
         }
 
-        token = new Token(setupPanel.getDomainFile(), setupPanel.getProblemFile(), planner);
+        final Token token = new Token(setupPanel.getDomainFile(), setupPanel.getProblemFile(), planner);
 
         if (token.isRunnable()) {
             if (!TokenList.getListModel().contains(token)) {

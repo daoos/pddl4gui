@@ -11,10 +11,10 @@ import javax.swing.*;
 import java.io.File;
 
 public class SetupSolverPanel extends JPanel {
-    private Solver parent;
+    final private Solver parent;
 
-    private JSpinner weightSpinner, timeoutSpinner;
-    private JButton domainButton, pbButton, editDomainButton, editProblemButton;
+    final private JSpinner weightSpinner, timeoutSpinner;
+    final private JButton domainButton, pbButton, editDomainButton, editProblemButton;
     private File domainFile;
     private File problemFile;
     private Heuristic.Type heuristic = Heuristic.Type.FAST_FORWARD;
@@ -95,12 +95,10 @@ public class SetupSolverPanel extends JPanel {
         });
         add(editProblemButton);
 
-        JComboBox heuristicComboBox = new JComboBox(Heuristic.Type.values());
+        JComboBox heuristicComboBox = new JComboBox<>(Heuristic.Type.values());
         heuristicComboBox.setBounds(15, 105, 150, 25);
         heuristicComboBox.setSelectedItem(heuristic);
-        heuristicComboBox.addActionListener(e -> {
-            heuristic = (Heuristic.Type) heuristicComboBox.getSelectedItem();
-        });
+        heuristicComboBox.addActionListener(e -> heuristic = (Heuristic.Type) heuristicComboBox.getSelectedItem());
         add(heuristicComboBox);
 
         SpinnerNumberModel modelWeight = new SpinnerNumberModel(1.0, 0.0, 10.0, 0.1);
@@ -108,12 +106,10 @@ public class SetupSolverPanel extends JPanel {
         weightSpinner.setBounds(190, 105, 125, 25);
         add(weightSpinner);
 
-        JComboBox plannerComboBox = new JComboBox(Planner.Type.values());
+        JComboBox plannerComboBox = new JComboBox<>(Planner.Type.values());
         plannerComboBox.setBounds(15, 145, 150, 25);
         plannerComboBox.setSelectedItem(planner);
-        plannerComboBox.addActionListener(e -> {
-            planner = (Planner.Type) plannerComboBox.getSelectedItem();
-        });
+        plannerComboBox.addActionListener(e -> planner = (Planner.Type) plannerComboBox.getSelectedItem());
         add(plannerComboBox);
 
         SpinnerNumberModel modelTimeout = new SpinnerNumberModel(Planner.DEFAULT_TIMEOUT, 0.0, 10000.0, 1);

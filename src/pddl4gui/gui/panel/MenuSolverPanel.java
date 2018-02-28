@@ -11,7 +11,7 @@ import java.io.File;
 
 public class MenuSolverPanel extends JPanel {
 
-    private JButton valButton, saveTxtButton, saveJsonButton, resetButton;
+    final private JButton valButton, saveTxtButton, saveJsonButton;
 
     public JButton getValButton() {
         return valButton;
@@ -67,7 +67,7 @@ public class MenuSolverPanel extends JPanel {
         saveJsonButton.setEnabled(false);
         add(saveJsonButton);
 
-        resetButton = new JButton(Icons.getResetIcon());
+        final JButton resetButton = new JButton(Icons.getResetIcon());
         resetButton.setBounds(160, 10, 40, 40);
         resetButton.setToolTipText("Reset the solver");
         resetButton.setEnabled(true);
@@ -87,9 +87,7 @@ public class MenuSolverPanel extends JPanel {
         JButton exitButton = new JButton(Icons.getExitIcon());
         exitButton.setBounds(210, 10, 40, 40);
         exitButton.setToolTipText("Exit");
-        exitButton.addActionListener(e -> {
-            System.exit(0);
-        });
+        exitButton.addActionListener(e -> System.exit(0));
         add(exitButton);
     }
 }

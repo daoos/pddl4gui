@@ -7,30 +7,29 @@ public class Find extends JFrame {
 
     private int startIndex = 0;
     private int select_start = -1;
-    private JLabel lab1, lab2;
-    private JTextField textF, textR;
-    private JButton findBtn, findNext, replace, replaceAll, cancel;
-    private JTextArea txt;
+    final private JTextField textF, textR;
+    final private JTextArea txt;
     private HighlightText highlightText = new HighlightText(Color.RED);
 
 
     public Find(JTextArea text) {
         this.txt = text;
 
-        lab1 = new JLabel("Find:");
-        lab2 = new JLabel("Replace:");
+        final JLabel lab1 = new JLabel("Find:");
+        final JLabel lab2 = new JLabel("Replace:");
+        final JButton findBtn = new JButton("Find");
+        final JButton findNext = new JButton("Find Next");
+        final JButton replace = new JButton("Replace");
+        final JButton replaceAll = new JButton("Replace All");
+        final JButton cancel = new JButton("Cancel");
+
         textF = new JTextField(30);
         textR = new JTextField(30);
-        findBtn = new JButton("Find");
-        findNext = new JButton("Find Next");
-        replace = new JButton("Replace");
-        replaceAll = new JButton("Replace All");
-        cancel = new JButton("Cancel");
 
         setLayout(null);
 
-        int labWidth = 80;
-        int labHeight = 20;
+        final int labWidth = 80;
+        final int labHeight = 20;
 
         lab1.setBounds(10, 10, labWidth, labHeight);
         add(lab1);
@@ -61,8 +60,8 @@ public class Find extends JFrame {
         add(cancel);
         cancel.addActionListener(e -> this.dispose());
 
-        int width = 360;
-        int height = 160;
+        final int width = 360;
+        final int height = 160;
 
         setSize(width, height);
 
@@ -89,13 +88,9 @@ public class Find extends JFrame {
 
     private void findNext() {
         String selection = txt.getSelectedText();
-        try {
-            selection.equals("");
-        } catch (NullPointerException e) {
+        if (selection == null) {
             selection = textF.getText();
-            try {
-                selection.equals("");
-            } catch (NullPointerException e2) {
+            if (selection == null) {
                 selection = JOptionPane.showInputDialog("Find:");
                 textF.setText(selection);
             }
@@ -111,6 +106,7 @@ public class Find extends JFrame {
                 startIndex = 0;
             }
         } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 
@@ -120,7 +116,7 @@ public class Find extends JFrame {
             if (select_start != -1)
                 txt.replaceSelection(textR.getText());
         } catch (NullPointerException e) {
-            System.out.print("Null Pointer Exception: " + e);
+            e.printStackTrace();
         }
     }
 

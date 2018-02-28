@@ -45,7 +45,7 @@ public class Statistics {
         return totalTimeInSeconds;
     }
 
-    public void setTotalTimeInSeconds() {
+    private void setTotalTimeInSeconds() {
         this.totalTimeInSeconds = timeToParseInSeconds + timeToEncodeInSeconds + timeToPlanInSeconds;
     }
 
@@ -87,7 +87,7 @@ public class Statistics {
         return totalMemoryInMBytes;
     }
 
-    public void setTotalMemoryInMBytes() {
+    private void setTotalMemoryInMBytes() {
         this.totalMemoryInMBytes = memoryForProblemInMBytes + memoryUsedToSearchInMBytes;
     }
 

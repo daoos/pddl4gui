@@ -7,21 +7,21 @@ import javax.swing.*;
 
 public class ResultPanel extends JPanel {
 
-    private JLabel domain, problem, cost, depth;
-    private JTextArea resultArea;
+    final private JLabel domain, problem, cost, depth;
+    final private JTextArea resultArea;
 
     public ResultPanel() {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver result"));
 
-        int labWidth = 140;
-        int labHeight = 20;
+        final int labWidth = 140;
+        final int labHeight = 20;
         int labMarging = 20;
 
-        JLabel domainLabel = new JLabel("Domain:");
-        JLabel problemLabel = new JLabel("Problem:");
-        JLabel depthLabel = new JLabel("Depth:");
-        JLabel costLabel = new JLabel("Cost:");
+        final JLabel domainLabel = new JLabel("Domain:");
+        final JLabel problemLabel = new JLabel("Problem:");
+        final JLabel depthLabel = new JLabel("Depth:");
+        final JLabel costLabel = new JLabel("Cost:");
         domain = new JLabel("---");
         problem = new JLabel("---");
         cost = new JLabel("---");

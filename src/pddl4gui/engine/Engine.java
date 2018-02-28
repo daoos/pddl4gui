@@ -20,7 +20,7 @@ import java.util.LinkedList;
 
 public class Engine extends Thread {
 
-    private Pddl4Gui pddl4Gui;
+    final private Pddl4Gui pddl4Gui;
 
     private LinkedList<Token> tokenList;
 

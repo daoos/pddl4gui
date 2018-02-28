@@ -3,8 +3,8 @@ package pddl4gui.gui.tools;
 import java.awt.*;
 
 public class WindowsManager {
-    public static Point location;
-    public static int width;
+    private static Point location;
+    private static int width;
     public final static String NAME = "PDDL 4 GUI";
     public final static double VERSION = 0.42;
 

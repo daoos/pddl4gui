@@ -19,7 +19,7 @@ public class HighlightText extends DefaultHighlighter.DefaultHighlightPainter {
         try {
             highlight.addHighlight(select_start, select_end, new HighlightText(Color.RED));
         } catch (BadLocationException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -38,7 +38,7 @@ public class HighlightText extends DefaultHighlighter.DefaultHighlightPainter {
                 }
             }
         } catch (BadLocationException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
 
     }

@@ -157,5 +157,4 @@ public class Token {
         solved = false;
         error = "";
     }
-
 }

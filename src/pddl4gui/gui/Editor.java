@@ -23,15 +23,15 @@ public class Editor extends JFrame {
         Container container = getContentPane();
         container.setLayout(new BorderLayout());
 
-        int width = 800;
-        int height = 600;
+        final int width = 800;
+        final int height = 600;
 
         setSize(width, height);
         setTitle("Editor | " + fileToEdit.getName());
 
-        EditorPanel editorPanel = new EditorPanel(this);
+        final EditorPanel editorPanel = new EditorPanel(this);
 
-        EditorMenuToolBar editorMenuToolBar = new EditorMenuToolBar(editorPanel);
+        final EditorMenuToolBar editorMenuToolBar = new EditorMenuToolBar(editorPanel);
 
         container.add(editorMenuToolBar, BorderLayout.NORTH);
 

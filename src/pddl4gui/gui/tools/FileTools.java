@@ -7,23 +7,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileTools {
 
     private static File staticLastPath;
-    private static File tempFile;
-
-    public static File getTempFile() {
-        return tempFile;
-    }
 
     public static boolean checkFile(File file) {
         return (file == null);
     }
 
-    private static String removeExtension(String fileName) {
+    public static String removeExtension(String fileName) {
         if (fileName.indexOf(".") > 0) {
             fileName = fileName.substring(0, fileName.lastIndexOf("."));
         }
@@ -71,7 +65,7 @@ public class FileTools {
         return fileContent.toString();
     }
 
-    public static Scanner readFileToScanner(File file) {
+    private static Scanner readFileToScanner(File file) {
         try {
             return new Scanner(file);
         } catch (FileNotFoundException e) {
@@ -123,34 +117,6 @@ public class FileTools {
         return saveFile;
     }
 
-    public static void writeResultFile(File file, String string, int integer) {
-        BufferedWriter writer = null;
-        try {
-            File resultFile = new File("temp");
-            if (integer == 0) {
-                resultFile = new File(file.getParent(), "output_" + FileTools.removeExtension(file.getName()) + ".txt");
-            } else if (integer == 1) {
-                resultFile = new File(file.getParent(), "output_" + FileTools.removeExtension(file.getName()) + ".json");
-            }
-
-            writer = new BufferedWriter(new FileWriter(resultFile));
-
-            writer.write(string);
-
-            if (integer == 0) {
-                tempFile = resultFile;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                writer.close();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
     public static void writeInFile(File file, String string) {
         BufferedWriter writer = null;
         try {
@@ -161,19 +127,11 @@ public class FileTools {
             e.printStackTrace();
         } finally {
             try {
-                writer.close();
+                if (writer != null)
+                    writer.close();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
     }
-
-    public static boolean compareStringInList(String search, ArrayList<String> list) {
-        for (String str : list) {
-            if (str.trim().contains(search))
-                return true;
-        }
-        return false;
-    }
-
 }
