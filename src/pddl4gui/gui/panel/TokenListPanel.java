@@ -10,6 +10,7 @@ import javax.swing.event.ListSelectionEvent;
 public class TokenListPanel extends JPanel {
 
     final private JList<Token> tokenJList;
+    final private JButton anytimeSolutionButton;
 
     public JList<Token> getTokenJList() {
         return tokenJList;
@@ -19,7 +20,18 @@ public class TokenListPanel extends JPanel {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Token list"));
 
+        anytimeSolutionButton = new JButton("Anytime details");
         tokenJList = new JList<>(TokenList.getListModel());
+
+        anytimeSolutionButton.setEnabled(false);
+        anytimeSolutionButton.setBounds(75, 20, 200, 25);
+        anytimeSolutionButton.addActionListener(e -> {
+            if(tokenJList.getSelectedValue() != null){
+                new AnytimePanel(tokenJList.getSelectedValue());
+            }
+        });
+        add(anytimeSolutionButton);
+
         tokenJList.setLayoutOrientation(JList.VERTICAL);
         tokenJList.setVisibleRowCount(20);
         tokenJList.setSelectionModel(new DefaultListSelectionModel() {
@@ -54,6 +66,7 @@ public class TokenListPanel extends JPanel {
                 if (selectedValue != null) {
                     if (selectedValue.getPlanner().isAnytime()) {
                         if (selectedValue.isSolved()) {
+                            anytimeSolutionButton.setEnabled(true);
                             parent.displayResult(selectedValue);
                         } else if (!selectedValue.getError().equals("")) {
                             parent.displayError(selectedValue);
@@ -61,6 +74,7 @@ public class TokenListPanel extends JPanel {
                             new AnytimePanel(selectedValue);
                         }
                     } else {
+                        anytimeSolutionButton.setEnabled(false);
                         if (selectedValue.isSolved()) {
                             parent.displayResult(selectedValue);
                         } else if (!selectedValue.isSolved() && !selectedValue.getError().equals("")) {
@@ -73,7 +87,9 @@ public class TokenListPanel extends JPanel {
             }
         });
         JScrollPane scrollTokenJList = new JScrollPane(tokenJList);
-        scrollTokenJList.setBounds(20, 20, 290, 270);
+        scrollTokenJList.setBounds(20, 55, 290, 235);
         add(scrollTokenJList);
+
+
     }
 }
