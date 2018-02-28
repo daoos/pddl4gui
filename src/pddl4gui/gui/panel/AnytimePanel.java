@@ -13,12 +13,13 @@ import java.util.Vector;
 
 public class AnytimePanel extends JFrame {
 
-    final private JLabel currentCost, currentDepth, bestCost, isSolved;
+    final private JLabel currentCost, currentDepth, bestCost, isSolved, numberSolution;
     private DefaultListModel<Node> listModel;
     private Token token;
-    private double bestCostD;
+    private double bestCostD = Double.MAX_VALUE;
+    private double numberSolutionI = 0;
 
-    public AnytimePanel(Token token) {
+    public AnytimePanel(Token token) { //TODO test de l'ajout de bestCostD
         this.token = token;
 
         setLayout(null);
@@ -36,36 +37,44 @@ public class AnytimePanel extends JFrame {
 
         final JLabel currentCostLabel = new JLabel("Cost: ");
         final JLabel currentDepthLabel = new JLabel("Depth: ");
-        final JLabel bestCostlabel = new JLabel("Best cost: ");
+        final JLabel bestCostLabel = new JLabel("Best cost: ");
+        final JLabel numberSolutionLabel = new JLabel("Nb solution: ");
         final JLabel isSolvedLabel = new JLabel("Problem solved ? ");
         currentCost = new JLabel("--");
         currentDepth = new JLabel("--");
         bestCost = new JLabel("--");
+        numberSolution = new JLabel("--");
         isSolved = new JLabel("--");
 
         currentCostLabel.setBounds(10, labMarging, labWidth - 20, labHeight);
-        currentCost.setBounds(70, labMarging, labWidth - 20, labHeight);
+        currentCost.setBounds(80, labMarging, labWidth - 20, labHeight);
         panel.add(currentCostLabel);
         panel.add(currentCost);
 
 
-        currentDepthLabel.setBounds(220, labMarging, labWidth - 20, labHeight);
+        currentDepthLabel.setBounds(190, labMarging, labWidth - 20, labHeight);
         currentDepth.setBounds(280, labMarging, labWidth - 20, labHeight);
         panel.add(currentDepthLabel);
         panel.add(currentDepth);
         labMarging += labHeight;
 
-        bestCostlabel.setBounds(10, labMarging, labWidth - 20, labHeight);
-        bestCost.setBounds(70, labMarging, labWidth - 20, labHeight);
-        panel.add(bestCostlabel);
+        bestCostLabel.setBounds(10, labMarging, labWidth - 20, labHeight);
+        bestCost.setBounds(80, labMarging, labWidth - 20, labHeight);
+        panel.add(bestCostLabel);
         panel.add(bestCost);
 
-        isSolvedLabel.setBounds(220, labMarging, labWidth, labHeight);
-        isSolved.setBounds(280, labMarging, labWidth, labHeight);
+        numberSolutionLabel.setBounds(190, labMarging, labWidth - 20, labHeight);
+        numberSolution.setBounds(280, labMarging, labWidth - 20, labHeight);
+        panel.add(numberSolutionLabel);
+        panel.add(numberSolution);
+        labMarging += labHeight;
+
+        isSolvedLabel.setBounds(10, labMarging, labWidth, labHeight);
+        isSolved.setBounds(130, labMarging, labWidth, labHeight);
         panel.add(isSolvedLabel);
         panel.add(isSolved);
 
-        panel.setBounds(110, 10, 380, 70);
+        panel.setBounds(110, 10, 380, 90);
         add(panel);
 
         JButton refreshButton = new JButton(Icons.getRefreshIcon());
@@ -75,6 +84,7 @@ public class AnytimePanel extends JFrame {
         refreshButton.addActionListener(e -> {
             refreshJList();
             bestCost.setText(String.valueOf(DecimalFormatSetup.getDf().format(bestCostD)));
+            numberSolution.setText(String.valueOf(numberSolutionI));
             isSolved.setText(String.valueOf(token.isSolved()));
         });
         add(refreshButton);
@@ -140,9 +150,10 @@ public class AnytimePanel extends JFrame {
             for (Node node : solutionList) {
                 if (!listModel.contains(node)) {
                     listModel.addElement(node);
-                    bestCostD = Math.max(bestCostD, node.getCost());
+                    bestCostD = Math.min(bestCostD, node.getCost());
                 }
             }
+            numberSolutionI = listModel.getSize();
         }
     }
 
