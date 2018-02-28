@@ -10,6 +10,7 @@ import pddl4gui.gui.panel.MenuSolverPanel;
 import pddl4gui.gui.panel.ResultPanel;
 import pddl4gui.gui.panel.SetupSolverPanel;
 import pddl4gui.gui.panel.StatisticsPanel;
+import pddl4gui.gui.panel.TokenListPanel;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Token;
 import pddl4gui.token.TokenList;
@@ -28,8 +29,7 @@ public class Solver extends JFrame {
     final private ResultPanel resultPanel;
     final private MenuSolverPanel menuSolverPanel;
     final private EngineStatusPanel engineStatusPanel;
-
-    final private JButton planButton;
+    final private TokenListPanel tokenListPanel;
 
     public Pddl4Gui getPddl4Gui() {
         return pddl4Gui;
@@ -51,8 +51,8 @@ public class Solver extends JFrame {
         return engineStatusPanel;
     }
 
-    public JButton getPlanButton() {
-        return planButton;
+    public TokenListPanel getTokenListPanel() {
+        return tokenListPanel;
     }
 
     public Solver(Pddl4Gui pddl4Gui) {
@@ -73,32 +73,30 @@ public class Solver extends JFrame {
         add(menuSolverPanel);
 
         setupPanel = new SetupSolverPanel(this);
-        setupPanel.setBounds(marging, 60, 330, 190);
+        setupPanel.setBounds(marging, 60, 330, 350);
         add(setupPanel);
 
-        planButton = new JButton("Resolve this problem !");
-        planButton.setBounds(75, 265, 200, 25);
-        planButton.setEnabled(true);
-        planButton.addActionListener(e -> resolve());
-        add(planButton);
+        tokenListPanel = new TokenListPanel(this);
+        tokenListPanel.setBounds(350, 260, 330, 300);
+        add(tokenListPanel);
 
-        engineStatusPanel = new EngineStatusPanel(this);
-        engineStatusPanel.setBounds(marging, 300, 330, 260);
+        engineStatusPanel = new EngineStatusPanel();
+        engineStatusPanel.setBounds(marging, 420, 330, 140);
         add(engineStatusPanel);
 
         statisticsPanel = new StatisticsPanel();
-        statisticsPanel.setBounds(860, marging, 330, 220);
+        statisticsPanel.setBounds(350, marging, 330, 240);
         add(statisticsPanel);
 
         resultPanel = new ResultPanel();
-        resultPanel.setBounds(350, marging, 500, 550);
+        resultPanel.setBounds(690, marging, 500, 550);
         add(resultPanel);
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void resolve() {
+    public void resolve() {
         Planner planner = null;
 
         if (setupPanel.getPlanner() == Planner.Type.FF) {
@@ -143,8 +141,6 @@ public class Solver extends JFrame {
     public void displayResult(Token token) {
         resultPanel.displayResult(token);
         statisticsPanel.displayStats(token.getResult().getStatistics());
-        planButton.setText("Resolve this problem !");
-        planButton.setEnabled(true);
         menuSolverPanel.getValButton().setEnabled(true);
         menuSolverPanel.getSaveJsonButton().setEnabled(true);
         menuSolverPanel.getSaveTxtButton().setEnabled(true);

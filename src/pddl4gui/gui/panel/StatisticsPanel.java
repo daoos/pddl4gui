@@ -15,8 +15,8 @@ public class StatisticsPanel extends JPanel {
         setBorder(BorderFactory.createTitledBorder("Solver statistics"));
 
         final int labWidth = 140;
-        final int labHeight = 20;
-        int labMarging = 20;
+        final int labHeight = 22;
+        int labMarging = 22;
 
         final JLabel timeToParseLabel = new JLabel("Time to parse");
         final JLabel timeToEncodeLabel = new JLabel("Time to encode");

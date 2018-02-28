@@ -31,8 +31,8 @@ public class MenuSolverPanel extends JPanel {
         valButton.setToolTipText("VAL on solution");
         valButton.setEnabled(false);
         valButton.addActionListener(e -> {
-            if (parent.getEngineStatusPanel().getTokenJList().getSelectedValue().isSolved()) {
-                new VAL(parent.getEngineStatusPanel().getTokenJList().getSelectedValue());
+            if (parent.getTokenListPanel().getTokenJList().getSelectedValue().isSolved()) {
+                new VAL(parent.getTokenListPanel().getTokenJList().getSelectedValue());
             }
         });
         add(valButton);
@@ -41,10 +41,10 @@ public class MenuSolverPanel extends JPanel {
         saveTxtButton.setBounds(50, 10, 40, 40);
         saveTxtButton.setToolTipText("Save solution (txt)");
         saveTxtButton.addActionListener(e -> {
-            if (parent.getEngineStatusPanel().getTokenJList().getSelectedValue().isSolved()) {
+            if (parent.getTokenListPanel().getTokenJList().getSelectedValue().isSolved()) {
                 File tempFile = FileTools.saveFile(this, 1);
                 if (!FileTools.checkFile(tempFile)) {
-                    FileTools.writeInFile(tempFile, parent.getEngineStatusPanel().getTokenJList()
+                    FileTools.writeInFile(tempFile, parent.getTokenListPanel().getTokenJList()
                             .getSelectedValue().getResult().getSolutionString());
                 }
             }
@@ -56,10 +56,10 @@ public class MenuSolverPanel extends JPanel {
         saveJsonButton.setBounds(110, 10, 40, 40);
         saveJsonButton.setToolTipText("Save solution (json)");
         saveJsonButton.addActionListener(e -> {
-            if (parent.getEngineStatusPanel().getTokenJList().getSelectedValue().isSolved()) {
+            if (parent.getTokenListPanel().getTokenJList().getSelectedValue().isSolved()) {
                 File tempFile = FileTools.saveFile(this, 5);
                 if (!FileTools.checkFile(tempFile)) {
-                    FileTools.writeInFile(tempFile, parent.getEngineStatusPanel().getTokenJList()
+                    FileTools.writeInFile(tempFile, parent.getTokenListPanel().getTokenJList()
                             .getSelectedValue().getResult().getSolutionJSON());
                 }
             }
@@ -75,8 +75,6 @@ public class MenuSolverPanel extends JPanel {
             valButton.setEnabled(false);
             saveTxtButton.setEnabled(false);
             saveJsonButton.setEnabled(false);
-            parent.getPlanButton().setEnabled(true);
-            parent.getPlanButton().setText("Resolve this problem !");
             parent.getResultPanel().clearResult();
             parent.getStatisticsPanel().clearStats();
             parent.getPddl4Gui().getEngine().getTokenList().clear();

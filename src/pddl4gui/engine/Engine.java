@@ -14,7 +14,9 @@ import pddl4gui.token.Result;
 import pddl4gui.token.Statistics;
 import pddl4gui.token.Token;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -41,6 +43,7 @@ public class Engine extends Thread {
     @Override
     public void run() {
         final EngineStatusPanel engineStatusPanel = pddl4Gui.getSolver().getEngineStatusPanel();
+        final JProgressBar progressBar = engineStatusPanel.getProgressBar();
         while (pddl4Gui.getSolver().isVisible()) {
             try {
                 if (tokenList.size() > 0) {
@@ -48,8 +51,19 @@ public class Engine extends Thread {
                     engineStatusPanel.getEngineLabel().setText("solving " + token);
                     engineStatusPanel.getCirclePanel().setColor(Color.ORANGE);
                     engineStatusPanel.getCirclePanel().repaint();
+
+                    progressBar.setValue(0);
+                    double timeout = (double) pddl4Gui.getSolver().getSetupPanel().getTimeoutSpinner().getValue();
+                    progressBar.setMaximum((int) timeout);
+                    Timer timer = new Timer(1000, (ActionEvent evt) -> {
+                        progressBar.setString(progressBar.getValue() + "/" + timeout);
+                        progressBar.setValue(progressBar.getValue() + 1);
+                    });
+
+                    timer.start();
                     token.setSolved(resolve(token));
                     token.setError(error);
+                    timer.stop();
                 } else {
                     engineStatusPanel.getEngineLabel().setText("waiting for token");
                     engineStatusPanel.getCirclePanel().setColor(Color.GREEN);
