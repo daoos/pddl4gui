@@ -9,8 +9,9 @@ import fr.uga.pddl4j.util.Plan;
 
 import java.util.Vector;
 
-import static fr.uga.pddl4j.planners.ff.FF.DEFAULT_HEURISTIC;
-import static fr.uga.pddl4j.planners.ff.FF.DEFAULT_WEIGHT;
+import static pddl4gui.context.planner.PlannerDefaultValues.FFANYTIME_DEFAULT_HEURISTIC;
+import static pddl4gui.context.planner.PlannerDefaultValues.FFANYTIME_DEFAULT_WEIGHT;
+import static pddl4gui.context.planner.PlannerDefaultValues.PLANNER_DEFAULT_TIMEOUT;
 
 public class FFAnytimeContext implements Planner {
 
@@ -22,7 +23,7 @@ public class FFAnytimeContext implements Planner {
 
     public FFAnytimeContext() {
         ffAnytime = new FFAnytime();
-        this.setFFAnytime(DEFAULT_HEURISTIC, DEFAULT_WEIGHT, DEFAULT_TIMEOUT);
+        this.setFFAnytime(FFANYTIME_DEFAULT_HEURISTIC, FFANYTIME_DEFAULT_WEIGHT, PLANNER_DEFAULT_TIMEOUT);
     }
 
     public FFAnytimeContext(Heuristic.Type heuristic, double weight, double timeout) {
@@ -34,6 +35,10 @@ public class FFAnytimeContext implements Planner {
         ffAnytime.setHeuristicType(heuristic);
         ffAnytime.setWeight(weight);
         ffAnytime.setTimeOut((int) timeout);
+    }
+
+    public int getTimeOut() {
+        return ffAnytime.getTimeout();
     }
 
     public Statistics getStatistics() {

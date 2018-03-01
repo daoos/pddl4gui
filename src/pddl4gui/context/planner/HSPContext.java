@@ -9,8 +9,9 @@ import fr.uga.pddl4j.util.Plan;
 
 import java.util.Vector;
 
-import static fr.uga.pddl4j.planners.hsp.HSP.DEFAULT_HEURISTIC;
-import static fr.uga.pddl4j.planners.hsp.HSP.DEFAULT_WEIGHT;
+import static pddl4gui.context.planner.PlannerDefaultValues.HSP_DEFAULT_HEURISTIC;
+import static pddl4gui.context.planner.PlannerDefaultValues.HSP_DEFAULT_WEIGHT;
+import static pddl4gui.context.planner.PlannerDefaultValues.PLANNER_DEFAULT_TIMEOUT;
 
 public class HSPContext implements Planner {
 
@@ -22,7 +23,7 @@ public class HSPContext implements Planner {
 
     public HSPContext() {
         hsp = new HSP();
-        this.setHSP(DEFAULT_HEURISTIC, DEFAULT_WEIGHT, DEFAULT_TIMEOUT);
+        this.setHSP(HSP_DEFAULT_HEURISTIC, HSP_DEFAULT_WEIGHT, PLANNER_DEFAULT_TIMEOUT);
     }
 
     public HSPContext(Heuristic.Type heuristic, double weight, double timeout) {
@@ -34,6 +35,10 @@ public class HSPContext implements Planner {
         hsp.setHeuristicType(heuristic);
         hsp.setWeight(weight);
         hsp.setTimeOut((int) timeout);
+    }
+
+    public int getTimeOut() {
+        return hsp.getTimeout();
     }
 
     public Statistics getStatistics() {

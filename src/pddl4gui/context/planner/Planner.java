@@ -9,8 +9,6 @@ import java.util.Vector;
 
 public interface Planner {
 
-    int DEFAULT_TIMEOUT = fr.uga.pddl4j.planners.Planner.DEFAULT_TIMEOUT;
-
     enum Type {
         EHC,
         HSP,
@@ -20,6 +18,8 @@ public interface Planner {
     }
 
     boolean isAnytime();
+
+    int getTimeOut();
 
     Statistics getStatistics();
 

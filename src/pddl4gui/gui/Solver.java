@@ -16,6 +16,7 @@ import pddl4gui.token.Token;
 import pddl4gui.token.TokenList;
 
 import javax.swing.*;
+import java.util.Vector;
 
 //import pddl4gui.context.planner.FFAnytimeContext;
 //import pddl4gui.context.planner.HCAnytimeContext;
@@ -133,6 +134,7 @@ public class Solver extends JFrame {
             if (!TokenList.getListModel().contains(token)) {
                 TokenList.getListModel().addElement(token);
                 pddl4Gui.getEngine().getTokenList().addLast(token);
+                this.getEngineStatusPanel().setTokensRemaining(pddl4Gui.getEngine().getTokenList().size());
             }
         }
 

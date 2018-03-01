@@ -52,9 +52,9 @@ public class Engine extends Thread {
                     engineStatusPanel.getCirclePanel().setColor(Color.ORANGE);
                     engineStatusPanel.getCirclePanel().repaint();
 
-                    progressBar.setValue(0);
-                    double timeout = (double) pddl4Gui.getSolver().getSetupPanel().getTimeoutSpinner().getValue();
-                    progressBar.setMaximum((int) timeout);
+                    progressBar.setValue(1);
+                    final int timeout = token.getPlanner().getTimeOut();
+                    progressBar.setMaximum(timeout);
                     Timer timer = new Timer(1000, (ActionEvent evt) -> {
                         progressBar.setString(progressBar.getValue() + "/" + timeout);
                         progressBar.setValue(progressBar.getValue() + 1);
@@ -69,6 +69,7 @@ public class Engine extends Thread {
                     engineStatusPanel.getCirclePanel().setColor(Color.GREEN);
                     engineStatusPanel.getCirclePanel().repaint();
                 }
+                engineStatusPanel.setTokensRemaining(tokenList.size());
                 sleep(refresh);
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
