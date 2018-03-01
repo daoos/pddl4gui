@@ -9,6 +9,7 @@ import fr.uga.pddl4j.util.MemoryAgent;
 import fr.uga.pddl4j.util.Plan;
 import pddl4gui.Pddl4Gui;
 import pddl4gui.context.planner.Planner;
+import pddl4gui.gui.Solver;
 import pddl4gui.gui.panel.EngineStatusPanel;
 import pddl4gui.token.Result;
 import pddl4gui.token.Statistics;
@@ -22,7 +23,7 @@ import java.util.LinkedList;
 
 public class Engine extends Thread {
 
-    final private Pddl4Gui pddl4Gui;
+    private Solver solver;
 
     private LinkedList<Token> tokenList;
 
@@ -30,21 +31,28 @@ public class Engine extends Thread {
 
     private int refresh;
 
+    public void setSolver(Solver solver) {
+        this.solver = solver;
+    }
+
     public LinkedList<Token> getTokenList() {
         return tokenList;
     }
 
-    public Engine(Pddl4Gui pddl4Gui, int refresh) {
+    public void addToken(Token token) {
+        tokenList.addLast(token);
+    }
+
+    public Engine(int refresh) {
         tokenList = new LinkedList<>();
-        this.pddl4Gui = pddl4Gui;
         this.refresh = refresh;
     }
 
     @Override
     public void run() {
-        final EngineStatusPanel engineStatusPanel = pddl4Gui.getSolver().getEngineStatusPanel();
+        final EngineStatusPanel engineStatusPanel = solver.getEngineStatusPanel();
         final JProgressBar progressBar = engineStatusPanel.getProgressBar();
-        while (pddl4Gui.getSolver().isVisible()) {
+        while (solver.isVisible()) {
             try {
                 if (tokenList.size() > 0) {
                     final Token token = tokenList.pop();
@@ -65,6 +73,8 @@ public class Engine extends Thread {
                     token.setError(error);
                     timer.stop();
                 } else {
+                    progressBar.setValue(0);
+                    progressBar.setString("Time out");
                     engineStatusPanel.getEngineLabel().setText("waiting for token");
                     engineStatusPanel.getCirclePanel().setColor(Color.GREEN);
                     engineStatusPanel.getCirclePanel().repaint();

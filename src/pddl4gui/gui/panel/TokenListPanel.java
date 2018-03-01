@@ -2,7 +2,7 @@ package pddl4gui.gui.panel;
 
 import pddl4gui.gui.Solver;
 import pddl4gui.token.Token;
-import pddl4gui.token.TokenList;
+import pddl4gui.gui.tools.TokenList;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -89,7 +89,5 @@ public class TokenListPanel extends JPanel {
         JScrollPane scrollTokenJList = new JScrollPane(tokenJList);
         scrollTokenJList.setBounds(20, 55, 290, 235);
         add(scrollTokenJList);
-
-
     }
 }

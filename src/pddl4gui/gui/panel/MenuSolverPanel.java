@@ -4,7 +4,7 @@ import pddl4gui.gui.Solver;
 import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
-import pddl4gui.token.TokenList;
+import pddl4gui.gui.tools.TokenList;
 
 import javax.swing.*;
 import java.io.File;
@@ -77,7 +77,7 @@ public class MenuSolverPanel extends JPanel {
             saveJsonButton.setEnabled(false);
             parent.getResultPanel().clearResult();
             parent.getStatisticsPanel().clearStats();
-            parent.getPddl4Gui().getEngine().getTokenList().clear();
+            parent.getEngine().getTokenList().clear();
             TokenList.getListModel().clear();
         });
         add(resetButton);

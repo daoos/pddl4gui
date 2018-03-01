@@ -2,7 +2,7 @@ package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import pddl4gui.context.planner.Planner;
-import pddl4gui.context.planner.PlannerDefaultValues;
+import pddl4gui.context.planner.PlannerDefault;
 import pddl4gui.gui.Editor;
 import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.FileTools;
@@ -133,7 +133,7 @@ public class SetupSolverPanel extends JPanel {
         weightLabel.setBounds(15, 185, 150, 25);
         add(weightLabel);
 
-        SpinnerNumberModel modelTimeout = new SpinnerNumberModel(PlannerDefaultValues.PLANNER_DEFAULT_TIMEOUT,
+        SpinnerNumberModel modelTimeout = new SpinnerNumberModel(PlannerDefault.getPlannerDefaultTimeout(),
                 0.0, 10000.0, 1);
         timeoutSpinner = new JSpinner(modelTimeout);
         timeoutSpinner.setBounds(100, 225, 150, 25);

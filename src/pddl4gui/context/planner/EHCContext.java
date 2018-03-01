@@ -9,10 +9,6 @@ import fr.uga.pddl4j.util.Plan;
 
 import java.util.Vector;
 
-import static pddl4gui.context.planner.PlannerDefaultValues.EHC_DEFAULT_HEURISTIC;
-import static pddl4gui.context.planner.PlannerDefaultValues.EHC_DEFAULT_WEIGHT;
-import static pddl4gui.context.planner.PlannerDefaultValues.PLANNER_DEFAULT_TIMEOUT;
-
 public class EHCContext implements Planner {
 
     private EHC ehc;
@@ -23,7 +19,8 @@ public class EHCContext implements Planner {
 
     public EHCContext() {
         ehc = new EHC();
-        this.setEHC(EHC_DEFAULT_HEURISTIC, EHC_DEFAULT_WEIGHT, PLANNER_DEFAULT_TIMEOUT);
+        this.setEHC(PlannerDefault.getEhcDefaultHeuristic(),
+                PlannerDefault.getEhcDefaultWeight(), PlannerDefault.getPlannerDefaultTimeout());
     }
 
     public EHCContext(Heuristic.Type heuristic, double weight, double timeout) {
@@ -35,6 +32,10 @@ public class EHCContext implements Planner {
         ehc.setHeuristicType(heuristic);
         ehc.setWeight(weight);
         ehc.setTimeOut((int) timeout);
+    }
+
+    public Type getType(){
+        return Type.EHC;
     }
 
     public int getTimeOut() {

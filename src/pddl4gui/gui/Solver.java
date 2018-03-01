@@ -1,10 +1,10 @@
 package pddl4gui.gui;
 
-import pddl4gui.Pddl4Gui;
 import pddl4gui.context.planner.EHCContext;
 import pddl4gui.context.planner.FFContext;
 import pddl4gui.context.planner.HSPContext;
 import pddl4gui.context.planner.Planner;
+import pddl4gui.engine.Engine;
 import pddl4gui.gui.panel.EngineStatusPanel;
 import pddl4gui.gui.panel.MenuSolverPanel;
 import pddl4gui.gui.panel.ResultPanel;
@@ -13,17 +13,16 @@ import pddl4gui.gui.panel.StatisticsPanel;
 import pddl4gui.gui.panel.TokenListPanel;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Token;
-import pddl4gui.token.TokenList;
+import pddl4gui.gui.tools.TokenList;
 
 import javax.swing.*;
-import java.util.Vector;
 
 //import pddl4gui.context.planner.FFAnytimeContext;
 //import pddl4gui.context.planner.HCAnytimeContext;
 
 public class Solver extends JFrame {
 
-    final private Pddl4Gui pddl4Gui;
+    final private Engine engine;
 
     final private SetupSolverPanel setupPanel;
     final private StatisticsPanel statisticsPanel;
@@ -32,8 +31,8 @@ public class Solver extends JFrame {
     final private EngineStatusPanel engineStatusPanel;
     final private TokenListPanel tokenListPanel;
 
-    public Pddl4Gui getPddl4Gui() {
-        return pddl4Gui;
+    public Engine getEngine() {
+        return engine;
     }
 
     public SetupSolverPanel getSetupPanel() {
@@ -56,8 +55,8 @@ public class Solver extends JFrame {
         return tokenListPanel;
     }
 
-    public Solver(Pddl4Gui pddl4Gui) {
-        this.pddl4Gui = pddl4Gui;
+    public Solver(Engine engine) {
+        this.engine = engine;
 
         final int width = 1200;
         final int height = 600;
@@ -133,8 +132,8 @@ public class Solver extends JFrame {
         if (token.isRunnable()) {
             if (!TokenList.getListModel().contains(token)) {
                 TokenList.getListModel().addElement(token);
-                pddl4Gui.getEngine().getTokenList().addLast(token);
-                this.getEngineStatusPanel().setTokensRemaining(pddl4Gui.getEngine().getTokenList().size());
+                engine.addToken(token);
+                engineStatusPanel.setTokensRemaining(engine.getTokenList().size());
             }
         }
 

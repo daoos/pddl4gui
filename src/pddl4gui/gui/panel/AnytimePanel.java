@@ -35,10 +35,10 @@ public class AnytimePanel extends JFrame {
         panel.setLayout(null);
         panel.setBorder(BorderFactory.createTitledBorder("Anytime in progress"));
 
-        final JLabel currentCostLabel = new JLabel("Cost: ");
-        final JLabel currentDepthLabel = new JLabel("Depth: ");
-        final JLabel bestCostLabel = new JLabel("Best cost: ");
-        final JLabel numberSolutionLabel = new JLabel("Nb solution: ");
+        final JLabel currentCostLabel = new JLabel("Cost ");
+        final JLabel currentDepthLabel = new JLabel("Depth ");
+        final JLabel bestCostLabel = new JLabel("Best cost ");
+        final JLabel numberSolutionLabel = new JLabel("Nb solution ");
         final JLabel isSolvedLabel = new JLabel("Problem solved ? ");
         currentCost = new JLabel("--");
         currentDepth = new JLabel("--");

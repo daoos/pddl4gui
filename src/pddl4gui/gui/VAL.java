@@ -103,7 +103,7 @@ public class VAL extends JFrame {
                 textArea.setText("One (or many) of the selected file are null or incorrect ! ");
             }
         } catch (IOException exception) {
-            System.out.println(exception.toString());
+            exception.printStackTrace();
         }
 
         setLocation(WindowsManager.setWindowsLocation());

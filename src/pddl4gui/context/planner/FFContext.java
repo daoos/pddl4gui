@@ -9,10 +9,6 @@ import fr.uga.pddl4j.util.Plan;
 
 import java.util.Vector;
 
-import static pddl4gui.context.planner.PlannerDefaultValues.FF_DEFAULT_HEURISTIC;
-import static pddl4gui.context.planner.PlannerDefaultValues.FF_DEFAULT_WEIGHT;
-import static pddl4gui.context.planner.PlannerDefaultValues.PLANNER_DEFAULT_TIMEOUT;
-
 public class FFContext implements Planner {
 
     private FF ff;
@@ -23,7 +19,8 @@ public class FFContext implements Planner {
 
     public FFContext() {
         ff = new FF();
-        this.setFF(FF_DEFAULT_HEURISTIC, FF_DEFAULT_WEIGHT, PLANNER_DEFAULT_TIMEOUT);
+        this.setFF(PlannerDefault.getFfDefaultHeuristic(),
+                PlannerDefault.getFfDefaultWeight(), PlannerDefault.getPlannerDefaultTimeout());
     }
 
     public FFContext(Heuristic.Type heuristic, double weight, double timeout) {
@@ -35,6 +32,10 @@ public class FFContext implements Planner {
         ff.setHeuristicType(heuristic);
         ff.setWeight(weight);
         ff.setTimeOut((int) timeout);
+    }
+
+    public Type getType(){
+        return Type.FF;
     }
 
     public int getTimeOut() {

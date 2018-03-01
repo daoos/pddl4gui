@@ -19,6 +19,8 @@ public interface Planner {
 
     boolean isAnytime();
 
+    Type getType();
+
     int getTimeOut();
 
     Statistics getStatistics();
