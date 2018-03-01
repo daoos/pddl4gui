@@ -28,7 +28,7 @@ public class FFAnytimeContext implements Planner {
         this.setFFAnytime(heuristic, weight, timeout);
     }
 
-    public void setFFAnytime(Heuristic.Type heuristic, double weight, double timeout) {
+    private void setFFAnytime(Heuristic.Type heuristic, double weight, double timeout) {
         ffAnytime.setHeuristicType(heuristic);
         ffAnytime.setWeight(weight);
         ffAnytime.setTimeOut((int) timeout);

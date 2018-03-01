@@ -49,29 +49,4 @@ public class PDDLContext {
         Collections.addAll(al, arr);
         return al;
     }
-
-    public static String domainTemplateFile() {
-        return "(define (domain new_domain)\n" +
-                "  (:requirements )\n" +
-                "  (:types )\n" +
-                "  (:predicates ()\n" +
-                "  )\n" +
-                "  (:action \n" +
-                "      :parameters ( )\n" +
-                "      :precondition ( )\n" +
-                "      :effect ( )\n" +
-                "  )\n" +
-                ")";
-    }
-
-    public static String problemTemplateFile() {
-        return "(define (problem new_problem)\n" +
-                "  (:domain )\n" +
-                "  (:objects )\n" +
-                "  (:init ()\n" +
-                "  )\n" +
-                "  (:goal ()\n" +
-                "  )\n" +
-                ")";
-    }
 }

@@ -107,7 +107,7 @@ public class SetupSolverPanel extends JPanel {
         problemLabel.setBounds(15, 65, 140, 25);
         add(problemLabel);
 
-        JComboBox plannerComboBox = new JComboBox<>(Planner.Type.values());
+        final JComboBox plannerComboBox = new JComboBox<>(Planner.Type.values());
         plannerComboBox.setBounds(100, 105, 150, 25);
         plannerComboBox.setSelectedItem(planner);
         plannerComboBox.addActionListener(e -> planner = (Planner.Type) plannerComboBox.getSelectedItem());
@@ -116,7 +116,7 @@ public class SetupSolverPanel extends JPanel {
         plannerLabel.setBounds(15, 105, 140, 25);
         add(plannerLabel);
 
-        JComboBox heuristicComboBox = new JComboBox<>(Heuristic.Type.values());
+        final JComboBox heuristicComboBox = new JComboBox<>(Heuristic.Type.values());
         heuristicComboBox.setBounds(100, 145, 150, 25);
         heuristicComboBox.setSelectedItem(heuristic);
         heuristicComboBox.addActionListener(e -> heuristic = (Heuristic.Type) heuristicComboBox.getSelectedItem());
@@ -125,7 +125,7 @@ public class SetupSolverPanel extends JPanel {
         heuristicLabel.setBounds(15, 145, 150, 25);
         add(heuristicLabel);
 
-        SpinnerNumberModel modelWeight = new SpinnerNumberModel(1.0, 0.0, 10.0, 0.1);
+        final SpinnerNumberModel modelWeight = new SpinnerNumberModel(1.0, 0.0, 10.0, 0.1);
         weightSpinner = new JSpinner(modelWeight);
         weightSpinner.setBounds(100, 185, 150, 25);
         add(weightSpinner);
@@ -133,7 +133,7 @@ public class SetupSolverPanel extends JPanel {
         weightLabel.setBounds(15, 185, 150, 25);
         add(weightLabel);
 
-        SpinnerNumberModel modelTimeout = new SpinnerNumberModel(PlannerDefault.getPlannerDefaultTimeout(),
+        final SpinnerNumberModel modelTimeout = new SpinnerNumberModel(PlannerDefault.getPlannerDefaultTimeout(),
                 0.0, 10000.0, 1);
         timeoutSpinner = new JSpinner(modelTimeout);
         timeoutSpinner.setBounds(100, 225, 150, 25);
@@ -160,6 +160,4 @@ public class SetupSolverPanel extends JPanel {
         pbButton.setEnabled(enable);
         planButton.setEnabled(enable);
     }
-
-
 }

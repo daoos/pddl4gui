@@ -20,7 +20,7 @@ public class Editor extends JFrame {
 
     public Editor(Solver parent, File file, int type) {
         fileToEdit = file;
-        Container container = getContentPane();
+        final Container container = getContentPane();
         container.setLayout(new BorderLayout());
 
         final int width = 800;

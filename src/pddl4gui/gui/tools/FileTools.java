@@ -25,7 +25,7 @@ public class FileTools {
     }
 
     public static File getFile(Component component, int integer) {
-        JFileChooser fileChooser = new JFileChooser();
+        final JFileChooser fileChooser = new JFileChooser();
         if (staticLastPath != null) {
             fileChooser.setCurrentDirectory(staticLastPath);
         } else {
@@ -45,14 +45,14 @@ public class FileTools {
                 openFile = fileChooser.getSelectedFile();
                 staticLastPath = openFile;
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+                ex.printStackTrace();
             }
         }
         return openFile;
     }
 
     public static String readFileToString(File file) {
-        StringBuilder fileContent = new StringBuilder();
+        final StringBuilder fileContent = new StringBuilder();
         try {
             Scanner scan = FileTools.readFileToScanner(file);
             if (scan != null) {
@@ -60,7 +60,7 @@ public class FileTools {
                     fileContent.append(scan.nextLine() + "\n");
             }
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
         return fileContent.toString();
     }
@@ -69,13 +69,13 @@ public class FileTools {
         try {
             return new Scanner(file);
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
 
     public static File saveFile(Component component, int integer) {
-        JFileChooser fileChooser = new JFileChooser();
+        final JFileChooser fileChooser = new JFileChooser();
         if (staticLastPath != null) {
             fileChooser.setCurrentDirectory(staticLastPath);
         } else {
@@ -111,7 +111,7 @@ public class FileTools {
                 saveFile = fileChooser.getSelectedFile();
                 staticLastPath = saveFile;
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+                ex.printStackTrace();
             }
         }
         return saveFile;
@@ -130,7 +130,7 @@ public class FileTools {
                 if (writer != null)
                     writer.close();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
     }

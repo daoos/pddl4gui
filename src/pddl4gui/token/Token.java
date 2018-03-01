@@ -153,8 +153,8 @@ public class Token {
         this.domainFile = domainFile;
         this.problemFile = problemFile;
         this.planner = planner;
-        runnable = isTokenRunnable();
-        solved = false;
-        error = "";
+        this.runnable = isTokenRunnable();
+        this.solved = false;
+        this.error = "";
     }
 }

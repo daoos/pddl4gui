@@ -86,7 +86,7 @@ public class TokenListPanel extends JPanel {
                 }
             }
         });
-        JScrollPane scrollTokenJList = new JScrollPane(tokenJList);
+        final JScrollPane scrollTokenJList = new JScrollPane(tokenJList);
         scrollTokenJList.setBounds(20, 55, 290, 235);
         add(scrollTokenJList);
     }

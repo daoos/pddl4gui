@@ -34,7 +34,7 @@ public class VAL extends JFrame {
 
         textArea = new JTextArea();
         textArea.setEditable(false);
-        JScrollPane scrollTextPane = new JScrollPane(textArea);
+        final JScrollPane scrollTextPane = new JScrollPane(textArea);
         scrollTextPane.setBounds(60, 10, 460, 400);
         add(scrollTextPane);
 
@@ -73,7 +73,7 @@ public class VAL extends JFrame {
         exitButton.addActionListener(e -> this.dispose());
         add(exitButton);
 
-        JPanel panel = new JPanel();
+        final JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setBorder(BorderFactory.createTitledBorder(
                 "VAL input"));
@@ -115,8 +115,8 @@ public class VAL extends JFrame {
     private static StringBuilder execVal(String target) {
         final StringBuilder output = new StringBuilder();
         try {
-            Runtime rt = Runtime.getRuntime();
-            Process proc = rt.exec(target);
+            final Runtime rt = Runtime.getRuntime();
+            final Process proc = rt.exec(target);
             proc.waitFor();
             final BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String line;

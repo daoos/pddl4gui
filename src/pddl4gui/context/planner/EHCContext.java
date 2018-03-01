@@ -28,7 +28,7 @@ public class EHCContext implements Planner {
         this.setEHC(heuristic, weight, timeout);
     }
 
-    public void setEHC(Heuristic.Type heuristic, double weight, double timeout) {
+    private void setEHC(Heuristic.Type heuristic, double weight, double timeout) {
         ehc.setHeuristicType(heuristic);
         ehc.setWeight(weight);
         ehc.setTimeOut((int) timeout);

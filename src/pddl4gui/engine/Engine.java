@@ -63,7 +63,7 @@ public class Engine extends Thread {
                     progressBar.setValue(1);
                     final int timeout = token.getPlanner().getTimeOut();
                     progressBar.setMaximum(timeout);
-                    Timer timer = new Timer(1000, (ActionEvent evt) -> {
+                    final Timer timer = new Timer(1000, (ActionEvent evt) -> {
                         progressBar.setString(progressBar.getValue() + "/" + timeout);
                         progressBar.setValue(progressBar.getValue() + 1);
                     });
@@ -82,6 +82,9 @@ public class Engine extends Thread {
                 engineStatusPanel.setTokensRemaining(tokenList.size());
                 sleep(refresh);
             } catch (InterruptedException | IOException e) {
+                engineStatusPanel.getEngineLabel().setText("Engine crash, restart apps !");
+                engineStatusPanel.getCirclePanel().setColor(Color.RED);
+                engineStatusPanel.getCirclePanel().repaint();
                 e.printStackTrace();
                 break;
             }
@@ -119,6 +122,7 @@ public class Engine extends Thread {
                     pb = factory.encode();
                 } catch (IllegalArgumentException e) {
                     error = ("Error during encoding process.\n Check the :requirements part of the domain !");
+                    e.printStackTrace();
                     return false;
                 }
                 statistics.setTimeToEncodeInSeconds((System.currentTimeMillis() - begin) / 1000.0);
@@ -152,6 +156,7 @@ public class Engine extends Thread {
                 }
             } catch (NullPointerException e) {
                 error = ("Error during solving process.\n Check the problem.pddl file !");
+                e.printStackTrace();
                 return false;
             }
         } else {

@@ -5,9 +5,9 @@ import java.awt.*;
 
 public class DrawCircle extends JPanel {
 
-    private int x;
-    private int y;
-    private int diam;
+    final private int x;
+    final private int y;
+    final private int diam;
 
     private Color color = Color.RED;
 

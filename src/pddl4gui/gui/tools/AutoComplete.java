@@ -62,8 +62,8 @@ public class AutoComplete implements DocumentListener {
         textArea = editorFrame.getEditor();
 
         //Set the handler for the enter key
-        InputMap im = textArea.getInputMap();
-        ActionMap am = textArea.getActionMap();
+        final InputMap im = textArea.getInputMap();
+        final ActionMap am = textArea.getActionMap();
         im.put(KeyStroke.getKeyStroke("ENTER "), COMMIT_ACTION);
         am.put(COMMIT_ACTION, new CommitAction());
 
@@ -151,8 +151,7 @@ public class AutoComplete implements DocumentListener {
      * generated when the user is typing a
      * word that matches a keyword.
      */
-    private class CompletionTask
-            implements Runnable {
+    private class CompletionTask implements Runnable {
 
         private final String completion;
         private final int position;
@@ -180,8 +179,7 @@ public class AutoComplete implements DocumentListener {
      * auto complete suggestion. Respond
      * appropriately.
      */
-    private class CommitAction
-            extends AbstractAction {
+    private class CommitAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -204,8 +202,7 @@ public class AutoComplete implements DocumentListener {
     /**
      * Additional logic for bracket auto complete
      */
-    private class HandleBracketEvent
-            implements KeyListener {
+    private class HandleBracketEvent implements KeyListener {
 
         @Override
         public void keyTyped(KeyEvent e) {

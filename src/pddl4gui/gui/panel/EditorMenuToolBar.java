@@ -11,31 +11,31 @@ import java.io.File;
 
 public class EditorMenuToolBar extends JToolBar {
 
-    private JComboBox fontSize;
+    final private JComboBox<Integer> fontSize;
     private boolean isInvertedColor = false;
 
     public EditorMenuToolBar(EditorPanel parent) {
 
-        fontSize = new JComboBox();
+        fontSize = new JComboBox<>();
         for (int i = 5; i <= 100; i++) {
             fontSize.addItem(i);
         }
         fontSize.setMaximumSize(new Dimension(70, 30));
         add(fontSize);
         fontSize.addActionListener((ActionEvent ev) -> {
-            String sizeValue = fontSize.getSelectedItem().toString();
-            int sizeOfFont = Integer.parseInt(sizeValue);
-            String fontFamily = parent.getEditor().getFont().getFamily();
+            final String sizeValue = String.valueOf(fontSize.getSelectedItem());
+            final int sizeOfFont = Integer.parseInt(sizeValue);
+            final String fontFamily = parent.getEditor().getFont().getFamily();
 
-            Font font1 = new Font(fontFamily, Font.PLAIN, sizeOfFont);
+            final Font font1 = new Font(fontFamily, Font.PLAIN, sizeOfFont);
             parent.getEditor().setFont(font1);
         });
         addSeparator();
 
-        JButton saveButton = new JButton(Icons.getSaveIcon());
+        final JButton saveButton = new JButton(Icons.getSaveIcon());
         saveButton.setToolTipText("Save");
         saveButton.addActionListener(e -> {
-            File tempFile = parent.getParent().getFileToEdit();
+            final File tempFile = parent.getParent().getFileToEdit();
 
             if (tempFile != null) {
                 FileTools.writeInFile(tempFile, parent.getEditor().getText());
@@ -45,7 +45,7 @@ public class EditorMenuToolBar extends JToolBar {
         this.add(saveButton);
         addSeparator();
 
-        JButton wordWrapButton = new JButton(Icons.getWordwrapIcon());
+        final JButton wordWrapButton = new JButton(Icons.getWordwrapIcon());
         wordWrapButton.setToolTipText("Word wrap");
         wordWrapButton.addActionListener(e -> {
             if (!parent.getEditor().getLineWrap()) {
@@ -56,12 +56,12 @@ public class EditorMenuToolBar extends JToolBar {
         });
         this.add(wordWrapButton);
 
-        JButton quickButton = new JButton(Icons.getSearchIcon());
+        final JButton quickButton = new JButton(Icons.getSearchIcon());
         quickButton.setToolTipText("Quick Search");
         quickButton.addActionListener(e -> new Find(parent.getEditor()));
         this.add(quickButton);
 
-        JButton invertColorButton = new JButton(Icons.getInvertIcon());
+        final JButton invertColorButton = new JButton(Icons.getInvertIcon());
         invertColorButton.setToolTipText("Invert Color");
         invertColorButton.addActionListener(e -> {
             if (isInvertedColor) {
@@ -77,7 +77,7 @@ public class EditorMenuToolBar extends JToolBar {
         add(invertColorButton);
         addSeparator();
 
-        JButton exitButton = new JButton(Icons.getExitIcon());
+        final JButton exitButton = new JButton(Icons.getExitIcon());
         exitButton.setToolTipText("Exit");
         exitButton.addActionListener(e -> parent.getParent().dispose());
         add(exitButton);

@@ -19,7 +19,7 @@ public class AnytimePanel extends JFrame {
     private double bestCostD = Double.MAX_VALUE;
     private double numberSolutionI = 0;
 
-    public AnytimePanel(Token token) { //TODO test de l'ajout de bestCostD
+    public AnytimePanel(Token token) {
         this.token = token;
 
         setLayout(null);

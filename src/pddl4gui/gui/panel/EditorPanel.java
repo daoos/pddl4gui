@@ -47,8 +47,8 @@ public class EditorPanel extends JPanel {
                 pddl.getHighlighter().highLight(textArea, pddl.getPDDLKeywords());
             }
         });
-        JScrollPane scrollTextArea = new JScrollPane(textArea);
-        TextLineNumber tln = new TextLineNumber(textArea);
+        final JScrollPane scrollTextArea = new JScrollPane(textArea);
+        final TextLineNumber tln = new TextLineNumber(textArea);
         scrollTextArea.setRowHeaderView(tln);
 
         add(scrollTextArea, BorderLayout.CENTER);

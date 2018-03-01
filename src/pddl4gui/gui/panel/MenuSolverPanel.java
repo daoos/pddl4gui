@@ -82,7 +82,7 @@ public class MenuSolverPanel extends JPanel {
         });
         add(resetButton);
 
-        JButton exitButton = new JButton(Icons.getExitIcon());
+        final JButton exitButton = new JButton(Icons.getExitIcon());
         exitButton.setBounds(210, 10, 40, 40);
         exitButton.setToolTipText("Exit");
         exitButton.addActionListener(e -> System.exit(0));

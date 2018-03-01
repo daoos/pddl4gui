@@ -28,7 +28,7 @@ public class HCAnytimeContext implements Planner {
         this.setHCAnytime(heuristic, weight, timeout);
     }
 
-    public void setHCAnytime(Heuristic.Type heuristic, double weight, double timeout) {
+    private void setHCAnytime(Heuristic.Type heuristic, double weight, double timeout) {
         hcAnytime.setHeuristicType(heuristic);
         hcAnytime.setWeight(weight);
         hcAnytime.setTimeOut((int) timeout);

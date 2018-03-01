@@ -59,7 +59,7 @@ public class ResultPanel extends JPanel {
 
         resultArea = new JTextArea();
         resultArea.setEditable(false);
-        JScrollPane scrollTextPane = new JScrollPane(resultArea);
+        final JScrollPane scrollTextPane = new JScrollPane(resultArea);
         scrollTextPane.setBounds(15, labMarging, 470, 450);
         add(scrollTextPane);
     }

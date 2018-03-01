@@ -15,7 +15,7 @@ public class HighlightText extends DefaultHighlighter.DefaultHighlightPainter {
 
     public void hightLightWord(JTextComponent textComp, int select_start, int select_end) {
         removeHighlights(textComp);
-        Highlighter highlight = textComp.getHighlighter();
+        final Highlighter highlight = textComp.getHighlighter();
         try {
             highlight.addHighlight(select_start, select_end, new HighlightText(Color.RED));
         } catch (BadLocationException e) {
@@ -27,9 +27,9 @@ public class HighlightText extends DefaultHighlighter.DefaultHighlightPainter {
         removeHighlights(textComp);
 
         try {
-            Highlighter highlight = textComp.getHighlighter();
-            Document doc = textComp.getDocument();
-            String text = doc.getText(0, doc.getLength());
+            final Highlighter highlight = textComp.getHighlighter();
+            final Document doc = textComp.getDocument();
+            final String text = doc.getText(0, doc.getLength());
             for (String item : pattern) {
                 int pos = 0;
                 while ((pos = text.indexOf(item, pos)) >= 0) {
@@ -44,7 +44,7 @@ public class HighlightText extends DefaultHighlighter.DefaultHighlightPainter {
     }
 
     private void removeHighlights(JTextComponent textComp) {
-        Highlighter highlight = textComp.getHighlighter();
+        final Highlighter highlight = textComp.getHighlighter();
 
         for (Highlighter.Highlight item : highlight.getHighlights()) {
             if (item.getPainter() instanceof HighlightText) {

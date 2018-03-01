@@ -3,10 +3,10 @@ package pddl4gui.token;
 import fr.uga.pddl4j.util.Plan;
 
 public class Result {
-    private Statistics statistics;
-    private Plan solutionPlan;
-    private String solutionString;
-    private String solutionJSON;
+    final private Statistics statistics;
+    final private Plan solutionPlan;
+    final private String solutionString;
+    final private String solutionJSON;
 
     public Statistics getStatistics() {
         return statistics;

@@ -13,11 +13,11 @@ public class UndoRedo {
 
     public static void addUndoRedo(JTextArea jTextArea) {
         final UndoManager undoManager = new UndoManager();
-        Document doc = jTextArea.getDocument();
+        final Document doc = jTextArea.getDocument();
         doc.addUndoableEditListener((UndoableEditEvent e) -> undoManager.addEdit(e.getEdit()));
 
-        InputMap im = jTextArea.getInputMap(JComponent.WHEN_FOCUSED);
-        ActionMap am = jTextArea.getActionMap();
+        final InputMap im = jTextArea.getInputMap(JComponent.WHEN_FOCUSED);
+        final ActionMap am = jTextArea.getActionMap();
 
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Undo");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Redo");

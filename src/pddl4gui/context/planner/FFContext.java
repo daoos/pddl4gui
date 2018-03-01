@@ -28,7 +28,7 @@ public class FFContext implements Planner {
         this.setFF(heuristic, weight, timeout);
     }
 
-    public void setFF(Heuristic.Type heuristic, double weight, double timeout) {
+    private void setFF(Heuristic.Type heuristic, double weight, double timeout) {
         ff.setHeuristicType(heuristic);
         ff.setWeight(weight);
         ff.setTimeOut((int) timeout);
