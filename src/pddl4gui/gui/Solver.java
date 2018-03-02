@@ -16,13 +16,14 @@ import pddl4gui.token.Token;
 import pddl4gui.gui.tools.TokenList;
 
 import javax.swing.*;
+import java.awt.*;
 
 //import pddl4gui.context.planner.FFAnytimeContext;
 //import pddl4gui.context.planner.HCAnytimeContext;
 
 public class Solver extends JFrame {
 
-    final private Engine engine;
+    private Engine engine;
 
     final private SetupSolverPanel setupPanel;
     final private StatisticsPanel statisticsPanel;
@@ -35,16 +36,12 @@ public class Solver extends JFrame {
         return engine;
     }
 
+    public void setEngine(Engine engine) {
+        this.engine = engine;
+    }
+
     public SetupSolverPanel getSetupPanel() {
         return setupPanel;
-    }
-
-    public StatisticsPanel getStatisticsPanel() {
-        return statisticsPanel;
-    }
-
-    public ResultPanel getResultPanel() {
-        return resultPanel;
     }
 
     public EngineStatusPanel getEngineStatusPanel() {
@@ -73,15 +70,15 @@ public class Solver extends JFrame {
         add(menuSolverPanel);
 
         setupPanel = new SetupSolverPanel(this);
-        setupPanel.setBounds(marging, 60, 330, 350);
+        setupPanel.setBounds(marging, 60, 330, 320);
         add(setupPanel);
 
         tokenListPanel = new TokenListPanel(this);
         tokenListPanel.setBounds(350, 260, 330, 300);
         add(tokenListPanel);
 
-        engineStatusPanel = new EngineStatusPanel();
-        engineStatusPanel.setBounds(marging, 420, 330, 140);
+        engineStatusPanel = new EngineStatusPanel(this);
+        engineStatusPanel.setBounds(marging, 390, 330, 170);
         add(engineStatusPanel);
 
         statisticsPanel = new StatisticsPanel();
@@ -130,7 +127,7 @@ public class Solver extends JFrame {
 
         final Token token = new Token(setupPanel.getDomainFile(), setupPanel.getProblemFile(), planner);
 
-        if (token.isRunnable()) {
+        if (token.isRunnable() && engineStatusPanel.getCirclePanel().getColor() != Color.RED) {
             if (!TokenList.getListModel().contains(token)) {
                 TokenList.getListModel().addElement(token);
                 engine.addToken(token);
@@ -158,5 +155,12 @@ public class Solver extends JFrame {
         statisticsPanel.clearStats();
         resultPanel.clearResult();
         resultPanel.diplayProgress(token);
+    }
+
+    public void resetSolver(){
+        resultPanel.clearResult();
+        statisticsPanel.clearStats();
+        engine.getTokenList().clear();
+        TokenList.getListModel().clear();
     }
 }

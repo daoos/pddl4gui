@@ -81,9 +81,10 @@ public class Engine extends Thread {
                 engineStatusPanel.setTokensRemaining(tokenList.size());
                 sleep(refresh);
             } catch (InterruptedException | IOException e) {
-                engineStatusPanel.getEngineLabel().setText("Engine crash, restart apps !");
+                engineStatusPanel.getEngineLabel().setText("Engine crash, restart it !");
                 engineStatusPanel.getCirclePanel().setColor(Color.RED);
                 engineStatusPanel.getCirclePanel().repaint();
+                engineStatusPanel.getInitButton().setEnabled(true);
                 e.printStackTrace();
                 break;
             }

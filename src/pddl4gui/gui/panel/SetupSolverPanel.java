@@ -44,7 +44,7 @@ public class SetupSolverPanel extends JPanel {
         return planner;
     }
 
-    public SetupSolverPanel(Solver parent) {
+    public SetupSolverPanel(Solver solver) {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver parameters"));
 
@@ -76,7 +76,7 @@ public class SetupSolverPanel extends JPanel {
         editDomainButton.setEnabled(false);
         editDomainButton.addActionListener(e -> {
             enableDomainButton(false);
-            new Editor(parent, domainFile, 0);
+            new Editor(solver, domainFile, 0);
         });
         add(editDomainButton);
 
@@ -100,7 +100,7 @@ public class SetupSolverPanel extends JPanel {
         editProblemButton.setEnabled(false);
         editProblemButton.addActionListener(e -> {
             enablePBButton(false);
-            new Editor(parent, problemFile, 1);
+            new Editor(solver, problemFile, 1);
         });
         add(editProblemButton);
 
@@ -143,9 +143,9 @@ public class SetupSolverPanel extends JPanel {
         add(timeLabel);
 
         planButton = new JButton("Resolve this problem !");
-        planButton.setBounds(75, 290, 200, 25);
+        planButton.setBounds(65, 270, 200, 25);
         planButton.setEnabled(true);
-        planButton.addActionListener(e -> parent.resolve());
+        planButton.addActionListener(e -> solver.resolve());
         add(planButton);
     }
 

@@ -11,6 +11,10 @@ public class DrawCircle extends JPanel {
 
     private Color color = Color.RED;
 
+    public Color getColor() {
+        return color;
+    }
+
     public void setColor(Color color) {
         this.color = color;
     }

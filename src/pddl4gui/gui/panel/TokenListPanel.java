@@ -16,7 +16,7 @@ public class TokenListPanel extends JPanel {
         return tokenJList;
     }
 
-    public TokenListPanel(Solver parent) {
+    public TokenListPanel(Solver solver) {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Token list"));
 
@@ -24,7 +24,7 @@ public class TokenListPanel extends JPanel {
         tokenJList = new JList<>(TokenList.getListModel());
 
         anytimeSolutionButton.setEnabled(false);
-        anytimeSolutionButton.setBounds(75, 20, 200, 25);
+        anytimeSolutionButton.setBounds(65, 20, 200, 25);
         anytimeSolutionButton.addActionListener(e -> {
             if(tokenJList.getSelectedValue() != null){
                 new AnytimePanel(tokenJList.getSelectedValue());
@@ -67,20 +67,20 @@ public class TokenListPanel extends JPanel {
                     if (selectedValue.getPlanner().isAnytime()) {
                         if (selectedValue.isSolved()) {
                             anytimeSolutionButton.setEnabled(true);
-                            parent.displayResult(selectedValue);
+                            solver.displayResult(selectedValue);
                         } else if (!selectedValue.getError().equals("")) {
-                            parent.displayError(selectedValue);
+                            solver.displayError(selectedValue);
                         } else {
                             new AnytimePanel(selectedValue);
                         }
                     } else {
                         anytimeSolutionButton.setEnabled(false);
                         if (selectedValue.isSolved()) {
-                            parent.displayResult(selectedValue);
+                            solver.displayResult(selectedValue);
                         } else if (!selectedValue.isSolved() && !selectedValue.getError().equals("")) {
-                            parent.displayError(selectedValue);
+                            solver.displayError(selectedValue);
                         } else {
-                            parent.displayProgress(selectedValue);
+                            solver.displayProgress(selectedValue);
                         }
                     }
                 }

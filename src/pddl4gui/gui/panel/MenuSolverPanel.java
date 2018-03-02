@@ -25,14 +25,14 @@ public class MenuSolverPanel extends JPanel {
         return saveJsonButton;
     }
 
-    public MenuSolverPanel(Solver parent) {
+    public MenuSolverPanel(Solver solver) {
         valButton = new JButton(Icons.getValidateIcon());
         valButton.setBounds(10, 10, 40, 40);
         valButton.setToolTipText("VAL on solution");
         valButton.setEnabled(false);
         valButton.addActionListener(e -> {
-            if (parent.getTokenListPanel().getTokenJList().getSelectedValue().isSolved()) {
-                new VAL(parent.getTokenListPanel().getTokenJList().getSelectedValue());
+            if (solver.getTokenListPanel().getTokenJList().getSelectedValue().isSolved()) {
+                new VAL(solver.getTokenListPanel().getTokenJList().getSelectedValue());
             }
         });
         add(valButton);
@@ -41,10 +41,10 @@ public class MenuSolverPanel extends JPanel {
         saveTxtButton.setBounds(50, 10, 40, 40);
         saveTxtButton.setToolTipText("Save solution (txt)");
         saveTxtButton.addActionListener(e -> {
-            if (parent.getTokenListPanel().getTokenJList().getSelectedValue().isSolved()) {
+            if (solver.getTokenListPanel().getTokenJList().getSelectedValue().isSolved()) {
                 File tempFile = FileTools.saveFile(this, 1);
                 if (!FileTools.checkFile(tempFile)) {
-                    FileTools.writeInFile(tempFile, parent.getTokenListPanel().getTokenJList()
+                    FileTools.writeInFile(tempFile, solver.getTokenListPanel().getTokenJList()
                             .getSelectedValue().getResult().getSolutionString());
                 }
             }
@@ -56,10 +56,10 @@ public class MenuSolverPanel extends JPanel {
         saveJsonButton.setBounds(110, 10, 40, 40);
         saveJsonButton.setToolTipText("Save solution (json)");
         saveJsonButton.addActionListener(e -> {
-            if (parent.getTokenListPanel().getTokenJList().getSelectedValue().isSolved()) {
+            if (solver.getTokenListPanel().getTokenJList().getSelectedValue().isSolved()) {
                 File tempFile = FileTools.saveFile(this, 5);
                 if (!FileTools.checkFile(tempFile)) {
-                    FileTools.writeInFile(tempFile, parent.getTokenListPanel().getTokenJList()
+                    FileTools.writeInFile(tempFile, solver.getTokenListPanel().getTokenJList()
                             .getSelectedValue().getResult().getSolutionJSON());
                 }
             }
@@ -75,10 +75,7 @@ public class MenuSolverPanel extends JPanel {
             valButton.setEnabled(false);
             saveTxtButton.setEnabled(false);
             saveJsonButton.setEnabled(false);
-            parent.getResultPanel().clearResult();
-            parent.getStatisticsPanel().clearStats();
-            parent.getEngine().getTokenList().clear();
-            TokenList.getListModel().clear();
+            solver.resetSolver();
         });
         add(resetButton);
 
