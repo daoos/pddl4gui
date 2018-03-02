@@ -68,7 +68,7 @@ public class EditorPanel extends JPanel {
             hasListener = false;
         }
 
-        String extension = pddl.getExtensionFile();
+        final String extension = pddl.getExtensionFile();
 
         if (file.getName().endsWith(extension)) {
             final ArrayList<String> arrayList = pddl.setKeywords(pddl.getPDDLKeywords());

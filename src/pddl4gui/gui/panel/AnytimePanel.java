@@ -77,7 +77,7 @@ public class AnytimePanel extends JFrame {
         panel.setBounds(110, 10, 380, 90);
         add(panel);
 
-        JButton refreshButton = new JButton(Icons.getRefreshIcon());
+        final JButton refreshButton = new JButton(Icons.getRefreshIcon());
         refreshButton.setBounds(10, 15, 40, 40);
         refreshButton.setEnabled(true);
         refreshButton.setToolTipText("Refresh");
@@ -89,7 +89,7 @@ public class AnytimePanel extends JFrame {
         });
         add(refreshButton);
 
-        JButton exitButton = new JButton(Icons.getExitIcon());
+        final JButton exitButton = new JButton(Icons.getExitIcon());
         exitButton.setBounds(60, 15, 40, 40);
         exitButton.setEnabled(true);
         exitButton.setToolTipText("Exit");
@@ -97,7 +97,7 @@ public class AnytimePanel extends JFrame {
         add(exitButton);
 
         listModel = new DefaultListModel<>();
-        JList<Node> nodeJList = new JList<>(listModel);
+        final JList<Node> nodeJList = new JList<>(listModel);
         nodeJList.setLayoutOrientation(JList.VERTICAL);
         nodeJList.setVisibleRowCount(20);
         nodeJList.setSelectionModel(new DefaultListSelectionModel() {
@@ -134,7 +134,7 @@ public class AnytimePanel extends JFrame {
                 }
             }
         });
-        JScrollPane scrollNodeJList = new JScrollPane(nodeJList);
+        final JScrollPane scrollNodeJList = new JScrollPane(nodeJList);
         scrollNodeJList.setBounds(10, 110, 480, 200);
         add(scrollNodeJList);
 
@@ -146,7 +146,7 @@ public class AnytimePanel extends JFrame {
     private void refreshJList() {
         if (!token.getPlanner().getAnytimeSolutions().isEmpty()) {
             final Vector<Node> solutionList = new Vector<>(token.getPlanner().getAnytimeSolutions());
-            listModel.clear();
+            //listModel.clear();
             for (Node node : solutionList) {
                 if (!listModel.contains(node)) {
                     listModel.addElement(node);

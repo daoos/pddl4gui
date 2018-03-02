@@ -7,7 +7,6 @@ import fr.uga.pddl4j.parser.Message;
 import fr.uga.pddl4j.planners.ProblemFactory;
 import fr.uga.pddl4j.util.MemoryAgent;
 import fr.uga.pddl4j.util.Plan;
-import pddl4gui.Pddl4Gui;
 import pddl4gui.context.planner.Planner;
 import pddl4gui.gui.Solver;
 import pddl4gui.gui.panel.EngineStatusPanel;
