@@ -54,6 +54,7 @@ public class Engine extends Thread {
         while (solver.isVisible()) {
             try {
                 if (tokenList.size() > 0) {
+                    error = "";
                     final Token token = tokenList.pop();
                     engineStatusPanel.getEngineLabel().setText("solving " + token);
                     engineStatusPanel.getCirclePanel().setColor(Color.ORANGE);
