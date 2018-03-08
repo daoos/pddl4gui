@@ -72,6 +72,7 @@ public class TokenListPanel extends JPanel {
                             solver.displayError(selectedValue);
                         } else {
                             new AnytimePanel(selectedValue);
+                            solver.displayProgress(selectedValue);
                         }
                     } else {
                         anytimeSolutionButton.setEnabled(false);

@@ -29,7 +29,7 @@ public class PlannerDefault {
         return fr.uga.pddl4j.planners.hsp.HSP.DEFAULT_WEIGHT;
     }
 
-    /*public static Heuristic.Type getHcanytimeDefaultHeuristic() {
+    public static Heuristic.Type getHcanytimeDefaultHeuristic() {
         return fr.uga.pddl4j.planners.hc.HCAnytime.DEFAULT_HEURISTIC;
     }
 
@@ -43,7 +43,7 @@ public class PlannerDefault {
 
     public static double getFfanytime_defaultWeight() {
         return fr.uga.pddl4j.planners.ff.FFAnytime.DEFAULT_WEIGHT;
-    }*/
+    }
 
     public static int getPlannerDefaultTimeout() {
         return Planner.DEFAULT_TIMEOUT;

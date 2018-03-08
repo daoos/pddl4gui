@@ -1,6 +1,6 @@
 package pddl4gui.context.planner;
 
-/*import fr.uga.pddl4j.encoding.CodedProblem;
+import fr.uga.pddl4j.encoding.CodedProblem;
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Statistics;
 import fr.uga.pddl4j.planners.ff.Node;
@@ -35,7 +35,7 @@ public class HCAnytimeContext implements Planner {
     }
 
     public Type getType(){
-        return Type.HCANYTIME;
+        return Type.HCAnytime;
     }
 
     public int getTimeOut() {
@@ -54,4 +54,3 @@ public class HCAnytimeContext implements Planner {
         return hcAnytime.getSolutionNodes();
     }
 }
-*/

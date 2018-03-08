@@ -3,6 +3,8 @@ package pddl4gui.gui;
 import pddl4gui.context.planner.EHCContext;
 import pddl4gui.context.planner.FFContext;
 import pddl4gui.context.planner.HSPContext;
+import pddl4gui.context.planner.FFAnytimeContext;
+import pddl4gui.context.planner.HCAnytimeContext;
 import pddl4gui.context.planner.Planner;
 import pddl4gui.engine.Engine;
 import pddl4gui.gui.panel.EngineStatusPanel;
@@ -17,9 +19,6 @@ import pddl4gui.gui.tools.TokenList;
 
 import javax.swing.*;
 import java.awt.*;
-
-//import pddl4gui.context.planner.FFAnytimeContext;
-//import pddl4gui.context.planner.HCAnytimeContext;
 
 public class Solver extends JFrame {
 
@@ -42,6 +41,10 @@ public class Solver extends JFrame {
 
     public SetupSolverPanel getSetupPanel() {
         return setupPanel;
+    }
+
+    public ResultPanel getResultPanel() {
+        return resultPanel;
     }
 
     public EngineStatusPanel getEngineStatusPanel() {
@@ -94,7 +97,7 @@ public class Solver extends JFrame {
     }
 
     public void resolve() {
-        Planner planner = null;
+        Planner planner;
 
         switch (setupPanel.getPlanner()) {
             case FF: planner = new FFContext(setupPanel.getHeuristic(),
@@ -102,9 +105,9 @@ public class Solver extends JFrame {
                     (double) setupPanel.getTimeoutSpinner().getValue());
                 break;
             case FFAnytime: System.out.println("Available with PDDL4J 4.0");
-            /*planner = new FFAnytimeContext(setupPanel.getHeuristic(),
+            planner = new FFAnytimeContext(setupPanel.getHeuristic(),
                     (double) setupPanel.getWeightSpinner().getValue(),
-                    (double) setupPanel.getTimeoutSpinner().getValue());*/
+                    (double) setupPanel.getTimeoutSpinner().getValue());
                 break;
             case HSP: planner = new HSPContext(setupPanel.getHeuristic(),
                     (double) setupPanel.getWeightSpinner().getValue(),
@@ -115,9 +118,9 @@ public class Solver extends JFrame {
                     (double) setupPanel.getTimeoutSpinner().getValue());
                 break;
             case HCAnytime: System.out.println("Available with PDDL4J 4.0");
-            /*planner = new HCAnytimeContext(setupPanel.getHeuristic(),
+            planner = new HCAnytimeContext(setupPanel.getHeuristic(),
                     (double) setupPanel.getWeightSpinner().getValue(),
-                    (double) setupPanel.getTimeoutSpinner().getValue());*/
+                    (double) setupPanel.getTimeoutSpinner().getValue());
                 break;
             default: planner = new HSPContext(setupPanel.getHeuristic(),
                     (double) setupPanel.getWeightSpinner().getValue(),
