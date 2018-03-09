@@ -20,12 +20,12 @@ La librairie PDDL4J fournit :
 
 PDDL4GUI est une petite application écrite en Java qui fournit une interface graphique à la librairie PDDL4J. PDDL4GUI propose :
   - Une interface pour la résolution de problèmes de planification grâce à PDDL4J.
+  - Un comportement Anytime pour les planners compatibles (disponible avec PDDL4J 4.0).
   - L'intégration de VAL (The plan validation system) qui offre la possibilité de tester la validité des solutions fournies par PDDL4J.
   - Un éditeur PDDL.
-  - Un comportement Anytime pour les planners compatibles (disponible avec PDDL4J 4.0);
 
 Fonctionnalités qui vont être integrées par la suite :
-  - Une visualisation des solutions (plans) ;
+  - Une visualisation des solutions (plans).
   - ...
   
 #### Comment l'utiliser
