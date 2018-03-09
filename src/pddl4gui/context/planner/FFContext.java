@@ -49,8 +49,4 @@ public class FFContext implements Planner {
     public Plan search(CodedProblem problem) {
         return ff.search(problem);
     }
-
-    public Vector<Node> getAnytimeSolutions() {
-        return new Vector<>();
-    }
 }

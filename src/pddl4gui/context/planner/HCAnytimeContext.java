@@ -9,7 +9,7 @@ import fr.uga.pddl4j.util.Plan;
 
 import java.util.Vector;
 
-public class HCAnytimeContext implements Planner {
+public class HCAnytimeContext implements PlannerAnytime {
 
     private HCAnytime hcAnytime;
 

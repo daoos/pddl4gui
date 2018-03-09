@@ -26,6 +26,4 @@ public interface Planner {
     Statistics getStatistics();
 
     Plan search(CodedProblem problem);
-
-    Vector<Node> getAnytimeSolutions();
 }

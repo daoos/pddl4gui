@@ -1,6 +1,7 @@
 package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.planners.ff.Node;
+import pddl4gui.context.planner.PlannerAnytime;
 import pddl4gui.gui.tools.DecimalFormatSetup;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
@@ -144,8 +145,9 @@ public class AnytimePanel extends JFrame {
     }
 
     private void refreshJList() {
-        if (!token.getPlanner().getAnytimeSolutions().isEmpty()) {
-            final Vector<Node> solutionList = new Vector<>(token.getPlanner().getAnytimeSolutions());
+        final PlannerAnytime plannerAnytime = (PlannerAnytime) token.getPlanner();
+        if (!plannerAnytime.getAnytimeSolutions().isEmpty()) {
+            final Vector<Node> solutionList = new Vector<>(plannerAnytime.getAnytimeSolutions());
             //listModel.clear();
             for (Node node : solutionList) {
                 if (!listModel.contains(node)) {

@@ -65,13 +65,12 @@ public class TokenListPanel extends JPanel {
                 final Token selectedValue = tokenJList.getSelectedValue();
                 if (selectedValue != null) {
                     if (selectedValue.getPlanner().isAnytime()) {
+                        anytimeSolutionButton.setEnabled(true);
                         if (selectedValue.isSolved()) {
-                            anytimeSolutionButton.setEnabled(true);
                             solver.displayResult(selectedValue);
                         } else if (!selectedValue.getError().equals("")) {
                             solver.displayError(selectedValue);
                         } else {
-                            new AnytimePanel(selectedValue);
                             solver.displayProgress(selectedValue);
                         }
                     } else {

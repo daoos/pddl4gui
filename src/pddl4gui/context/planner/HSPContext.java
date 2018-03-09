@@ -49,8 +49,4 @@ public class HSPContext implements Planner {
     public Plan search(CodedProblem problem) {
         return hsp.search(problem);
     }
-
-    public Vector<Node> getAnytimeSolutions() {
-        return new Vector<>();
-    }
 }

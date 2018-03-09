@@ -49,8 +49,4 @@ public class EHCContext implements Planner {
     public Plan search(CodedProblem problem) {
         return ehc.search(problem);
     }
-
-    public Vector<Node> getAnytimeSolutions() {
-        return new Vector<>();
-    }
 }
