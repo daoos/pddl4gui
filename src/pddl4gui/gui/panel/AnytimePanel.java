@@ -1,7 +1,7 @@
 package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.planners.ff.Node;
-import pddl4gui.context.planner.PlannerAnytime;
+import pddl4gui.planners.PlannerAnytime;
 import pddl4gui.gui.tools.DecimalFormatSetup;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;

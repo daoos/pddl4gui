@@ -1,6 +1,6 @@
 package pddl4gui.token;
 
-import pddl4gui.context.planner.Planner;
+import pddl4gui.planners.Planner;
 
 import java.io.File;
 

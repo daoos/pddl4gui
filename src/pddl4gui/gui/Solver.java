@@ -1,11 +1,7 @@
 package pddl4gui.gui;
 
-import pddl4gui.context.planner.EHCContext;
-import pddl4gui.context.planner.FFContext;
-import pddl4gui.context.planner.HSPContext;
-import pddl4gui.context.planner.FFAnytimeContext;
-import pddl4gui.context.planner.HCAnytimeContext;
-import pddl4gui.context.planner.Planner;
+import pddl4gui.planners.Planner;
+import pddl4gui.planners.PlannerFactory;
 import pddl4gui.engine.Engine;
 import pddl4gui.gui.panel.EngineStatusPanel;
 import pddl4gui.gui.panel.MenuSolverPanel;
@@ -97,36 +93,10 @@ public class Solver extends JFrame {
     }
 
     public void resolve() {
-        Planner planner;
-
-        switch (setupPanel.getPlanner()) {
-            case FF: planner = new FFContext(setupPanel.getHeuristic(),
-                    (double) setupPanel.getWeightSpinner().getValue(),
-                    (double) setupPanel.getTimeoutSpinner().getValue());
-                break;
-            case FFAnytime: System.out.println("Available with PDDL4J 4.0");
-            planner = new FFAnytimeContext(setupPanel.getHeuristic(),
-                    (double) setupPanel.getWeightSpinner().getValue(),
-                    (double) setupPanel.getTimeoutSpinner().getValue());
-                break;
-            case HSP: planner = new HSPContext(setupPanel.getHeuristic(),
-                    (double) setupPanel.getWeightSpinner().getValue(),
-                    (double) setupPanel.getTimeoutSpinner().getValue());
-                break;
-            case EHC: planner = new EHCContext(setupPanel.getHeuristic(),
-                    (double) setupPanel.getWeightSpinner().getValue(),
-                    (double) setupPanel.getTimeoutSpinner().getValue());
-                break;
-            case HCAnytime: System.out.println("Available with PDDL4J 4.0");
-            planner = new HCAnytimeContext(setupPanel.getHeuristic(),
-                    (double) setupPanel.getWeightSpinner().getValue(),
-                    (double) setupPanel.getTimeoutSpinner().getValue());
-                break;
-            default: planner = new HSPContext(setupPanel.getHeuristic(),
-                    (double) setupPanel.getWeightSpinner().getValue(),
-                    (double) setupPanel.getTimeoutSpinner().getValue());
-                break;
-        }
+        final Planner planner = PlannerFactory.create(setupPanel.getPlanner(),
+                setupPanel.getHeuristic(),
+                (double) setupPanel.getWeightSpinner().getValue(),
+                (double) setupPanel.getTimeoutSpinner().getValue());
 
         final Token token = new Token(setupPanel.getDomainFile(), setupPanel.getProblemFile(), planner);
 

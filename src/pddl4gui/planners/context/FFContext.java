@@ -1,13 +1,12 @@
-package pddl4gui.context.planner;
+package pddl4gui.planners.context;
 
 import fr.uga.pddl4j.encoding.CodedProblem;
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Statistics;
 import fr.uga.pddl4j.planners.ff.FF;
-import fr.uga.pddl4j.planners.ff.Node;
 import fr.uga.pddl4j.util.Plan;
-
-import java.util.Vector;
+import pddl4gui.planners.Planner;
+import pddl4gui.planners.PlannerDefault;
 
 public class FFContext implements Planner {
 

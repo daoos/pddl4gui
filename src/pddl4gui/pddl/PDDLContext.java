@@ -1,4 +1,4 @@
-package pddl4gui.context.pddl;
+package pddl4gui.pddl;
 
 import pddl4gui.gui.tools.HighlightText;
 

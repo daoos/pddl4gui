@@ -1,4 +1,4 @@
-package pddl4gui.context.planner;
+package pddl4gui.planners;
 
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Planner;
