@@ -4,7 +4,6 @@ import pddl4gui.gui.Solver;
 import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
-import pddl4gui.gui.tools.TokenList;
 
 import javax.swing.*;
 import java.io.File;

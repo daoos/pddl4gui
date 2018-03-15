@@ -33,7 +33,7 @@ public class EHCContext implements Planner {
         ehc.setTimeOut((int) timeout);
     }
 
-    public Type getType(){
+    public Type getType() {
         return Type.EHC;
     }
 

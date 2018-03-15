@@ -33,7 +33,7 @@ public class FFContext implements Planner {
         ff.setTimeOut((int) timeout);
     }
 
-    public Type getType(){
+    public Type getType() {
         return Type.FF;
     }
 

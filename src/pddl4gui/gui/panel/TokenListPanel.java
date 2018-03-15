@@ -1,8 +1,8 @@
 package pddl4gui.gui.panel;
 
 import pddl4gui.gui.Solver;
-import pddl4gui.token.Token;
 import pddl4gui.gui.tools.TokenList;
+import pddl4gui.token.Token;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -26,7 +26,7 @@ public class TokenListPanel extends JPanel {
         anytimeSolutionButton.setEnabled(false);
         anytimeSolutionButton.setBounds(65, 20, 200, 25);
         anytimeSolutionButton.addActionListener(e -> {
-            if(tokenJList.getSelectedValue() != null){
+            if (tokenJList.getSelectedValue() != null) {
                 new AnytimePanel(tokenJList.getSelectedValue());
             }
         });

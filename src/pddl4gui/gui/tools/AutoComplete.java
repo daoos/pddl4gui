@@ -1,7 +1,7 @@
 package pddl4gui.gui.tools;
 
-import pddl4gui.pddl.PDDLContext;
 import pddl4gui.gui.panel.EditorPanel;
+import pddl4gui.pddl.PDDLContext;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

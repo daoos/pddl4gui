@@ -33,7 +33,7 @@ public class HSPContext implements Planner {
         hsp.setTimeOut((int) timeout);
     }
 
-    public Type getType(){
+    public Type getType() {
         return Type.HSP;
     }
 

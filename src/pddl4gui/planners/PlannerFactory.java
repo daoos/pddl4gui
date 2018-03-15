@@ -57,22 +57,29 @@ public class PlannerFactory {
         Planner planner;
 
         switch (plannerType) {
-            case FF: planner = new FFContext(heuristicType, weight, timeout);
+            case FF:
+                planner = new FFContext(heuristicType, weight, timeout);
                 break;
-            case FFAnytime: planner = new FFAnytimeContext(heuristicType, weight, timeout);
+            case FFAnytime:
+                planner = new FFAnytimeContext(heuristicType, weight, timeout);
                 break;
-            case HSP: planner = new HSPContext(heuristicType, weight, timeout);
+            case HSP:
+                planner = new HSPContext(heuristicType, weight, timeout);
                 break;
-            case EHC: planner = new EHCContext(heuristicType, weight, timeout);
+            case EHC:
+                planner = new EHCContext(heuristicType, weight, timeout);
                 break;
-            case HCAnytime: planner = new HCAnytimeContext(heuristicType, weight, timeout);
+            case HCAnytime:
+                planner = new HCAnytimeContext(heuristicType, weight, timeout);
                 break;
-            default: planner = new HSPContext(heuristicType, weight, timeout);
+            default:
+                planner = new HSPContext(heuristicType, weight, timeout);
                 break;
         }
 
         return planner;
     }
 
-    private PlannerFactory() {}
+    private PlannerFactory() {
+    }
 }

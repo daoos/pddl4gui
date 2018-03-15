@@ -1,12 +1,12 @@
 package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
-import pddl4gui.planners.Planner;
-import pddl4gui.planners.PlannerFactory;
 import pddl4gui.gui.Editor;
 import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
+import pddl4gui.planners.Planner;
+import pddl4gui.planners.PlannerFactory;
 
 import javax.swing.*;
 import java.io.File;
@@ -80,7 +80,7 @@ public class SetupSolverPanel extends JPanel {
         pbButton.setEnabled(true);
         pbButton.addActionListener(e -> {
             problemFiles = FileTools.getFiles(this);
-            if(problemFiles.size() == 1) {
+            if (problemFiles.size() == 1) {
                 if (!FileTools.checkFile(problemFiles.firstElement())) {
                     pbButton.setText(problemFiles.firstElement().getName());
                     editProblemButton.setEnabled(true);

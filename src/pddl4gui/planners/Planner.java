@@ -2,10 +2,7 @@ package pddl4gui.planners;
 
 import fr.uga.pddl4j.encoding.CodedProblem;
 import fr.uga.pddl4j.planners.Statistics;
-import fr.uga.pddl4j.planners.ff.Node;
 import fr.uga.pddl4j.util.Plan;
-
-import java.util.Vector;
 
 public interface Planner {
 

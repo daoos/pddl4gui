@@ -36,7 +36,7 @@ public class HCAnytimeContext implements PlannerAnytime {
         hcAnytime.setTimeOut((int) timeout);
     }
 
-    public Type getType(){
+    public Type getType() {
         return Type.HCAnytime;
     }
 

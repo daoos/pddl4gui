@@ -1,7 +1,5 @@
 package pddl4gui.gui;
 
-import pddl4gui.planners.Planner;
-import pddl4gui.planners.PlannerFactory;
 import pddl4gui.engine.Engine;
 import pddl4gui.gui.panel.EngineStatusPanel;
 import pddl4gui.gui.panel.MenuSolverPanel;
@@ -9,9 +7,11 @@ import pddl4gui.gui.panel.ResultPanel;
 import pddl4gui.gui.panel.SetupSolverPanel;
 import pddl4gui.gui.panel.StatisticsPanel;
 import pddl4gui.gui.panel.TokenListPanel;
-import pddl4gui.gui.tools.WindowsManager;
-import pddl4gui.token.Token;
 import pddl4gui.gui.tools.TokenList;
+import pddl4gui.gui.tools.WindowsManager;
+import pddl4gui.planners.Planner;
+import pddl4gui.planners.PlannerFactory;
+import pddl4gui.token.Token;
 
 import javax.swing.*;
 import java.awt.*;
@@ -100,7 +100,7 @@ public class Solver extends JFrame {
                 (double) setupPanel.getWeightSpinner().getValue(),
                 (double) setupPanel.getTimeoutSpinner().getValue());
 
-        for(File file : problemFiles) {
+        for (File file : problemFiles) {
             final Token token = new Token(domainFile, file, planner);
 
             if (token.isRunnable() && engineStatusPanel.getCirclePanel().getColor() != Color.RED) {
@@ -134,7 +134,7 @@ public class Solver extends JFrame {
         resultPanel.diplayProgress(token);
     }
 
-    public void resetSolver(){
+    public void resetSolver() {
         resultPanel.clearResult();
         statisticsPanel.clearStats();
         engine.getTokenList().clear();

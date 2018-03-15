@@ -53,8 +53,13 @@ public class EngineStatusPanel extends JPanel {
         progressBar.setVisible(true);
         progressBar.setStringPainted(true);
         progressBar.setUI(new BasicProgressBarUI() {
-            protected Color getSelectionBackground() { return Color.black; }
-            protected Color getSelectionForeground() { return Color.black; }
+            protected Color getSelectionBackground() {
+                return Color.black;
+            }
+
+            protected Color getSelectionForeground() {
+                return Color.black;
+            }
         });
         progressBar.setString("Time out");
         progressBar.setBounds(20, 65, 290, 20);

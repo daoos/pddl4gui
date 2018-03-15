@@ -1,11 +1,11 @@
 package pddl4gui.gui.panel;
 
-import pddl4gui.pddl.PDDLContext;
 import pddl4gui.gui.Editor;
 import pddl4gui.gui.tools.AutoComplete;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.TextLineNumber;
 import pddl4gui.gui.tools.UndoRedo;
+import pddl4gui.pddl.PDDLContext;
 
 import javax.swing.*;
 import java.awt.*;

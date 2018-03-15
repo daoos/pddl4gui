@@ -36,7 +36,7 @@ public class FFAnytimeContext implements PlannerAnytime {
         ffAnytime.setTimeOut((int) timeout);
     }
 
-    public Type getType(){
+    public Type getType() {
         return Type.FFAnytime;
     }
 
