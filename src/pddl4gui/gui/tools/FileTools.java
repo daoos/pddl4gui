@@ -7,7 +7,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Vector;
 
 public class FileTools {
 
@@ -49,6 +52,30 @@ public class FileTools {
             }
         }
         return openFile;
+    }
+
+    public static Vector<File> getFiles(Component component) {
+        final JFileChooser fileChooser = new JFileChooser();
+        if (staticLastPath != null) {
+            fileChooser.setCurrentDirectory(staticLastPath);
+        } else {
+            fileChooser.setCurrentDirectory(new File("."));
+        }
+
+        Vector<File> openFiles = new Vector<>();
+        fileChooser.setFileFilter(new FileNameExtensionFilter("pddl file", "pddl"));
+        fileChooser.setMultiSelectionEnabled(true);
+
+        int option = fileChooser.showOpenDialog(component);
+        if (option == JFileChooser.APPROVE_OPTION) {
+            try {
+                openFiles.addAll(Arrays.asList(fileChooser.getSelectedFiles()));
+                staticLastPath = openFiles.firstElement();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return openFiles;
     }
 
     public static String readFileToString(File file) {

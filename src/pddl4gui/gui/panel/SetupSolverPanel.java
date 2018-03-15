@@ -10,13 +10,14 @@ import pddl4gui.gui.tools.Icons;
 
 import javax.swing.*;
 import java.io.File;
+import java.util.Vector;
 
 public class SetupSolverPanel extends JPanel {
 
     final private JSpinner weightSpinner, timeoutSpinner;
     final private JButton domainButton, pbButton, editDomainButton, editProblemButton, planButton;
     private File domainFile;
-    private File problemFile;
+    private Vector<File> problemFiles;
     private Heuristic.Type heuristic = Heuristic.Type.FAST_FORWARD;
     private Planner.Type planner = Planner.Type.HSP;
 
@@ -26,14 +27,6 @@ public class SetupSolverPanel extends JPanel {
 
     public JSpinner getTimeoutSpinner() {
         return timeoutSpinner;
-    }
-
-    public File getDomainFile() {
-        return domainFile;
-    }
-
-    public File getProblemFile() {
-        return problemFile;
     }
 
     public Heuristic.Type getHeuristic() {
@@ -86,13 +79,16 @@ public class SetupSolverPanel extends JPanel {
         pbButton.setBounds(100, 65, 150, 25);
         pbButton.setEnabled(true);
         pbButton.addActionListener(e -> {
-            File tempFile = FileTools.getFile(this, 0);
-            if (!FileTools.checkFile(tempFile)) {
-                problemFile = tempFile;
-                pbButton.setText(tempFile.getName());
-                editProblemButton.setEnabled(true);
+            problemFiles = FileTools.getFiles(this);
+            if(problemFiles.size() == 1) {
+                if (!FileTools.checkFile(problemFiles.firstElement())) {
+                    pbButton.setText(problemFiles.firstElement().getName());
+                    editProblemButton.setEnabled(true);
+                }
+            } else if (problemFiles.size() >= 1) {
+                pbButton.setText(problemFiles.size() + " problems");
+                editProblemButton.setEnabled(false);
             }
-
         });
         add(pbButton);
 
@@ -100,7 +96,7 @@ public class SetupSolverPanel extends JPanel {
         editProblemButton.setEnabled(false);
         editProblemButton.addActionListener(e -> {
             enablePBButton(false);
-            new Editor(solver, problemFile, 1);
+            new Editor(solver, problemFiles.firstElement(), 1);
         });
         add(editProblemButton);
 
@@ -145,7 +141,7 @@ public class SetupSolverPanel extends JPanel {
         planButton = new JButton("Resolve this problem !");
         planButton.setBounds(65, 270, 200, 25);
         planButton.setEnabled(true);
-        planButton.addActionListener(e -> solver.resolve());
+        planButton.addActionListener(e -> solver.resolve(domainFile, problemFiles));
         add(planButton);
     }
 

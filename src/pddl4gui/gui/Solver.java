@@ -15,6 +15,8 @@ import pddl4gui.gui.tools.TokenList;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.util.Vector;
 
 public class Solver extends JFrame {
 
@@ -92,22 +94,24 @@ public class Solver extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void resolve() {
+    public void resolve(File domainFile, Vector<File> problemFiles) {
         final Planner planner = PlannerFactory.create(setupPanel.getPlanner(),
                 setupPanel.getHeuristic(),
                 (double) setupPanel.getWeightSpinner().getValue(),
                 (double) setupPanel.getTimeoutSpinner().getValue());
 
-        final Token token = new Token(setupPanel.getDomainFile(), setupPanel.getProblemFile(), planner);
+        for(File file : problemFiles) {
+            final Token token = new Token(domainFile, file, planner);
 
-        if (token.isRunnable() && engineStatusPanel.getCirclePanel().getColor() != Color.RED) {
-            if (!TokenList.getListModel().contains(token)) {
-                TokenList.getListModel().addElement(token);
-                engine.addToken(token);
-                engineStatusPanel.setTokensRemaining(engine.getTokenList().size());
+            if (token.isRunnable() && engineStatusPanel.getCirclePanel().getColor() != Color.RED) {
+                if (!TokenList.getListModel().contains(token)) {
+                    TokenList.getListModel().addElement(token);
+                    engine.addToken(token);
+                }
             }
-        }
 
+            engineStatusPanel.setTokensRemaining(engine.getTokenList().size());
+        }
     }
 
     public void displayResult(Token token) {
