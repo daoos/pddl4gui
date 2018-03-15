@@ -25,8 +25,8 @@ public class AnytimePanel extends JFrame {
 
         setLayout(null);
         setSize(500, 350);
-        setTitle(FileTools.removeExtension(this.token.getDomainFile().getName())
-                + " " + FileTools.removeExtension(this.token.getProblemFile().getName()));
+        setTitle(this.token.getDomainFileName()
+                + " " + this.token.getProblemFileName());
 
         final int labWidth = 120;
         final int labHeight = 20;

@@ -24,7 +24,7 @@ public class VAL extends JFrame {
     public VAL(Token token) {
         final JButton exitButton, generateTexButton, saveButton;
 
-        setTitle("VAL | " + WindowsManager.NAME);
+        setTitle("VAL | " + token.toString());
         setLayout(null);
 
         final int width = 540;

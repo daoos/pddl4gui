@@ -6,7 +6,7 @@ import fr.uga.pddl4j.planners.Statistics;
 import fr.uga.pddl4j.planners.ff.FF;
 import fr.uga.pddl4j.util.Plan;
 import pddl4gui.planners.Planner;
-import pddl4gui.planners.PlannerDefault;
+import pddl4gui.planners.PlannerFactory;
 
 public class FFContext implements Planner {
 
@@ -18,8 +18,8 @@ public class FFContext implements Planner {
 
     public FFContext() {
         ff = new FF();
-        this.setFF(PlannerDefault.getFfDefaultHeuristic(),
-                PlannerDefault.getFfDefaultWeight(), PlannerDefault.getPlannerDefaultTimeout());
+        this.setFF(PlannerFactory.getFfDefaultHeuristic(),
+                PlannerFactory.getFfDefaultWeight(), PlannerFactory.getPlannerDefaultTimeout());
     }
 
     public FFContext(Heuristic.Type heuristic, double weight, double timeout) {

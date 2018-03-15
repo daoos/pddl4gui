@@ -19,9 +19,19 @@ public class Token {
     private File domainFile;
 
     /**
+     * The domain filename.
+     */
+    private String domainFileName;
+
+    /**
      * The problem file.
      */
     private File problemFile;
+
+    /**
+     * The problem filename.
+     */
+    private String problemFileName;
 
     /**
      * The result object containing all the result from the solving step.
@@ -67,12 +77,30 @@ public class Token {
     }
 
     /**
+     * Returns the domain filename of the token.
+     *
+     * @return the domain filename of the token.
+     */
+    public String getDomainFileName() {
+        return domainFileName;
+    }
+
+    /**
      * Returns the problem file of the token.
      *
      * @return the problem file of the token.
      */
     public File getProblemFile() {
         return problemFile;
+    }
+
+    /**
+     * Returns the problem filename of the token.
+     *
+     * @return the problem filename of the token.
+     */
+    public String getProblemFileName() {
+        return problemFileName;
     }
 
     /**
@@ -152,7 +180,9 @@ public class Token {
      */
     public Token(File domainFile, File problemFile, Planner planner) {
         this.domainFile = domainFile;
+        this.domainFileName = FileTools.removeExtension(domainFile.getName());
         this.problemFile = problemFile;
+        this.problemFileName = FileTools.removeExtension(problemFile.getName());
         this.planner = planner;
         this.runnable = isTokenRunnable();
         this.solved = false;
@@ -161,6 +191,6 @@ public class Token {
 
     @Override
     public String toString() {
-        return "Token :  " + FileTools.removeExtension(domainFile.getName()) + " | " + FileTools.removeExtension(problemFile.getName());
+        return "Token :  " + domainFileName + " - " + problemFileName;
     }
 }

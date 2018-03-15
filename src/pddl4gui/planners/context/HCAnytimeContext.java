@@ -7,7 +7,7 @@ import fr.uga.pddl4j.planners.ff.Node;
 import fr.uga.pddl4j.planners.hc.HCAnytime;
 import fr.uga.pddl4j.util.Plan;
 import pddl4gui.planners.PlannerAnytime;
-import pddl4gui.planners.PlannerDefault;
+import pddl4gui.planners.PlannerFactory;
 
 import java.util.Vector;
 
@@ -21,8 +21,8 @@ public class HCAnytimeContext implements PlannerAnytime {
 
     public HCAnytimeContext() {
         hcAnytime = new HCAnytime();
-        this.setHCAnytime(PlannerDefault.getHcanytimeDefaultHeuristic(),
-         PlannerDefault.getHcanytimeDefaultWeight(), PlannerDefault.getPlannerDefaultTimeout());
+        this.setHCAnytime(PlannerFactory.getHcanytimeDefaultHeuristic(),
+                PlannerFactory.getHcanytimeDefaultWeight(), PlannerFactory.getPlannerDefaultTimeout());
     }
 
     public HCAnytimeContext(Heuristic.Type heuristic, double weight, double timeout) {

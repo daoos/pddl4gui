@@ -7,7 +7,7 @@ import fr.uga.pddl4j.planners.ff.FFAnytime;
 import fr.uga.pddl4j.planners.ff.Node;
 import fr.uga.pddl4j.util.Plan;
 import pddl4gui.planners.PlannerAnytime;
-import pddl4gui.planners.PlannerDefault;
+import pddl4gui.planners.PlannerFactory;
 
 import java.util.Vector;
 
@@ -21,8 +21,8 @@ public class FFAnytimeContext implements PlannerAnytime {
 
     public FFAnytimeContext() {
         ffAnytime = new FFAnytime();
-        this.setFFAnytime(PlannerDefault.getFfanytime_defaultHeuristic(),
-         PlannerDefault.getFfanytime_defaultWeight(), PlannerDefault.getPlannerDefaultTimeout());
+        this.setFFAnytime(PlannerFactory.getFfanytime_defaultHeuristic(),
+                PlannerFactory.getFfanytime_defaultWeight(), PlannerFactory.getPlannerDefaultTimeout());
     }
 
     public FFAnytimeContext(Heuristic.Type heuristic, double weight, double timeout) {

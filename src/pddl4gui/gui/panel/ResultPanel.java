@@ -65,8 +65,8 @@ public class ResultPanel extends JPanel {
     }
 
     public void displayResult(Token token) {
-        domain.setText(token.getDomainFile().getName());
-        problem.setText(token.getProblemFile().getName());
+        domain.setText(token.getDomainFileName());
+        problem.setText(token.getProblemFileName());
         cost.setText(String.valueOf(DecimalFormatSetup.getDf()
                 .format(token.getResult().getStatistics().getCost())));
         depth.setText(String.valueOf(DecimalFormatSetup.getDf()
@@ -76,8 +76,8 @@ public class ResultPanel extends JPanel {
     }
 
     public void displayError(Token token) {
-        domain.setText(token.getDomainFile().getName());
-        problem.setText(token.getProblemFile().getName());
+        domain.setText(token.getDomainFileName());
+        problem.setText(token.getProblemFileName());
         cost.setText(String.valueOf(0));
         depth.setText(String.valueOf(0));
         planner.setText(token.getPlanner().getType().toString());
@@ -85,8 +85,8 @@ public class ResultPanel extends JPanel {
     }
 
     public void diplayProgress(Token token) {
-        domain.setText(token.getDomainFile().getName());
-        problem.setText(token.getProblemFile().getName());
+        domain.setText(token.getDomainFileName());
+        problem.setText(token.getProblemFileName());
         cost.setText(String.valueOf(0));
         depth.setText(String.valueOf(0));
         planner.setText(token.getPlanner().getType().toString());

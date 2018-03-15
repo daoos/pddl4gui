@@ -6,7 +6,7 @@ import fr.uga.pddl4j.planners.Statistics;
 import fr.uga.pddl4j.planners.hsp.HSP;
 import fr.uga.pddl4j.util.Plan;
 import pddl4gui.planners.Planner;
-import pddl4gui.planners.PlannerDefault;
+import pddl4gui.planners.PlannerFactory;
 
 public class HSPContext implements Planner {
 
@@ -18,8 +18,8 @@ public class HSPContext implements Planner {
 
     public HSPContext() {
         hsp = new HSP();
-        this.setHSP(PlannerDefault.getHspDefaultHeuristic(),
-                PlannerDefault.getHspDefaultWeight(), PlannerDefault.getPlannerDefaultTimeout());
+        this.setHSP(PlannerFactory.getHspDefaultHeuristic(),
+                PlannerFactory.getHspDefaultWeight(), PlannerFactory.getPlannerDefaultTimeout());
     }
 
     public HSPContext(Heuristic.Type heuristic, double weight, double timeout) {

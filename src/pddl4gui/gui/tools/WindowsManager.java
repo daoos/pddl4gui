@@ -6,7 +6,6 @@ public class WindowsManager {
     private static Point location;
     private static int width;
     public final static String NAME = "PDDL 4 GUI";
-    public final static double VERSION = 0.42;
 
     public static void setPoint(Point location) {
         WindowsManager.location = location;

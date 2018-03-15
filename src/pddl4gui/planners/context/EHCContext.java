@@ -6,7 +6,7 @@ import fr.uga.pddl4j.planners.Statistics;
 import fr.uga.pddl4j.planners.hc.EHC;
 import fr.uga.pddl4j.util.Plan;
 import pddl4gui.planners.Planner;
-import pddl4gui.planners.PlannerDefault;
+import pddl4gui.planners.PlannerFactory;
 
 public class EHCContext implements Planner {
 
@@ -18,8 +18,8 @@ public class EHCContext implements Planner {
 
     public EHCContext() {
         ehc = new EHC();
-        this.setEHC(PlannerDefault.getEhcDefaultHeuristic(),
-                PlannerDefault.getEhcDefaultWeight(), PlannerDefault.getPlannerDefaultTimeout());
+        this.setEHC(PlannerFactory.getEhcDefaultHeuristic(),
+                PlannerFactory.getEhcDefaultWeight(), PlannerFactory.getPlannerDefaultTimeout());
     }
 
     public EHCContext(Heuristic.Type heuristic, double weight, double timeout) {

@@ -62,7 +62,7 @@ public class Solver extends JFrame {
 
         setLayout(null);
         setSize(width, height);
-        setTitle(WindowsManager.NAME + " " + WindowsManager.VERSION);
+        setTitle(WindowsManager.NAME);
         WindowsManager.setPoint(this.getLocation());
         WindowsManager.setWidth(width);
 
