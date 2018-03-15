@@ -1,5 +1,6 @@
 package pddl4gui.token;
 
+import pddl4gui.gui.tools.FileTools;
 import pddl4gui.planners.Planner;
 
 import java.io.File;
@@ -156,5 +157,10 @@ public class Token {
         this.runnable = isTokenRunnable();
         this.solved = false;
         this.error = "";
+    }
+
+    @Override
+    public String toString() {
+        return "Token :  " + FileTools.removeExtension(domainFile.getName()) + " | " + FileTools.removeExtension(problemFile.getName());
     }
 }
