@@ -15,6 +15,13 @@ public class FileTools {
 
     private static File staticLastPath;
 
+    private static FileNameExtensionFilter pddl = new FileNameExtensionFilter("pddl file", "pddl");
+    private static FileNameExtensionFilter txt = new FileNameExtensionFilter("text file", "txt");
+    private static FileNameExtensionFilter tex = new FileNameExtensionFilter("tex file", "tex");
+    private static FileNameExtensionFilter png = new FileNameExtensionFilter("png file", "png");
+    private static FileNameExtensionFilter svg = new FileNameExtensionFilter("svg file", "svg");
+    private static FileNameExtensionFilter json = new FileNameExtensionFilter("JSON file", "json");
+
     public static boolean checkFile(File file) {
         return (file == null);
     }
@@ -26,7 +33,7 @@ public class FileTools {
         return fileName;
     }
 
-    public static File getFile(Component component, int integer) {
+    public static Vector<File> getFiles(Component component, int integer, boolean multiple, JButton button) {
         final JFileChooser fileChooser = new JFileChooser();
         if (staticLastPath != null) {
             fileChooser.setCurrentDirectory(staticLastPath);
@@ -34,46 +41,35 @@ public class FileTools {
             fileChooser.setCurrentDirectory(new File("."));
         }
 
-        File openFile = null;
         if (integer == 0) {
-            fileChooser.setFileFilter(new FileNameExtensionFilter("pddl file", "pddl"));
+            fileChooser.setFileFilter(pddl);
         } else if (integer == 1) {
-            fileChooser.setFileFilter(new FileNameExtensionFilter("text file", "txt"));
-        }
-        int option = fileChooser.showOpenDialog(component);
-
-        if (option == JFileChooser.APPROVE_OPTION) {
-            try {
-                openFile = fileChooser.getSelectedFile();
-                staticLastPath = openFile;
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-        return openFile;
-    }
-
-    public static Vector<File> getFiles(Component component) {
-        final JFileChooser fileChooser = new JFileChooser();
-        if (staticLastPath != null) {
-            fileChooser.setCurrentDirectory(staticLastPath);
-        } else {
-            fileChooser.setCurrentDirectory(new File("."));
+            fileChooser.setFileFilter(txt);
         }
 
+        fileChooser.setMultiSelectionEnabled(multiple);
         Vector<File> openFiles = new Vector<>();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("pddl file", "pddl"));
-        fileChooser.setMultiSelectionEnabled(true);
 
         int option = fileChooser.showOpenDialog(component);
+
         if (option == JFileChooser.APPROVE_OPTION) {
             try {
-                openFiles.addAll(Arrays.asList(fileChooser.getSelectedFiles()));
-                staticLastPath = openFiles.firstElement();
+                if (multiple) {
+                    openFiles.addAll(Arrays.asList(fileChooser.getSelectedFiles()));
+                    staticLastPath = openFiles.firstElement();
+                } else {
+                    final File file = fileChooser.getSelectedFile();
+                    staticLastPath = file;
+                    openFiles.add(file);
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+        if (option == JFileChooser.CANCEL_OPTION) {
+            button.setText("No file(s) selected");
+        }
+
         return openFiles;
     }
 
@@ -112,22 +108,22 @@ public class FileTools {
 
         if (integer == 0) {
             fileChooser.setSelectedFile(new File("file.pddl"));
-            fileChooser.setFileFilter(new FileNameExtensionFilter("pddl file", "pddl"));
+            fileChooser.setFileFilter(pddl);
         } else if (integer == 1) {
             fileChooser.setSelectedFile(new File("file.txt"));
-            fileChooser.setFileFilter(new FileNameExtensionFilter("text file", "txt"));
+            fileChooser.setFileFilter(txt);
         } else if (integer == 2) {
             fileChooser.setSelectedFile(new File("file.tex"));
-            fileChooser.setFileFilter(new FileNameExtensionFilter("tex file", "tex"));
+            fileChooser.setFileFilter(tex);
         } else if (integer == 3) {
             fileChooser.setSelectedFile(new File("file.png"));
-            fileChooser.setFileFilter(new FileNameExtensionFilter("png file", "png"));
+            fileChooser.setFileFilter(png);
         } else if (integer == 4) {
             fileChooser.setSelectedFile(new File("file.svg"));
-            fileChooser.setFileFilter(new FileNameExtensionFilter("svg file", "svg"));
+            fileChooser.setFileFilter(svg);
         } else if (integer == 5) {
             fileChooser.setSelectedFile(new File("file.json"));
-            fileChooser.setFileFilter(new FileNameExtensionFilter("JSON file", "json"));
+            fileChooser.setFileFilter(json);
         }
 
         int option = fileChooser.showSaveDialog(component);

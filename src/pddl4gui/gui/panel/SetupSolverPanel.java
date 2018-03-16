@@ -56,11 +56,15 @@ public class SetupSolverPanel extends JPanel {
         domainButton.setBounds(100, 25, 150, 25);
         domainButton.setEnabled(true);
         domainButton.addActionListener(e -> {
-            File tempFile = FileTools.getFile(this, 0);
-            if (!FileTools.checkFile(tempFile)) {
-                domainFile = tempFile;
-                domainButton.setText(tempFile.getName());
-                editDomainButton.setEnabled(true);
+            final Vector<File> domainTempFile = FileTools.getFiles(this, 0, false, domainButton);
+            if (domainTempFile.size() == 1) {
+                domainFile = domainTempFile.firstElement();
+                if (!FileTools.checkFile(domainFile)) {
+                    domainButton.setText(domainFile.getName());
+                    editDomainButton.setEnabled(true);
+                }
+            } else {
+                editDomainButton.setEnabled(false);
             }
         });
         add(domainButton);
@@ -79,7 +83,7 @@ public class SetupSolverPanel extends JPanel {
         pbButton.setBounds(100, 65, 150, 25);
         pbButton.setEnabled(true);
         pbButton.addActionListener(e -> {
-            problemFiles = FileTools.getFiles(this);
+            problemFiles = FileTools.getFiles(this, 0, true, pbButton);
             if (problemFiles.size() == 1) {
                 if (!FileTools.checkFile(problemFiles.firstElement())) {
                     pbButton.setText(problemFiles.firstElement().getName());
@@ -87,6 +91,8 @@ public class SetupSolverPanel extends JPanel {
                 }
             } else if (problemFiles.size() >= 1) {
                 pbButton.setText(problemFiles.size() + " problems");
+                editProblemButton.setEnabled(false);
+            } else {
                 editProblemButton.setEnabled(false);
             }
         });
