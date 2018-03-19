@@ -59,7 +59,7 @@ public class SetupSolverPanel extends JPanel {
             final Vector<File> domainTempFile = FileTools.getFiles(this, 0, false, domainButton);
             if (domainTempFile.size() == 1) {
                 domainFile = domainTempFile.firstElement();
-                if (!FileTools.checkFile(domainFile)) {
+                if (FileTools.checkFile(domainFile)) {
                     domainButton.setText(domainFile.getName());
                     editDomainButton.setEnabled(true);
                 }
@@ -85,7 +85,7 @@ public class SetupSolverPanel extends JPanel {
         pbButton.addActionListener(e -> {
             problemFiles = FileTools.getFiles(this, 0, true, pbButton);
             if (problemFiles.size() == 1) {
-                if (!FileTools.checkFile(problemFiles.firstElement())) {
+                if (FileTools.checkFile(problemFiles.firstElement())) {
                     pbButton.setText(problemFiles.firstElement().getName());
                     editProblemButton.setEnabled(true);
                 }

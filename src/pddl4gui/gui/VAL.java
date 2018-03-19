@@ -47,7 +47,7 @@ public class VAL extends JFrame {
                         + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
                 StringBuilder output = VAL.execVal(target);
                 File tempFile = FileTools.saveFile(this, 2);
-                if (!FileTools.checkFile(tempFile))
+                if (FileTools.checkFile(tempFile))
                     FileTools.writeInFile(tempFile, output.toString());
             }
         });
@@ -60,7 +60,7 @@ public class VAL extends JFrame {
         saveButton.addActionListener(e -> {
             if (isValide) {
                 File tempFile = FileTools.saveFile(this, 1);
-                if (!FileTools.checkFile(tempFile))
+                if (FileTools.checkFile(tempFile))
                     FileTools.writeInFile(tempFile, textArea.getText());
             }
         });
@@ -87,7 +87,7 @@ public class VAL extends JFrame {
                 writer.write(token.getResult().getSolutionString());
             }
 
-            if (!FileTools.checkFile(domainFile) && !FileTools.checkFile(pbFile) && token.isSolved()) {
+            if (FileTools.checkFile(domainFile) && FileTools.checkFile(pbFile) && token.isSolved()) {
                 try {
                     String target = "./resources/apps/validate -v " + domainFile.getAbsolutePath()
                             + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();

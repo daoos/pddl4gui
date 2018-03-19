@@ -23,7 +23,7 @@ public class FileTools {
     private static FileNameExtensionFilter json = new FileNameExtensionFilter("JSON file", "json");
 
     public static boolean checkFile(File file) {
-        return (file == null);
+        return (file != null);
     }
 
     public static String removeExtension(String fileName) {
@@ -78,8 +78,10 @@ public class FileTools {
         try {
             Scanner scan = FileTools.readFileToScanner(file);
             if (scan != null) {
-                while (scan.hasNext())
-                    fileContent.append(scan.nextLine() + "\n");
+                while (scan.hasNext()) {
+                    fileContent.append(scan.nextLine());
+                    fileContent.append("\n");
+                }
             }
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -189,6 +189,9 @@ public class Token {
         this.error = "";
     }
 
+    /**
+     * Token toString method.
+     */
     @Override
     public String toString() {
         return "Token :  " + domainFileName + " - " + problemFileName;

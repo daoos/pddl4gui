@@ -42,7 +42,7 @@ public class MenuSolverPanel extends JPanel {
         saveTxtButton.addActionListener(e -> {
             if (solver.getTokenListPanel().getTokenJList().getSelectedValue().isSolved()) {
                 File tempFile = FileTools.saveFile(this, 1);
-                if (!FileTools.checkFile(tempFile)) {
+                if (FileTools.checkFile(tempFile)) {
                     FileTools.writeInFile(tempFile, solver.getTokenListPanel().getTokenJList()
                             .getSelectedValue().getResult().getSolutionString());
                 }
@@ -57,7 +57,7 @@ public class MenuSolverPanel extends JPanel {
         saveJsonButton.addActionListener(e -> {
             if (solver.getTokenListPanel().getTokenJList().getSelectedValue().isSolved()) {
                 File tempFile = FileTools.saveFile(this, 5);
-                if (!FileTools.checkFile(tempFile)) {
+                if (FileTools.checkFile(tempFile)) {
                     FileTools.writeInFile(tempFile, solver.getTokenListPanel().getTokenJList()
                             .getSelectedValue().getResult().getSolutionJSON());
                 }
