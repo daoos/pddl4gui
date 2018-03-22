@@ -138,6 +138,10 @@ public class AnytimePanel extends JFrame {
         scrollNodeJList.setBounds(10, 110, 480, 200);
         add(scrollNodeJList);
 
+        if (token.isSolved()) {
+            refreshJList();
+        }
+
         setLocation(WindowsManager.setWindowsLocation());
         setVisible(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

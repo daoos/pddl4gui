@@ -95,10 +95,11 @@ public class Solver extends JFrame {
     }
 
     public void resolve(File domainFile, Vector<File> problemFiles) {
+        final double weight = (double) setupPanel.getWeightSpinner().getValue();
+        final double timeout = (double) setupPanel.getTimeoutSpinner().getValue();
+
         final Planner planner = PlannerFactory.create(setupPanel.getPlanner(),
-                setupPanel.getHeuristic(),
-                (double) setupPanel.getWeightSpinner().getValue(),
-                (double) setupPanel.getTimeoutSpinner().getValue());
+                setupPanel.getHeuristic(), weight, timeout);
 
         for (File file : problemFiles) {
             final Token token = new Token(domainFile, file, planner);
