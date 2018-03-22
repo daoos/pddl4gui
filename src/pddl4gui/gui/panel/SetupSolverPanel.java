@@ -5,7 +5,7 @@ import pddl4gui.gui.Editor;
 import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
-import pddl4gui.gui.tools.Popup;
+import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.planners.Planner;
 import pddl4gui.planners.PlannerFactory;
 
@@ -139,9 +139,9 @@ public class SetupSolverPanel extends JPanel {
         final SpinnerNumberModel modelTimeout = new SpinnerNumberModel(PlannerFactory.getPlannerDefaultTimeout(),
                 0.0, 10000.0, 1);
         timeoutSpinner = new JSpinner(modelTimeout);
-        timeoutSpinner.addChangeListener( e -> {
+        timeoutSpinner.addChangeListener(e -> {
             if (Math.abs((double) timeoutSpinner.getValue() - 42.0) < 0.0001) {
-                new Popup(new ImageIcon("resources/icons/42.png"));
+                WindowsManager.h2g2("42");
             }
         });
         timeoutSpinner.setBounds(100, 225, 150, 25);
