@@ -141,7 +141,7 @@ public class SetupSolverPanel extends JPanel {
         timeoutSpinner = new JSpinner(modelTimeout);
         timeoutSpinner.addChangeListener(e -> {
             if (Math.abs((double) timeoutSpinner.getValue() - 42.0) < 0.0001) {
-                WindowsManager.h2g2("42");
+                WindowsManager.h2g2("42 is the answer");
             }
         });
         timeoutSpinner.setBounds(100, 225, 150, 25);
