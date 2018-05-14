@@ -56,7 +56,7 @@ public class Engine extends Thread {
                 if (tokenList.size() > 0) {
                     error = "";
                     final Token token = tokenList.pop();
-                    engineStatusPanel.getEngineLabel().setText("solving " + token);
+                    engineStatusPanel.getEngineLabel().setText("Solving " + token);
                     engineStatusPanel.getCirclePanel().setColor(Color.ORANGE);
                     engineStatusPanel.getCirclePanel().repaint();
                     
@@ -76,7 +76,7 @@ public class Engine extends Thread {
                 } else {
                     progressBar.setValue(0);
                     progressBar.setString("Time out");
-                    engineStatusPanel.getEngineLabel().setText("waiting for token");
+                    engineStatusPanel.getEngineLabel().setText("Waiting for token");
                     engineStatusPanel.getCirclePanel().setColor(Color.GREEN);
                     engineStatusPanel.getCirclePanel().repaint();
                 }

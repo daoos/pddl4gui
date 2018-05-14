@@ -194,6 +194,6 @@ public class Token {
      */
     @Override
     public String toString() {
-        return "Token :  " + domainFileName + " - " + problemFileName;
+        return domainFileName + " - " + problemFileName;
     }
 }
