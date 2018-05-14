@@ -135,9 +135,13 @@ public class Solver extends JFrame {
         resultPanel.diplayProgress(token);
     }
 
-    public void resetSolver() {
+    public void clearResult() {
         resultPanel.clearResult();
         statisticsPanel.clearStats();
+    }
+
+    public void resetSolver() {
+        clearResult();
         engine.getTokenList().clear();
         TokenList.getListModel().clear();
     }

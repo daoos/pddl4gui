@@ -10,7 +10,7 @@ import javax.swing.event.ListSelectionEvent;
 public class TokenListPanel extends JPanel {
 
     final private JList<Token> tokenJList;
-    final private JButton anytimeSolutionButton;
+    final private JButton anytimeSolutionButton, multipleResults;
 
     public JList<Token> getTokenJList() {
         return tokenJList;
@@ -21,16 +21,29 @@ public class TokenListPanel extends JPanel {
         setBorder(BorderFactory.createTitledBorder("Token list"));
 
         anytimeSolutionButton = new JButton("Anytime details");
+        multipleResults = new JButton("Compute cost");
         tokenJList = new JList<>(TokenList.getListModel());
 
         anytimeSolutionButton.setEnabled(false);
-        anytimeSolutionButton.setBounds(65, 20, 200, 25);
+        anytimeSolutionButton.setBounds(20, 20, 140, 25);
         anytimeSolutionButton.addActionListener(e -> {
             if (tokenJList.getSelectedValue() != null) {
                 new AnytimePanel(tokenJList.getSelectedValue());
             }
         });
         add(anytimeSolutionButton);
+
+        multipleResults.setEnabled(false);
+        multipleResults.setBounds(170, 20, 140, 25);
+        multipleResults.addActionListener(e -> {
+            double cost = 0.0;
+            for (Token token : tokenJList.getSelectedValuesList()) {
+                cost += token.getResult().getStatistics().getCost();
+            }
+            JOptionPane.showMessageDialog( null, "Token selected: " + tokenJList.getSelectedValuesList().size()
+                    + "\nTotal cost: " + cost,  "Multiple Selection", JOptionPane.PLAIN_MESSAGE);
+        });
+        add(multipleResults);
 
         tokenJList.setLayoutOrientation(JList.VERTICAL);
         tokenJList.setVisibleRowCount(20);
@@ -59,30 +72,42 @@ public class TokenListPanel extends JPanel {
             }
 
         });
-        tokenJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tokenJList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tokenJList.addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
-                final Token selectedValue = tokenJList.getSelectedValue();
-                if (selectedValue != null) {
-                    if (selectedValue.getPlanner().isAnytime()) {
-                        anytimeSolutionButton.setEnabled(true);
-                        if (selectedValue.isSolved()) {
-                            solver.displayResult(selectedValue);
-                        } else if (!selectedValue.getError().equals("")) {
-                            solver.displayError(selectedValue);
+                if (tokenJList.getSelectedValuesList().size() > 1) {
+                    solver.clearResult();
+                    multipleResults.setEnabled(true);
+                }
+                else if (tokenJList.getSelectedValuesList().size() == 1) {
+                    multipleResults.setEnabled(false);
+
+                    final Token selectedValue = tokenJList.getSelectedValue();
+                    if (selectedValue != null) {
+                        if (selectedValue.getPlanner().isAnytime()) {
+                            anytimeSolutionButton.setEnabled(true);
+                            if (selectedValue.isSolved()) {
+                                solver.displayResult(selectedValue);
+                            } else if (!selectedValue.getError().equals("")) {
+                                solver.displayError(selectedValue);
+                            } else {
+                                solver.displayProgress(selectedValue);
+                            }
                         } else {
-                            solver.displayProgress(selectedValue);
-                        }
-                    } else {
-                        anytimeSolutionButton.setEnabled(false);
-                        if (selectedValue.isSolved()) {
-                            solver.displayResult(selectedValue);
-                        } else if (!selectedValue.isSolved() && !selectedValue.getError().equals("")) {
-                            solver.displayError(selectedValue);
-                        } else {
-                            solver.displayProgress(selectedValue);
+                            anytimeSolutionButton.setEnabled(false);
+                            if (selectedValue.isSolved()) {
+                                solver.displayResult(selectedValue);
+                            } else if (!selectedValue.isSolved() && !selectedValue.getError().equals("")) {
+                                solver.displayError(selectedValue);
+                            } else {
+                                solver.displayProgress(selectedValue);
+                            }
                         }
                     }
+                }
+                else {
+                    anytimeSolutionButton.setEnabled(false);
+                    solver.clearResult();
                 }
             }
         });

@@ -59,13 +59,14 @@ public class Engine extends Thread {
                     engineStatusPanel.getEngineLabel().setText("solving " + token);
                     engineStatusPanel.getCirclePanel().setColor(Color.ORANGE);
                     engineStatusPanel.getCirclePanel().repaint();
-
-                    progressBar.setValue(1);
+                    
+                    progressBar.setValue(0);
                     final int timeout = token.getPlanner().getTimeOut();
                     progressBar.setMaximum(timeout);
+                    progressBar.setString(progressBar.getValue() + "/" + timeout);
                     final Timer timer = new Timer(1000, (ActionEvent evt) -> {
-                        progressBar.setString(progressBar.getValue() + "/" + timeout);
                         progressBar.setValue(progressBar.getValue() + 1);
+                        progressBar.setString(progressBar.getValue() + "/" + timeout);
                     });
 
                     timer.start();
