@@ -25,7 +25,7 @@ public class TokenListPanel extends JPanel {
         tokenJList = new JList<>(TokenList.getListModel());
 
         anytimeSolutionButton.setEnabled(false);
-        anytimeSolutionButton.setBounds(20, 20, 140, 25);
+        anytimeSolutionButton.setBounds(20, 220, 140, 25);
         anytimeSolutionButton.addActionListener(e -> {
             if (tokenJList.getSelectedValue() != null) {
                 new AnytimePanel(tokenJList.getSelectedValue());
@@ -34,7 +34,7 @@ public class TokenListPanel extends JPanel {
         add(anytimeSolutionButton);
 
         multipleResults.setEnabled(false);
-        multipleResults.setBounds(170, 20, 140, 25);
+        multipleResults.setBounds(170, 220, 140, 25);
         multipleResults.addActionListener(e -> {
             double cost = 0.0;
             for (Token token : tokenJList.getSelectedValuesList()) {
@@ -112,7 +112,7 @@ public class TokenListPanel extends JPanel {
             }
         });
         final JScrollPane scrollTokenJList = new JScrollPane(tokenJList);
-        scrollTokenJList.setBounds(20, 55, 290, 235);
+        scrollTokenJList.setBounds(20, 25, 290, 175);
         add(scrollTokenJList);
     }
 }

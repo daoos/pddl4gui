@@ -14,6 +14,8 @@ public class Icons {
     private static final ImageIcon validateIcon = new ImageIcon("resources/icons/validate.png");
     private static final ImageIcon searchIcon = new ImageIcon("resources/icons/search.png");
     private static final ImageIcon refreshIcon = new ImageIcon("resources/icons/refresh.png");
+    private static final ImageIcon startIcon = new ImageIcon("resources/icons/start.png");
+    private static final ImageIcon stopIcon = new ImageIcon("resources/icons/stop.png");
 
     public static ImageIcon getSaveIcon() {
         return saveIcon;
@@ -53,5 +55,13 @@ public class Icons {
 
     public static ImageIcon getRefreshIcon() {
         return refreshIcon;
+    }
+
+    public static ImageIcon getStartIcon() {
+        return startIcon;
+    }
+
+    public static ImageIcon getStopIcon() {
+        return stopIcon;
     }
 }

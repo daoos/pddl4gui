@@ -7,8 +7,7 @@ import fr.uga.pddl4j.parser.Message;
 import fr.uga.pddl4j.planners.ProblemFactory;
 import fr.uga.pddl4j.util.MemoryAgent;
 import fr.uga.pddl4j.util.Plan;
-import pddl4gui.gui.Solver;
-import pddl4gui.gui.panel.EngineStatusPanel;
+import pddl4gui.gui.panel.EnginePanel;
 import pddl4gui.planners.Planner;
 import pddl4gui.token.Result;
 import pddl4gui.token.Statistics;
@@ -18,47 +17,34 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.LinkedList;
 
 public class Engine extends Thread {
 
-    private Solver solver;
+    final private EnginePanel enginePanel;
 
-    private LinkedList<Token> tokenList;
+    private Queue queue;
 
     private String error = "";
 
     private int refresh;
 
-    public void setSolver(Solver solver) {
-        this.solver = solver;
-    }
-
-    public LinkedList<Token> getTokenList() {
-        return tokenList;
-    }
-
-    public void addToken(Token token) {
-        tokenList.addLast(token);
-    }
-
-    public Engine(int refresh) {
-        tokenList = new LinkedList<>();
+    public Engine(int refresh, EnginePanel enginePanel, Queue queue) {
         this.refresh = refresh;
+        this.enginePanel = enginePanel;
+        this.queue = queue;
     }
 
     @Override
     public void run() {
-        final EngineStatusPanel engineStatusPanel = solver.getEngineStatusPanel();
-        final JProgressBar progressBar = engineStatusPanel.getProgressBar();
-        while (solver.isVisible()) {
+        final JProgressBar progressBar = enginePanel.getProgressBar();
+        while (enginePanel.isVisible()) {
             try {
-                if (tokenList.size() > 0) {
+                if (queue.remainingTokens() > 0) {
                     error = "";
-                    final Token token = tokenList.pop();
-                    engineStatusPanel.getEngineLabel().setText("Solving " + token);
-                    engineStatusPanel.getCirclePanel().setColor(Color.ORANGE);
-                    engineStatusPanel.getCirclePanel().repaint();
+                    final Token token = queue.getToken();
+                    enginePanel.getEngineLabel().setText(token.toString());
+                    enginePanel.getCirclePanel().setColor(Color.ORANGE);
+                    enginePanel.getCirclePanel().repaint();
                     
                     progressBar.setValue(0);
                     final int timeout = token.getPlanner().getTimeOut();
@@ -75,18 +61,19 @@ public class Engine extends Thread {
                     timer.stop();
                 } else {
                     progressBar.setValue(0);
-                    progressBar.setString("Time out");
-                    engineStatusPanel.getEngineLabel().setText("Waiting for token");
-                    engineStatusPanel.getCirclePanel().setColor(Color.GREEN);
-                    engineStatusPanel.getCirclePanel().repaint();
+                    progressBar.setString("Ready !");
+                    enginePanel.getEngineLabel().setText("Waiting for token");
+                    enginePanel.getCirclePanel().setColor(Color.GREEN);
+                    enginePanel.getCirclePanel().repaint();
                 }
-                engineStatusPanel.setTokensRemaining(tokenList.size());
                 sleep(refresh);
+                enginePanel.setTokensRemaining();
             } catch (InterruptedException | IOException e) {
-                engineStatusPanel.getEngineLabel().setText("Engine crash, restart it !");
-                engineStatusPanel.getCirclePanel().setColor(Color.RED);
-                engineStatusPanel.getCirclePanel().repaint();
-                engineStatusPanel.getInitButton().setEnabled(true);
+                progressBar.setString("");
+                enginePanel.getEngineLabel().setText("Engine crash, restart it !");
+                enginePanel.getCirclePanel().setColor(Color.RED);
+                enginePanel.getCirclePanel().repaint();
+                enginePanel.getInitButton().setEnabled(true);
                 e.printStackTrace();
                 break;
             }

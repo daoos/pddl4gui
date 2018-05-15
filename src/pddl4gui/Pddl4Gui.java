@@ -2,7 +2,10 @@ package pddl4gui;
 
 import com.pagosoft.plaf.PlafOptions;
 import pddl4gui.engine.Engine;
+import pddl4gui.engine.Queue;
 import pddl4gui.gui.Solver;
+
+import javax.swing.*;
 
 /**
  * This class implements the main class of <code>PDDL4GUI</code>.
@@ -16,10 +19,8 @@ public class Pddl4Gui {
      * Creates a new main GUI.
      */
     private Pddl4Gui() {
-        final Engine engine = new Engine(500);
-        final Solver solver = new Solver(engine);
-        engine.setSolver(solver);
-        engine.start();
+        final Queue queue = new Queue();
+        final Solver solver = new Solver(queue);
     }
 
     /**

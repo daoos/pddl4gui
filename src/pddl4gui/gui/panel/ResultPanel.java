@@ -14,7 +14,7 @@ public class ResultPanel extends JPanel {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver result"));
 
-        final int labWidth = 140;
+        final int labWidth = 120;
         final int labHeight = 20;
         int labMarging = 20;
 
@@ -30,37 +30,38 @@ public class ResultPanel extends JPanel {
         planner = new JLabel("---");
 
         domainLabel.setBounds(15, labMarging, labWidth, labHeight);
-        domain.setBounds(80, labMarging, labWidth, labHeight);
+        domain.setBounds(70, labMarging, labWidth, labHeight);
         add(domainLabel);
         add(domain);
 
-        problemLabel.setBounds(250, labMarging, labWidth, labHeight);
-        problem.setBounds(315, labMarging, labWidth, labHeight);
-        add(problemLabel);
-        add(problem);
+        costLabel.setBounds(210, labMarging, labWidth, labHeight);
+        cost.setBounds(265, labMarging, labWidth/2, labHeight);
+        add(costLabel);
+        add(cost);
+
+        plannerLabel.setBounds(360, labMarging, labWidth, labHeight);
+        planner.setBounds(415, labMarging, labWidth/2, labHeight);
+        add(plannerLabel);
+        add(planner);
+
         labMarging += labHeight;
 
-        depthLabel.setBounds(15, labMarging, labWidth, labHeight);
-        depth.setBounds(80, labMarging, labWidth, labHeight);
+        problemLabel.setBounds(15, labMarging, labWidth, labHeight);
+        problem.setBounds(70, labMarging, labWidth, labHeight);
+        add(problemLabel);
+        add(problem);
+
+        depthLabel.setBounds(210, labMarging, labWidth, labHeight);
+        depth.setBounds(265, labMarging, labWidth/2, labHeight);
         add(depthLabel);
         add(depth);
 
-        costLabel.setBounds(250, labMarging, labWidth, labHeight);
-        cost.setBounds(315, labMarging, labWidth, labHeight);
-        add(costLabel);
-        add(cost);
-        labMarging += labHeight;
-
-        plannerLabel.setBounds(15, labMarging, labWidth, labHeight);
-        planner.setBounds(80, labMarging, labWidth, labHeight);
-        add(plannerLabel);
-        add(planner);
-        labMarging += labHeight * 1.5;
+        labMarging += labHeight * 1.75;
 
         resultArea = new JTextArea();
         resultArea.setEditable(false);
         final JScrollPane scrollTextPane = new JScrollPane(resultArea);
-        scrollTextPane.setBounds(15, labMarging, 470, 450);
+        scrollTextPane.setBounds(15, labMarging, 470, 470);
         add(scrollTextPane);
     }
 

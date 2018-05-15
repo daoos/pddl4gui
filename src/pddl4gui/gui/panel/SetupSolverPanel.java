@@ -42,12 +42,12 @@ public class SetupSolverPanel extends JPanel {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver parameters"));
 
-        final JLabel domainLabel = new JLabel("Domain file:");
-        final JLabel problemLabel = new JLabel("Problem file:");
-        final JLabel plannerLabel = new JLabel("Planner:");
-        final JLabel heuristicLabel = new JLabel("Heuristic:");
-        final JLabel weightLabel = new JLabel("Weight:");
-        final JLabel timeLabel = new JLabel("Time out:");
+        final JLabel domainLabel = new JLabel("Domain file");
+        final JLabel problemLabel = new JLabel("Problem file");
+        final JLabel plannerLabel = new JLabel("Planner");
+        final JLabel heuristicLabel = new JLabel("Heuristic");
+        final JLabel weightLabel = new JLabel("Weight");
+        final JLabel timeLabel = new JLabel("Time out");
 
         domainButton = new JButton("Choose domain");
         pbButton = new JButton("Choose problem");

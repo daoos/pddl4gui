@@ -1,7 +1,7 @@
 package pddl4gui.gui;
 
-import pddl4gui.engine.Engine;
-import pddl4gui.gui.panel.EngineStatusPanel;
+import pddl4gui.engine.Queue;
+import pddl4gui.gui.panel.EngineManagerPanel;
 import pddl4gui.gui.panel.MenuSolverPanel;
 import pddl4gui.gui.panel.ResultPanel;
 import pddl4gui.gui.panel.SetupSolverPanel;
@@ -14,50 +14,37 @@ import pddl4gui.planners.PlannerFactory;
 import pddl4gui.token.Token;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.util.Vector;
 
 public class Solver extends JFrame {
 
-    private Engine engine;
+    final private Queue queue;
 
     final private SetupSolverPanel setupPanel;
     final private StatisticsPanel statisticsPanel;
     final private ResultPanel resultPanel;
     final private MenuSolverPanel menuSolverPanel;
-    final private EngineStatusPanel engineStatusPanel;
+    final private EngineManagerPanel engineManagerPanel;
     final private TokenListPanel tokenListPanel;
 
-    public Engine getEngine() {
-        return engine;
-    }
-
-    public void setEngine(Engine engine) {
-        this.engine = engine;
+    public Queue getQueue() {
+        return queue;
     }
 
     public SetupSolverPanel getSetupPanel() {
         return setupPanel;
     }
 
-    public ResultPanel getResultPanel() {
-        return resultPanel;
-    }
-
-    public EngineStatusPanel getEngineStatusPanel() {
-        return engineStatusPanel;
-    }
-
     public TokenListPanel getTokenListPanel() {
         return tokenListPanel;
     }
 
-    public Solver(Engine engine) {
-        this.engine = engine;
+    public Solver(Queue queue) {
+        this.queue = queue;
 
         final int width = 1200;
-        final int height = 600;
+        final int height = 620;
         final int marging = 10;
 
         setLayout(null);
@@ -67,27 +54,27 @@ public class Solver extends JFrame {
         WindowsManager.setWidth(width);
 
         menuSolverPanel = new MenuSolverPanel(this);
-        menuSolverPanel.setBounds(marging, marging, 330, 40);
+        menuSolverPanel.setBounds(350, marging + 3, 330, 40);
         add(menuSolverPanel);
 
         setupPanel = new SetupSolverPanel(this);
-        setupPanel.setBounds(marging, 60, 330, 320);
+        setupPanel.setBounds(marging, marging, 330, 320);
         add(setupPanel);
 
         tokenListPanel = new TokenListPanel(this);
-        tokenListPanel.setBounds(350, 260, 330, 300);
+        tokenListPanel.setBounds(350, 60, 330, 270);
         add(tokenListPanel);
 
-        engineStatusPanel = new EngineStatusPanel(this);
-        engineStatusPanel.setBounds(marging, 390, 330, 170);
-        add(engineStatusPanel);
+        engineManagerPanel = new EngineManagerPanel(this);
+        engineManagerPanel.setBounds(marging, 340, 330, 240);
+        add(engineManagerPanel);
 
         statisticsPanel = new StatisticsPanel();
-        statisticsPanel.setBounds(350, marging, 330, 240);
+        statisticsPanel.setBounds(350, 340, 330, 240);
         add(statisticsPanel);
 
         resultPanel = new ResultPanel();
-        resultPanel.setBounds(690, marging, 500, 550);
+        resultPanel.setBounds(690, marging, 500, 570);
         add(resultPanel);
 
         setVisible(true);
@@ -104,14 +91,14 @@ public class Solver extends JFrame {
         for (File file : problemFiles) {
             final Token token = new Token(domainFile, file, planner);
 
-            if (token.isRunnable() && engineStatusPanel.getCirclePanel().getColor() != Color.RED) {
+            if (token.isRunnable() && engineManagerPanel.isStatus()) {
                 if (!TokenList.getListModel().contains(token)) {
                     TokenList.getListModel().addElement(token);
-                    engine.addToken(token);
+                    queue.addToken(token);
                 }
             }
 
-            engineStatusPanel.setTokensRemaining(engine.getTokenList().size());
+            engineManagerPanel.setTokensRemaining();
         }
     }
 
@@ -142,7 +129,7 @@ public class Solver extends JFrame {
 
     public void resetSolver() {
         clearResult();
-        engine.getTokenList().clear();
+        queue.clearList();
         TokenList.getListModel().clear();
     }
 }
