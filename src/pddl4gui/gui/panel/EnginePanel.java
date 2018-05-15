@@ -101,7 +101,7 @@ public class EnginePanel extends JPanel {
         engineLabel.setBounds(110, 25, 265, 20);
         add(engineLabel);
 
-        if(active) {
+        if (active) {
             engine = new Engine(rand.nextInt(250) + 500, this, engineManagerPanel.getQueue());
             engine.start();
         }

@@ -84,4 +84,10 @@ public class MenuSolverPanel extends JPanel {
         exitButton.addActionListener(e -> System.exit(0));
         add(exitButton);
     }
+
+    public void enableButton(boolean state) {
+        valButton.setEnabled(state);
+        saveTxtButton.setEnabled(state);
+        saveJsonButton.setEnabled(state);
+    }
 }

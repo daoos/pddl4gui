@@ -40,6 +40,10 @@ public class Solver extends JFrame {
         return tokenListPanel;
     }
 
+    public MenuSolverPanel getMenuSolverPanel() {
+        return menuSolverPanel;
+    }
+
     public Solver(Queue queue) {
         this.queue = queue;
 

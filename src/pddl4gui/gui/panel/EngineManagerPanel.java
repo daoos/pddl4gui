@@ -24,8 +24,8 @@ public class EngineManagerPanel extends JPanel {
 
     public boolean isStatus() {
         boolean engineStatus = false;
-        for(EnginePanel enginePanel : enginePanels) {
-            if(enginePanel.isStatus()) {
+        for (EnginePanel enginePanel : enginePanels) {
+            if (enginePanel.isStatus()) {
                 engineStatus = true;
             }
         }

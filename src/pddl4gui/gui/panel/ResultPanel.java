@@ -35,12 +35,12 @@ public class ResultPanel extends JPanel {
         add(domain);
 
         costLabel.setBounds(210, labMarging, labWidth, labHeight);
-        cost.setBounds(265, labMarging, labWidth/2, labHeight);
+        cost.setBounds(265, labMarging, labWidth / 2, labHeight);
         add(costLabel);
         add(cost);
 
         plannerLabel.setBounds(360, labMarging, labWidth, labHeight);
-        planner.setBounds(415, labMarging, labWidth/2, labHeight);
+        planner.setBounds(415, labMarging, labWidth / 2, labHeight);
         add(plannerLabel);
         add(planner);
 
@@ -52,7 +52,7 @@ public class ResultPanel extends JPanel {
         add(problem);
 
         depthLabel.setBounds(210, labMarging, labWidth, labHeight);
-        depth.setBounds(265, labMarging, labWidth/2, labHeight);
+        depth.setBounds(265, labMarging, labWidth / 2, labHeight);
         add(depthLabel);
         add(depth);
 

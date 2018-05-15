@@ -45,7 +45,7 @@ public class Engine extends Thread {
                     enginePanel.getEngineLabel().setText(token.toString());
                     enginePanel.getCirclePanel().setColor(Color.ORANGE);
                     enginePanel.getCirclePanel().repaint();
-                    
+
                     progressBar.setValue(0);
                     final int timeout = token.getPlanner().getTimeOut();
                     progressBar.setMaximum(timeout);

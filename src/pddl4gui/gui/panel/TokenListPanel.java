@@ -40,8 +40,8 @@ public class TokenListPanel extends JPanel {
             for (Token token : tokenJList.getSelectedValuesList()) {
                 cost += token.getResult().getStatistics().getCost();
             }
-            JOptionPane.showMessageDialog( null, "Token selected: " + tokenJList.getSelectedValuesList().size()
-                    + "\nTotal cost: " + cost,  "Multiple Selection", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Token selected: " + tokenJList.getSelectedValuesList().size()
+                    + "\nTotal cost: " + cost, "Multiple Selection", JOptionPane.PLAIN_MESSAGE);
         });
         add(multipleResults);
 
@@ -78,8 +78,7 @@ public class TokenListPanel extends JPanel {
                 if (tokenJList.getSelectedValuesList().size() > 1) {
                     solver.clearResult();
                     multipleResults.setEnabled(true);
-                }
-                else if (tokenJList.getSelectedValuesList().size() == 1) {
+                } else if (tokenJList.getSelectedValuesList().size() == 1) {
                     multipleResults.setEnabled(false);
 
                     final Token selectedValue = tokenJList.getSelectedValue();
@@ -87,25 +86,31 @@ public class TokenListPanel extends JPanel {
                         if (selectedValue.getPlanner().isAnytime()) {
                             anytimeSolutionButton.setEnabled(true);
                             if (selectedValue.isSolved()) {
+                                solver.getMenuSolverPanel().enableButton(true);
                                 solver.displayResult(selectedValue);
                             } else if (!selectedValue.getError().equals("")) {
+                                solver.getMenuSolverPanel().enableButton(false);
                                 solver.displayError(selectedValue);
                             } else {
+                                solver.getMenuSolverPanel().enableButton(false);
                                 solver.displayProgress(selectedValue);
                             }
                         } else {
                             anytimeSolutionButton.setEnabled(false);
                             if (selectedValue.isSolved()) {
+                                solver.getMenuSolverPanel().enableButton(true);
                                 solver.displayResult(selectedValue);
                             } else if (!selectedValue.isSolved() && !selectedValue.getError().equals("")) {
+                                solver.getMenuSolverPanel().enableButton(false);
                                 solver.displayError(selectedValue);
                             } else {
+                                solver.getMenuSolverPanel().enableButton(false);
                                 solver.displayProgress(selectedValue);
                             }
                         }
                     }
-                }
-                else {
+                } else {
+                    solver.getMenuSolverPanel().enableButton(false);
                     anytimeSolutionButton.setEnabled(false);
                     solver.clearResult();
                 }
