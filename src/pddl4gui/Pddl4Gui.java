@@ -1,7 +1,7 @@
 package pddl4gui;
 
 import com.pagosoft.plaf.PlafOptions;
-import pddl4gui.engine.Queue;
+import pddl4gui.token.Queue;
 import pddl4gui.gui.Solver;
 
 /**
@@ -16,8 +16,7 @@ public class Pddl4Gui {
      * Creates a new main GUI.
      */
     private Pddl4Gui() {
-        final Queue queue = new Queue();
-        final Solver solver = new Solver(queue);
+        new Solver(new Queue());
     }
 
     /**

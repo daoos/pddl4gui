@@ -1,6 +1,4 @@
-package pddl4gui.engine;
-
-import pddl4gui.token.Token;
+package pddl4gui.token;
 
 import java.util.Vector;
 

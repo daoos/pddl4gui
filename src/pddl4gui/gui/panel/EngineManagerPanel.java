@@ -1,6 +1,6 @@
 package pddl4gui.gui.panel;
 
-import pddl4gui.engine.Queue;
+import pddl4gui.token.Queue;
 import pddl4gui.gui.Solver;
 
 import javax.swing.*;

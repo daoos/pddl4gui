@@ -54,7 +54,7 @@ public class EnginePanel extends JPanel {
 
         initButton = new JButton(Icons.getStartIcon());
         stopButton = new JButton(Icons.getStopIcon());
-        status = true;
+        status = active;
 
         initButton.setBounds(45, 5, 20, 20);
         initButton.setEnabled(!active);

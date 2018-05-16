@@ -9,6 +9,7 @@ import fr.uga.pddl4j.util.MemoryAgent;
 import fr.uga.pddl4j.util.Plan;
 import pddl4gui.gui.panel.EnginePanel;
 import pddl4gui.planners.Planner;
+import pddl4gui.token.Queue;
 import pddl4gui.token.Result;
 import pddl4gui.token.Statistics;
 import pddl4gui.token.Token;
@@ -22,7 +23,7 @@ public class Engine extends Thread {
 
     final private EnginePanel enginePanel;
 
-    private Queue queue;
+    final private Queue queue;
 
     private String error = "";
 
@@ -46,8 +47,8 @@ public class Engine extends Thread {
                     enginePanel.getCirclePanel().setColor(Color.ORANGE);
                     enginePanel.getCirclePanel().repaint();
 
-                    progressBar.setValue(0);
                     final int timeout = token.getPlanner().getTimeOut();
+                    progressBar.setValue(0);
                     progressBar.setMaximum(timeout);
                     progressBar.setString(progressBar.getValue() + "/" + timeout);
                     final Timer timer = new Timer(1000, (ActionEvent evt) -> {

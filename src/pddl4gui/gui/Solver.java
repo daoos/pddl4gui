@@ -1,6 +1,6 @@
 package pddl4gui.gui;
 
-import pddl4gui.engine.Queue;
+import pddl4gui.token.Queue;
 import pddl4gui.gui.panel.EngineManagerPanel;
 import pddl4gui.gui.panel.MenuSolverPanel;
 import pddl4gui.gui.panel.ResultPanel;
@@ -91,18 +91,19 @@ public class Solver extends JFrame {
 
         final Planner planner = PlannerFactory.create(setupPanel.getPlanner(),
                 setupPanel.getHeuristic(), weight, timeout);
+        if (problemFiles != null && domainFile != null) {
+            for (File file : problemFiles) {
+                final Token token = new Token(domainFile, file, planner);
 
-        for (File file : problemFiles) {
-            final Token token = new Token(domainFile, file, planner);
-
-            if (token.isRunnable() && engineManagerPanel.isStatus()) {
-                if (!TokenList.getListModel().contains(token)) {
-                    TokenList.getListModel().addElement(token);
-                    queue.addToken(token);
+                if (token.isRunnable() && engineManagerPanel.isStatus()) {
+                    if (!TokenList.getListModel().contains(token)) {
+                        TokenList.getListModel().addElement(token);
+                        queue.addToken(token);
+                    }
                 }
-            }
 
-            engineManagerPanel.setTokensRemaining();
+                engineManagerPanel.setTokensRemaining();
+            }
         }
     }
 
