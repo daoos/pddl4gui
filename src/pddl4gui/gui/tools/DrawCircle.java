@@ -1,7 +1,8 @@
 package pddl4gui.gui.tools;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public class DrawCircle extends JPanel {
 

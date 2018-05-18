@@ -1,7 +1,14 @@
 package pddl4gui.gui.tools;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.GraphicsEnvironment;
+import java.awt.Point;
 
 public class Find extends JFrame {
 

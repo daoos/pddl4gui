@@ -7,7 +7,16 @@ import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.planners.PlannerAnytime;
 import pddl4gui.token.Token;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.DefaultListSelectionModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import java.util.Vector;
 
@@ -151,14 +160,15 @@ public class AnytimePanel extends JFrame {
         final PlannerAnytime plannerAnytime = (PlannerAnytime) token.getPlanner();
         if (!plannerAnytime.getAnytimeSolutions().isEmpty()) {
             final Vector<Node> solutionList = new Vector<>(plannerAnytime.getAnytimeSolutions());
-            //listModel.clear();
-            for (Node node : solutionList) {
-                if (!listModel.contains(node)) {
-                    listModel.addElement(node);
-                    bestCostD = Math.min(bestCostD, node.getCost());
+            if (!solutionList.isEmpty()) {
+                for (Node node : solutionList) {
+                    if (!listModel.contains(node)) {
+                        listModel.addElement(node);
+                        bestCostD = Math.min(bestCostD, node.getCost());
+                    }
                 }
+                numberSolutionI = listModel.getSize();
             }
-            numberSolutionI = listModel.getSize();
         }
     }
 

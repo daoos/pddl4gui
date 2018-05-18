@@ -4,8 +4,12 @@ import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Find;
 import pddl4gui.gui.tools.Icons;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JToolBar;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.io.File;
 

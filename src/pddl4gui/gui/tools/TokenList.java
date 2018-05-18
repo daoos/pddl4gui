@@ -2,7 +2,7 @@ package pddl4gui.gui.tools;
 
 import pddl4gui.token.Token;
 
-import javax.swing.*;
+import javax.swing.DefaultListModel;
 
 public class TokenList {
 

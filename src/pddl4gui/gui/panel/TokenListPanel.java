@@ -4,7 +4,14 @@ import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.TokenList;
 import pddl4gui.token.Token;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListSelectionModel;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 
 public class TokenListPanel extends JPanel {

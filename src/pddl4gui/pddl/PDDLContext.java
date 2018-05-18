@@ -2,7 +2,7 @@ package pddl4gui.pddl;
 
 import pddl4gui.gui.tools.HighlightText;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 

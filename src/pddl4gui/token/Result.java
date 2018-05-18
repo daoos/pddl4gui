@@ -19,7 +19,7 @@ public class Result {
     }
 
     public String getSolutionStringDetailed() {
-        return detailedPlan(codedProblem,solutionPlan);
+        return detailedPlan(codedProblem, solutionPlan);
     }
 
     public String getSolutionJSON() {

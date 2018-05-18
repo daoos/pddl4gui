@@ -4,22 +4,22 @@ import pddl4gui.engine.Engine;
 import pddl4gui.gui.tools.DrawCircle;
 import pddl4gui.gui.tools.Icons;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.plaf.basic.BasicProgressBarUI;
-import java.awt.*;
+import java.awt.Color;
 import java.util.Random;
 
 public class EnginePanel extends JPanel {
 
     private Engine engine;
 
-    final private EngineManagerPanel engineManagerPanel;
-
     final private JButton initButton, stopButton;
     final private JLabel engineLabel;
     final private DrawCircle circlePanel;
     final private JProgressBar progressBar;
-    private boolean status;
 
     public JButton getInitButton() {
         return initButton;
@@ -37,42 +37,30 @@ public class EnginePanel extends JPanel {
         return progressBar;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setTokensRemaining() {
-        engineManagerPanel.setTokensRemaining();
-    }
-
-
     public EnginePanel(EngineManagerPanel engineManagerPanel, boolean active) {
         setLayout(null);
-        Random rand = new Random();
-
-        this.engineManagerPanel = engineManagerPanel;
+        Random random = new Random();
 
         initButton = new JButton(Icons.getStartIcon());
         stopButton = new JButton(Icons.getStopIcon());
-        status = active;
 
-        initButton.setBounds(45, 5, 20, 20);
+        initButton.setBounds(30, 5, 20, 20);
         initButton.setEnabled(!active);
         initButton.addActionListener(e -> {
             initButton.setEnabled(false);
             stopButton.setEnabled(true);
-            engine = new Engine(rand.nextInt(500) + 500, this, engineManagerPanel.getQueue());
+            engine = new Engine(random.nextInt(500) + 500, this);
+            engineManagerPanel.addEngine(engine);
             engine.start();
-            status = true;
         });
         add(initButton);
 
-        stopButton.setBounds(10, 5, 20, 20);
+        stopButton.setBounds(5, 5, 20, 20);
         stopButton.setEnabled(active);
         stopButton.addActionListener(e -> {
             engine.interrupt();
+            engineManagerPanel.removeEngine(engine);
             stopButton.setEnabled(false);
-            status = false;
         });
         add(stopButton);
 
@@ -90,19 +78,20 @@ public class EnginePanel extends JPanel {
             }
         });
         progressBar.setString("");
-        progressBar.setBounds(80, 5, 225, 20);
+        progressBar.setBounds(60, 5, 245, 20);
         add(progressBar);
 
         circlePanel = new DrawCircle(3, 3, 15);
-        circlePanel.setBounds(80, 25, 25, 25);
+        circlePanel.setBounds(60, 25, 25, 25);
         add(circlePanel);
 
         engineLabel = new JLabel(" -- ");
-        engineLabel.setBounds(110, 25, 265, 20);
+        engineLabel.setBounds(90, 25, 265, 20);
         add(engineLabel);
 
         if (active) {
-            engine = new Engine(rand.nextInt(500) + 500, this, engineManagerPanel.getQueue());
+            engine = new Engine(random.nextInt(500) + 500, this);
+            engineManagerPanel.addEngine(engine);
             engine.start();
         }
     }

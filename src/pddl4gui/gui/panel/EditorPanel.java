@@ -7,8 +7,12 @@ import pddl4gui.gui.tools.TextLineNumber;
 import pddl4gui.gui.tools.UndoRedo;
 import pddl4gui.pddl.PDDLContext;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;

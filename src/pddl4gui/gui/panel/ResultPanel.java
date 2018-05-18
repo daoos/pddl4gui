@@ -4,7 +4,12 @@ import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.DecimalFormatSetup;
 import pddl4gui.token.Token;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class ResultPanel extends JPanel {
 
@@ -70,13 +75,12 @@ public class ResultPanel extends JPanel {
         checkbox.setBounds(360, labMarging, labWidth, labHeight);
         checkbox.setSelected(false);
         checkbox.setEnabled(false);
-        checkbox.addItemListener( e -> {
+        checkbox.addItemListener(e -> {
             if (token != null && token.isSolved()) {
                 if (checkbox.isSelected()) {
                     resultArea.setText(token.getResult().getSolutionStringDetailed());
                     solver.getMenuSolverPanel().discardVAL(true);
-                }
-                else {
+                } else {
                     displayResult(token);
                     solver.getMenuSolverPanel().enableButton(true);
                 }

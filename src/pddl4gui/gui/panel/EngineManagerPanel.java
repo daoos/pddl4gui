@@ -1,21 +1,27 @@
 package pddl4gui.gui.panel;
 
-import pddl4gui.token.Queue;
+import pddl4gui.engine.Engine;
+import pddl4gui.engine.EngineManager;
 import pddl4gui.gui.Solver;
 
-import javax.swing.*;
-import java.util.Vector;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class EngineManagerPanel extends JPanel {
 
-    final private Vector<EnginePanel> enginePanels;
-
     final private Solver solver;
+
+    final private EngineManager engineManager;
 
     final private JLabel remainingLabel;
 
-    public Queue getQueue() {
-        return solver.getQueue();
+    public void addEngine(Engine engine) {
+        engineManager.addEngine(engine);
+    }
+
+    public void removeEngine(Engine engine) {
+        engineManager.removeEngine(engine);
     }
 
     public void setTokensRemaining() {
@@ -23,55 +29,41 @@ public class EngineManagerPanel extends JPanel {
     }
 
     public boolean isStatus() {
-        boolean engineStatus = false;
-        for (EnginePanel enginePanel : enginePanels) {
-            if (enginePanel.isStatus()) {
-                engineStatus = true;
-            }
-        }
-        return engineStatus;
+        return engineManager.isRunning();
     }
 
     public EngineManagerPanel(Solver solver) {
         setLayout(null);
-        setBorder(BorderFactory.createTitledBorder("Engine status"));
+        setBorder(BorderFactory.createTitledBorder("Engines status"));
+
+        engineManager = new EngineManager(500, this, solver.getQueue());
 
         this.solver = solver;
-        enginePanels = new Vector<>();
 
         int labHeight = 25;
-        int labMarging = 45;
+        final int labMarging = 45;
+        final int cores = Runtime.getRuntime().availableProcessors();
 
-        EnginePanel enginePanel1 = new EnginePanel(this, true);
-        enginePanel1.setBounds(10, labHeight, 310, 50);
-        enginePanels.add(enginePanel1);
-        add(enginePanel1);
+        boolean activeEngine = true;
+        int inc = 0;
+        do {
+            if (inc > 0) {
+                activeEngine = false;
+            }
 
-        labHeight += labMarging;
+            final EnginePanel enginePanel = new EnginePanel(this, activeEngine);
+            enginePanel.setBounds(10, labHeight, 310, 50);
+            add(enginePanel);
 
-        EnginePanel enginePanel2 = new EnginePanel(this, false);
-        enginePanel2.setBounds(10, labHeight, 310, 50);
-        enginePanels.add(enginePanel2);
-        add(enginePanel2);
-
-        labHeight += labMarging;
-
-        EnginePanel enginePanel3 = new EnginePanel(this, false);
-        enginePanel3.setBounds(10, labHeight, 310, 50);
-        enginePanels.add(enginePanel3);
-        add(enginePanel3);
-
-        labHeight += labMarging;
-
-        EnginePanel enginePanel4 = new EnginePanel(this, false);
-        enginePanel4.setBounds(10, labHeight, 310, 50);
-        enginePanels.add(enginePanel4);
-        add(enginePanel4);
-
-        labHeight += labMarging * 1.2;
+            labHeight += labMarging;
+            inc++;
+        }
+        while (inc < cores - 1 && inc < 4);
 
         remainingLabel = new JLabel(" -- token(s) remaining");
-        remainingLabel.setBounds(200, labHeight, 265, 20);
+        remainingLabel.setBounds(200, 214, 265, 20);
         add(remainingLabel);
+
+        engineManager.start();
     }
 }

@@ -4,8 +4,9 @@ import pddl4gui.gui.panel.EditorMenuToolBar;
 import pddl4gui.gui.panel.EditorPanel;
 import pddl4gui.gui.tools.WindowsManager;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;

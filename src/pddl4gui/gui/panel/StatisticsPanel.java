@@ -3,7 +3,9 @@ package pddl4gui.gui.panel;
 import pddl4gui.gui.tools.DecimalFormatSetup;
 import pddl4gui.token.Statistics;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class StatisticsPanel extends JPanel {
 

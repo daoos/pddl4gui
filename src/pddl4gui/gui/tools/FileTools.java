@@ -1,8 +1,9 @@
 package pddl4gui.gui.tools;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
+import java.awt.Component;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -8,30 +8,39 @@ import fr.uga.pddl4j.util.MemoryAgent;
 import fr.uga.pddl4j.util.Plan;
 import pddl4gui.gui.panel.EnginePanel;
 import pddl4gui.planners.Planner;
-import pddl4gui.token.Queue;
 import pddl4gui.token.Result;
 import pddl4gui.token.Statistics;
 import pddl4gui.token.Token;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JProgressBar;
+import javax.swing.Timer;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.Vector;
 
 public class Engine extends Thread {
 
     final private EnginePanel enginePanel;
-
-    final private Queue queue;
+    final private Vector<Token> ownQueue;
 
     private String error = "";
-
     private int refresh;
+    private boolean available;
 
-    public Engine(int refresh, EnginePanel enginePanel, Queue queue) {
+    public void addTokenInQueue(Token token) {
+        this.ownQueue.add(token);
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public Engine(int refresh, EnginePanel enginePanel) {
         this.refresh = refresh;
         this.enginePanel = enginePanel;
-        this.queue = queue;
+        this.ownQueue = new Vector<>();
+        this.available = false;
     }
 
     @Override
@@ -39,9 +48,11 @@ public class Engine extends Thread {
         final JProgressBar progressBar = enginePanel.getProgressBar();
         while (enginePanel.isVisible()) {
             try {
-                if (queue.remainingTokens() > 0) {
+                if (ownQueue.size() > 0) {
                     error = "";
-                    final Token token = queue.getToken();
+                    available = false;
+                    final Token token = ownQueue.firstElement();
+                    ownQueue.remove(token);
                     enginePanel.getEngineLabel().setText(token.toString());
                     enginePanel.getCirclePanel().setColor(Color.ORANGE);
                     enginePanel.getCirclePanel().repaint();
@@ -60,6 +71,7 @@ public class Engine extends Thread {
                     token.setError(error);
                     timer.stop();
                 } else {
+                    available = true;
                     progressBar.setValue(0);
                     progressBar.setString("Ready !");
                     enginePanel.getEngineLabel().setText("Waiting for token");
@@ -67,8 +79,8 @@ public class Engine extends Thread {
                     enginePanel.getCirclePanel().repaint();
                 }
                 sleep(refresh);
-                enginePanel.setTokensRemaining();
             } catch (InterruptedException | IOException e) {
+                available = false;
                 progressBar.setString("");
                 enginePanel.getEngineLabel().setText("Engine crash, restart it !");
                 enginePanel.getCirclePanel().setColor(Color.RED);

@@ -5,7 +5,12 @@ import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Token;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

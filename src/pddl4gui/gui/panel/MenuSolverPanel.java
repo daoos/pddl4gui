@@ -5,7 +5,8 @@ import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import java.io.File;
 
 public class MenuSolverPanel extends JPanel {
@@ -46,8 +47,7 @@ public class MenuSolverPanel extends JPanel {
                     if (solver.getResultPanel().isCheckboxSelected()) {
                         FileTools.writeInFile(tempFile, solver.getTokenListPanel().getTokenJList()
                                 .getSelectedValue().getResult().getSolutionStringDetailed());
-                    }
-                    else {
+                    } else {
                         FileTools.writeInFile(tempFile, solver.getTokenListPanel().getTokenJList()
                                 .getSelectedValue().getResult().getSolutionString());
                     }

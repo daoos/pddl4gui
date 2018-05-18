@@ -1,6 +1,5 @@
 package pddl4gui.gui;
 
-import pddl4gui.token.Queue;
 import pddl4gui.gui.panel.EngineManagerPanel;
 import pddl4gui.gui.panel.MenuSolverPanel;
 import pddl4gui.gui.panel.ResultPanel;
@@ -11,9 +10,10 @@ import pddl4gui.gui.tools.TokenList;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.planners.Planner;
 import pddl4gui.planners.PlannerFactory;
+import pddl4gui.token.Queue;
 import pddl4gui.token.Token;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 import java.io.File;
 import java.util.Vector;
 

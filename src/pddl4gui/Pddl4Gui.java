@@ -1,8 +1,8 @@
 package pddl4gui;
 
 import com.pagosoft.plaf.PlafOptions;
-import pddl4gui.token.Queue;
 import pddl4gui.gui.Solver;
+import pddl4gui.token.Queue;
 
 /**
  * This class implements the main class of <code>PDDL4GUI</code>.

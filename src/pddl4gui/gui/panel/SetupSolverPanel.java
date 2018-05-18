@@ -9,7 +9,13 @@ import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.planners.Planner;
 import pddl4gui.planners.PlannerFactory;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import java.io.File;
 import java.util.Vector;
 

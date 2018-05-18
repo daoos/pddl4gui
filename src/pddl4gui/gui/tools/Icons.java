@@ -1,6 +1,6 @@
 package pddl4gui.gui.tools;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
 
 public class Icons {
 
