@@ -61,7 +61,7 @@ public class EnginePanel extends JPanel {
         initButton.addActionListener(e -> {
             initButton.setEnabled(false);
             stopButton.setEnabled(true);
-            engine = new Engine(rand.nextInt(250) + 500, this, engineManagerPanel.getQueue());
+            engine = new Engine(rand.nextInt(500) + 500, this, engineManagerPanel.getQueue());
             engine.start();
             status = true;
         });
@@ -102,7 +102,7 @@ public class EnginePanel extends JPanel {
         add(engineLabel);
 
         if (active) {
-            engine = new Engine(rand.nextInt(250) + 500, this, engineManagerPanel.getQueue());
+            engine = new Engine(rand.nextInt(500) + 500, this, engineManagerPanel.getQueue());
             engine.start();
         }
     }

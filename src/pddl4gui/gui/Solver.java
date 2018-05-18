@@ -32,6 +32,10 @@ public class Solver extends JFrame {
         return queue;
     }
 
+    public ResultPanel getResultPanel() {
+        return resultPanel;
+    }
+
     public SetupSolverPanel getSetupPanel() {
         return setupPanel;
     }
@@ -77,7 +81,7 @@ public class Solver extends JFrame {
         statisticsPanel.setBounds(350, 340, 330, 240);
         add(statisticsPanel);
 
-        resultPanel = new ResultPanel();
+        resultPanel = new ResultPanel(this);
         resultPanel.setBounds(690, marging, 500, 570);
         add(resultPanel);
 
@@ -116,7 +120,7 @@ public class Solver extends JFrame {
     }
 
     public void displayError(Token token) {
-        statisticsPanel.clearStats();
+        statisticsPanel.displayStats(token.getResult().getStatistics());
         resultPanel.clearResult();
         resultPanel.displayError(token);
     }

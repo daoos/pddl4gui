@@ -1,7 +1,6 @@
 package pddl4gui.engine;
 
 import fr.uga.pddl4j.encoding.CodedProblem;
-import fr.uga.pddl4j.encoding.JsonAdapter;
 import fr.uga.pddl4j.parser.ErrorManager;
 import fr.uga.pddl4j.parser.Message;
 import fr.uga.pddl4j.planners.ProblemFactory;
@@ -122,7 +121,7 @@ public class Engine extends Thread {
                 if (!pb.isSolvable()) {
                     error = ("Goal can be simplified to FALSE.\n"
                             + "No search will solve it !");
-                    return true;
+                    return false;
                 }
 
                 begin = System.currentTimeMillis();
@@ -131,18 +130,16 @@ public class Engine extends Thread {
                 statistics.setTimeToPlanInSeconds((System.currentTimeMillis() - begin) / 1000.0);
                 statistics.setMemoryUsedToSearchInMBytes(planner.getStatistics().getMemoryUsedToSearch() / (1024.0 * 1024.0));
 
+                token.setResult(new Result(statistics, pb, plan));
                 if (plan != null) {
-                    final JsonAdapter toJson = new JsonAdapter(pb);
                     statistics.setCost(plan.cost());
                     statistics.setDepth(plan.size());
-                    token.setResult(new Result(statistics, plan, pb.toString(plan), toJson.toJsonString(plan)));
                     return true;
                 } else {
-                    error = ("Plan is null !");
+                    error = ("No plan found !");
                     statistics.setCost(0);
                     statistics.setDepth(0);
-                    token.setResult(new Result(statistics, null, "Time out !", "Time out !"));
-                    return true;
+                    return false;
                 }
             } catch (NullPointerException e) {
                 error = ("Error during solving process.\n Check the problem.pddl file !");

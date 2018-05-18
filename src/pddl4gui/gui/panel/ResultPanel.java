@@ -1,5 +1,6 @@
 package pddl4gui.gui.panel;
 
+import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.DecimalFormatSetup;
 import pddl4gui.token.Token;
 
@@ -9,8 +10,15 @@ public class ResultPanel extends JPanel {
 
     final private JLabel domain, problem, cost, depth, planner;
     final private JTextArea resultArea;
+    final private JCheckBox checkbox;
 
-    public ResultPanel() {
+    private Token token = null;
+
+    public boolean isCheckboxSelected() {
+        return checkbox.isSelected();
+    }
+
+    public ResultPanel(Solver solver) {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver result"));
 
@@ -28,6 +36,9 @@ public class ResultPanel extends JPanel {
         cost = new JLabel("---");
         depth = new JLabel("---");
         planner = new JLabel("---");
+
+        checkbox = new JCheckBox("Detailed plan");
+        resultArea = new JTextArea();
 
         domainLabel.setBounds(15, labMarging, labWidth, labHeight);
         domain.setBounds(70, labMarging, labWidth, labHeight);
@@ -56,9 +67,25 @@ public class ResultPanel extends JPanel {
         add(depthLabel);
         add(depth);
 
+        checkbox.setBounds(360, labMarging, labWidth, labHeight);
+        checkbox.setSelected(false);
+        checkbox.setEnabled(false);
+        checkbox.addItemListener( e -> {
+            if (token != null && token.isSolved()) {
+                if (checkbox.isSelected()) {
+                    resultArea.setText(token.getResult().getSolutionStringDetailed());
+                    solver.getMenuSolverPanel().discardVAL(true);
+                }
+                else {
+                    displayResult(token);
+                    solver.getMenuSolverPanel().enableButton(true);
+                }
+            }
+        });
+        add(checkbox);
+
         labMarging += labHeight * 1.75;
 
-        resultArea = new JTextArea();
         resultArea.setEditable(false);
         final JScrollPane scrollTextPane = new JScrollPane(resultArea);
         scrollTextPane.setBounds(15, labMarging, 470, 470);
@@ -66,6 +93,10 @@ public class ResultPanel extends JPanel {
     }
 
     public void displayResult(Token token) {
+        this.token = token;
+        checkbox.setEnabled(true);
+        checkbox.setSelected(false);
+
         domain.setText(token.getDomainFileName());
         problem.setText(token.getProblemFileName());
         cost.setText(String.valueOf(DecimalFormatSetup.getDf()
@@ -77,6 +108,10 @@ public class ResultPanel extends JPanel {
     }
 
     public void displayError(Token token) {
+        this.token = token;
+        checkbox.setEnabled(false);
+        checkbox.setSelected(false);
+
         domain.setText(token.getDomainFileName());
         problem.setText(token.getProblemFileName());
         cost.setText(String.valueOf(0));
@@ -86,6 +121,10 @@ public class ResultPanel extends JPanel {
     }
 
     public void diplayProgress(Token token) {
+        this.token = token;
+        checkbox.setEnabled(false);
+        checkbox.setSelected(false);
+
         domain.setText(token.getDomainFileName());
         problem.setText(token.getProblemFileName());
         cost.setText(String.valueOf(0));
@@ -95,6 +134,9 @@ public class ResultPanel extends JPanel {
     }
 
     public void clearResult() {
+        checkbox.setEnabled(false);
+        checkbox.setSelected(false);
+
         domain.setText("--");
         problem.setText("---");
         cost.setText("---");

@@ -43,8 +43,14 @@ public class MenuSolverPanel extends JPanel {
             if (solver.getTokenListPanel().getTokenJList().getSelectedValue().isSolved()) {
                 File tempFile = FileTools.saveFile(this, 1);
                 if (FileTools.checkFile(tempFile)) {
-                    FileTools.writeInFile(tempFile, solver.getTokenListPanel().getTokenJList()
-                            .getSelectedValue().getResult().getSolutionString());
+                    if (solver.getResultPanel().isCheckboxSelected()) {
+                        FileTools.writeInFile(tempFile, solver.getTokenListPanel().getTokenJList()
+                                .getSelectedValue().getResult().getSolutionStringDetailed());
+                    }
+                    else {
+                        FileTools.writeInFile(tempFile, solver.getTokenListPanel().getTokenJList()
+                                .getSelectedValue().getResult().getSolutionString());
+                    }
                 }
             }
         });
@@ -89,5 +95,9 @@ public class MenuSolverPanel extends JPanel {
         valButton.setEnabled(state);
         saveTxtButton.setEnabled(state);
         saveJsonButton.setEnabled(state);
+    }
+
+    public void discardVAL(boolean state) {
+        valButton.setEnabled(!state);
     }
 }
