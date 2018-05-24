@@ -52,7 +52,7 @@ public class Result {
         final StringBuilder str = new StringBuilder();
         plan.timeSpecifiers().forEach(time ->
                 plan.getActionSet(time).forEach(a ->
-                        str.append(String.format("%0" + timeSpecifierSize + "d: (%" + actionSize + "s) [D: %d, C: %8.2f]%n",
+                        str.append(String.format("%0" + timeSpecifierSize + "d: (%" + actionSize + "s) [D: %d, C: %4.2f]%n",
                                 time, codedProblem.toShortString(a), ((int) a.getDuration()), a.getCost()))));
         return str.toString();
     }

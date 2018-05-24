@@ -48,9 +48,9 @@ public class Engine extends Thread {
         final JProgressBar progressBar = enginePanel.getProgressBar();
         while (enginePanel.isVisible()) {
             try {
+                available = false;
                 if (ownQueue.size() > 0) {
                     error = "";
-                    available = false;
                     final Token token = ownQueue.firstElement();
                     ownQueue.remove(token);
                     enginePanel.getEngineLabel().setText(token.toString());

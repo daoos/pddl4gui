@@ -158,7 +158,7 @@ public class AnytimePanel extends JFrame {
 
     private void refreshJList() {
         final PlannerAnytime plannerAnytime = (PlannerAnytime) token.getPlanner();
-        if (!plannerAnytime.getAnytimeSolutions().isEmpty()) {
+        if (plannerAnytime.getAnytimeSolutions() != null && !plannerAnytime.getAnytimeSolutions().isEmpty()) {
             final Vector<Node> solutionList = new Vector<>(plannerAnytime.getAnytimeSolutions());
             if (!solutionList.isEmpty()) {
                 for (Node node : solutionList) {

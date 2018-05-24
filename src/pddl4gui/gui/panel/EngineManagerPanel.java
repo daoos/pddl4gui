@@ -36,7 +36,7 @@ public class EngineManagerPanel extends JPanel {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Engines status"));
 
-        engineManager = new EngineManager(500, this, solver.getQueue());
+        engineManager = new EngineManager(1000, this, solver.getQueue());
 
         this.solver = solver;
 

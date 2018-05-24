@@ -120,7 +120,7 @@ public class Solver extends JFrame {
     }
 
     public void displayError(Token token) {
-        statisticsPanel.displayStats(token.getResult().getStatistics());
+        statisticsPanel.clearStats();
         resultPanel.clearResult();
         resultPanel.displayError(token);
     }

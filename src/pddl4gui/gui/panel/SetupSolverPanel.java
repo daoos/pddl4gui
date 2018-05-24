@@ -63,14 +63,15 @@ public class SetupSolverPanel extends JPanel {
         domainButton.setBounds(100, 25, 150, 25);
         domainButton.setEnabled(true);
         domainButton.addActionListener(e -> {
-            final Vector<File> domainTempFile = FileTools.getFiles(this, 0, false, domainButton);
-            if (domainTempFile.size() == 1) {
-                domainFile = domainTempFile.firstElement();
+            final Vector<File> domainTempFiles = FileTools.getFiles(this, 0, false, domainButton);
+            if (domainTempFiles.size() == 1) {
+                domainFile = domainTempFiles.firstElement();
                 if (FileTools.checkFile(domainFile)) {
                     domainButton.setText(domainFile.getName());
                     editDomainButton.setEnabled(true);
                 }
             } else {
+                domainFile = null;
                 editDomainButton.setEnabled(false);
             }
         });
@@ -81,6 +82,9 @@ public class SetupSolverPanel extends JPanel {
         editDomainButton.addActionListener(e -> {
             enableDomainButton(false);
             new Editor(solver, domainFile, 0);
+
+            domainFile = null;
+            domainButton.setText("Choose domain");
         });
         add(editDomainButton);
 
@@ -90,16 +94,19 @@ public class SetupSolverPanel extends JPanel {
         pbButton.setBounds(100, 65, 150, 25);
         pbButton.setEnabled(true);
         pbButton.addActionListener(e -> {
-            problemFiles = FileTools.getFiles(this, 0, true, pbButton);
-            if (problemFiles.size() == 1) {
+            final Vector<File> problemTempFiles = FileTools.getFiles(this, 0, true, pbButton);
+            if (problemTempFiles.size() == 1) {
+                problemFiles = problemTempFiles;
                 if (FileTools.checkFile(problemFiles.firstElement())) {
                     pbButton.setText(problemFiles.firstElement().getName());
                     editProblemButton.setEnabled(true);
                 }
-            } else if (problemFiles.size() >= 1) {
+            } else if (problemTempFiles.size() >= 1) {
+                problemFiles = problemTempFiles;
                 pbButton.setText(problemFiles.size() + " problems");
                 editProblemButton.setEnabled(false);
             } else {
+                problemFiles = null;
                 editProblemButton.setEnabled(false);
             }
         });
@@ -110,6 +117,9 @@ public class SetupSolverPanel extends JPanel {
         editProblemButton.addActionListener(e -> {
             enablePBButton(false);
             new Editor(solver, problemFiles.firstElement(), 1);
+
+            problemFiles = null;
+            pbButton.setText("Choose problem");
         });
         add(editProblemButton);
 
