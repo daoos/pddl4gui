@@ -8,14 +8,10 @@ import pddl4gui.gui.panel.StatisticsPanel;
 import pddl4gui.gui.panel.TokenListPanel;
 import pddl4gui.gui.tools.TokenList;
 import pddl4gui.gui.tools.WindowsManager;
-import pddl4gui.planners.Planner;
-import pddl4gui.planners.PlannerFactory;
 import pddl4gui.token.Queue;
 import pddl4gui.token.Token;
 
 import javax.swing.JFrame;
-import java.io.File;
-import java.util.Vector;
 
 public class Solver extends JFrame {
 
@@ -48,6 +44,10 @@ public class Solver extends JFrame {
         return menuSolverPanel;
     }
 
+    public EngineManagerPanel getEngineManagerPanel() {
+        return engineManagerPanel;
+    }
+
     public Solver(Queue queue) {
         this.queue = queue;
 
@@ -60,6 +60,7 @@ public class Solver extends JFrame {
         setTitle(WindowsManager.NAME);
         WindowsManager.setPoint(this.getLocation());
         WindowsManager.setWidth(width);
+        WindowsManager.setHeight(height);
 
         menuSolverPanel = new MenuSolverPanel(this);
         menuSolverPanel.setBounds(350, marging + 3, 330, 40);
@@ -87,28 +88,6 @@ public class Solver extends JFrame {
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    public void resolve(File domainFile, Vector<File> problemFiles) {
-        final double weight = (double) setupPanel.getWeightSpinner().getValue();
-        final double timeout = (double) setupPanel.getTimeoutSpinner().getValue();
-
-        final Planner planner = PlannerFactory.create(setupPanel.getPlanner(),
-                setupPanel.getHeuristic(), weight, timeout);
-        if (problemFiles != null && domainFile != null) {
-            for (File file : problemFiles) {
-                final Token token = new Token(domainFile, file, planner);
-
-                if (token.isRunnable() && engineManagerPanel.isStatus()) {
-                    if (!TokenList.getListModel().contains(token)) {
-                        TokenList.getListModel().addElement(token);
-                        queue.addToken(token);
-                    }
-                }
-
-                engineManagerPanel.setTokensRemaining();
-            }
-        }
     }
 
     public void displayResult(Token token) {

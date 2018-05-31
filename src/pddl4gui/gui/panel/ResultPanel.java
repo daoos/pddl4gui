@@ -108,7 +108,7 @@ public class ResultPanel extends JPanel {
         depth.setText(String.valueOf(DecimalFormatSetup.getDf()
                 .format(token.getResult().getStatistics().getDepth())));
         resultArea.setText(token.getResult().getSolutionString());
-        planner.setText(token.getPlanner().getType().toString());
+        planner.setText(token.getPlannerName().toString());
     }
 
     public void displayError(Token token) {
@@ -120,7 +120,7 @@ public class ResultPanel extends JPanel {
         problem.setText(token.getProblemFileName());
         cost.setText(String.valueOf(0));
         depth.setText(String.valueOf(0));
-        planner.setText(token.getPlanner().getType().toString());
+        planner.setText(token.getPlannerName().toString());
         resultArea.setText(token.getError());
     }
 
@@ -133,7 +133,7 @@ public class ResultPanel extends JPanel {
         problem.setText(token.getProblemFileName());
         cost.setText(String.valueOf(0));
         depth.setText(String.valueOf(0));
-        planner.setText(token.getPlanner().getType().toString());
+        planner.setText(token.getPlannerName().toString());
         resultArea.setText("Token not solved yet !");
     }
 

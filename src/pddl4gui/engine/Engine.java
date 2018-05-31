@@ -3,11 +3,11 @@ package pddl4gui.engine;
 import fr.uga.pddl4j.encoding.CodedProblem;
 import fr.uga.pddl4j.parser.ErrorManager;
 import fr.uga.pddl4j.parser.Message;
+import fr.uga.pddl4j.planners.Planner;
 import fr.uga.pddl4j.planners.ProblemFactory;
 import fr.uga.pddl4j.util.MemoryAgent;
 import fr.uga.pddl4j.util.Plan;
 import pddl4gui.gui.panel.EnginePanel;
-import pddl4gui.planners.Planner;
 import pddl4gui.token.Result;
 import pddl4gui.token.Statistics;
 import pddl4gui.token.Token;
@@ -57,7 +57,7 @@ public class Engine extends Thread {
                     enginePanel.getCirclePanel().setColor(Color.ORANGE);
                     enginePanel.getCirclePanel().repaint();
 
-                    final int timeout = token.getPlanner().getTimeOut();
+                    final int timeout = token.getPlanner().getTimeout()/1000;
                     progressBar.setValue(0);
                     progressBar.setMaximum(timeout);
                     progressBar.setString(progressBar.getValue() + "/" + timeout);

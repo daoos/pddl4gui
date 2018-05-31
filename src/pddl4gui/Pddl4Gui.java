@@ -1,6 +1,7 @@
 package pddl4gui;
 
 import com.pagosoft.plaf.PlafOptions;
+import pddl4gui.gui.Console;
 import pddl4gui.gui.Solver;
 import pddl4gui.token.Queue;
 
@@ -17,6 +18,7 @@ public class Pddl4Gui {
      */
     private Pddl4Gui() {
         new Solver(new Queue());
+        new Console();
     }
 
     /**

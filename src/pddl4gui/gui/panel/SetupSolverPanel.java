@@ -1,13 +1,15 @@
 package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
+import fr.uga.pddl4j.planners.Planner;
+import fr.uga.pddl4j.planners.PlannerFactory;
 import pddl4gui.gui.Editor;
 import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
+import pddl4gui.gui.tools.TokenList;
 import pddl4gui.gui.tools.WindowsManager;
-import pddl4gui.planners.Planner;
-import pddl4gui.planners.PlannerFactory;
+import pddl4gui.token.Token;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -21,30 +23,17 @@ import java.util.Vector;
 
 public class SetupSolverPanel extends JPanel {
 
+    final private Solver solver;
     final private JSpinner weightSpinner, timeoutSpinner;
     final private JButton domainButton, pbButton, editDomainButton, editProblemButton, planButton;
     private File domainFile;
     private Vector<File> problemFiles;
-    private Heuristic.Type heuristic = Heuristic.Type.FAST_FORWARD;
-    private Planner.Type planner = Planner.Type.HSP;
-
-    public JSpinner getWeightSpinner() {
-        return weightSpinner;
-    }
-
-    public JSpinner getTimeoutSpinner() {
-        return timeoutSpinner;
-    }
-
-    public Heuristic.Type getHeuristic() {
-        return heuristic;
-    }
-
-    public Planner.Type getPlanner() {
-        return planner;
-    }
+    private Heuristic.Type heuristic = Planner.DEFAULT_HEURISTIC;
+    private Planner.Name plannerName = Planner.Name.HSP;
 
     public SetupSolverPanel(Solver solver) {
+        this.solver = solver;
+
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver parameters"));
 
@@ -126,10 +115,10 @@ public class SetupSolverPanel extends JPanel {
         problemLabel.setBounds(15, 65, 140, 25);
         add(problemLabel);
 
-        final JComboBox plannerComboBox = new JComboBox<>(Planner.Type.values());
+        final JComboBox plannerComboBox = new JComboBox<>(Planner.Name.values());
         plannerComboBox.setBounds(100, 105, 150, 25);
-        plannerComboBox.setSelectedItem(planner);
-        plannerComboBox.addActionListener(e -> planner = (Planner.Type) plannerComboBox.getSelectedItem());
+        plannerComboBox.setSelectedItem(plannerName);
+        plannerComboBox.addActionListener(e -> plannerName = (Planner.Name) plannerComboBox.getSelectedItem());
         add(plannerComboBox);
 
         plannerLabel.setBounds(15, 105, 140, 25);
@@ -144,7 +133,7 @@ public class SetupSolverPanel extends JPanel {
         heuristicLabel.setBounds(15, 145, 150, 25);
         add(heuristicLabel);
 
-        final SpinnerNumberModel modelWeight = new SpinnerNumberModel(1.0, 0.0, 10.0, 0.1);
+        final SpinnerNumberModel modelWeight = new SpinnerNumberModel(Planner.DEFAULT_WEIGHT, 0.0, 10.0, 0.1);
         weightSpinner = new JSpinner(modelWeight);
         weightSpinner.setBounds(100, 185, 150, 25);
         add(weightSpinner);
@@ -152,7 +141,7 @@ public class SetupSolverPanel extends JPanel {
         weightLabel.setBounds(15, 185, 150, 25);
         add(weightLabel);
 
-        final SpinnerNumberModel modelTimeout = new SpinnerNumberModel(PlannerFactory.getPlannerDefaultTimeout(),
+        final SpinnerNumberModel modelTimeout = new SpinnerNumberModel(Planner.DEFAULT_TIMEOUT,
                 0.0, 10000.0, 1);
         timeoutSpinner = new JSpinner(modelTimeout);
         timeoutSpinner.addChangeListener(e -> {
@@ -169,8 +158,38 @@ public class SetupSolverPanel extends JPanel {
         planButton = new JButton("Resolve this problem !");
         planButton.setBounds(65, 270, 200, 25);
         planButton.setEnabled(true);
-        planButton.addActionListener(e -> solver.resolve(domainFile, problemFiles));
+        planButton.addActionListener(e -> resolve(domainFile, problemFiles));
         add(planButton);
+    }
+
+    private void resolve(File domainFile, Vector<File> problemFiles) {
+        final PlannerFactory plannerFactory = PlannerFactory.getInstance();
+        final double weight = (double) weightSpinner.getValue();
+        final double timeout = (double) timeoutSpinner.getValue() * 1000;
+
+        final Planner planner = plannerFactory.getPlanner(plannerName);
+        planner.setupPlanner(heuristic, (int) timeout, weight, true, 1);
+
+        if (problemFiles != null && domainFile != null) {
+            for (File file : problemFiles) {
+                final Token token;
+
+                if (plannerName == Planner.Name.FFAnytime || plannerName == Planner.Name.HCAnytime) {
+                    token = new Token(domainFile, file, planner, plannerName);
+                } else {
+                    token = new Token(domainFile, file, planner, plannerName);
+                }
+
+                if (token.isRunnable() && solver.getEngineManagerPanel().isStatus()) {
+                    if (!TokenList.getListModel().contains(token)) {
+                        TokenList.getListModel().addElement(token);
+                        solver.getQueue().addToken(token);
+                    }
+                }
+
+                solver.getEngineManagerPanel().setTokensRemaining();
+            }
+        }
     }
 
     public void enableDomainButton(boolean enable) {

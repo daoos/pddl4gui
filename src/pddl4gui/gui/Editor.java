@@ -38,7 +38,7 @@ public class Editor extends JFrame {
 
         container.add(editorPanel, BorderLayout.CENTER);
 
-        setLocation(WindowsManager.setWindowsLocation());
+        setLocation(WindowsManager.setWindowsLocationWidth());
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {

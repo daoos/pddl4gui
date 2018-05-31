@@ -1,10 +1,10 @@
 package pddl4gui.gui.panel;
 
-import fr.uga.pddl4j.planners.ff.Node;
+import fr.uga.pddl4j.planners.AbstractPlannerAnytime;
+import fr.uga.pddl4j.planners.search.strategy.Node;
 import pddl4gui.gui.tools.DecimalFormatSetup;
 import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.WindowsManager;
-import pddl4gui.planners.PlannerAnytime;
 import pddl4gui.token.Token;
 
 import javax.swing.BorderFactory;
@@ -151,21 +151,22 @@ public class AnytimePanel extends JFrame {
             refreshJList();
         }
 
-        setLocation(WindowsManager.setWindowsLocation());
+        setLocation(WindowsManager.setWindowsLocationWidth());
         setVisible(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
     private void refreshJList() {
-        final PlannerAnytime plannerAnytime = (PlannerAnytime) token.getPlanner();
-        if (plannerAnytime.getAnytimeSolutions() != null && !plannerAnytime.getAnytimeSolutions().isEmpty()) {
-            final Vector<Node> solutionList = new Vector<>(plannerAnytime.getAnytimeSolutions());
+        final AbstractPlannerAnytime plannerAnytime = (AbstractPlannerAnytime) token.getPlanner();
+        if (plannerAnytime.getSolutionNodes() != null && !plannerAnytime.getSolutionNodes().isEmpty()) {
+            final Vector<Node> solutionList = new Vector<>(plannerAnytime.getSolutionNodes());
             if (!solutionList.isEmpty()) {
+                listModel.clear();
                 for (Node node : solutionList) {
-                    if (!listModel.contains(node)) {
+                    //if (!listModel.contains(node)) {
                         listModel.addElement(node);
                         bestCostD = Math.min(bestCostD, node.getCost());
-                    }
+                    //}
                 }
                 numberSolutionI = listModel.getSize();
             }

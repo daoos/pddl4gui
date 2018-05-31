@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 public class WindowsManager {
     private static Point location;
     private static int width;
+    private static int height;
     public final static String NAME = "PDDL 4 GUI";
 
     public static void setPoint(Point location) {
@@ -20,9 +21,18 @@ public class WindowsManager {
         WindowsManager.width = width;
     }
 
-    public static Point setWindowsLocation() {
+    public static void setHeight(int height) {
+        WindowsManager.height = height;
+    }
+
+    public static Point setWindowsLocationWidth() {
         int margin = 10;
         return new Point((int) location.getX() + width + margin, (int) location.getY());
+    }
+
+    public static Point setWindowsLocationHeight() {
+        int margin = 10;
+        return new Point((int) location.getX(), (int) location.getY() + height + margin);
     }
 
     public static void h2g2(final String string) {

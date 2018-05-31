@@ -1,7 +1,7 @@
 package pddl4gui.token;
 
+import fr.uga.pddl4j.planners.Planner;
 import pddl4gui.gui.tools.FileTools;
-import pddl4gui.planners.Planner;
 
 import java.io.File;
 
@@ -57,6 +57,16 @@ public class Token {
      * The planner used to solve the token.
      */
     private Planner planner;
+
+    /**
+     * The name of the planner used.
+     */
+    private Planner.Name plannerName;
+
+    /**
+     * The boolean used to check if the search is anytime.
+     */
+    private boolean anytime;
 
     /**
      * Sets if a token could be solved by checking if files are not null.
@@ -176,14 +186,43 @@ public class Token {
     }
 
     /**
+     * Returns the planner name.
+     *
+     * @return Returns the planner name.
+     */
+    public Planner.Name getPlannerName() {
+        return plannerName;
+    }
+
+    /**
+     * Returns if a search is anytime.
+     *
+     * @return if a search is anytime.
+     */
+    public boolean isAnytime() {
+        return anytime;
+    }
+
+    /**
+     * Returns if the planner is anytime.
+     *
+     * @return if the planner is anytime.
+     */
+    public boolean isPlannerAnytime() {
+        return (plannerName == Planner.Name.FFAnytime || plannerName == Planner.Name.HCAnytime);
+    }
+
+    /**
      * Creates a new token.
      */
-    public Token(File domainFile, File problemFile, Planner planner) {
+    public Token(File domainFile, File problemFile, Planner planner, Planner.Name plannerName) {
         this.domainFile = domainFile;
         this.domainFileName = FileTools.removeExtension(domainFile.getName());
         this.problemFile = problemFile;
         this.problemFileName = FileTools.removeExtension(problemFile.getName());
         this.planner = planner;
+        this.plannerName = plannerName;
+        this.anytime = isPlannerAnytime();
         this.runnable = isTokenRunnable();
         this.solved = false;
         this.error = "";

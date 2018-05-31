@@ -111,7 +111,7 @@ public class VAL extends JFrame {
             exception.printStackTrace();
         }
 
-        setLocation(WindowsManager.setWindowsLocation());
+        setLocation(WindowsManager.setWindowsLocationWidth());
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
