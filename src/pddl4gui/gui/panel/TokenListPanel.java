@@ -90,7 +90,7 @@ public class TokenListPanel extends JPanel {
 
                     final Token selectedValue = tokenJList.getSelectedValue();
                     if (selectedValue != null) {
-                        if (selectedValue.isAnytime()) {
+                        if (selectedValue.getPlanner().isAnytime()) {
                             anytimeSolutionButton.setEnabled(true);
                             if (selectedValue.isSolved()) {
                                 solver.getMenuSolverPanel().enableButton(true);

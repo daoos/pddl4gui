@@ -6,8 +6,8 @@ import pddl4gui.gui.tools.FileTools;
 import java.io.File;
 
 /**
- * This class implements the pddl4g method of <code>Token</code>.
- * A token is an object given to a context to be solve by a planner.
+ * This class implements the <code>Token</code>.
+ * A token is an object to be solve by a planner.
  *
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
@@ -62,11 +62,6 @@ public class Token {
      * The name of the planner used.
      */
     private Planner.Name plannerName;
-
-    /**
-     * The boolean used to check if the search is anytime.
-     */
-    private boolean anytime;
 
     /**
      * Sets if a token could be solved by checking if files are not null.
@@ -195,24 +190,6 @@ public class Token {
     }
 
     /**
-     * Returns if a search is anytime.
-     *
-     * @return if a search is anytime.
-     */
-    public boolean isAnytime() {
-        return anytime;
-    }
-
-    /**
-     * Returns if the planner is anytime.
-     *
-     * @return if the planner is anytime.
-     */
-    public boolean isPlannerAnytime() {
-        return (plannerName == Planner.Name.FFAnytime || plannerName == Planner.Name.HCAnytime);
-    }
-
-    /**
      * Creates a new token.
      */
     public Token(File domainFile, File problemFile, Planner planner, Planner.Name plannerName) {
@@ -222,7 +199,6 @@ public class Token {
         this.problemFileName = FileTools.removeExtension(problemFile.getName());
         this.planner = planner;
         this.plannerName = plannerName;
-        this.anytime = isPlannerAnytime();
         this.runnable = isTokenRunnable();
         this.solved = false;
         this.error = "";

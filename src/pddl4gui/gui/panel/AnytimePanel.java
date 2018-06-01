@@ -163,10 +163,8 @@ public class AnytimePanel extends JFrame {
             if (!solutionList.isEmpty()) {
                 listModel.clear();
                 for (Node node : solutionList) {
-                    //if (!listModel.contains(node)) {
-                        listModel.addElement(node);
-                        bestCostD = Math.min(bestCostD, node.getCost());
-                    //}
+                    listModel.addElement(node);
+                    bestCostD = Math.min(bestCostD, node.getCost());
                 }
                 numberSolutionI = listModel.getSize();
             }

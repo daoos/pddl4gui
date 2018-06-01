@@ -172,13 +172,7 @@ public class SetupSolverPanel extends JPanel {
 
         if (problemFiles != null && domainFile != null) {
             for (File file : problemFiles) {
-                final Token token;
-
-                if (plannerName == Planner.Name.FFAnytime || plannerName == Planner.Name.HCAnytime) {
-                    token = new Token(domainFile, file, planner, plannerName);
-                } else {
-                    token = new Token(domainFile, file, planner, plannerName);
-                }
+                final Token token = new Token(domainFile, file, planner, plannerName);
 
                 if (token.isRunnable() && solver.getEngineManagerPanel().isStatus()) {
                     if (!TokenList.getListModel().contains(token)) {
