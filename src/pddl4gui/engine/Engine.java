@@ -67,6 +67,7 @@ public class Engine extends Thread {
                     });
 
                     timer.start();
+                    System.out.println(token.getPlannerName().toString() + " planner on thread " + this.getName());
                     token.setSolved(resolve(token));
                     token.setError(error);
                     timer.stop();
@@ -126,31 +127,37 @@ public class Engine extends Thread {
                     e.printStackTrace();
                     return false;
                 }
-                statistics.setTimeToEncodeInSeconds((System.currentTimeMillis() - begin) / 1000.0);
-                statistics.setNumberOfActions(pb.getOperators().size());
-                statistics.setNumberOfFluents(pb.getRelevantFacts().size());
-                statistics.setMemoryForProblemInMBytes(MemoryAgent.deepSizeOf(pb) / (1024.0 * 1024.0));
-                if (!pb.isSolvable()) {
-                    error = ("Goal can be simplified to FALSE.\n"
-                            + "No search will solve it !");
-                    return false;
+                if (pb != null) {
+                    statistics.setTimeToEncodeInSeconds((System.currentTimeMillis() - begin) / 1000.0);
+                    statistics.setNumberOfActions(pb.getOperators().size());
+                    statistics.setNumberOfFluents(pb.getRelevantFacts().size());
+                    statistics.setMemoryForProblemInMBytes(MemoryAgent.deepSizeOf(pb) / (1024.0 * 1024.0));
+                    if (!pb.isSolvable()) {
+                        error = ("Goal can be simplified to FALSE.\n"
+                                + "No search will solve it !");
+                        return false;
+                    }
+
+                    begin = System.currentTimeMillis();
+                    final Planner planner = token.getPlanner();
+                    final Plan plan = planner.search(pb);
+                    statistics.setTimeToPlanInSeconds((System.currentTimeMillis() - begin) / 1000.0);
+                    statistics.setMemoryUsedToSearchInMBytes(planner.getStatistics().getMemoryUsedToSearch() / (1024.0 * 1024.0));
+
+                    token.setResult(new Result(statistics, pb, plan));
+                    if (plan != null) {
+                        statistics.setCost(plan.cost());
+                        statistics.setDepth(plan.size());
+                        return true;
+                    } else {
+                        error = ("No plan found !");
+                        statistics.setCost(0);
+                        statistics.setDepth(0);
+                        return false;
+                    }
                 }
-
-                begin = System.currentTimeMillis();
-                final Planner planner = token.getPlanner();
-                final Plan plan = planner.search(pb);
-                statistics.setTimeToPlanInSeconds((System.currentTimeMillis() - begin) / 1000.0);
-                statistics.setMemoryUsedToSearchInMBytes(planner.getStatistics().getMemoryUsedToSearch() / (1024.0 * 1024.0));
-
-                token.setResult(new Result(statistics, pb, plan));
-                if (plan != null) {
-                    statistics.setCost(plan.cost());
-                    statistics.setDepth(plan.size());
-                    return true;
-                } else {
-                    error = ("No plan found !");
-                    statistics.setCost(0);
-                    statistics.setDepth(0);
+                else {
+                    error = ("Encoding problem failed !");
                     return false;
                 }
             } catch (NullPointerException e) {
