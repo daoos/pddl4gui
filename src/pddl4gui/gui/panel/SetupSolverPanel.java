@@ -2,7 +2,8 @@ package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Planner;
-import fr.uga.pddl4j.planners.PlannerFactory;
+import fr.uga.pddl4j.planners.statespace.AbstractStateBasedPlanner;
+import fr.uga.pddl4j.planners.statespace.PlannerFactory;
 import pddl4gui.gui.Editor;
 import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.FileTools;
@@ -28,7 +29,7 @@ public class SetupSolverPanel extends JPanel {
     final private JButton domainButton, pbButton, editDomainButton, editProblemButton, planButton;
     private File domainFile;
     private Vector<File> problemFiles;
-    private Heuristic.Type heuristic = Planner.DEFAULT_HEURISTIC;
+    private Heuristic.Type heuristic = Heuristic.Type.FAST_FORWARD;
     private Planner.Name plannerName = Planner.Name.HSP;
 
     public SetupSolverPanel(Solver solver) {
@@ -133,7 +134,7 @@ public class SetupSolverPanel extends JPanel {
         heuristicLabel.setBounds(15, 145, 150, 25);
         add(heuristicLabel);
 
-        final SpinnerNumberModel modelWeight = new SpinnerNumberModel(Planner.DEFAULT_WEIGHT, 0.0, 10.0, 0.1);
+        final SpinnerNumberModel modelWeight = new SpinnerNumberModel(1.0, 0.0, 10.0, 0.1);
         weightSpinner = new JSpinner(modelWeight);
         weightSpinner.setBounds(100, 185, 150, 25);
         add(weightSpinner);
@@ -167,7 +168,7 @@ public class SetupSolverPanel extends JPanel {
         final double weight = (double) weightSpinner.getValue();
         final double timeout = (double) timeoutSpinner.getValue() * 1000;
 
-        final Planner planner = plannerFactory.getPlanner(plannerName);
+        final AbstractStateBasedPlanner planner = plannerFactory.getPlanner(plannerName);
         planner.setupPlanner(heuristic, (int) timeout, weight, true, 1);
 
         if (problemFiles != null && domainFile != null) {
