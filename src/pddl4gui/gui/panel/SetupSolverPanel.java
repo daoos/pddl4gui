@@ -2,8 +2,8 @@ package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Planner;
-import fr.uga.pddl4j.planners.statespace.AbstractStateBasedPlanner;
-import fr.uga.pddl4j.planners.statespace.PlannerFactory;
+import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
+import fr.uga.pddl4j.planners.statespace.StateSpacePlannerFactory;
 import pddl4gui.gui.Editor;
 import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.FileTools;
@@ -164,12 +164,12 @@ public class SetupSolverPanel extends JPanel {
     }
 
     private void resolve(File domainFile, Vector<File> problemFiles) {
-        final PlannerFactory plannerFactory = PlannerFactory.getInstance();
+        final StateSpacePlannerFactory plannerFactory = StateSpacePlannerFactory.getInstance();
         final double weight = (double) weightSpinner.getValue();
         final double timeout = (double) timeoutSpinner.getValue() * 1000;
 
-        final AbstractStateBasedPlanner planner = plannerFactory.getPlanner(plannerName);
-        planner.setupPlanner(heuristic, (int) timeout, weight, true, 1);
+        final AbstractStateSpacePlanner planner = plannerFactory.getPlanner(plannerName);
+        planner.init(heuristic, (int) timeout, weight, true, 1);
 
         if (problemFiles != null && domainFile != null) {
             for (File file : problemFiles) {

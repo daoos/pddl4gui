@@ -1,6 +1,6 @@
 package pddl4gui.gui.panel;
 
-import fr.uga.pddl4j.planners.statespace.AbstractStateBasedPlanner;
+import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
 import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.TokenList;
 import pddl4gui.token.Token;
@@ -91,7 +91,7 @@ public class TokenListPanel extends JPanel {
 
                     final Token selectedValue = tokenJList.getSelectedValue();
                     if (selectedValue != null) {
-                        final AbstractStateBasedPlanner planner = (AbstractStateBasedPlanner) selectedValue.getPlanner();
+                        final AbstractStateSpacePlanner planner = (AbstractStateSpacePlanner) selectedValue.getPlanner();
                         if (planner.isAnytime()) {
                             anytimeSolutionButton.setEnabled(true);
                             if (selectedValue.isSolved()) {

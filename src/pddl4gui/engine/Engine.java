@@ -57,7 +57,7 @@ public class Engine extends Thread {
                     enginePanel.getCirclePanel().setColor(Color.ORANGE);
                     enginePanel.getCirclePanel().repaint();
 
-                    final int timeout = token.getPlanner().getTimeout()/1000;
+                    final int timeout = token.getPlanner().getTimeout() / 1000;
                     progressBar.setValue(0);
                     progressBar.setMaximum(timeout);
                     progressBar.setString(progressBar.getValue() + "/" + timeout);
@@ -155,8 +155,7 @@ public class Engine extends Thread {
                         statistics.setDepth(0);
                         return false;
                     }
-                }
-                else {
+                } else {
                     error = ("Encoding problem failed !");
                     return false;
                 }
