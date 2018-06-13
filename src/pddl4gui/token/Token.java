@@ -1,6 +1,7 @@
 package pddl4gui.token;
 
 import fr.uga.pddl4j.planners.Planner;
+import fr.uga.pddl4j.planners.statespace.StateSpacePlanner;
 import pddl4gui.gui.tools.FileTools;
 
 import java.io.File;
@@ -56,17 +57,12 @@ public class Token {
     /**
      * The planner used to solve the token.
      */
-    private Planner planner;
+    private StateSpacePlanner planner;
 
     /**
      * The name of the planner used.
      */
     private Planner.Name plannerName;
-
-    /**
-     * The time to solve the token.
-     */
-    private int timeOut;
 
     /**
      * Sets if a token could be solved by checking if files are not null.
@@ -181,7 +177,7 @@ public class Token {
      *
      * @return the planner to use to solve the token.
      */
-    public Planner getPlanner() {
+    public StateSpacePlanner getPlanner() {
         return planner;
     }
 
@@ -195,25 +191,15 @@ public class Token {
     }
 
     /**
-     * Returns the time to solve the token.
-     *
-     * @return the time to solve the token.
-     */
-    public int getTimeOut() {
-        return timeOut;
-    }
-
-    /**
      * Creates a new token.
      */
-    public Token(File domainFile, File problemFile, Planner planner, Planner.Name plannerName, int timeOut) {
+    public Token(File domainFile, File problemFile, StateSpacePlanner planner, Planner.Name plannerName) {
         this.domainFile = domainFile;
         this.domainFileName = FileTools.removeExtension(domainFile.getName());
         this.problemFile = problemFile;
         this.problemFileName = FileTools.removeExtension(problemFile.getName());
         this.planner = planner;
         this.plannerName = plannerName;
-        this.timeOut = timeOut;
         this.runnable = isTokenRunnable();
         this.solved = false;
         this.error = "";

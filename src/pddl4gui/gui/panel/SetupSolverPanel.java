@@ -173,7 +173,7 @@ public class SetupSolverPanel extends JPanel {
 
         if (problemFiles != null && domainFile != null) {
             for (File file : problemFiles) {
-                final Token token = new Token(domainFile, file, planner, plannerName, (int) timeout);
+                final Token token = new Token(domainFile, file, planner, plannerName);
 
                 if (token.isRunnable() && solver.getEngineManagerPanel().isStatus()) {
                     if (!TokenList.getListModel().contains(token)) {
