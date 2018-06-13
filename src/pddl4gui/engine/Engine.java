@@ -57,7 +57,7 @@ public class Engine extends Thread {
                     enginePanel.getCirclePanel().setColor(Color.ORANGE);
                     enginePanel.getCirclePanel().repaint();
 
-                    final int timeout = token.getPlanner().getTimeout() / 1000;
+                    final int timeout = token.getTimeOut() / 1000;
                     progressBar.setValue(0);
                     progressBar.setMaximum(timeout);
                     progressBar.setString(progressBar.getValue() + "/" + timeout);
@@ -67,7 +67,7 @@ public class Engine extends Thread {
                     });
 
                     timer.start();
-                    System.out.println(token.getPlannerName().toString() + " planner on thread " + this.getName());
+                    System.out.println(token.getPlannerName().toString() + " planner on " + this.getName());
                     token.setSolved(resolve(token));
                     token.setError(error);
                     timer.stop();

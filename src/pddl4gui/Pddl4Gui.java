@@ -18,7 +18,7 @@ public class Pddl4Gui {
      */
     private Pddl4Gui() {
         new Solver(new Queue());
-        new Console();
+        //new Console();
     }
 
     /**

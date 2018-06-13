@@ -168,12 +168,12 @@ public class SetupSolverPanel extends JPanel {
         final double weight = (double) weightSpinner.getValue();
         final double timeout = (double) timeoutSpinner.getValue() * 1000;
 
-        final AbstractStateSpacePlanner planner = plannerFactory.getPlanner(plannerName);
-        planner.init(heuristic, (int) timeout, weight, true, 1);
+        final AbstractStateSpacePlanner planner = plannerFactory.getPlanner(plannerName, (int) timeout, heuristic,
+                weight, true, 1);
 
         if (problemFiles != null && domainFile != null) {
             for (File file : problemFiles) {
-                final Token token = new Token(domainFile, file, planner, plannerName);
+                final Token token = new Token(domainFile, file, planner, plannerName, (int) timeout);
 
                 if (token.isRunnable() && solver.getEngineManagerPanel().isStatus()) {
                     if (!TokenList.getListModel().contains(token)) {

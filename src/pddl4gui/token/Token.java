@@ -64,6 +64,11 @@ public class Token {
     private Planner.Name plannerName;
 
     /**
+     * The time to solve the token.
+     */
+    private int timeOut;
+
+    /**
      * Sets if a token could be solved by checking if files are not null.
      *
      * @return if a token could be solved.
@@ -190,15 +195,25 @@ public class Token {
     }
 
     /**
+     * Returns the time to solve the token.
+     *
+     * @return the time to solve the token.
+     */
+    public int getTimeOut() {
+        return timeOut;
+    }
+
+    /**
      * Creates a new token.
      */
-    public Token(File domainFile, File problemFile, Planner planner, Planner.Name plannerName) {
+    public Token(File domainFile, File problemFile, Planner planner, Planner.Name plannerName, int timeOut) {
         this.domainFile = domainFile;
         this.domainFileName = FileTools.removeExtension(domainFile.getName());
         this.problemFile = problemFile;
         this.problemFileName = FileTools.removeExtension(problemFile.getName());
         this.planner = planner;
         this.plannerName = plannerName;
+        this.timeOut = timeOut;
         this.runnable = isTokenRunnable();
         this.solved = false;
         this.error = "";
