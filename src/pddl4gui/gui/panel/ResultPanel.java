@@ -79,10 +79,10 @@ public class ResultPanel extends JPanel {
             if (token != null && token.isSolved()) {
                 if (checkbox.isSelected()) {
                     resultArea.setText(token.getResult().getSolutionStringDetailed());
-                    solver.getMenuSolverPanel().discardVAL(true);
+                    //solver.getMenuSolverPanel().discardVAL(true);
                 } else {
                     displayResult(token);
-                    solver.getMenuSolverPanel().enableButton(true);
+                    //solver.getMenuSolverPanel().enableButton(true);
                 }
             }
         });
