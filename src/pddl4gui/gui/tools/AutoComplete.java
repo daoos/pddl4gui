@@ -64,7 +64,7 @@ public class AutoComplete implements DocumentListener {
         bracketCompletions = pddl.getbracketCompletions();
 
         //Access the editor
-        textArea = editorFrame.getEditor();
+        textArea = editorFrame.getEditorTextArea();
 
         //Set the handler for the enter key
         final InputMap im = textArea.getInputMap();

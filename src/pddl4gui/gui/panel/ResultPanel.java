@@ -10,19 +10,50 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import java.io.Serializable;
 
-public class ResultPanel extends JPanel {
+/**
+ *
+ */
+public class ResultPanel extends JPanel implements Serializable {
 
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     *
+     */
     final private JLabel domain, problem, cost, depth, planner;
+
+    /**
+     *
+     */
     final private JTextArea resultArea;
+
+    /**
+     *
+     */
     final private JCheckBox checkbox;
 
+    /**
+     *
+     */
     private Token token = null;
 
+    /**
+     *
+     * @return
+     */
     public boolean isCheckboxSelected() {
         return checkbox.isSelected();
     }
 
+    /**
+     *
+     * @param solver
+     */
     public ResultPanel(Solver solver) {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver result"));
@@ -96,6 +127,10 @@ public class ResultPanel extends JPanel {
         add(scrollTextPane);
     }
 
+    /**
+     *
+     * @param token
+     */
     public void displayResult(Token token) {
         this.token = token;
         checkbox.setEnabled(true);
@@ -111,6 +146,10 @@ public class ResultPanel extends JPanel {
         planner.setText(token.getPlannerName().toString());
     }
 
+    /**
+     *
+     * @param token
+     */
     public void displayError(Token token) {
         this.token = token;
         checkbox.setEnabled(false);
@@ -124,6 +163,10 @@ public class ResultPanel extends JPanel {
         resultArea.setText(token.getError());
     }
 
+    /**
+     *
+     * @param token
+     */
     public void diplayProgress(Token token) {
         this.token = token;
         checkbox.setEnabled(false);
@@ -137,6 +180,9 @@ public class ResultPanel extends JPanel {
         resultArea.setText("Token not solved yet !");
     }
 
+    /**
+     *
+     */
     public void clearResult() {
         checkbox.setEnabled(false);
         checkbox.setSelected(false);

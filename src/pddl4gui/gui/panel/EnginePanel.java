@@ -10,34 +10,91 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.Random;
 
-public class EnginePanel extends JPanel {
+/**
+ * This class implements the EnginePanel class of <code>PDDL4GUI</code>.
+ * This JPanel displays all the information of an Engine.
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
+ */
+public class EnginePanel extends JPanel implements Serializable {
 
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The Engine associated to this EnginePanel.
+     */
     private Engine engine;
 
+    /**
+     * The Buttons for init and stop Engine.
+     */
     final private JButton initButton, stopButton;
+
+    /**
+     * The JLabel to display Engine status.
+     */
     final private JLabel engineLabel;
+
+    /**
+     * The DrawCircle to display Engine status.
+     */
     final private DrawCircle circlePanel;
+
+    /**
+     * The JProgressBar to display Engine status.
+     */
     final private JProgressBar progressBar;
 
+    /**
+     * Returns the init button.
+     *
+     * @return the init button.
+     */
     public JButton getInitButton() {
         return initButton;
     }
 
+    /**
+     * Returns the Engine label.
+     *
+     * @return the Engine label.
+     */
     public JLabel getEngineLabel() {
         return engineLabel;
     }
 
+    /**
+     * Returns Engine circle status.
+     *
+     * @return Engine circle status.
+     */
     public DrawCircle getCirclePanel() {
         return circlePanel;
     }
 
+    /**
+     * Returns Engine progress bar.
+     *
+     * @return Engine progress bar.
+     */
     public JProgressBar getProgressBar() {
         return progressBar;
     }
 
-    public EnginePanel(EngineManagerPanel engineManagerPanel, boolean active) {
+    /**
+     * Creates a new EnginePanel associated to an EngineManagerPanel.
+     *
+     * @param engineManagerPanel the EngineManagerPanel.
+     * @param active the status of the associated Engine.
+     */
+    EnginePanel(EngineManagerPanel engineManagerPanel, boolean active) {
         setLayout(null);
         Random random = new Random();
 

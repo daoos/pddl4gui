@@ -18,14 +18,53 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 
-public class VAL extends JFrame {
+/**
+ * This class implements the VAL class of <code>PDDL4GUI</code>.
+ * This JFrame displays VAL result for a given token and propose to save the result.
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
+ */
+public class VAL extends JFrame implements Serializable {
 
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The JTextArea containing VAL result.
+     */
     final private JTextArea textArea;
-    private File domainFile, pbFile, planFile;
 
+    /**
+     * The PDDL domain file.
+     */
+    private File domainFile;
+
+    /**
+     * The PDDL problem file.
+     */
+    private File pbFile;
+
+    /**
+     * The plan file.
+     */
+    private File planFile;
+
+    /**
+     * If the plan is valide according to VAL result.
+     */
     private boolean isValide = false;
 
+    /**
+     * Creates a new VAL JFrame.
+     *
+     * @param token the token to check with VAL.
+     */
     public VAL(Token token) {
         final JButton exitButton, generateTexButton, saveButton;
 
@@ -50,7 +89,7 @@ public class VAL extends JFrame {
             if (isValide) {
                 String target = "./resources/apps/validate -l " + domainFile.getAbsolutePath()
                         + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
-                StringBuilder output = VAL.execVal(target);
+                StringBuilder output = this.getValResult(target);
                 File tempFile = FileTools.saveFile(this, 2);
                 if (FileTools.checkFile(tempFile))
                     FileTools.writeInFile(tempFile, output.toString());
@@ -88,7 +127,7 @@ public class VAL extends JFrame {
         try {
             planFile = File.createTempFile("result", ".txt");
             try (final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(planFile), "UTF-8"))) {
+                    new FileOutputStream(planFile), StandardCharsets.UTF_8))) {
                 writer.write(token.getResult().getSolutionString());
             }
 
@@ -96,7 +135,7 @@ public class VAL extends JFrame {
                 try {
                     String target = "./resources/apps/validate -v " + domainFile.getAbsolutePath()
                             + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
-                    StringBuilder output = VAL.execVal(target);
+                    StringBuilder output = this.getValResult(target);
 
                     textArea.setText(output.toString());
                     isValide = true;
@@ -117,7 +156,13 @@ public class VAL extends JFrame {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
-    private static StringBuilder execVal(String target) {
+    /**
+     * Returns a StringBuilder containing the VAL result.
+     *
+     * @param target the command line to execute.
+     * @return a StringBuilder containing the VAL result.
+     */
+    private StringBuilder getValResult(String target) {
         final StringBuilder output = new StringBuilder();
         try {
             final Runtime rt = Runtime.getRuntime();
@@ -126,7 +171,7 @@ public class VAL extends JFrame {
             final BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                output.append(line + "\n");
+                output.append(line).append("\n");
             }
             return output;
         } catch (Throwable t) {

@@ -6,8 +6,14 @@ import pddl4gui.token.Statistics;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.io.Serializable;
 
-public class StatisticsPanel extends JPanel {
+public class StatisticsPanel extends JPanel implements Serializable {
+
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
 
     final private JLabel timeToParse, timeToEncode, timeToPlan, timeTotal, numberActions,
             numberFluents, memoryPb, memorySearch, memoryTotal;

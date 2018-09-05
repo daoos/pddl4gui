@@ -2,6 +2,7 @@ package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
 import pddl4gui.gui.Solver;
+import pddl4gui.gui.TriggerAction;
 import pddl4gui.gui.tools.TokenList;
 import pddl4gui.token.Token;
 
@@ -14,8 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
+import java.io.Serializable;
 
-public class TokenListPanel extends JPanel {
+public class TokenListPanel extends JPanel implements Serializable {
+
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
 
     final private JList<Token> tokenJList;
     final private JButton anytimeSolutionButton, multipleResults;
@@ -84,7 +91,7 @@ public class TokenListPanel extends JPanel {
         tokenJList.addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
                 if (tokenJList.getSelectedValuesList().size() > 1) {
-                    solver.clearResult();
+                    TriggerAction.clearResult();
                     multipleResults.setEnabled(true);
                 } else if (tokenJList.getSelectedValuesList().size() == 1) {
                     multipleResults.setEnabled(false);
@@ -95,33 +102,33 @@ public class TokenListPanel extends JPanel {
                         if (planner.isAnytime()) {
                             anytimeSolutionButton.setEnabled(true);
                             if (selectedValue.isSolved()) {
-                                solver.getMenuSolverPanel().enableButton(true);
-                                solver.displayResult(selectedValue);
+                                TriggerAction.enableMenuSolverPanelButton(true);
+                                TriggerAction.displayResult(selectedValue);
                             } else if (!selectedValue.getError().equals("")) {
-                                solver.getMenuSolverPanel().enableButton(false);
-                                solver.displayError(selectedValue);
+                                TriggerAction.enableMenuSolverPanelButton(false);
+                                TriggerAction.displayError(selectedValue);
                             } else {
-                                solver.getMenuSolverPanel().enableButton(false);
-                                solver.displayProgress(selectedValue);
+                                TriggerAction.enableMenuSolverPanelButton(false);
+                                TriggerAction.displayProgress(selectedValue);
                             }
                         } else {
                             anytimeSolutionButton.setEnabled(false);
                             if (selectedValue.isSolved()) {
-                                solver.getMenuSolverPanel().enableButton(true);
-                                solver.displayResult(selectedValue);
+                                TriggerAction.enableMenuSolverPanelButton(true);
+                                TriggerAction.displayResult(selectedValue);
                             } else if (!selectedValue.isSolved() && !selectedValue.getError().equals("")) {
-                                solver.getMenuSolverPanel().enableButton(false);
-                                solver.displayError(selectedValue);
+                                TriggerAction.enableMenuSolverPanelButton(false);
+                                TriggerAction.displayError(selectedValue);
                             } else {
-                                solver.getMenuSolverPanel().enableButton(false);
-                                solver.displayProgress(selectedValue);
+                                TriggerAction.enableMenuSolverPanelButton(false);
+                                TriggerAction.displayProgress(selectedValue);
                             }
                         }
                     }
                 } else {
-                    solver.getMenuSolverPanel().enableButton(false);
+                    TriggerAction.enableMenuSolverPanelButton(false);
                     anytimeSolutionButton.setEnabled(false);
-                    solver.clearResult();
+                    TriggerAction.clearResult();
                 }
             }
         });

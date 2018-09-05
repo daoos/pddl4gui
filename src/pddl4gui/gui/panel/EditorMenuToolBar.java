@@ -1,5 +1,6 @@
 package pddl4gui.gui.panel;
 
+import pddl4gui.gui.TriggerAction;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Find;
 import pddl4gui.gui.tools.Icons;
@@ -12,12 +13,37 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.Serializable;
 
-public class EditorMenuToolBar extends JToolBar {
+/**
+ * This class implements the EditorMenuToolBar class of <code>PDDL4GUI</code>.
+ * This JToolBar displays buttons and options for the EditorPanel.
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
+ */
+public class EditorMenuToolBar extends JToolBar implements Serializable {
 
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The JComboBox for font size.
+     */
     final private JComboBox<Integer> fontSize;
+
+    /**
+     * If the color is inverted in the EditorPanel.
+     */
     private boolean isInvertedColor = false;
 
+    /**
+     * Creates a new EditorMenuToolBar for the EditorPanel.
+     *
+     * @param parent the EditorPanel associated.
+     */
     public EditorMenuToolBar(EditorPanel parent) {
 
         fontSize = new JComboBox<>();
@@ -29,20 +55,20 @@ public class EditorMenuToolBar extends JToolBar {
         fontSize.addActionListener((ActionEvent ev) -> {
             final String sizeValue = String.valueOf(fontSize.getSelectedItem());
             final int sizeOfFont = Integer.parseInt(sizeValue);
-            final String fontFamily = parent.getEditor().getFont().getFamily();
+            final String fontFamily = parent.getEditorTextArea().getFont().getFamily();
 
             final Font font1 = new Font(fontFamily, Font.PLAIN, sizeOfFont);
-            parent.getEditor().setFont(font1);
+            parent.getEditorTextArea().setFont(font1);
         });
         addSeparator();
 
         final JButton saveButton = new JButton(Icons.getSaveIcon());
         saveButton.setToolTipText("Save");
         saveButton.addActionListener(e -> {
-            final File tempFile = parent.getParent().getFileToEdit();
+            final File tempFile = TriggerAction.getEditor().getFileToEdit();
 
             if (tempFile != null) {
-                FileTools.writeInFile(tempFile, parent.getEditor().getText());
+                FileTools.writeInFile(tempFile, parent.getEditorTextArea().getText());
                 parent.enableAutoComplete(tempFile);
             }
         });
@@ -52,17 +78,17 @@ public class EditorMenuToolBar extends JToolBar {
         final JButton wordWrapButton = new JButton(Icons.getWordwrapIcon());
         wordWrapButton.setToolTipText("Word wrap");
         wordWrapButton.addActionListener(e -> {
-            if (!parent.getEditor().getLineWrap()) {
-                parent.getEditor().setLineWrap(true);
+            if (!parent.getEditorTextArea().getLineWrap()) {
+                parent.getEditorTextArea().setLineWrap(true);
             } else {
-                parent.getEditor().setLineWrap(false);
+                parent.getEditorTextArea().setLineWrap(false);
             }
         });
         this.add(wordWrapButton);
 
         final JButton quickButton = new JButton(Icons.getSearchIcon());
         quickButton.setToolTipText("Quick Search");
-        quickButton.addActionListener(e -> new Find(parent.getEditor()));
+        quickButton.addActionListener(e -> new Find(parent.getEditorTextArea()));
         this.add(quickButton);
 
         final JButton invertColorButton = new JButton(Icons.getInvertIcon());
@@ -70,12 +96,12 @@ public class EditorMenuToolBar extends JToolBar {
         invertColorButton.addActionListener(e -> {
             if (isInvertedColor) {
                 isInvertedColor = false;
-                parent.getEditor().setBackground(Color.WHITE);
-                parent.getEditor().setForeground(Color.BLACK);
+                parent.getEditorTextArea().setBackground(Color.WHITE);
+                parent.getEditorTextArea().setForeground(Color.BLACK);
             } else {
                 isInvertedColor = true;
-                parent.getEditor().setBackground(Color.BLACK);
-                parent.getEditor().setForeground(Color.WHITE);
+                parent.getEditorTextArea().setBackground(Color.BLACK);
+                parent.getEditorTextArea().setForeground(Color.WHITE);
             }
         });
         add(invertColorButton);
@@ -83,7 +109,7 @@ public class EditorMenuToolBar extends JToolBar {
 
         final JButton exitButton = new JButton(Icons.getExitIcon());
         exitButton.setToolTipText("Exit");
-        exitButton.addActionListener(e -> parent.getParent().dispose());
+        exitButton.addActionListener(e -> TriggerAction.getEditor().dispose());
         add(exitButton);
     }
 }

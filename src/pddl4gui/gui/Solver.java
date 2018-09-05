@@ -12,42 +12,41 @@ import pddl4gui.token.Queue;
 import pddl4gui.token.Token;
 
 import javax.swing.JFrame;
+import java.io.Serializable;
 
-public class Solver extends JFrame {
+/**
+ * This class implements the Solver class of <code>PDDL4GUI</code>.
+ * This JFrame displays all the Panel used in PDDL4GUI. It's the main JFrame.
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
+ */
+public class Solver extends JFrame implements Serializable {
 
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The token Queue.
+     */
     final private Queue queue;
 
-    final private SetupSolverPanel setupPanel;
-    final private StatisticsPanel statisticsPanel;
-    final private ResultPanel resultPanel;
-    final private MenuSolverPanel menuSolverPanel;
-    final private EngineManagerPanel engineManagerPanel;
-    final private TokenListPanel tokenListPanel;
-
+    /**
+     * Gets the token Queue.
+     *
+     * @return the token Queue.
+     */
     public Queue getQueue() {
         return queue;
     }
 
-    public ResultPanel getResultPanel() {
-        return resultPanel;
-    }
-
-    public SetupSolverPanel getSetupPanel() {
-        return setupPanel;
-    }
-
-    public TokenListPanel getTokenListPanel() {
-        return tokenListPanel;
-    }
-
-    public MenuSolverPanel getMenuSolverPanel() {
-        return menuSolverPanel;
-    }
-
-    public EngineManagerPanel getEngineManagerPanel() {
-        return engineManagerPanel;
-    }
-
+    /**
+     * Creates a new Solver.
+     *
+     * @param queue the token Queue associated to the solver.
+     */
     public Solver(Queue queue) {
         this.queue = queue;
 
@@ -61,6 +60,13 @@ public class Solver extends JFrame {
         WindowsManager.setPoint(this.getLocation());
         WindowsManager.setWidth(width);
         WindowsManager.setHeight(height);
+
+        final SetupSolverPanel setupPanel;
+        final StatisticsPanel statisticsPanel;
+        final ResultPanel resultPanel;
+        final MenuSolverPanel menuSolverPanel;
+        final EngineManagerPanel engineManagerPanel;
+        final TokenListPanel tokenListPanel;
 
         menuSolverPanel = new MenuSolverPanel(this);
         menuSolverPanel.setBounds(350, marging + 3, 330, 40);
@@ -86,38 +92,10 @@ public class Solver extends JFrame {
         resultPanel.setBounds(690, marging, 500, 570);
         add(resultPanel);
 
+        TriggerAction.setup(this, setupPanel,statisticsPanel, resultPanel, menuSolverPanel, engineManagerPanel
+                ,tokenListPanel);
+
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    public void displayResult(Token token) {
-        resultPanel.displayResult(token);
-        statisticsPanel.displayStats(token.getResult().getStatistics());
-        menuSolverPanel.getValButton().setEnabled(true);
-        menuSolverPanel.getSaveJsonButton().setEnabled(true);
-        menuSolverPanel.getSaveTxtButton().setEnabled(true);
-    }
-
-    public void displayError(Token token) {
-        statisticsPanel.clearStats();
-        resultPanel.clearResult();
-        resultPanel.displayError(token);
-    }
-
-    public void displayProgress(Token token) {
-        statisticsPanel.clearStats();
-        resultPanel.clearResult();
-        resultPanel.diplayProgress(token);
-    }
-
-    public void clearResult() {
-        resultPanel.clearResult();
-        statisticsPanel.clearStats();
-    }
-
-    public void resetSolver() {
-        clearResult();
-        queue.clearList();
-        TokenList.getListModel().clear();
     }
 }

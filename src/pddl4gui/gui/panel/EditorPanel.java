@@ -16,28 +16,58 @@ import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EditorPanel extends JPanel {
+/**
+ * This class implements the EditorPanel class of <code>PDDL4GUI</code>.
+ * This JPanel displays all the components of the Editor.
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
+ */
+public class EditorPanel extends JPanel implements Serializable {
 
-    final private Editor parent;
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The JTextArea to display the content of the file.
+     */
     final private JTextArea textArea;
+
+    /**
+     * The PDDLContext for the PDDL language.
+     */
     final private PDDLContext pddl;
+
+    /**
+     * The AutoComplete object to enable auto complete feature.
+     */
     private AutoComplete autocomplete;
 
+    /**
+     * If the JTextArea has a listener on it.
+     */
     private boolean hasListener = false;
 
-    @Override
-    public Editor getParent() {
-        return parent;
-    }
-
-    public JTextArea getEditor() {
+    /**
+     * Gets the JTextArea of this EditorPanel.
+     *
+     * @return the JTextArea of this EditorPanel.
+     */
+    public JTextArea getEditorTextArea() {
         return textArea;
     }
 
+    /**
+     * Creates a new EditorPanel for a specific Editor.
+     *
+     * @param parent the Editor associated to the EditorPanel.
+     */
     public EditorPanel(Editor parent) {
-        this.parent = parent;
         this.pddl = new PDDLContext();
         setLayout(new BorderLayout());
 
@@ -61,12 +91,22 @@ public class EditorPanel extends JPanel {
         UndoRedo.addUndoRedo(textArea);
     }
 
+    /**
+     * Displays the content of a file.
+     *
+     * @param file the file to display.
+     */
     private void displayFileContent(File file) {
         textArea.append(FileTools.readFileToString(file));
         this.enableAutoComplete(file);
     }
 
-    public void enableAutoComplete(File file) {
+    /**
+     * Enables auto complete feature on a file.
+     *
+     * @param file the file.
+     */
+    void enableAutoComplete(File file) {
         if (hasListener) {
             textArea.getDocument().removeDocumentListener(autocomplete);
             hasListener = false;

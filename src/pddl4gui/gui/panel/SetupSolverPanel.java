@@ -20,9 +20,15 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import java.io.File;
+import java.io.Serializable;
 import java.util.Vector;
 
-public class SetupSolverPanel extends JPanel {
+public class SetupSolverPanel extends JPanel implements Serializable {
+
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
 
     final private Solver solver;
     final private JSpinner weightSpinner, timeoutSpinner;

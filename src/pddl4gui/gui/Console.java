@@ -9,9 +9,25 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.io.Serializable;
 
-public class Console extends JFrame {
+/**
+ * This class implements the Console class of <code>PDDL4GUI</code>.
+ * This JFrame displays output, warning and error rather than in the standard output of the console (bash).
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
+ */
+public class Console extends JFrame implements Serializable {
 
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Creates a new Console.
+     */
     public Console() {
         setSize(400, 200);
         setTitle(WindowsManager.NAME + " | Console");

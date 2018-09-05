@@ -18,16 +18,52 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
-import java.util.Vector;
+import java.io.Serializable;
 
-public class AnytimePanel extends JFrame {
+/**
+ * This class implements the AnytimePanel class of <code>PDDL4GUI</code>.
+ * This JFrame displays anytime information for token solved with anytime planner.
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
+ */
+public class AnytimePanel extends JFrame implements Serializable {
 
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The labels in the JFrame.
+     */
     final private JLabel currentCost, currentDepth, bestCost, isSolved, numberSolution;
+
+    /**
+     * The DefaultListModel used in the Jlist of the JFrame.
+     */
     private DefaultListModel<Node> listModel;
+
+    /**
+     * The token solve with an anytime planner.
+     */
     private Token token;
+
+    /**
+     * The best plan's cost found by the anytime planner.
+     */
     private double bestCostD = Double.MAX_VALUE;
+
+    /**
+     * The number of plan found by the anytime planner.
+     */
     private double numberSolutionI = 0;
 
+    /**
+     * Creates a new Anytime JFrame for a specified token.
+     *
+     * @param token the token.
+     */
     public AnytimePanel(Token token) {
         this.token = token;
 
@@ -156,6 +192,9 @@ public class AnytimePanel extends JFrame {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
+    /**
+     * Refresh the JList.
+     */
     private void refreshJList() {
         /*final AbstractStateSpacePlannerAnytime plannerAnytime = (AbstractStateSpacePlannerAnytime) token.getPlanner();
         if (plannerAnytime.getSolutionNodes() != null && !plannerAnytime.getSolutionNodes().isEmpty()) {
@@ -171,6 +210,12 @@ public class AnytimePanel extends JFrame {
         }*/
     }
 
+    /**
+     * Displays anytime result.
+     *
+     * @param currentCostL the current plan cost.
+     * @param currentDepthL the current plan depth.
+     */
     private void displayAnytimeResult(double currentCostL, int currentDepthL) {
         currentCost.setText(String.valueOf(DecimalFormatSetup.getDf().format(currentCostL)));
         currentDepth.setText(String.valueOf(currentDepthL));
