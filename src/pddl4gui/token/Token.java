@@ -5,15 +5,22 @@ import fr.uga.pddl4j.planners.statespace.StateSpacePlanner;
 import pddl4gui.gui.tools.FileTools;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * This class implements the <code>Token</code>.
- * A token is an object to be solve by a planner.
+ * A token is an object (domain and problem files, etc) to be solve by a planner.
  *
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class Token {
+public class Token implements Serializable {
+
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
     /**
      * The domain file.
      */

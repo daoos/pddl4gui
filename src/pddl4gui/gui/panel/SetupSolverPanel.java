@@ -178,7 +178,7 @@ public class SetupSolverPanel extends JPanel {
                 if (token.isRunnable() && solver.getEngineManagerPanel().isStatus()) {
                     if (!TokenList.getListModel().contains(token)) {
                         TokenList.getListModel().addElement(token);
-                        solver.getQueue().addToken(token);
+                        solver.getQueue().addTokenInQueue(token);
                     }
                 }
 

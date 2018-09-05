@@ -17,25 +17,72 @@ import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Vector;
 
-public class Engine extends Thread {
+/**
+ * This class implements the Engine class of <code>PDDL4GUI</code>.
+ * This object extends a thread and is used by EngineManager to solve token.
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
+ */
+public class Engine extends Thread implements Serializable {
 
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The EnginePanel which displays Engine status.
+     */
     final private EnginePanel enginePanel;
+
+    /**
+     * The list of tokens to solve.
+     */
     final private Vector<Token> ownQueue;
 
+    /**
+     * The error String containing error which appears during solving process.
+     */
     private String error = "";
+
+    /**
+     * The refresh time of the Engine.
+     */
     private int refresh;
+
+    /**
+     * The availability of the Engine.
+     */
     private boolean available;
 
+    /**
+     * Adds token in the queue.
+     *
+     * @param token the token to add.
+     */
     public void addTokenInQueue(Token token) {
         this.ownQueue.add(token);
     }
 
+    /**
+     * If the Engine is available : true. False otherwise.
+     *
+     * @return if the Engine is available.
+     */
     public boolean isAvailable() {
         return available;
     }
 
+    /**
+     * Creates a new Engine. Its role is to solve tokens.
+     *
+     * @param refresh the refresh time of the Engine.
+     * @param enginePanel the EnginePanel which displays its status.
+     */
     public Engine(int refresh, EnginePanel enginePanel) {
         this.refresh = refresh;
         this.enginePanel = enginePanel;
@@ -43,6 +90,9 @@ public class Engine extends Thread {
         this.available = false;
     }
 
+    /**
+     * The process of the Engine.
+     */
     @Override
     public void run() {
         final JProgressBar progressBar = enginePanel.getProgressBar();
@@ -93,6 +143,14 @@ public class Engine extends Thread {
         }
     }
 
+    /**
+     * Resolves the token.
+     *
+     * @param token the token to solve.
+     *
+     * @return true if the token is solved. False otherwise.
+     * @throws IOException if there is issues with PDDL files.
+     */
     private boolean resolve(final Token token) throws IOException {
         if (token.isRunnable()) {
             final Statistics statistics = new Statistics();
@@ -131,7 +189,7 @@ public class Engine extends Thread {
                     statistics.setTimeToEncodeInSeconds((System.currentTimeMillis() - begin) / 1000.0);
                     statistics.setNumberOfActions(pb.getOperators().size());
                     statistics.setNumberOfFluents(pb.getRelevantFacts().size());
-                    statistics.setMemoryForProblemInMBytes(MemoryAgent.deepSizeOf(pb) / (1024.0 * 1024.0));
+                    statistics.setMemoryForProblemInMBytes(MemoryAgent.getDeepSizeOf(pb) / (1024.0 * 1024.0));
                     if (!pb.isSolvable()) {
                         error = ("Goal can be simplified to FALSE.\n"
                                 + "No search will solve it !");
@@ -142,7 +200,8 @@ public class Engine extends Thread {
                     final Planner planner = token.getPlanner();
                     final Plan plan = planner.search(pb);
                     statistics.setTimeToPlanInSeconds((System.currentTimeMillis() - begin) / 1000.0);
-                    statistics.setMemoryUsedToSearchInMBytes(planner.getStatistics().getMemoryUsedToSearch() / (1024.0 * 1024.0));
+                    statistics.setMemoryUsedToSearchInMBytes(planner.getStatistics()
+                            .getMemoryUsedToSearch() / (1024.0 * 1024.0));
 
                     token.setResult(new Result(statistics, pb, plan));
                     if (plan != null) {

@@ -1,6 +1,6 @@
 package pddl4gui.gui.panel;
 
-import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlannerAnytime;
+//import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlannerAnytime;
 import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
 import pddl4gui.gui.tools.DecimalFormatSetup;
 import pddl4gui.gui.tools.Icons;
@@ -157,7 +157,7 @@ public class AnytimePanel extends JFrame {
     }
 
     private void refreshJList() {
-        final AbstractStateSpacePlannerAnytime plannerAnytime = (AbstractStateSpacePlannerAnytime) token.getPlanner();
+        /*final AbstractStateSpacePlannerAnytime plannerAnytime = (AbstractStateSpacePlannerAnytime) token.getPlanner();
         if (plannerAnytime.getSolutionNodes() != null && !plannerAnytime.getSolutionNodes().isEmpty()) {
             final Vector<Node> solutionList = new Vector<>(plannerAnytime.getSolutionNodes());
             if (!solutionList.isEmpty()) {
@@ -168,7 +168,7 @@ public class AnytimePanel extends JFrame {
                 }
                 numberSolutionI = listModel.getSize();
             }
-        }
+        }*/
     }
 
     private void displayAnytimeResult(double currentCostL, int currentDepthL) {

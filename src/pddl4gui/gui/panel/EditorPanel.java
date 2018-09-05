@@ -75,7 +75,7 @@ public class EditorPanel extends JPanel {
         final String extension = pddl.getExtensionFile();
 
         if (file.getName().endsWith(extension)) {
-            final ArrayList<String> arrayList = pddl.setKeywords(pddl.getPDDLKeywords());
+            final ArrayList<String> arrayList = pddl.addKeywords(pddl.getPDDLKeywords());
             autocomplete = new AutoComplete(this, arrayList);
             textArea.getDocument().addDocumentListener(autocomplete);
             hasListener = true;

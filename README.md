@@ -33,7 +33,7 @@ Télécharger ou cloner le repository.
 
 Sous windows avec la ligne de commande :
 
-    java -javaagent:libs/pddl4j-3.5.0.jar -server -Xms2048m -Xmx2048m -jar pddl4gui.jar
+    java -javaagent:libs/pddl4j-3.7.1.jar -server -Xms2048m -Xmx2048m -jar pddl4gui.jar
 
 Sous linux avec le script *pddl4gui.sh* disponible à la racine du repository :
     
