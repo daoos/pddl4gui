@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'checkstyle'
+
+version '1.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    compile("com.github.pellierd:pddl4j:master-SNAPSHOT")
+    compile name: 'pgslookandfeel-1.1.2'
+}
+
+jar {
+    baseName = 'pddl4gui'
+    version = '1.0'
+    manifest {
+        attributes 'Implementation-Title': 'PDDL4GUI build',
+                'Implementation-Version': version,
+                'Gradle-Version':'Gradle 4.8',
+                'Built-By': 'Emmanuel Hermellin',
+                'Main-Class': 'main.java.pddl4gui.Pddl4Gui'
+    }
+}
+
+clean{
+    delete 'build', 'out', 'pddl4gui-'+version+'.jar'
+}
+
+checkstyle {
+    toolVersion = "8.9"
+}
+
+checkstyleMain.onlyIf() { !project.hasProperty('noCheckStyle') }
+
+checkstyleMain.doLast() {
+    printCheckstyleVersion()
+}
+
+tasks.withType(Jar) {
+    destinationDir = file("$rootDir")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.8'
+}
+
+def printCheckstyleVersion(){
+    println("Checkstyle version: "+checkstyle.toolVersion)
+}
