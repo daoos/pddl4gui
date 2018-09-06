@@ -95,9 +95,9 @@ public class EngineManager extends Thread implements Serializable {
     /**
      * Creates a new EngineManager which manages Engine.
      *
-     * @param refresh the refresh time of the EngineManager.
+     * @param refresh            the refresh time of the EngineManager.
      * @param engineManagerPanel the EngineManagerPanel which displays its status.
-     * @param queue the token Queue which is managed by the EngineManager.
+     * @param queue              the token Queue which is managed by the EngineManager.
      */
     public EngineManager(int refresh, EngineManagerPanel engineManagerPanel, Queue queue) {
         this.refresh = refresh;

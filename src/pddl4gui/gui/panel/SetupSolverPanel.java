@@ -5,10 +5,9 @@ import fr.uga.pddl4j.planners.Planner;
 import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
 import fr.uga.pddl4j.planners.statespace.StateSpacePlannerFactory;
 import pddl4gui.gui.Editor;
-import pddl4gui.gui.Solver;
-import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
+import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Token;
 
@@ -204,7 +203,7 @@ public class SetupSolverPanel extends JPanel implements Serializable {
     /**
      * Creates token and adds it into the Queue.
      *
-     * @param domainFile the PDDL domain file.
+     * @param domainFile   the PDDL domain file.
      * @param problemFiles the list of PDDL problem files.
      */
     private void resolve(File domainFile, Vector<File> problemFiles) {

@@ -92,7 +92,7 @@ public class EnginePanel extends JPanel implements Serializable {
      * Creates a new EnginePanel associated to an EngineManagerPanel.
      *
      * @param engineManagerPanel the EngineManagerPanel.
-     * @param active the status of the associated Engine.
+     * @param active             the status of the associated Engine.
      */
     EnginePanel(EngineManagerPanel engineManagerPanel, boolean active) {
         setLayout(null);

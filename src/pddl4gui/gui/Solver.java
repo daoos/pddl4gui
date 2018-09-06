@@ -92,8 +92,8 @@ public class Solver extends JFrame implements Serializable {
         resultPanel.setBounds(690, marging, 500, 570);
         add(resultPanel);
 
-        TriggerAction.setupPanel(setupPanel,statisticsPanel, resultPanel, menuSolverPanel, engineManagerPanel
-                ,tokenListPanel);
+        TriggerAction.setupPanel(setupPanel, statisticsPanel, resultPanel, menuSolverPanel, engineManagerPanel
+                , tokenListPanel);
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

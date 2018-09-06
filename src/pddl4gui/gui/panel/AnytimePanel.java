@@ -1,6 +1,7 @@
 package pddl4gui.gui.panel;
 
 //import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlannerAnytime;
+
 import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
 import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.TriggerAction;
@@ -213,7 +214,7 @@ public class AnytimePanel extends JFrame implements Serializable {
     /**
      * Displays anytime result.
      *
-     * @param currentCostL the current plan cost.
+     * @param currentCostL  the current plan cost.
      * @param currentDepthL the current plan depth.
      */
     private void displayAnytimeResult(double currentCostL, int currentDepthL) {

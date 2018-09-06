@@ -1,7 +1,6 @@
 package pddl4gui.gui.panel;
 
 import pddl4gui.gui.Editor;
-import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Find;
 import pddl4gui.gui.tools.Icons;

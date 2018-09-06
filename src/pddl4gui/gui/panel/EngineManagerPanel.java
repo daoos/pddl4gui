@@ -2,7 +2,6 @@ package pddl4gui.gui.panel;
 
 import pddl4gui.engine.Engine;
 import pddl4gui.engine.EngineManager;
-import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.TriggerAction;
 
 import javax.swing.BorderFactory;
@@ -70,7 +69,6 @@ public class EngineManagerPanel extends JPanel implements Serializable {
 
     /**
      * Creates a new EngineManagerPanel associated to the Solver main JFrame.
-     *
      */
     public EngineManagerPanel() {
         setLayout(null);

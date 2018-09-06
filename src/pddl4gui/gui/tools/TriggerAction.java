@@ -17,7 +17,7 @@ import java.text.DecimalFormat;
 
 /**
  * This class implements the TriggerAction class of <code>PDDL4GUI</code>.
- * This class contains all the action that swing components could handle.
+ * This class contains all the actions that swing components could handle and other usefull stuff.
  *
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
@@ -65,28 +65,28 @@ public class TriggerAction implements Serializable {
     private static TokenListPanel tokenListPanel;
 
     /**
-     *
+     * The DecimalFormat to use in PDDL4GUI.
      */
     private static DecimalFormat decimalFormat;
 
     /**
-     *
+     * The DefaultListModel used in JList in TokenList class.
      */
     final private static DefaultListModel<Token> listModel = new DefaultListModel<>();
 
     /**
+     * Gets the DecimalFormat to use with decimal number.
      *
-     *
-     * @return
+     * @return the DecimalFormat to use with decimal number.
      */
     public static DecimalFormat getDf() {
         return TriggerAction.decimalFormat;
     }
 
     /**
+     * Gets the DefaultListModel.
      *
-     *
-     * @return
+     * @return the DefaultListModel.
      */
     public static DefaultListModel<Token> getListModel() {
         return listModel;
@@ -101,16 +101,16 @@ public class TriggerAction implements Serializable {
     /**
      * Setups all the panel used in this class.
      *
-     * @param setupPanel the solver SetupPanel.
-     * @param statisticsPanel the solver StatisticsPanel.
-     * @param resultPanel the solver ResultPanel.
-     * @param menuSolverPanel the solver MenuSolverPanel.
+     * @param setupPanel         the solver SetupPanel.
+     * @param statisticsPanel    the solver StatisticsPanel.
+     * @param resultPanel        the solver ResultPanel.
+     * @param menuSolverPanel    the solver MenuSolverPanel.
      * @param engineManagerPanel the solver EngineManagerPanel.
-     * @param tokenListPanel the solver TokenListPanel.
+     * @param tokenListPanel     the solver TokenListPanel.
      */
     public static void setupPanel(SetupSolverPanel setupPanel, StatisticsPanel statisticsPanel,
-                             ResultPanel resultPanel, MenuSolverPanel menuSolverPanel,
-                             EngineManagerPanel engineManagerPanel, TokenListPanel tokenListPanel) {
+                                  ResultPanel resultPanel, MenuSolverPanel menuSolverPanel,
+                                  EngineManagerPanel engineManagerPanel, TokenListPanel tokenListPanel) {
         TriggerAction.setupPanel = setupPanel;
         TriggerAction.statisticsPanel = statisticsPanel;
         TriggerAction.resultPanel = resultPanel;
@@ -130,8 +130,9 @@ public class TriggerAction implements Serializable {
     }
 
     /**
+     * Triggers display action for results of a specified token.
      *
-     * @param token
+     * @param token the specified token.
      */
     public static void displayResult(Token token) {
         resultPanel.displayResult(token);
@@ -142,8 +143,9 @@ public class TriggerAction implements Serializable {
     }
 
     /**
+     * Triggers display action for error of a specified token.
      *
-     * @param token
+     * @param token the specified token.
      */
     public static void displayError(Token token) {
         statisticsPanel.clearStats();
@@ -152,8 +154,9 @@ public class TriggerAction implements Serializable {
     }
 
     /**
+     * Triggers display action for progress of a specified token.
      *
-     * @param token
+     * @param token the specified token.
      */
     public static void displayProgress(Token token) {
         statisticsPanel.clearStats();
@@ -162,7 +165,7 @@ public class TriggerAction implements Serializable {
     }
 
     /**
-     *
+     * Triggers clean action for ResultPanel and StatisticsPanel.
      */
     public static void clearResult() {
         resultPanel.clearResult();
@@ -170,7 +173,7 @@ public class TriggerAction implements Serializable {
     }
 
     /**
-     *
+     * Triggers reset action for the solver.
      */
     public static void resetSolver() {
         TriggerAction.clearResult();
@@ -179,56 +182,63 @@ public class TriggerAction implements Serializable {
     }
 
     /**
+     * Enables domain button in SetupPanel.
      *
-     * @param status
+     * @param status the status of the button.
      */
     public static void setSetupPanelDomainButton(final boolean status) {
         setupPanel.enableDomainButton(status);
     }
 
     /**
+     * Enables problem button in SetupPanel.
      *
-     * @param status
+     * @param status the status of the button.
      */
     public static void setSetupPanelProblemButton(final boolean status) {
         setupPanel.enablePBButton(status);
     }
 
     /**
+     * Returns the Jlist of the TokenListPanel.
      *
-     * @return
+     * @return the Jlist of the TokenListPanel.
      */
     public static JList<Token> getTokenListPanelJList() {
         return TriggerAction.tokenListPanel.getTokenJList();
     }
 
     /**
+     * Returns the selected token of the JList in the TokenListPanel.
      *
-     * @return
+     * @return the selected token of the JList in the TokenListPanel.
      */
     public static Token getTokenListPanelJListSelectedValue() {
         return TriggerAction.tokenListPanel.getTokenJList().getSelectedValue();
     }
 
     /**
+     * Returns the solving status of the selected token of the JList in the TokenListPanel.
      *
-     * @return
+     * @return the solving status of the selected token of the JList in the TokenListPanel.
      */
     public static boolean isTokenListPanelJListSelectedValueSolved() {
         return TriggerAction.tokenListPanel.getTokenJList().getSelectedValue().isSolved();
     }
 
     /**
+     * Returns the status of the ResultPanel checkbox for detailed plan.
      *
-     * @return
+     * @return the status of the ResultPanel checkbox for detailed plan.
      */
     public static boolean isResultPanelDetailedPlan() {
         return TriggerAction.resultPanel.isCheckboxSelected();
     }
 
     /**
+     * Enables buttons in the MenuSolverPanel.
      *
-     * @param state
+     * @param state the status of the button.
      */
     public static void enableMenuSolverPanelButton(boolean state) {
         TriggerAction.menuSolverPanel.getValButton().setEnabled(state);
@@ -237,36 +247,43 @@ public class TriggerAction implements Serializable {
     }
 
     /**
+     * Enables VAL button in the MenuSolverPanel.
      *
-     * @param state
+     * @param state the status of the button.
      */
     public static void enableMenuSolverPanelValButton(boolean state) {
         TriggerAction.menuSolverPanel.getValButton().setEnabled(state);
     }
 
     /**
+     * Gets the Queue of the Solver.
      *
+     * @return the Queue of the Solver.
      */
     public static Queue getQueue() {
         return TriggerAction.solver.getQueue();
     }
 
     /**
+     * Gets the number of remaining tokens in the Queue of the Solver.
      *
+     * @return the number of remaining tokens in the Queue of the Solver.
      */
     public static int getRemainningTokenInQueue() {
         return TriggerAction.solver.getQueue().remainingTokens();
     }
 
     /**
-     *
+     * Sets the number of remaining tokens in the Queue of the Solver.
      */
     public static void setTokenRemainingEngineManagerPanel() {
         TriggerAction.engineManagerPanel.setTokensRemaining();
     }
 
     /**
+     * Gets if the EngineManager is running.
      *
+     * @return the status of the EngineManager.
      */
     public static boolean isEngineManagerRunning() {
         return TriggerAction.engineManagerPanel.isRunning();

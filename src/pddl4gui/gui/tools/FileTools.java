@@ -69,10 +69,9 @@ public class FileTools implements Serializable {
      * Gets a list of file from a JFileChooser.
      *
      * @param component the swing component for JFileChooser.
-     * @param integer the integer to choose the type of file (0: pddl ; 1: txt).
-     * @param multiple the possibility to choose multiple files.
-     * @param button the parent button.
-     *
+     * @param integer   the integer to choose the type of file (0: pddl ; 1: txt).
+     * @param multiple  the possibility to choose multiple files.
+     * @param button    the parent button.
      * @return a list of files.
      */
     public static Vector<File> getFiles(Component component, int integer, boolean multiple, JButton button) {
@@ -156,7 +155,7 @@ public class FileTools implements Serializable {
      * Creates a new file, with a JFileChooser, in a specified place with a specified extension.
      *
      * @param component the swing component for the JFileChooser.
-     * @param integer the integer to choose the type of file (0: pddl ; 1: txt ; 2: tex ; 3: png ; 4: svg ; 5: json).
+     * @param integer   the integer to choose the type of file (0: pddl ; 1: txt ; 2: tex ; 3: png ; 4: svg ; 5: json).
      * @return a new file with a specified place and extension.
      */
     public static File saveFile(Component component, int integer) {
@@ -205,7 +204,7 @@ public class FileTools implements Serializable {
     /**
      * Writes a content (String) in a specified file.
      *
-     * @param file the file.
+     * @param file   the file.
      * @param string the content to write.
      */
     public static void writeInFile(File file, String string) {

@@ -34,9 +34,9 @@ public class HighlightText extends DefaultHighlighter.DefaultHighlightPainter im
     /**
      * Highlights in red the text of a JTextComponent.
      *
-     * @param textComp the JTextComponent.
+     * @param textComp     the JTextComponent.
      * @param select_start the starting index of the highlighted text.
-     * @param select_end the ending index of the highlighted text.
+     * @param select_end   the ending index of the highlighted text.
      */
     public void hightLightWord(JTextComponent textComp, int select_start, int select_end) {
         removeHighlights(textComp);
@@ -52,7 +52,7 @@ public class HighlightText extends DefaultHighlighter.DefaultHighlightPainter im
      * Highlights a text pattern in a JTextComponent.
      *
      * @param textComp the JTextComponent.
-     * @param pattern the text pattern.
+     * @param pattern  the text pattern.
      */
     public void highLight(JTextComponent textComp, String[] pattern) {
         removeHighlights(textComp);

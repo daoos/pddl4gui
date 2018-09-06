@@ -49,7 +49,7 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
     private final static float RIGHT = 1.0f;
 
     /**
-      *The outer border.
+     * The outer border.
      */
     private final static Border OUTER = new MatteBorder(0, 0, 0, 2, Color.GRAY);
 
@@ -290,7 +290,7 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
      * Determine the X offset to properly align the line number when drawn.
      *
      * @param availableWidth the available width.
-     * @param stringWidth the string width.
+     * @param stringWidth    the string width.
      */
     private int getOffsetX(int availableWidth, int stringWidth) {
         return (int) ((availableWidth - stringWidth) * digitAlignment);
@@ -300,7 +300,7 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
      * Determine the Y offset for the current row.
      *
      * @param rowStartOffset the starting row offset.
-     * @param fontMetrics the font metrics.
+     * @param fontMetrics    the font metrics.
      */
     private int getOffsetY(int rowStartOffset, FontMetrics fontMetrics) throws BadLocationException {
         //  Get the bounding rectangle of the row

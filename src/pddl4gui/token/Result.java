@@ -76,7 +76,7 @@ public class Result implements Serializable {
     /**
      * Creates a new Result object.
      *
-     * @param statistics the Statistics object which store statistical information about planner performances.
+     * @param statistics   the Statistics object which store statistical information about planner performances.
      * @param codedProblem the CodedProblem associated to the Result.
      * @param solutionPlan the Plan found by the parser.
      */

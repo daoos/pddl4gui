@@ -104,8 +104,8 @@ public class PDDLContext implements Serializable {
 
     /**
      * Adds keywords to the PDDL language.
-     * @param arr the keywords to add.
      *
+     * @param arr the keywords to add.
      * @return an ArrayList of the new keywords.
      */
     public ArrayList<String> addKeywords(String[] arr) {

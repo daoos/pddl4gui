@@ -76,7 +76,7 @@ public class TokenListPanel extends JPanel implements Serializable {
                 cost += token.getResult().getStatistics().getCost();
             }
             JOptionPane.showMessageDialog(null, "Token selected: " +
-                    tokenJList.getSelectedValuesList().size() + "\nTotal cost: " + cost, "Multiple Selection",
+                            tokenJList.getSelectedValuesList().size() + "\nTotal cost: " + cost, "Multiple Selection",
                     JOptionPane.PLAIN_MESSAGE);
         });
         add(multipleResults);

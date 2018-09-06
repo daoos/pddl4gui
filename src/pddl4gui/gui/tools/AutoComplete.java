@@ -61,8 +61,9 @@ public class AutoComplete implements DocumentListener, Serializable {
 
     /**
      * Creates a new AutoComplete object associated to an EditorPanel and a list of keywords.
+     *
      * @param editorFrame the linked EditorPanel.
-     * @param al the list of keywords to complete.
+     * @param al          the list of keywords to complete.
      */
     public AutoComplete(final EditorPanel editorFrame, ArrayList<String> al) {
         //Set the keywords

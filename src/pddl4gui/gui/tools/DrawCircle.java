@@ -46,8 +46,8 @@ public class DrawCircle extends JPanel implements Serializable {
     /**
      * Creates a new circle.
      *
-     * @param x the x coordinate of the center.
-     * @param y the y coordinate of the center.
+     * @param x    the x coordinate of the center.
+     * @param y    the y coordinate of the center.
      * @param diam the diameter of the circle.
      */
     public DrawCircle(int x, int y, int diam) {

@@ -80,7 +80,7 @@ public class Engine extends Thread implements Serializable {
     /**
      * Creates a new Engine. Its role is to solve tokens.
      *
-     * @param refresh the refresh time of the Engine.
+     * @param refresh     the refresh time of the Engine.
      * @param enginePanel the EnginePanel which displays its status.
      */
     public Engine(int refresh, EnginePanel enginePanel) {
@@ -147,7 +147,6 @@ public class Engine extends Thread implements Serializable {
      * Resolves the token.
      *
      * @param token the token to solve.
-     *
      * @return true if the token is solved. False otherwise.
      * @throws IOException if there is issues with PDDL files.
      */
