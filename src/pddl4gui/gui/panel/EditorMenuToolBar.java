@@ -1,5 +1,6 @@
 package pddl4gui.gui.panel;
 
+import pddl4gui.gui.Editor;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Find;
@@ -42,9 +43,10 @@ public class EditorMenuToolBar extends JToolBar implements Serializable {
     /**
      * Creates a new EditorMenuToolBar for the EditorPanel.
      *
+     * @param editor the Editor associated.
      * @param parent the EditorPanel associated.
      */
-    public EditorMenuToolBar(EditorPanel parent) {
+    public EditorMenuToolBar(Editor editor, EditorPanel parent) {
 
         fontSize = new JComboBox<>();
         for (int i = 5; i <= 100; i++) {
@@ -65,7 +67,7 @@ public class EditorMenuToolBar extends JToolBar implements Serializable {
         final JButton saveButton = new JButton(Icons.getSaveIcon());
         saveButton.setToolTipText("Save");
         saveButton.addActionListener(e -> {
-            final File tempFile = TriggerAction.getEditor().getFileToEdit();
+            final File tempFile = editor.getFileToEdit();
 
             if (tempFile != null) {
                 FileTools.writeInFile(tempFile, parent.getEditorTextArea().getText());
@@ -109,7 +111,7 @@ public class EditorMenuToolBar extends JToolBar implements Serializable {
 
         final JButton exitButton = new JButton(Icons.getExitIcon());
         exitButton.setToolTipText("Exit");
-        exitButton.addActionListener(e -> TriggerAction.closeEditor());
+        exitButton.addActionListener(e -> editor.dispose());
         add(exitButton);
     }
 }

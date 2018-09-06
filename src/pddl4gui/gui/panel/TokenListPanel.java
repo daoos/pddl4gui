@@ -1,9 +1,7 @@
 package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
-import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.TriggerAction;
-import pddl4gui.gui.tools.TokenList;
 import pddl4gui.token.Token;
 
 import javax.swing.BorderFactory;
@@ -18,8 +16,8 @@ import javax.swing.event.ListSelectionEvent;
 import java.io.Serializable;
 
 /**
- * This class implements the StatisticsPanel class of <code>PDDL4GUI</code>.
- * This JPanel displays statistics about planner solving process.
+ * This class implements the TokenListPanel class of <code>PDDL4GUI</code>.
+ * This JPanel displays a JList of token linked to the Queue.
  *
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
@@ -32,25 +30,26 @@ public class TokenListPanel extends JPanel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     *
+     * The JList<Token> displaying tokens from the Queue.
      */
     final private JList<Token> tokenJList;
 
     /**
-     *
+     * The JButton of the TokenListPanel.
      */
     final private JButton anytimeSolutionButton, multipleResults;
 
     /**
+     * Returns the JList<Token> object.
      *
-     * @return
+     * @return the JList<Token> object.
      */
     public JList<Token> getTokenJList() {
         return tokenJList;
     }
 
     /**
-     * 
+     * Creates a new TokenListPanel.
      */
     public TokenListPanel() {
         setLayout(null);
@@ -58,7 +57,7 @@ public class TokenListPanel extends JPanel implements Serializable {
 
         anytimeSolutionButton = new JButton("Anytime details");
         multipleResults = new JButton("Compute cost");
-        tokenJList = new JList<>(TokenList.getListModel());
+        tokenJList = new JList<>(TriggerAction.getListModel());
 
         anytimeSolutionButton.setEnabled(false);
         anytimeSolutionButton.setBounds(20, 220, 140, 25);
@@ -76,8 +75,9 @@ public class TokenListPanel extends JPanel implements Serializable {
             for (Token token : tokenJList.getSelectedValuesList()) {
                 cost += token.getResult().getStatistics().getCost();
             }
-            JOptionPane.showMessageDialog(null, "Token selected: " + tokenJList.getSelectedValuesList().size()
-                    + "\nTotal cost: " + cost, "Multiple Selection", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Token selected: " +
+                    tokenJList.getSelectedValuesList().size() + "\nTotal cost: " + cost, "Multiple Selection",
+                    JOptionPane.PLAIN_MESSAGE);
         });
         add(multipleResults);
 

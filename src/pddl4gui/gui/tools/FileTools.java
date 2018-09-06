@@ -8,14 +8,33 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Vector;
 
-public class FileTools {
+/**
+ * This class implements the FileTools class of <code>PDDL4GUI</code>.
+ * This class is a toolbox for File management (get, save, etc.).
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
+ */
+public class FileTools implements Serializable {
 
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The last file path used.
+     */
     private static File staticLastPath;
 
+    /**
+     * The file extensions used in PDDL4GUI.
+     */
     private static FileNameExtensionFilter pddl = new FileNameExtensionFilter("pddl file", "pddl");
     private static FileNameExtensionFilter txt = new FileNameExtensionFilter("text file", "txt");
     private static FileNameExtensionFilter tex = new FileNameExtensionFilter("tex file", "tex");
@@ -23,10 +42,22 @@ public class FileTools {
     private static FileNameExtensionFilter svg = new FileNameExtensionFilter("svg file", "svg");
     private static FileNameExtensionFilter json = new FileNameExtensionFilter("JSON file", "json");
 
+    /**
+     * Returns a boolean. True if the file is not null, false otherwise.
+     *
+     * @param file the file to check.
+     * @return true if the file is not null, false otherwise.
+     */
     public static boolean checkFile(File file) {
         return (file != null);
     }
 
+    /**
+     * Returns a String containing the name of the file without the extension.
+     *
+     * @param fileName the filename with the extension.
+     * @return the filename without the extension.
+     */
     public static String removeExtension(String fileName) {
         if (fileName.indexOf(".") > 0) {
             fileName = fileName.substring(0, fileName.lastIndexOf("."));
@@ -34,6 +65,16 @@ public class FileTools {
         return fileName;
     }
 
+    /**
+     * Gets a list of file from a JFileChooser.
+     *
+     * @param component the swing component for JFileChooser.
+     * @param integer the integer to choose the type of file (0: pddl ; 1: txt).
+     * @param multiple the possibility to choose multiple files.
+     * @param button the parent button.
+     *
+     * @return a list of files.
+     */
     public static Vector<File> getFiles(Component component, int integer, boolean multiple, JButton button) {
         final JFileChooser fileChooser = new JFileChooser();
         if (staticLastPath != null) {
@@ -74,6 +115,12 @@ public class FileTools {
         return openFiles;
     }
 
+    /**
+     * Returns the content of a file as a String.
+     *
+     * @param file the file to read.
+     * @return the content of the file as a String.
+     */
     public static String readFileToString(File file) {
         final StringBuilder fileContent = new StringBuilder();
         try {
@@ -90,6 +137,12 @@ public class FileTools {
         return fileContent.toString();
     }
 
+    /**
+     * Returns a Scanner for a specified file.
+     *
+     * @param file the file to read.
+     * @return a Scanner for a specified file.
+     */
     private static Scanner readFileToScanner(File file) {
         try {
             return new Scanner(file);
@@ -99,6 +152,13 @@ public class FileTools {
         }
     }
 
+    /**
+     * Creates a new file, with a JFileChooser, in a specified place with a specified extension.
+     *
+     * @param component the swing component for the JFileChooser.
+     * @param integer the integer to choose the type of file (0: pddl ; 1: txt ; 2: tex ; 3: png ; 4: svg ; 5: json).
+     * @return a new file with a specified place and extension.
+     */
     public static File saveFile(Component component, int integer) {
         final JFileChooser fileChooser = new JFileChooser();
         if (staticLastPath != null) {
@@ -142,6 +202,12 @@ public class FileTools {
         return saveFile;
     }
 
+    /**
+     * Writes a content (String) in a specified file.
+     *
+     * @param file the file.
+     * @param string the content to write.
+     */
     public static void writeInFile(File file, String string) {
         BufferedWriter writer = null;
         try {

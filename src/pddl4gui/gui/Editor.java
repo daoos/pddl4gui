@@ -44,11 +44,10 @@ public class Editor extends JFrame implements Serializable {
     /**
      * Creates a new Editor.
      *
-     * @param parent the solver associated to the Editor.
      * @param file the file to edit.
      * @param type the type of the file (0: domain ; 1: problem).
      */
-    public Editor(Solver parent, File file, int type) {
+    public Editor(File file, int type) {
         fileToEdit = file;
         final Container container = getContentPane();
         container.setLayout(new BorderLayout());
@@ -61,7 +60,7 @@ public class Editor extends JFrame implements Serializable {
 
         final EditorPanel editorPanel = new EditorPanel(this);
 
-        final EditorMenuToolBar editorMenuToolBar = new EditorMenuToolBar(editorPanel);
+        final EditorMenuToolBar editorMenuToolBar = new EditorMenuToolBar(this, editorPanel);
 
         container.add(editorMenuToolBar, BorderLayout.NORTH);
 

@@ -2,8 +2,8 @@ package pddl4gui.gui.panel;
 
 //import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlannerAnytime;
 import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
-import pddl4gui.gui.tools.DecimalFormatSetup;
 import pddl4gui.gui.tools.Icons;
+import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Token;
 
@@ -128,7 +128,7 @@ public class AnytimePanel extends JFrame implements Serializable {
         refreshButton.setToolTipText("Refresh");
         refreshButton.addActionListener(e -> {
             refreshJList();
-            bestCost.setText(String.valueOf(DecimalFormatSetup.getDf().format(bestCostD)));
+            bestCost.setText(String.valueOf(TriggerAction.getDf().format(bestCostD)));
             numberSolution.setText(String.valueOf(numberSolutionI));
             isSolved.setText(String.valueOf(token.isSolved()));
         });
@@ -217,7 +217,7 @@ public class AnytimePanel extends JFrame implements Serializable {
      * @param currentDepthL the current plan depth.
      */
     private void displayAnytimeResult(double currentCostL, int currentDepthL) {
-        currentCost.setText(String.valueOf(DecimalFormatSetup.getDf().format(currentCostL)));
+        currentCost.setText(String.valueOf(TriggerAction.getDf().format(currentCostL)));
         currentDepth.setText(String.valueOf(currentDepthL));
     }
 }

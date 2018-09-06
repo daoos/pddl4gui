@@ -1,6 +1,6 @@
 package pddl4gui.gui.panel;
 
-import pddl4gui.gui.tools.DecimalFormatSetup;
+import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.Token;
 
 import javax.swing.BorderFactory;
@@ -142,9 +142,9 @@ public class ResultPanel extends JPanel implements Serializable {
 
         domain.setText(token.getDomainFileName());
         problem.setText(token.getProblemFileName());
-        cost.setText(String.valueOf(DecimalFormatSetup.getDf()
+        cost.setText(String.valueOf(TriggerAction.getDf()
                 .format(token.getResult().getStatistics().getCost())));
-        depth.setText(String.valueOf(DecimalFormatSetup.getDf()
+        depth.setText(String.valueOf(TriggerAction.getDf()
                 .format(token.getResult().getStatistics().getDepth())));
         resultArea.setText(token.getResult().getSolutionString());
         planner.setText(token.getPlannerName().toString());

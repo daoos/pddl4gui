@@ -48,6 +48,7 @@ public class Solver extends JFrame implements Serializable {
      */
     public Solver(Queue queue) {
         this.queue = queue;
+        TriggerAction.setupSolver(this);
 
         final int width = 1200;
         final int height = 620;
@@ -67,19 +68,19 @@ public class Solver extends JFrame implements Serializable {
         final EngineManagerPanel engineManagerPanel;
         final TokenListPanel tokenListPanel;
 
-        menuSolverPanel = new MenuSolverPanel(this);
+        menuSolverPanel = new MenuSolverPanel();
         menuSolverPanel.setBounds(350, marging + 3, 330, 40);
         add(menuSolverPanel);
 
-        setupPanel = new SetupSolverPanel(this);
+        setupPanel = new SetupSolverPanel();
         setupPanel.setBounds(marging, marging, 330, 320);
         add(setupPanel);
 
-        tokenListPanel = new TokenListPanel(this);
+        tokenListPanel = new TokenListPanel();
         tokenListPanel.setBounds(350, 60, 330, 270);
         add(tokenListPanel);
 
-        engineManagerPanel = new EngineManagerPanel(this);
+        engineManagerPanel = new EngineManagerPanel();
         engineManagerPanel.setBounds(marging, 340, 330, 240);
         add(engineManagerPanel);
 
@@ -87,11 +88,11 @@ public class Solver extends JFrame implements Serializable {
         statisticsPanel.setBounds(350, 340, 330, 240);
         add(statisticsPanel);
 
-        resultPanel = new ResultPanel(this);
+        resultPanel = new ResultPanel();
         resultPanel.setBounds(690, marging, 500, 570);
         add(resultPanel);
 
-        TriggerAction.setup(this, setupPanel,statisticsPanel, resultPanel, menuSolverPanel, engineManagerPanel
+        TriggerAction.setupPanel(setupPanel,statisticsPanel, resultPanel, menuSolverPanel, engineManagerPanel
                 ,tokenListPanel);
 
         setVisible(true);

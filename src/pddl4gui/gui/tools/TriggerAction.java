@@ -1,6 +1,5 @@
 package pddl4gui.gui.tools;
 
-import pddl4gui.gui.Editor;
 import pddl4gui.gui.Solver;
 import pddl4gui.gui.panel.EngineManagerPanel;
 import pddl4gui.gui.panel.MenuSolverPanel;
@@ -11,8 +10,10 @@ import pddl4gui.gui.panel.TokenListPanel;
 import pddl4gui.token.Queue;
 import pddl4gui.token.Token;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 /**
  * This class implements the TriggerAction class of <code>PDDL4GUI</code>.
@@ -32,11 +33,6 @@ public class TriggerAction implements Serializable {
      * The solver JFrame.
      */
     private static Solver solver;
-
-    /**
-     * The editor JFrame.
-     */
-    private static Editor editor;
 
     /**
      * The solver SetupPanel.
@@ -70,10 +66,30 @@ public class TriggerAction implements Serializable {
 
     /**
      *
+     */
+    private static DecimalFormat decimalFormat;
+
+    /**
+     *
+     */
+    final private static DefaultListModel<Token> listModel = new DefaultListModel<>();
+
+    /**
+     *
+     *
      * @return
      */
-    public static Editor getEditor() {
-        return editor;
+    public static DecimalFormat getDf() {
+        return TriggerAction.decimalFormat;
+    }
+
+    /**
+     *
+     *
+     * @return
+     */
+    public static DefaultListModel<Token> getListModel() {
+        return listModel;
     }
 
     /**
@@ -83,7 +99,7 @@ public class TriggerAction implements Serializable {
     }
 
     /**
-     * Setups all the pane used in this class.
+     * Setups all the panel used in this class.
      *
      * @param setupPanel the solver SetupPanel.
      * @param statisticsPanel the solver StatisticsPanel.
@@ -92,16 +108,25 @@ public class TriggerAction implements Serializable {
      * @param engineManagerPanel the solver EngineManagerPanel.
      * @param tokenListPanel the solver TokenListPanel.
      */
-    public static void setup(Solver solver, SetupSolverPanel setupPanel, StatisticsPanel statisticsPanel,
+    public static void setupPanel(SetupSolverPanel setupPanel, StatisticsPanel statisticsPanel,
                              ResultPanel resultPanel, MenuSolverPanel menuSolverPanel,
                              EngineManagerPanel engineManagerPanel, TokenListPanel tokenListPanel) {
-        TriggerAction.solver = solver;
         TriggerAction.setupPanel = setupPanel;
         TriggerAction.statisticsPanel = statisticsPanel;
         TriggerAction.resultPanel = resultPanel;
         TriggerAction.menuSolverPanel = menuSolverPanel;
         TriggerAction.engineManagerPanel = engineManagerPanel;
         TriggerAction.tokenListPanel = tokenListPanel;
+        TriggerAction.decimalFormat = new DecimalFormat("##.###");
+    }
+
+    /**
+     * Sets the Solver.
+     *
+     * @param solver the solver.
+     */
+    public static void setupSolver(Solver solver) {
+        TriggerAction.solver = solver;
     }
 
     /**
@@ -150,7 +175,7 @@ public class TriggerAction implements Serializable {
     public static void resetSolver() {
         TriggerAction.clearResult();
         solver.getQueue().clearList();
-        TokenList.getListModel().clear();
+        TriggerAction.getListModel().clear();
     }
 
     /**
@@ -247,11 +272,5 @@ public class TriggerAction implements Serializable {
         return TriggerAction.engineManagerPanel.isRunning();
     }
 
-    /**
-     *
-     */
-    public static void closeEditor() {
-        TriggerAction.editor.dispose();
-    }
 
 }

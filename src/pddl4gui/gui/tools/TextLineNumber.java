@@ -24,6 +24,7 @@ import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -35,29 +36,66 @@ import java.util.HashMap;
  * This class was designed to be used as a component added to the row header
  * of a JScrollPane.
  */
-public class TextLineNumber extends JPanel implements CaretListener, DocumentListener {
+public class TextLineNumber extends JPanel implements CaretListener, DocumentListener, Serializable {
 
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The right marging.
+     */
     private final static float RIGHT = 1.0f;
+
+    /**
+      *The outer border.
+     */
     private final static Border OUTER = new MatteBorder(0, 0, 0, 2, Color.GRAY);
+
+    /**
+     * The height parameter.
+     */
     private final static int HEIGHT = Integer.MAX_VALUE - 1000000;
 
-    //  Text component this TextTextLineNumber component is in sync with
-
+    /**
+     * Text component this TextTextLineNumber component is in sync with.
+     */
     final private JTextComponent component;
 
-    //  Properties that can be changed
-
+    /**
+     * Properties that can be changed: color.
+     */
     private Color currentLineForeground;
+
+    /**
+     * Properties that can be changed: alignement.
+     */
     private float digitAlignment;
+
+    /**
+     * Properties that can be changed: minimal display digit.
+     */
     private int minimumDisplayDigits;
 
-    //  Keep history information to reduce the number of times the component
-    //  needs to be repainted
-
+    /**
+     * Keep history information to reduce the number of times the component needs to be repainted: last digit.
+     */
     private int lastDigits;
+
+    /**
+     * Keep history information to reduce the number of times the component needs to be repainted: last height.
+     */
     private int lastHeight;
+
+    /**
+     * Keep history information to reduce the number of times the component needs to be repainted: last line.
+     */
     private int lastLine;
 
+    /**
+     * The fonts hashmap.
+     */
     private HashMap<String, FontMetrics> fonts;
 
     /**
@@ -173,7 +211,9 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
     }
 
     /**
-     * Draw the line numbers
+     * Draw the line numbers.
+     *
+     * @param g the graphic component to paint.
      */
     @Override
     public void paintComponent(Graphics g) {
@@ -219,6 +259,8 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
     /**
      * We need to know if the caret is currently positioned on the line we
      * are about to paint so the line number can be highlighted.
+     *
+     * @param rowStartOffset the starting row offset.
      */
     private boolean isCurrentLine(int rowStartOffset) {
         final int caretPosition = component.getCaretPosition();
@@ -230,6 +272,8 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
     /**
      * Get the line number to be drawn. The empty string will be returned
      * when a line of text has wrapped.
+     *
+     * @param rowStartOffset the starting row offset.
      */
     private String getTextLineNumber(int rowStartOffset) {
         final Element root = component.getDocument().getDefaultRootElement();
@@ -243,14 +287,20 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
     }
 
     /**
-     * Determine the X offset to properly align the line number when drawn
+     * Determine the X offset to properly align the line number when drawn.
+     *
+     * @param availableWidth the available width.
+     * @param stringWidth the string width.
      */
     private int getOffsetX(int availableWidth, int stringWidth) {
         return (int) ((availableWidth - stringWidth) * digitAlignment);
     }
 
     /**
-     * Determine the Y offset for the current row
+     * Determine the Y offset for the current row.
+     *
+     * @param rowStartOffset the starting row offset.
+     * @param fontMetrics the font metrics.
      */
     private int getOffsetY(int rowStartOffset, FontMetrics fontMetrics) throws BadLocationException {
         //  Get the bounding rectangle of the row
@@ -296,9 +346,11 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
         return y - descent;
     }
 
-    //
-    //  Implement CaretListener interface
-    //
+    /**
+     * Implement CaretListener interface.
+     *
+     * @param e the caret event.
+     */
     @Override
     public void caretUpdate(CaretEvent e) {
         //  Get the line the caret is positioned on
@@ -315,19 +367,33 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
         }
     }
 
-    //
-    //  Implement DocumentListener interface
-    //
+    /**
+     * Implement DocumentListener interface: change in document.
+     *
+     * @param e the document event.
+     */
     @Override
     public void changedUpdate(DocumentEvent e) {
         documentChanged();
     }
 
+
+    /**
+     * Implement DocumentListener interface: insert in document.
+     *
+     * @param e the document event.
+     */
     @Override
     public void insertUpdate(DocumentEvent e) {
         documentChanged();
     }
 
+
+    /**
+     * Implement DocumentListener interface: remove in document.
+     *
+     * @param e the document event.
+     */
     @Override
     public void removeUpdate(DocumentEvent e) {
         documentChanged();

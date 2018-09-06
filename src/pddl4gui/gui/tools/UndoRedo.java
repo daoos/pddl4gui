@@ -13,9 +13,27 @@ import javax.swing.undo.UndoManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 
-public class UndoRedo {
+/**
+ * This class implements the UndoRedo class of <code>PDDL4GUI</code>.
+ * This class provides undo redo functions for JTextArea in PDDL4GUI.
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
+ */
+public class UndoRedo implements Serializable {
 
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Adds undo redo functions on a JTextArea.
+     *
+     * @param jTextArea the JTextArea.
+     */
     public static void addUndoRedo(JTextArea jTextArea) {
         final UndoManager undoManager = new UndoManager();
         final Document doc = jTextArea.getDocument();

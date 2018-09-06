@@ -9,16 +9,52 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
+import java.io.Serializable;
 
-public class Find extends JFrame {
+/**
+ * This class implements the Find class of <code>PDDL4GUI</code>.
+ * This JFrame displays a box with to search, replace a word in a JTextArea.
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
+ */
+public class Find extends JFrame implements Serializable {
 
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The start index used to search a word.
+     */
     private int startIndex = 0;
+
+    /**
+     * The start index of the text selected in the JTextArea.
+     */
     private int select_start = -1;
+
+    /**
+     * The JTextField used to find the occurrences of a word.
+     */
     final private JTextField textF, textR;
+
+    /**
+     * The JTextArea linked to this find box.
+     */
     final private JTextArea txt;
+
+    /**
+     * The HighlightText to highlight the word found.
+     */
     private HighlightText highlightText = new HighlightText(Color.RED);
 
-
+    /**
+     * Create a new find box for a JTextArea.
+     *
+     * @param text the JTextArea linked to this find box.
+     */
     public Find(JTextArea text) {
         this.txt = text;
 
@@ -78,6 +114,9 @@ public class Find extends JFrame {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
+    /**
+     * Finds an occurrence of a word in the text.
+     */
     private void find() {
         select_start = txt.getText().toLowerCase().indexOf(textF.getText().toLowerCase());
         if (select_start == -1) {
@@ -93,6 +132,9 @@ public class Find extends JFrame {
         highlightText.hightLightWord(txt, select_start, select_end);
     }
 
+    /**
+     * Finds the next occurrence of a word in the text.
+     */
     private void findNext() {
         String selection = txt.getSelectedText();
         if (selection == null) {
@@ -117,6 +159,9 @@ public class Find extends JFrame {
         }
     }
 
+    /**
+     * Replaces an occurrence of a word in the text.
+     */
     private void replace() {
         try {
             find();
@@ -127,6 +172,9 @@ public class Find extends JFrame {
         }
     }
 
+    /**
+     * Replaces all occurrences of a word in the text.
+     */
     private void replaceAll() {
         txt.setText(txt.getText().toLowerCase().replaceAll(textF.getText().toLowerCase(), textR.getText()));
     }

@@ -1,6 +1,6 @@
 package pddl4gui.gui.panel;
 
-import pddl4gui.gui.tools.DecimalFormatSetup;
+import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.Statistics;
 
 import javax.swing.BorderFactory;
@@ -118,21 +118,21 @@ public class StatisticsPanel extends JPanel implements Serializable {
      * @param statistics the Statistics object.
      */
     public void displayStats(Statistics statistics) {
-        timeToParse.setText(String.valueOf(DecimalFormatSetup.getDf()
+        timeToParse.setText(String.valueOf(TriggerAction.getDf()
                 .format(statistics.getTimeToParseInSeconds()) + " seconds"));
-        timeToEncode.setText(String.valueOf(DecimalFormatSetup.getDf()
+        timeToEncode.setText(String.valueOf(TriggerAction.getDf()
                 .format(statistics.getTimeToEncodeInSeconds()) + " seconds"));
-        timeToPlan.setText(String.valueOf(DecimalFormatSetup.getDf()
+        timeToPlan.setText(String.valueOf(TriggerAction.getDf()
                 .format(statistics.getTimeToPlanInSeconds()) + " seconds"));
-        timeTotal.setText(String.valueOf(DecimalFormatSetup.getDf()
+        timeTotal.setText(String.valueOf(TriggerAction.getDf()
                 .format(statistics.getTotalTimeInSeconds()) + " seconds"));
         numberActions.setText(String.valueOf(statistics.getNumberOfActions()));
         numberFluents.setText(String.valueOf(statistics.getNumberOfFluents()));
-        memoryPb.setText(String.valueOf(DecimalFormatSetup.getDf()
+        memoryPb.setText(String.valueOf(TriggerAction.getDf()
                 .format(statistics.getMemoryForProblemInMBytes())) + " MBytes");
-        memorySearch.setText(String.valueOf(DecimalFormatSetup.getDf()
+        memorySearch.setText(String.valueOf(TriggerAction.getDf()
                 .format(statistics.getMemoryUsedToSearchInMBytes())) + " MBytes");
-        memoryTotal.setText(String.valueOf(DecimalFormatSetup.getDf()
+        memoryTotal.setText(String.valueOf(TriggerAction.getDf()
                 .format(statistics.getTotalMemoryInMBytes())) + " MBytes");
     }
 

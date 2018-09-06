@@ -9,7 +9,6 @@ import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
-import pddl4gui.gui.tools.TokenList;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Token;
 
@@ -70,10 +69,8 @@ public class SetupSolverPanel extends JPanel implements Serializable {
 
     /**
      * Creates a new SetupSolverPanel associated to the Solver main JFrame.
-     *
-     * @param solver the Solver main JFrame.
      */
-    public SetupSolverPanel(Solver solver) {
+    public SetupSolverPanel() {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver parameters"));
 
@@ -110,7 +107,8 @@ public class SetupSolverPanel extends JPanel implements Serializable {
         editDomainButton.setEnabled(false);
         editDomainButton.addActionListener(e -> {
             enableDomainButton(false);
-            new Editor(solver, domainFile, 0);
+            editDomainButton.setEnabled(false);
+            new Editor(domainFile, 0);
 
             domainFile = null;
             domainButton.setText("Choose domain");
@@ -145,7 +143,8 @@ public class SetupSolverPanel extends JPanel implements Serializable {
         editProblemButton.setEnabled(false);
         editProblemButton.addActionListener(e -> {
             enablePBButton(false);
-            new Editor(solver, problemFiles.firstElement(), 1);
+            editProblemButton.setEnabled(false);
+            new Editor(problemFiles.firstElement(), 1);
 
             problemFiles = null;
             pbButton.setText("Choose problem");
@@ -221,8 +220,8 @@ public class SetupSolverPanel extends JPanel implements Serializable {
                 final Token token = new Token(domainFile, file, planner, plannerName);
 
                 if (token.isRunnable() && TriggerAction.isEngineManagerRunning()) {
-                    if (!TokenList.getListModel().contains(token)) {
-                        TokenList.getListModel().addElement(token);
+                    if (!TriggerAction.getListModel().contains(token)) {
+                        TriggerAction.getListModel().addElement(token);
                         TriggerAction.getQueue().addTokenInQueue(token);
                     }
                 }
@@ -238,7 +237,6 @@ public class SetupSolverPanel extends JPanel implements Serializable {
      * @param enable status of the buttons.
      */
     public void enableDomainButton(boolean enable) {
-        editDomainButton.setEnabled(enable);
         domainButton.setEnabled(enable);
         planButton.setEnabled(enable);
     }
@@ -249,7 +247,6 @@ public class SetupSolverPanel extends JPanel implements Serializable {
      * @param enable status of the buttons.
      */
     public void enablePBButton(boolean enable) {
-        editProblemButton.setEnabled(enable);
         pbButton.setEnabled(enable);
         planButton.setEnabled(enable);
     }

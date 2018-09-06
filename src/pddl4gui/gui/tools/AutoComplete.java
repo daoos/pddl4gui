@@ -15,20 +15,18 @@ import javax.swing.text.BadLocationException;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * <h1>Auto complete functionality multiple programming languages, including brackets and
- * parentheses</h1>
- * <p>
+ * <h1>Auto complete functionality multiple programming languages, including brackets and parentheses</h1>
  * <p>
  * An ArrayList is created for the keywords and the brackets.
  * Logic for setting the content of the ArrayList is
  * found in EditorPanel.java. If the word currently being typed
  * matches a word in the list, a Runnable inner class is
  * implemented to handle the word completion.
- * <p>
  * Two other inner classes are also used. The second one handles when the enter
  * key is pressed in response to an auto complete suggestion. The third one
  * performs additional logic on brackets.
@@ -37,7 +35,12 @@ import java.util.Collections;
  * @author Patrick Slagle
  * @since 2016-12-03
  */
-public class AutoComplete implements DocumentListener {
+public class AutoComplete implements DocumentListener, Serializable {
+
+    /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
 
     final private ArrayList<String> brackets;
     final private ArrayList<String> bracketCompletions;
@@ -56,6 +59,11 @@ public class AutoComplete implements DocumentListener {
     private int pos;
     private String content;
 
+    /**
+     * Creates a new AutoComplete object associated to an EditorPanel and a list of keywords.
+     * @param editorFrame the linked EditorPanel.
+     * @param al the list of keywords to complete.
+     */
     public AutoComplete(final EditorPanel editorFrame, ArrayList<String> al) {
         //Set the keywords
         words = al;

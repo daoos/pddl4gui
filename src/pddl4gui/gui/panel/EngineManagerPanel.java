@@ -71,13 +71,12 @@ public class EngineManagerPanel extends JPanel implements Serializable {
     /**
      * Creates a new EngineManagerPanel associated to the Solver main JFrame.
      *
-     * @param solver the Solver main JFrame.
      */
-    public EngineManagerPanel(Solver solver) {
+    public EngineManagerPanel() {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Engines status"));
 
-        engineManager = new EngineManager(1000, this, solver.getQueue());
+        engineManager = new EngineManager(1000, this, TriggerAction.getQueue());
 
         int labHeight = 25;
         final int labMarging = 45;
