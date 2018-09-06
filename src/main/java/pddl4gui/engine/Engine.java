@@ -12,13 +12,14 @@ import pddl4gui.token.Result;
 import pddl4gui.token.Statistics;
 import pddl4gui.token.Token;
 
-import javax.swing.JProgressBar;
-import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Vector;
+import javax.swing.JProgressBar;
+import javax.swing.Timer;
+
 
 /**
  * This class implements the Engine class of <code>PDDL4GUI</code>.
@@ -37,12 +38,12 @@ public class Engine extends Thread implements Serializable {
     /**
      * The EnginePanel which displays Engine status.
      */
-    final private EnginePanel enginePanel;
+    private final EnginePanel enginePanel;
 
     /**
      * The list of tokens to solve.
      */
-    final private Vector<Token> ownQueue;
+    private final Vector<Token> ownQueue;
 
     /**
      * The error String containing error which appears during solving process.

@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * This class implements the PDDLContext class of <code>PDDL4GUI</code>.
+ * This class implements the PddlContext class of <code>PDDL4GUI</code>.
  * This object contains all specifications of the PDDL language used by the Editor.
  *
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class PDDLContext implements Serializable {
+public class PddlContext implements Serializable {
 
     /**
      * The serial id of the class.
@@ -76,7 +76,7 @@ public class PDDLContext implements Serializable {
      *
      * @return the PDDL keywords.
      */
-    public String[] getPDDLKeywords() {
+    public String[] getPddlKeywords() {
         return pddlKeywords;
     }
 

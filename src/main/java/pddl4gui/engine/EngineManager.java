@@ -23,22 +23,22 @@ public class EngineManager extends Thread implements Serializable {
     /**
      * The refresh time of the EngineManager.
      */
-    final private int refresh;
+    private final int refresh;
 
     /**
      * The list of all Engine.
      */
-    final private Vector<Engine> engineList;
+    private final Vector<Engine> engineList;
 
     /**
      * The Queue of token.
      */
-    final private Queue queue;
+    private final Queue queue;
 
     /**
      * The EngineManagerPanel associated which displays status of EngineManager.
      */
-    final private EngineManagerPanel engineManagerPanel;
+    private final EngineManagerPanel engineManagerPanel;
 
     /**
      * Adds an Engine.

@@ -5,15 +5,15 @@ import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Find;
 import pddl4gui.gui.tools.Icons;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JToolBar;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.Serializable;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JToolBar;
 
 /**
  * This class implements the EditorMenuToolBar class of <code>PDDL4GUI</code>.
@@ -32,7 +32,7 @@ public class EditorMenuToolBar extends JToolBar implements Serializable {
     /**
      * The JComboBox for font size.
      */
-    final private JComboBox<Integer> fontSize;
+    private final JComboBox<Integer> fontSize;
 
     /**
      * If the color is inverted in the EditorPanel.

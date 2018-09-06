@@ -8,6 +8,7 @@ import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Token;
 
+import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
@@ -19,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
-import java.io.Serializable;
+
 
 /**
  * This class implements the AnytimePanel class of <code>PDDL4GUI</code>.
@@ -38,7 +39,11 @@ public class AnytimePanel extends JFrame implements Serializable {
     /**
      * The labels in the JFrame.
      */
-    final private JLabel currentCost, currentDepth, bestCost, isSolved, numberSolution;
+    private final JLabel currentCost;
+    private final JLabel currentDepth;
+    private final JLabel bestCost;
+    private final JLabel isSolved;
+    private final JLabel numberSolution;
 
     /**
      * The DefaultListModel used in the Jlist of the JFrame.
@@ -73,10 +78,6 @@ public class AnytimePanel extends JFrame implements Serializable {
         setTitle(this.token.getDomainFileName()
                 + " " + this.token.getProblemFileName());
 
-        final int labWidth = 120;
-        final int labHeight = 20;
-        int labMarging = 20;
-
         final JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setBorder(BorderFactory.createTitledBorder("Anytime in progress"));
@@ -91,6 +92,10 @@ public class AnytimePanel extends JFrame implements Serializable {
         bestCost = new JLabel("--");
         numberSolution = new JLabel("--");
         isSolved = new JLabel("--");
+
+        final int labWidth = 120;
+        final int labHeight = 20;
+        int labMarging = 20;
 
         currentCostLabel.setBounds(10, labMarging, labWidth - 20, labHeight);
         currentCost.setBounds(80, labMarging, labWidth - 20, labHeight);

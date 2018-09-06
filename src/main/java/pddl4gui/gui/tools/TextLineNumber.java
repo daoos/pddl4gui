@@ -32,7 +32,6 @@ import java.util.HashMap;
  * component must use the same line height for each line. TextLineNumber
  * supports wrapped lines and will highlight the line number of the current
  * line in the text component.
- * <p>
  * This class was designed to be used as a component added to the row header
  * of a JScrollPane.
  */
@@ -46,22 +45,22 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
     /**
      * The right marging.
      */
-    private final static float RIGHT = 1.0f;
+    private static final float RIGHT = 1.0f;
 
     /**
      * The outer border.
      */
-    private final static Border OUTER = new MatteBorder(0, 0, 0, 2, Color.GRAY);
+    private static final Border OUTER = new MatteBorder(0, 0, 0, 2, Color.GRAY);
 
     /**
      * The height parameter.
      */
-    private final static int HEIGHT = Integer.MAX_VALUE - 1000000;
+    private static final int HEIGHT = Integer.MAX_VALUE - 1000000;
 
     /**
      * Text component this TextTextLineNumber component is in sync with.
      */
-    final private JTextComponent component;
+    private final JTextComponent component;
 
     /**
      * Properties that can be changed: color.
@@ -102,7 +101,7 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
      * Create a line number component for a text component. This minimum
      * display width will be based on 3 digits.
      *
-     * @param component the related text component
+     * @param component the related text component.
      */
     public TextLineNumber(JTextComponent component) {
         this(component, 3);
@@ -111,9 +110,8 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
     /**
      * Create a line number component for a text component.
      *
-     * @param component            the related text component
-     * @param minimumDisplayDigits the number of digits used to calculate
-     *                             the minimum width of the component
+     * @param component            the related text component.
+     * @param minimumDisplayDigits the number of digits used to calculate the minimum width of the component.
      */
     private TextLineNumber(JTextComponent component, int minimumDisplayDigits) {
         this.component = component;
@@ -141,9 +139,9 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
     }
 
     /**
-     * Gets the current line rendering Color
+     * Gets the current line rendering Color.
      *
-     * @return the Color used to render the current line number
+     * @return the Color used to render the current line number.
      */
     private Color getCurrentLineForeground() {
         return currentLineForeground == null ? getForeground() : currentLineForeground;
@@ -152,7 +150,7 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
     /**
      * The Color used to render the current line digits. Default is Coolor.RED.
      *
-     * @param currentLineForeground the Color used to render the current line
+     * @param currentLineForeground the Color used to render the current line.
      */
     private void setCurrentLineForeground(Color currentLineForeground) {
         this.currentLineForeground = currentLineForeground;
@@ -178,8 +176,7 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
      * Specify the mimimum number of digits used to calculate the preferred
      * width of the component. Default is 3.
      *
-     * @param minimumDisplayDigits the number digits used in the preferred
-     *                             width calculation
+     * @param minimumDisplayDigits the number digits used in the preferred width calculation.
      */
     private void setMinimumDisplayDigits(int minimumDisplayDigits) {
         this.minimumDisplayDigits = minimumDisplayDigits;
@@ -187,7 +184,7 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
     }
 
     /**
-     * Calculate the width needed to display the maximum line number
+     * Calculate the width needed to display the maximum line number.
      */
     private void setPreferredWidth() {
         final Element root = component.getDocument().getDefaultRootElement();
@@ -220,7 +217,6 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
         super.paintComponent(g);
 
         //	Determine the width of the space available to draw the line number
-
         final FontMetrics fontMetrics = component.getFontMetrics(component.getFont());
         final Insets insets = getInsets();
         int availableWidth = getSize().width - insets.left - insets.right;
@@ -233,10 +229,11 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
 
         while (rowStartOffset <= endOffset) {
             try {
-                if (isCurrentLine(rowStartOffset))
+                if (isCurrentLine(rowStartOffset)) {
                     g.setColor(getCurrentLineForeground());
-                else
+                } else {
                     g.setColor(getForeground());
+                }
 
                 //  Get the line number as a string and then determine the
                 //  "X" and "Y" offsets for drawing the string.
@@ -280,10 +277,11 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
         final int index = root.getElementIndex(rowStartOffset);
         final Element line = root.getElement(index);
 
-        if (line.getStartOffset() == rowStartOffset)
+        if (line.getStartOffset() == rowStartOffset) {
             return String.valueOf(index + 1);
-        else
+        } else {
             return "";
+        }
     }
 
     /**
@@ -313,12 +311,12 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
         //  The text needs to be positioned above the bottom of the bounding
         //  rectangle based on the descent of the font(s) contained on the row.
 
-        if (r.height == lineHeight)  // default font is being used
-        {
+        if (r.height == lineHeight) {
             descent = fontMetrics.getDescent();
         } else {// We need to check all the attributes for font changes
-            if (fonts == null)
+            if (fonts == null) {
                 fonts = new HashMap<>();
+            }
 
             final Element root = component.getDocument().getDefaultRootElement();
             final int index = root.getElementIndex(rowStartOffset);

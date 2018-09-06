@@ -3,10 +3,10 @@ package pddl4gui.gui.panel;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.Statistics;
 
+import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.io.Serializable;
 
 /**
  * This class implements the StatisticsPanel class of <code>PDDL4GUI</code>.
@@ -25,8 +25,15 @@ public class StatisticsPanel extends JPanel implements Serializable {
     /**
      * The JLabel of the StatisticsPanel.
      */
-    final private JLabel timeToParse, timeToEncode, timeToPlan, timeTotal, numberActions,
-            numberFluents, memoryPb, memorySearch, memoryTotal;
+    private final JLabel timeToParse;
+    private final JLabel timeToEncode;
+    private final JLabel timeToPlan;
+    private final JLabel timeTotal;
+    private final JLabel numberActions;
+    private final JLabel numberFluents;
+    private final JLabel memoryPb;
+    private final JLabel memorySearch;
+    private final JLabel memoryTotal;
 
     /**
      * Creates a new StatisticsPanel.
@@ -34,10 +41,6 @@ public class StatisticsPanel extends JPanel implements Serializable {
     public StatisticsPanel() {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver statistics"));
-
-        final int labWidth = 140;
-        final int labHeight = 22;
-        int labMarging = 22;
 
         final JLabel timeToParseLabel = new JLabel("Time to parse");
         final JLabel timeToEncodeLabel = new JLabel("Time to encode");
@@ -57,6 +60,10 @@ public class StatisticsPanel extends JPanel implements Serializable {
         memoryPb = new JLabel("-- MBytes");
         memorySearch = new JLabel("-- MBytes");
         memoryTotal = new JLabel("-- MBytes");
+
+        final int labWidth = 140;
+        final int labHeight = 22;
+        int labMarging = 22;
 
         timeToParseLabel.setBounds(15, labMarging, labWidth, labHeight);
         add(timeToParseLabel);

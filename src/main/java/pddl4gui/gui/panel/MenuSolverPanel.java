@@ -5,10 +5,10 @@ import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.TriggerAction;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import java.io.File;
 import java.io.Serializable;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  * This class implements the MenuSolverPanel class of <code>PDDL4GUI</code>.
@@ -27,7 +27,9 @@ public class MenuSolverPanel extends JPanel implements Serializable {
     /**
      * The JButton of the MenuSolverPanel.
      */
-    final private JButton valButton, saveTxtButton, saveJsonButton;
+    private final JButton valButton;
+    private final JButton saveTxtButton;
+    private final JButton saveJsonButton;
 
     /**
      * Returns the VAL button.
@@ -99,7 +101,7 @@ public class MenuSolverPanel extends JPanel implements Serializable {
                 File tempFile = FileTools.saveFile(this, 5);
                 if (FileTools.checkFile(tempFile)) {
                     FileTools.writeInFile(tempFile, TriggerAction.getTokenListPanelJListSelectedValue()
-                            .getResult().getSolutionJSON());
+                            .getResult().getSolutionJson());
                 }
             }
         });

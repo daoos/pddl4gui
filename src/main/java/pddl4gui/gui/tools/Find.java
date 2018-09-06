@@ -1,15 +1,17 @@
 package pddl4gui.gui.tools;
 
+import java.awt.Color;
+import java.awt.GraphicsEnvironment;
+import java.awt.Point;
+import java.io.Serializable;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import java.awt.Color;
-import java.awt.GraphicsEnvironment;
-import java.awt.Point;
-import java.io.Serializable;
+
 
 /**
  * This class implements the Find class of <code>PDDL4GUI</code>.
@@ -33,17 +35,18 @@ public class Find extends JFrame implements Serializable {
     /**
      * The start index of the text selected in the JTextArea.
      */
-    private int select_start = -1;
+    private int selectStart = -1;
 
     /**
      * The JTextField used to find the occurrences of a word.
      */
-    final private JTextField textF, textR;
+    private final JTextField textF;
+    private final JTextField textR;
 
     /**
      * The JTextArea linked to this find box.
      */
-    final private JTextArea txt;
+    private final JTextArea txt;
 
     /**
      * The HighlightText to highlight the word found.
@@ -118,18 +121,18 @@ public class Find extends JFrame implements Serializable {
      * Finds an occurrence of a word in the text.
      */
     private void find() {
-        select_start = txt.getText().toLowerCase().indexOf(textF.getText().toLowerCase());
-        if (select_start == -1) {
+        this.selectStart = txt.getText().toLowerCase().indexOf(textF.getText().toLowerCase());
+        if (this.selectStart == -1) {
             startIndex = 0;
             JOptionPane.showMessageDialog(null, "Could not find \"" + textF.getText() + "\"!");
             return;
         }
-        if (select_start == txt.getText().toLowerCase().lastIndexOf(textF.getText().toLowerCase())) {
+        if (this.selectStart == txt.getText().toLowerCase().lastIndexOf(textF.getText().toLowerCase())) {
             startIndex = 0;
         }
-        int select_end = select_start + textF.getText().length();
-        txt.select(select_start, select_end);
-        highlightText.hightLightWord(txt, select_start, select_end);
+        int selectEnd = this.selectStart + textF.getText().length();
+        txt.select(this.selectStart, selectEnd);
+        highlightText.hightLightWord(txt, this.selectStart, selectEnd);
     }
 
     /**
@@ -145,13 +148,13 @@ public class Find extends JFrame implements Serializable {
             }
         }
         try {
-            int select_start = txt.getText().toLowerCase().indexOf(selection.toLowerCase(), startIndex);
-            int select_end = select_start + selection.length();
-            txt.select(select_start, select_end);
-            highlightText.hightLightWord(txt, select_start, select_end);
-            startIndex = select_end + 1;
+            int selectStart = txt.getText().toLowerCase().indexOf(selection.toLowerCase(), startIndex);
+            int selectEnd = selectStart + selection.length();
+            txt.select(selectStart, selectEnd);
+            highlightText.hightLightWord(txt, selectStart, selectEnd);
+            startIndex = selectEnd + 1;
 
-            if (select_start == txt.getText().toLowerCase().lastIndexOf(selection.toLowerCase())) {
+            if (selectStart == txt.getText().toLowerCase().lastIndexOf(selection.toLowerCase())) {
                 startIndex = 0;
             }
         } catch (NullPointerException e) {
@@ -165,8 +168,9 @@ public class Find extends JFrame implements Serializable {
     private void replace() {
         try {
             find();
-            if (select_start != -1)
+            if (this.selectStart != -1) {
                 txt.replaceSelection(textR.getText());
+            }
         } catch (NullPointerException e) {
             e.printStackTrace();
         }

@@ -4,10 +4,10 @@ import pddl4gui.engine.Engine;
 import pddl4gui.engine.EngineManager;
 import pddl4gui.gui.tools.TriggerAction;
 
+import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.io.Serializable;
 
 /**
  * This class implements the EngineManagerPanel class of <code>PDDL4GUI</code>.
@@ -26,12 +26,12 @@ public class EngineManagerPanel extends JPanel implements Serializable {
     /**
      * The EngineManager which manages Engine.
      */
-    final private EngineManager engineManager;
+    private final EngineManager engineManager;
 
     /**
      * The JLabel for remaining tokens to solve.
      */
-    final private JLabel remainingLabel;
+    private final JLabel remainingLabel;
 
     /**
      * Adds an Engine in the EngineManager.
@@ -93,8 +93,7 @@ public class EngineManagerPanel extends JPanel implements Serializable {
 
             labHeight += labMarging;
             inc++;
-        }
-        while (inc < cores - 1 && inc < 4);
+        } while (inc < cores - 1 && inc < 4);
 
         remainingLabel = new JLabel(" -- token(s) remaining");
         remainingLabel.setBounds(200, 214, 265, 20);

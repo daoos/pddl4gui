@@ -10,8 +10,8 @@ import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Queue;
 
-import javax.swing.JFrame;
 import java.io.Serializable;
+import javax.swing.JFrame;
 
 /**
  * This class implements the Solver class of <code>PDDL4GUI</code>.
@@ -30,7 +30,7 @@ public class Solver extends JFrame implements Serializable {
     /**
      * The token Queue.
      */
-    final private Queue queue;
+    private final Queue queue;
 
     /**
      * Gets the token Queue.
@@ -92,8 +92,8 @@ public class Solver extends JFrame implements Serializable {
         resultPanel.setBounds(690, marging, 500, 570);
         add(resultPanel);
 
-        TriggerAction.setupPanel(setupPanel, statisticsPanel, resultPanel, menuSolverPanel, engineManagerPanel
-                , tokenListPanel);
+        TriggerAction.setupPanel(setupPanel, statisticsPanel, resultPanel, menuSolverPanel, engineManagerPanel,
+                tokenListPanel);
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

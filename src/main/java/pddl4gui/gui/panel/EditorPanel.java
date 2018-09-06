@@ -5,11 +5,8 @@ import pddl4gui.gui.tools.AutoComplete;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.TextLineNumber;
 import pddl4gui.gui.tools.UndoRedo;
-import pddl4gui.pddl.PDDLContext;
+import pddl4gui.pddl.PddlContext;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Insets;
@@ -18,6 +15,9 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  * This class implements the EditorPanel class of <code>PDDL4GUI</code>.
@@ -36,12 +36,12 @@ public class EditorPanel extends JPanel implements Serializable {
     /**
      * The JTextArea to display the content of the file.
      */
-    final private JTextArea textArea;
+    private final JTextArea textArea;
 
     /**
-     * The PDDLContext for the PDDL language.
+     * The PddlContext for the PDDL language.
      */
-    final private PDDLContext pddl;
+    private final PddlContext pddl;
 
     /**
      * The AutoComplete object to enable auto complete feature.
@@ -68,7 +68,7 @@ public class EditorPanel extends JPanel implements Serializable {
      * @param parent the Editor associated to the EditorPanel.
      */
     public EditorPanel(Editor parent) {
-        this.pddl = new PDDLContext();
+        this.pddl = new PddlContext();
         setLayout(new BorderLayout());
 
         textArea = new JTextArea("", 0, 0);
@@ -78,7 +78,7 @@ public class EditorPanel extends JPanel implements Serializable {
         textArea.setMargin(new Insets(10, 10, 10, 10));
         textArea.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent ke) {
-                pddl.getHighlighter().highLight(textArea, pddl.getPDDLKeywords());
+                pddl.getHighlighter().highLight(textArea, pddl.getPddlKeywords());
             }
         });
         final JScrollPane scrollTextArea = new JScrollPane(textArea);
@@ -115,7 +115,7 @@ public class EditorPanel extends JPanel implements Serializable {
         final String extension = pddl.getExtensionFile();
 
         if (file.getName().endsWith(extension)) {
-            final ArrayList<String> arrayList = pddl.addKeywords(pddl.getPDDLKeywords());
+            final ArrayList<String> arrayList = pddl.addKeywords(pddl.getPddlKeywords());
             autocomplete = new AutoComplete(this, arrayList);
             textArea.getDocument().addDocumentListener(autocomplete);
             hasListener = true;

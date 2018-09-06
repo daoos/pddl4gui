@@ -1,5 +1,9 @@
 package pddl4gui.gui.tools;
 
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.io.Serializable;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -10,10 +14,6 @@ import javax.swing.event.UndoableEditEvent;
 import javax.swing.text.Document;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.io.Serializable;
 
 /**
  * This class implements the UndoRedo class of <code>PDDL4GUI</code>.
@@ -32,15 +32,15 @@ public class UndoRedo implements Serializable {
     /**
      * Adds undo redo functions on a JTextArea.
      *
-     * @param jTextArea the JTextArea.
+     * @param textArea the JTextArea.
      */
-    public static void addUndoRedo(JTextArea jTextArea) {
+    public static void addUndoRedo(JTextArea textArea) {
         final UndoManager undoManager = new UndoManager();
-        final Document doc = jTextArea.getDocument();
+        final Document doc = textArea.getDocument();
         doc.addUndoableEditListener((UndoableEditEvent e) -> undoManager.addEdit(e.getEdit()));
 
-        final InputMap im = jTextArea.getInputMap(JComponent.WHEN_FOCUSED);
-        final ActionMap am = jTextArea.getActionMap();
+        final InputMap im = textArea.getInputMap(JComponent.WHEN_FOCUSED);
+        final ActionMap am = textArea.getActionMap();
 
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Undo");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Redo");

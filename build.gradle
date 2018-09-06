@@ -48,7 +48,7 @@ checkstyle {
     toolVersion = "8.9"
 }
 
-checkstyleMain.onlyIf() { !project.hasProperty('noCheckStyle') }
+checkstyleMain.onlyIf() { project.hasProperty('checkstyle') }
 
 checkstyleMain.doLast() {
     printCheckstyleVersion()

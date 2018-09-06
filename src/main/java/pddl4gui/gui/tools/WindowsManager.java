@@ -40,7 +40,7 @@ public class WindowsManager implements Serializable {
     /**
      * The title of PDDL4GUI main frame.
      */
-    public final static String NAME = "PDDL 4 GUI";
+    public static final String NAME = "PDDL 4 GUI";
 
     /**
      * Sets the origin point of PDDL4GUI.
@@ -105,9 +105,12 @@ public class WindowsManager implements Serializable {
 
         for (int y = 0; y < 32; y++) {
             StringBuilder sb = new StringBuilder();
-            for (int x = 0; x < 144; x++)
+            for (int x = 0; x < 144; x++) {
                 sb.append(image.getRGB(x, y) == -16777216 ? " " : image.getRGB(x, y) == -1 ? "#" : "*");
-            if (sb.toString().trim().isEmpty()) continue;
+            }
+            if (sb.toString().trim().isEmpty()) {
+                continue;
+            }
             System.out.println(sb);
         }
     }

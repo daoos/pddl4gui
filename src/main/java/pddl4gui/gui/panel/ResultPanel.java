@@ -3,13 +3,13 @@ package pddl4gui.gui.panel;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.Token;
 
+import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import java.io.Serializable;
 
 /**
  * This class implements the ResultPanel class of <code>PDDL4GUI</code>.
@@ -28,17 +28,21 @@ public class ResultPanel extends JPanel implements Serializable {
     /**
      * The JLabel of the ResultPanel.
      */
-    final private JLabel domain, problem, cost, depth, planner;
+    private final JLabel domain;
+    private final JLabel problem;
+    private final JLabel cost;
+    private final JLabel depth;
+    private final JLabel planner;
 
     /**
      * The JTextArea containing solving result of selected token.
      */
-    final private JTextArea resultArea;
+    private final JTextArea resultArea;
 
     /**
      * The JCheckBox to display detailed plan or not.
      */
-    final private JCheckBox checkbox;
+    private final JCheckBox checkbox;
 
     /**
      * The Token.
@@ -61,10 +65,6 @@ public class ResultPanel extends JPanel implements Serializable {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver result"));
 
-        final int labWidth = 120;
-        final int labHeight = 20;
-        int labMarging = 20;
-
         final JLabel domainLabel = new JLabel("Domain");
         final JLabel problemLabel = new JLabel("Problem");
         final JLabel depthLabel = new JLabel("Depth");
@@ -78,6 +78,10 @@ public class ResultPanel extends JPanel implements Serializable {
 
         checkbox = new JCheckBox("Detailed plan");
         resultArea = new JTextArea();
+
+        final int labWidth = 120;
+        final int labHeight = 20;
+        int labMarging = 20;
 
         domainLabel.setBounds(15, labMarging, labWidth, labHeight);
         domain.setBounds(70, labMarging, labWidth, labHeight);

@@ -24,17 +24,17 @@ public class Result implements Serializable {
     /**
      * The Statistics object which contains all the statistics of the solving process.
      */
-    final private Statistics statistics;
+    private final Statistics statistics;
 
     /**
      * The solution Plan found for a token.
      */
-    final private Plan solutionPlan;
+    private final Plan solutionPlan;
 
     /**
      * The CodedProblem associated to the Result object.
      */
-    final private CodedProblem codedProblem;
+    private final CodedProblem codedProblem;
 
     /**
      * Returns the Statistics object associated to the Result.
@@ -68,7 +68,7 @@ public class Result implements Serializable {
      *
      * @return a JSON solution Plan as a String object.
      */
-    public String getSolutionJSON() {
+    public String getSolutionJson() {
         final JsonAdapter toJson = new JsonAdapter(this.codedProblem);
         return toJson.toJsonString(solutionPlan);
     }

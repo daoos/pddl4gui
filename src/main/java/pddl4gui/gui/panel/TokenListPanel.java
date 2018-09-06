@@ -4,6 +4,7 @@ import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.Token;
 
+import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
@@ -13,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
-import java.io.Serializable;
 
 /**
  * This class implements the TokenListPanel class of <code>PDDL4GUI</code>.
@@ -30,19 +30,20 @@ public class TokenListPanel extends JPanel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The JList<Token> displaying tokens from the Queue.
+     * The JList displaying tokens from the Queue.
      */
-    final private JList<Token> tokenJList;
+    private final JList<Token> tokenJList;
 
     /**
      * The JButton of the TokenListPanel.
      */
-    final private JButton anytimeSolutionButton, multipleResults;
+    private final JButton anytimeSolutionButton;
+    private final JButton multipleResults;
 
     /**
-     * Returns the JList<Token> object.
+     * Returns the JList object.
      *
-     * @return the JList<Token> object.
+     * @return the JList object.
      */
     public JList<Token> getTokenJList() {
         return tokenJList;
@@ -75,9 +76,9 @@ public class TokenListPanel extends JPanel implements Serializable {
             for (Token token : tokenJList.getSelectedValuesList()) {
                 cost += token.getResult().getStatistics().getCost();
             }
-            JOptionPane.showMessageDialog(null, "Token selected: " +
-                            tokenJList.getSelectedValuesList().size() + "\nTotal cost: " + cost, "Multiple Selection",
-                    JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Token selected: "
+                            + tokenJList.getSelectedValuesList().size() + "\nTotal cost: "
+                            + cost, "Multiple Selection", JOptionPane.PLAIN_MESSAGE);
         });
         add(multipleResults);
 
@@ -119,7 +120,8 @@ public class TokenListPanel extends JPanel implements Serializable {
 
                     final Token selectedValue = tokenJList.getSelectedValue();
                     if (selectedValue != null) {
-                        final AbstractStateSpacePlanner planner = (AbstractStateSpacePlanner) selectedValue.getPlanner();
+                        final AbstractStateSpacePlanner planner =
+                                (AbstractStateSpacePlanner) selectedValue.getPlanner();
                         if (planner.isAnytime()) {
                             anytimeSolutionButton.setEnabled(true);
                             if (selectedValue.isSolved()) {

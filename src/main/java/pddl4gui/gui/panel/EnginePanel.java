@@ -4,14 +4,14 @@ import pddl4gui.engine.Engine;
 import pddl4gui.gui.tools.DrawCircle;
 import pddl4gui.gui.tools.Icons;
 
+import java.awt.Color;
+import java.io.Serializable;
+import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.plaf.basic.BasicProgressBarUI;
-import java.awt.Color;
-import java.io.Serializable;
-import java.util.Random;
 
 /**
  * This class implements the EnginePanel class of <code>PDDL4GUI</code>.
@@ -33,24 +33,29 @@ public class EnginePanel extends JPanel implements Serializable {
     private Engine engine;
 
     /**
-     * The Buttons for init and stop Engine.
+     * The Buttons to init Engine.
      */
-    final private JButton initButton, stopButton;
+    private final JButton initButton;
+
+    /**
+     * The Buttons to stop Engine.
+     */
+    private final JButton stopButton;
 
     /**
      * The JLabel to display Engine status.
      */
-    final private JLabel engineLabel;
+    private final JLabel engineLabel;
 
     /**
      * The DrawCircle to display Engine status.
      */
-    final private DrawCircle circlePanel;
+    private final DrawCircle circlePanel;
 
     /**
      * The JProgressBar to display Engine status.
      */
-    final private JProgressBar progressBar;
+    private final JProgressBar progressBar;
 
     /**
      * Returns the init button.
@@ -96,11 +101,11 @@ public class EnginePanel extends JPanel implements Serializable {
      */
     EnginePanel(EngineManagerPanel engineManagerPanel, boolean active) {
         setLayout(null);
-        Random random = new Random();
 
         initButton = new JButton(Icons.getStartIcon());
         stopButton = new JButton(Icons.getStopIcon());
 
+        Random random = new Random();
         initButton.setBounds(30, 5, 20, 20);
         initButton.setEnabled(!active);
         initButton.addActionListener(e -> {

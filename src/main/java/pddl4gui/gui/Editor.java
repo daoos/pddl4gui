@@ -5,13 +5,13 @@ import pddl4gui.gui.panel.EditorPanel;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 
-import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.Serializable;
+import javax.swing.JFrame;
 
 /**
  * This class implements the Editor class of <code>PDDL4GUI</code>.

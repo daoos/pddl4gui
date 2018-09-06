@@ -1,9 +1,9 @@
 package pddl4gui.gui.tools;
 
-import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.io.Serializable;
+import javax.swing.JPanel;
 
 /**
  * This class implements the DrawCircle class of <code>PDDL4GUI</code>.
@@ -22,12 +22,13 @@ public class DrawCircle extends JPanel implements Serializable {
     /**
      * The center coordinates of the circle.
      */
-    final private int x, y;
+    private final int xCoord;
+    private final int yCoord;
 
     /**
      * The diameter of the circle.
      */
-    final private int diam;
+    private final int diam;
 
     /**
      * The default color of the circle.
@@ -46,13 +47,13 @@ public class DrawCircle extends JPanel implements Serializable {
     /**
      * Creates a new circle.
      *
-     * @param x    the x coordinate of the center.
-     * @param y    the y coordinate of the center.
+     * @param xarg    the x coordinate of the center.
+     * @param yarg    the y coordinate of the center.
      * @param diam the diameter of the circle.
      */
-    public DrawCircle(int x, int y, int diam) {
-        this.x = x;
-        this.y = y;
+    public DrawCircle(int xarg, int yarg, int diam) {
+        this.xCoord = xarg;
+        this.yCoord = yarg;
         this.diam = diam;
         repaint();
     }
@@ -64,6 +65,6 @@ public class DrawCircle extends JPanel implements Serializable {
      */
     public void paint(Graphics g) {
         g.setColor(color);
-        g.fillOval(x, y, diam, diam);
+        g.fillOval(this.xCoord, this.yCoord, diam, diam);
     }
 }

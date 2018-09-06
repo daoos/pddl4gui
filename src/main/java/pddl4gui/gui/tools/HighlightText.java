@@ -1,12 +1,12 @@
 package pddl4gui.gui.tools;
 
+import java.awt.Color;
+import java.io.Serializable;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Document;
 import javax.swing.text.Highlighter;
 import javax.swing.text.JTextComponent;
-import java.awt.Color;
-import java.io.Serializable;
 
 /**
  * This class implements the HighlightText class of <code>PDDL4GUI</code>.
@@ -35,14 +35,14 @@ public class HighlightText extends DefaultHighlighter.DefaultHighlightPainter im
      * Highlights in red the text of a JTextComponent.
      *
      * @param textComp     the JTextComponent.
-     * @param select_start the starting index of the highlighted text.
-     * @param select_end   the ending index of the highlighted text.
+     * @param selectStart the starting index of the highlighted text.
+     * @param selectEnd   the ending index of the highlighted text.
      */
-    public void hightLightWord(JTextComponent textComp, int select_start, int select_end) {
+    public void hightLightWord(JTextComponent textComp, int selectStart, int selectEnd) {
         removeHighlights(textComp);
         final Highlighter highlight = textComp.getHighlighter();
         try {
-            highlight.addHighlight(select_start, select_end, new HighlightText(Color.RED));
+            highlight.addHighlight(selectStart, selectEnd, new HighlightText(Color.RED));
         } catch (BadLocationException e) {
             e.printStackTrace();
         }

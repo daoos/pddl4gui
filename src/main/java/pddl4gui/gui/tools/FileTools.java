@@ -1,8 +1,5 @@
 package pddl4gui.gui.tools;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Component;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,6 +9,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Vector;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * This class implements the FileTools class of <code>PDDL4GUI</code>.
@@ -217,8 +217,9 @@ public class FileTools implements Serializable {
             e.printStackTrace();
         } finally {
             try {
-                if (writer != null)
+                if (writer != null) {
                     writer.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

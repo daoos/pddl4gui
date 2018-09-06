@@ -10,10 +10,10 @@ import pddl4gui.gui.panel.TokenListPanel;
 import pddl4gui.token.Queue;
 import pddl4gui.token.Token;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 /**
  * This class implements the TriggerAction class of <code>PDDL4GUI</code>.
@@ -72,7 +72,7 @@ public class TriggerAction implements Serializable {
     /**
      * The DefaultListModel used in JList in TokenList class.
      */
-    final private static DefaultListModel<Token> listModel = new DefaultListModel<>();
+    private static final DefaultListModel<Token> listModel = new DefaultListModel<>();
 
     /**
      * Gets the DecimalFormat to use with decimal number.

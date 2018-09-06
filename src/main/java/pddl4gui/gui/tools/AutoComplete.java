@@ -1,8 +1,14 @@
 package pddl4gui.gui.tools;
 
 import pddl4gui.gui.panel.EditorPanel;
-import pddl4gui.pddl.PDDLContext;
+import pddl4gui.pddl.PddlContext;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -12,15 +18,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
- * <h1>Auto complete functionality multiple programming languages, including brackets and parentheses</h1>
+ * <h1>Auto complete functionality multiple programming languages, including brackets and parentheses.</h1>
  * <p>
  * An ArrayList is created for the keywords and the brackets.
  * Logic for setting the content of the ArrayList is
@@ -42,10 +42,10 @@ public class AutoComplete implements DocumentListener, Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    final private ArrayList<String> brackets;
-    final private ArrayList<String> bracketCompletions;
-    final private ArrayList<String> words;
-    final private JTextArea textArea;
+    private final ArrayList<String> brackets;
+    private final ArrayList<String> bracketCompletions;
+    private final ArrayList<String> words;
+    private final JTextArea textArea;
 
     //Keep track of when code completion
     //has been activated
@@ -68,7 +68,7 @@ public class AutoComplete implements DocumentListener, Serializable {
     public AutoComplete(final EditorPanel editorFrame, ArrayList<String> al) {
         //Set the keywords
         words = al;
-        final PDDLContext pddl = new PDDLContext();
+        final PddlContext pddl = new PddlContext();
         brackets = pddl.getbrackets();
         bracketCompletions = pddl.getbracketCompletions();
 
@@ -144,7 +144,7 @@ public class AutoComplete implements DocumentListener, Serializable {
     /**
      * Performs a check to see if the last
      * key typed was one of the supported
-     * bracket characters
+     * bracket characters.
      */
     private void checkForBracket() {
         //String of the last typed character
@@ -214,7 +214,7 @@ public class AutoComplete implements DocumentListener, Serializable {
     }
 
     /**
-     * Additional logic for bracket auto complete
+     * Additional logic for bracket auto complete.
      */
     private class HandleBracketEvent implements KeyListener {
 

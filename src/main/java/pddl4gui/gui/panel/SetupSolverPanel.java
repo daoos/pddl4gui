@@ -11,6 +11,9 @@ import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Token;
 
+import java.io.File;
+import java.io.Serializable;
+import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,9 +21,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import java.io.File;
-import java.io.Serializable;
-import java.util.Vector;
 
 /**
  * This class implements the SetupSolverPanel class of <code>PDDL4GUI</code>.
@@ -37,14 +37,23 @@ public class SetupSolverPanel extends JPanel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The JSpinner to choose weight and timeout for the planner.
+     * The JSpinner to choose weight for the planner.
      */
-    final private JSpinner weightSpinner, timeoutSpinner;
+    private final JSpinner weightSpinner;
+
+    /**
+     * The JSpinner to choose timeout for the planner.
+     */
+    private final JSpinner timeoutSpinner;
 
     /**
      * The JButton of the SetupSolverPanel.
      */
-    final private JButton domainButton, pbButton, editDomainButton, editProblemButton, planButton;
+    private final JButton domainButton;
+    private final JButton pbButton;
+    private final JButton editDomainButton;
+    private final JButton editProblemButton;
+    private final JButton planButton;
 
     /**
      * The PDDL domain file.
@@ -52,7 +61,7 @@ public class SetupSolverPanel extends JPanel implements Serializable {
     private File domainFile;
 
     /**
-     * The list of PDDL problem files
+     * The list of PDDL problem files.
      */
     private Vector<File> problemFiles;
 

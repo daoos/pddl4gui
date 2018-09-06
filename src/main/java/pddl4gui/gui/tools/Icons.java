@@ -1,7 +1,7 @@
 package pddl4gui.gui.tools;
 
-import javax.swing.ImageIcon;
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  * This class implements the Icons class of <code>PDDL4GUI</code>.

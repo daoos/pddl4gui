@@ -5,12 +5,6 @@ import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Token;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -20,6 +14,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  * This class implements the VAL class of <code>PDDL4GUI</code>.
@@ -38,7 +38,7 @@ public class VAL extends JFrame implements Serializable {
     /**
      * The JTextArea containing VAL result.
      */
-    final private JTextArea textArea;
+    private final JTextArea textArea;
 
     /**
      * The PDDL domain file.
@@ -66,7 +66,9 @@ public class VAL extends JFrame implements Serializable {
      * @param token the token to check with VAL.
      */
     public VAL(Token token) {
-        final JButton exitButton, generateTexButton, saveButton;
+        final JButton exitButton;
+        final JButton generateTexButton;
+        final JButton saveButton;
 
         setTitle("VAL | " + token.toString());
         setLayout(null);
@@ -91,8 +93,9 @@ public class VAL extends JFrame implements Serializable {
                         + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
                 StringBuilder output = this.getValResult(target);
                 File tempFile = FileTools.saveFile(this, 2);
-                if (FileTools.checkFile(tempFile))
+                if (FileTools.checkFile(tempFile)) {
                     FileTools.writeInFile(tempFile, output.toString());
+                }
             }
         });
         generateTexButton.setEnabled(true);
@@ -104,8 +107,9 @@ public class VAL extends JFrame implements Serializable {
         saveButton.addActionListener(e -> {
             if (isValide) {
                 File tempFile = FileTools.saveFile(this, 1);
-                if (FileTools.checkFile(tempFile))
+                if (FileTools.checkFile(tempFile)) {
                     FileTools.writeInFile(tempFile, textArea.getText());
+                }
             }
         });
         saveButton.setEnabled(true);
