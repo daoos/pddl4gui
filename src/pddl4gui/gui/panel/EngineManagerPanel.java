@@ -3,6 +3,7 @@ package pddl4gui.gui.panel;
 import pddl4gui.engine.Engine;
 import pddl4gui.engine.EngineManager;
 import pddl4gui.gui.Solver;
+import pddl4gui.gui.tools.TriggerAction;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -22,11 +23,6 @@ public class EngineManagerPanel extends JPanel implements Serializable {
      * The serial id of the class.
      */
     private static final long serialVersionUID = 1L;
-
-    /**
-     * The Solver JFrame.
-     */
-    final private Solver solver;
 
     /**
      * The EngineManager which manages Engine.
@@ -60,7 +56,16 @@ public class EngineManagerPanel extends JPanel implements Serializable {
      * Sets the text of the remaining label about the number of remaining tokens to solve.
      */
     public void setTokensRemaining() {
-        remainingLabel.setText(solver.getQueue().remainingTokens() + " token(s) remaining");
+        remainingLabel.setText(TriggerAction.getRemainningTokenInQueue() + " token(s) remaining");
+    }
+
+    /**
+     * If the EngineManager is running: true. False otherwise.
+     *
+     * @return true if the EngineManager is running, false otherwise.
+     */
+    public boolean isRunning() {
+        return engineManager.isRunning();
     }
 
     /**
@@ -73,8 +78,6 @@ public class EngineManagerPanel extends JPanel implements Serializable {
         setBorder(BorderFactory.createTitledBorder("Engines status"));
 
         engineManager = new EngineManager(1000, this, solver.getQueue());
-
-        this.solver = solver;
 
         int labHeight = 25;
         final int labMarging = 45;

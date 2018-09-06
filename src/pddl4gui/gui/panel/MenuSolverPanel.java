@@ -1,7 +1,6 @@
 package pddl4gui.gui.panel;
 
-import pddl4gui.gui.Solver;
-import pddl4gui.gui.TriggerAction;
+import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
@@ -66,8 +65,8 @@ public class MenuSolverPanel extends JPanel implements Serializable {
         valButton.setToolTipText("VAL on solution");
         valButton.setEnabled(false);
         valButton.addActionListener(e -> {
-            if (TriggerAction.getTokenListPanelJList().getSelectedValue().isSolved()) {
-                new VAL(TriggerAction.getTokenListPanelJList().getSelectedValue());
+            if (TriggerAction.isTokenListPanelJListSelectedValueSolved()) {
+                new VAL(TriggerAction.getTokenListPanelJListSelectedValue());
             }
         });
         add(valButton);
@@ -76,15 +75,15 @@ public class MenuSolverPanel extends JPanel implements Serializable {
         saveTxtButton.setBounds(50, 10, 40, 40);
         saveTxtButton.setToolTipText("Save solution (txt)");
         saveTxtButton.addActionListener(e -> {
-            if (TriggerAction.getTokenListPanelJList().getSelectedValue().isSolved()) {
+            if (TriggerAction.isTokenListPanelJListSelectedValueSolved()) {
                 File tempFile = FileTools.saveFile(this, 1);
                 if (FileTools.checkFile(tempFile)) {
-                    if (TriggerAction.getResultPanel().isCheckboxSelected()) {
-                        FileTools.writeInFile(tempFile, TriggerAction.getTokenListPanelJList()
-                                .getSelectedValue().getResult().getSolutionStringDetailed());
+                    if (TriggerAction.isResultPanelDetailedPlan()) {
+                        FileTools.writeInFile(tempFile, TriggerAction.getTokenListPanelJListSelectedValue()
+                                .getResult().getSolutionStringDetailed());
                     } else {
-                        FileTools.writeInFile(tempFile, TriggerAction.getTokenListPanelJList()
-                                .getSelectedValue().getResult().getSolutionString());
+                        FileTools.writeInFile(tempFile, TriggerAction.getTokenListPanelJListSelectedValue()
+                                .getResult().getSolutionString());
                     }
                 }
             }
@@ -96,11 +95,11 @@ public class MenuSolverPanel extends JPanel implements Serializable {
         saveJsonButton.setBounds(110, 10, 40, 40);
         saveJsonButton.setToolTipText("Save solution (json)");
         saveJsonButton.addActionListener(e -> {
-            if (TriggerAction.getTokenListPanelJList().getSelectedValue().isSolved()) {
+            if (TriggerAction.isTokenListPanelJListSelectedValueSolved()) {
                 File tempFile = FileTools.saveFile(this, 5);
                 if (FileTools.checkFile(tempFile)) {
-                    FileTools.writeInFile(tempFile, TriggerAction.getTokenListPanelJList()
-                            .getSelectedValue().getResult().getSolutionJSON());
+                    FileTools.writeInFile(tempFile, TriggerAction.getTokenListPanelJListSelectedValue()
+                            .getResult().getSolutionJSON());
                 }
             }
         });

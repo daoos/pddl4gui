@@ -8,6 +8,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.io.Serializable;
 
+/**
+ * This class implements the StatisticsPanel class of <code>PDDL4GUI</code>.
+ * This JPanel displays statistics about planner solving process.
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
+ */
 public class StatisticsPanel extends JPanel implements Serializable {
 
     /**
@@ -15,9 +22,15 @@ public class StatisticsPanel extends JPanel implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The JLabel of the StatisticsPanel.
+     */
     final private JLabel timeToParse, timeToEncode, timeToPlan, timeTotal, numberActions,
             numberFluents, memoryPb, memorySearch, memoryTotal;
 
+    /**
+     * Creates a new StatisticsPanel.
+     */
     public StatisticsPanel() {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver statistics"));
@@ -99,6 +112,11 @@ public class StatisticsPanel extends JPanel implements Serializable {
         add(memoryTotal);
     }
 
+    /**
+     * Displays statistics for a specified Statistics object.
+     *
+     * @param statistics the Statistics object.
+     */
     public void displayStats(Statistics statistics) {
         timeToParse.setText(String.valueOf(DecimalFormatSetup.getDf()
                 .format(statistics.getTimeToParseInSeconds()) + " seconds"));
@@ -118,6 +136,9 @@ public class StatisticsPanel extends JPanel implements Serializable {
                 .format(statistics.getTotalMemoryInMBytes())) + " MBytes");
     }
 
+    /**
+     * Clears the StatisticsPanel.
+     */
     public void clearStats() {
         timeToParse.setText("-- seconds");
         timeToEncode.setText("-- seconds");

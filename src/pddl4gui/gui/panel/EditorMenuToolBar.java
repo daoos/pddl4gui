@@ -1,6 +1,6 @@
 package pddl4gui.gui.panel;
 
-import pddl4gui.gui.TriggerAction;
+import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Find;
 import pddl4gui.gui.tools.Icons;
@@ -109,7 +109,7 @@ public class EditorMenuToolBar extends JToolBar implements Serializable {
 
         final JButton exitButton = new JButton(Icons.getExitIcon());
         exitButton.setToolTipText("Exit");
-        exitButton.addActionListener(e -> TriggerAction.getEditor().dispose());
+        exitButton.addActionListener(e -> TriggerAction.closeEditor());
         add(exitButton);
     }
 }

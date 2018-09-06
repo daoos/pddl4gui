@@ -1,6 +1,5 @@
 package pddl4gui.gui.panel;
 
-import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.DecimalFormatSetup;
 import pddl4gui.token.Token;
 
@@ -13,7 +12,11 @@ import javax.swing.JTextArea;
 import java.io.Serializable;
 
 /**
+ * This class implements the ResultPanel class of <code>PDDL4GUI</code>.
+ * This JPanel displays result information for selected token.
  *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
  */
 public class ResultPanel extends JPanel implements Serializable {
 
@@ -23,38 +26,38 @@ public class ResultPanel extends JPanel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     *
+     * The JLabel of the ResultPanel.
      */
     final private JLabel domain, problem, cost, depth, planner;
 
     /**
-     *
+     * The JTextArea containing solving result of selected token.
      */
     final private JTextArea resultArea;
 
     /**
-     *
+     * The JCheckBox to display detailed plan or not.
      */
     final private JCheckBox checkbox;
 
     /**
-     *
+     * The Token.
      */
     private Token token = null;
 
     /**
+     * Returns if JCheckbox is selected (display detailed plan) or not.
      *
-     * @return
+     * @return the status of JCheckBox. Selected or not.
      */
     public boolean isCheckboxSelected() {
         return checkbox.isSelected();
     }
 
     /**
-     *
-     * @param solver
+     * Creates a new ResultPanel which displays token's result.
      */
-    public ResultPanel(Solver solver) {
+    public ResultPanel() {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver result"));
 
@@ -107,7 +110,7 @@ public class ResultPanel extends JPanel implements Serializable {
         checkbox.setSelected(false);
         checkbox.setEnabled(false);
         checkbox.addItemListener(e -> {
-            if (token != null && token.isSolved()) {
+            if (token != null && token.isSolved()) { //TODO gérer les boutons
                 if (checkbox.isSelected()) {
                     resultArea.setText(token.getResult().getSolutionStringDetailed());
                     //solver.getMenuSolverPanel().discardVAL(true);
@@ -128,8 +131,9 @@ public class ResultPanel extends JPanel implements Serializable {
     }
 
     /**
+     * Displays result for a specific token.
      *
-     * @param token
+     * @param token the token.
      */
     public void displayResult(Token token) {
         this.token = token;
@@ -147,8 +151,9 @@ public class ResultPanel extends JPanel implements Serializable {
     }
 
     /**
+     * Displays error message for a specific token.
      *
-     * @param token
+     * @param token the token.
      */
     public void displayError(Token token) {
         this.token = token;
@@ -164,8 +169,9 @@ public class ResultPanel extends JPanel implements Serializable {
     }
 
     /**
+     * Displays progress message for a specific token.
      *
-     * @param token
+     * @param token the token.
      */
     public void diplayProgress(Token token) {
         this.token = token;
@@ -181,7 +187,7 @@ public class ResultPanel extends JPanel implements Serializable {
     }
 
     /**
-     *
+     * Clears the ResultPanel.
      */
     public void clearResult() {
         checkbox.setEnabled(false);

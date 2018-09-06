@@ -6,6 +6,7 @@ import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
 import fr.uga.pddl4j.planners.statespace.StateSpacePlannerFactory;
 import pddl4gui.gui.Editor;
 import pddl4gui.gui.Solver;
+import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.TokenList;
@@ -23,6 +24,13 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Vector;
 
+/**
+ * This class implements the SetupSolverPanel class of <code>PDDL4GUI</code>.
+ * This JPanel displays options for the planner.
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
+ */
 public class SetupSolverPanel extends JPanel implements Serializable {
 
     /**
@@ -30,17 +38,42 @@ public class SetupSolverPanel extends JPanel implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    final private Solver solver;
+    /**
+     * The JSpinner to choose weight and timeout for the planner.
+     */
     final private JSpinner weightSpinner, timeoutSpinner;
+
+    /**
+     * The JButton of the SetupSolverPanel.
+     */
     final private JButton domainButton, pbButton, editDomainButton, editProblemButton, planButton;
+
+    /**
+     * The PDDL domain file.
+     */
     private File domainFile;
+
+    /**
+     * The list of PDDL problem files
+     */
     private Vector<File> problemFiles;
+
+    /**
+     * The default Heuristic used by the planner.
+     */
     private Heuristic.Type heuristic = Heuristic.Type.FAST_FORWARD;
+
+    /**
+     * The default Planner used.
+     */
     private Planner.Name plannerName = Planner.Name.HSP;
 
+    /**
+     * Creates a new SetupSolverPanel associated to the Solver main JFrame.
+     *
+     * @param solver the Solver main JFrame.
+     */
     public SetupSolverPanel(Solver solver) {
-        this.solver = solver;
-
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver parameters"));
 
@@ -169,6 +202,12 @@ public class SetupSolverPanel extends JPanel implements Serializable {
         add(planButton);
     }
 
+    /**
+     * Creates token and adds it into the Queue.
+     *
+     * @param domainFile the PDDL domain file.
+     * @param problemFiles the list of PDDL problem files.
+     */
     private void resolve(File domainFile, Vector<File> problemFiles) {
         final StateSpacePlannerFactory plannerFactory = StateSpacePlannerFactory.getInstance();
         final double weight = (double) weightSpinner.getValue();
@@ -181,24 +220,34 @@ public class SetupSolverPanel extends JPanel implements Serializable {
             for (File file : problemFiles) {
                 final Token token = new Token(domainFile, file, planner, plannerName);
 
-                if (token.isRunnable() && solver.getEngineManagerPanel().isStatus()) {
+                if (token.isRunnable() && TriggerAction.isEngineManagerRunning()) {
                     if (!TokenList.getListModel().contains(token)) {
                         TokenList.getListModel().addElement(token);
-                        solver.getQueue().addTokenInQueue(token);
+                        TriggerAction.getQueue().addTokenInQueue(token);
                     }
                 }
 
-                solver.getEngineManagerPanel().setTokensRemaining();
+                TriggerAction.setTokenRemainingEngineManagerPanel();
             }
         }
     }
 
+    /**
+     * Enables JButton for domain file.
+     *
+     * @param enable status of the buttons.
+     */
     public void enableDomainButton(boolean enable) {
         editDomainButton.setEnabled(enable);
         domainButton.setEnabled(enable);
         planButton.setEnabled(enable);
     }
 
+    /**
+     * Enables JButton for problem files.
+     *
+     * @param enable status of the buttons.
+     */
     public void enablePBButton(boolean enable) {
         editProblemButton.setEnabled(enable);
         pbButton.setEnabled(enable);

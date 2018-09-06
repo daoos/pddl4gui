@@ -2,7 +2,7 @@ package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
 import pddl4gui.gui.Solver;
-import pddl4gui.gui.TriggerAction;
+import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.TokenList;
 import pddl4gui.token.Token;
 
@@ -17,6 +17,13 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import java.io.Serializable;
 
+/**
+ * This class implements the StatisticsPanel class of <code>PDDL4GUI</code>.
+ * This JPanel displays statistics about planner solving process.
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 12.02.2018
+ */
 public class TokenListPanel extends JPanel implements Serializable {
 
     /**
@@ -24,14 +31,28 @@ public class TokenListPanel extends JPanel implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     *
+     */
     final private JList<Token> tokenJList;
+
+    /**
+     *
+     */
     final private JButton anytimeSolutionButton, multipleResults;
 
+    /**
+     *
+     * @return
+     */
     public JList<Token> getTokenJList() {
         return tokenJList;
     }
 
-    public TokenListPanel(Solver solver) {
+    /**
+     * 
+     */
+    public TokenListPanel() {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Token list"));
 

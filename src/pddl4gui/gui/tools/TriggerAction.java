@@ -1,12 +1,14 @@
-package pddl4gui.gui;
+package pddl4gui.gui.tools;
 
+import pddl4gui.gui.Editor;
+import pddl4gui.gui.Solver;
 import pddl4gui.gui.panel.EngineManagerPanel;
 import pddl4gui.gui.panel.MenuSolverPanel;
 import pddl4gui.gui.panel.ResultPanel;
 import pddl4gui.gui.panel.SetupSolverPanel;
 import pddl4gui.gui.panel.StatisticsPanel;
 import pddl4gui.gui.panel.TokenListPanel;
-import pddl4gui.gui.tools.TokenList;
+import pddl4gui.token.Queue;
 import pddl4gui.token.Token;
 
 import javax.swing.JList;
@@ -70,64 +72,8 @@ public class TriggerAction implements Serializable {
      *
      * @return
      */
-    public static Solver getSolver() {
-        return solver;
-    }
-
-    /**
-     *
-     * @return
-     */
     public static Editor getEditor() {
         return editor;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static SetupSolverPanel getSetupPanel() {
-        return setupPanel;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static StatisticsPanel getStatisticsPanel() {
-        return statisticsPanel;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static ResultPanel getResultPanel() {
-        return resultPanel;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static MenuSolverPanel getMenuSolverPanel() {
-        return menuSolverPanel;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static EngineManagerPanel getEngineManagerPanel() {
-        return engineManagerPanel;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static TokenListPanel getTokenListPanel() {
-        return tokenListPanel;
     }
 
     /**
@@ -233,12 +179,79 @@ public class TriggerAction implements Serializable {
 
     /**
      *
+     * @return
+     */
+    public static Token getTokenListPanelJListSelectedValue() {
+        return TriggerAction.tokenListPanel.getTokenJList().getSelectedValue();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static boolean isTokenListPanelJListSelectedValueSolved() {
+        return TriggerAction.tokenListPanel.getTokenJList().getSelectedValue().isSolved();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static boolean isResultPanelDetailedPlan() {
+        return TriggerAction.resultPanel.isCheckboxSelected();
+    }
+
+    /**
+     *
      * @param state
      */
     public static void enableMenuSolverPanelButton(boolean state) {
         TriggerAction.menuSolverPanel.getValButton().setEnabled(state);
         TriggerAction.menuSolverPanel.getSaveTxtButton().setEnabled(state);
         TriggerAction.menuSolverPanel.getSaveJsonButton().setEnabled(state);
+    }
+
+    /**
+     *
+     * @param state
+     */
+    public static void enableMenuSolverPanelValButton(boolean state) {
+        TriggerAction.menuSolverPanel.getValButton().setEnabled(state);
+    }
+
+    /**
+     *
+     */
+    public static Queue getQueue() {
+        return TriggerAction.solver.getQueue();
+    }
+
+    /**
+     *
+     */
+    public static int getRemainningTokenInQueue() {
+        return TriggerAction.solver.getQueue().remainingTokens();
+    }
+
+    /**
+     *
+     */
+    public static void setTokenRemainingEngineManagerPanel() {
+        TriggerAction.engineManagerPanel.setTokensRemaining();
+    }
+
+    /**
+     *
+     */
+    public static boolean isEngineManagerRunning() {
+        return TriggerAction.engineManagerPanel.isRunning();
+    }
+
+    /**
+     *
+     */
+    public static void closeEditor() {
+        TriggerAction.editor.dispose();
     }
 
 }
