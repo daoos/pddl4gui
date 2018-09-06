@@ -1,4 +1,4 @@
-package main.java.pddl4gui.token;
+package pddl4gui.token;
 
 import fr.uga.pddl4j.encoding.CodedProblem;
 import fr.uga.pddl4j.encoding.JsonAdapter;

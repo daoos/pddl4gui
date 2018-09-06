@@ -1,14 +1,14 @@
-package main.java.pddl4gui.gui;
+package pddl4gui.gui;
 
-import main.java.pddl4gui.gui.panel.EngineManagerPanel;
-import main.java.pddl4gui.gui.panel.MenuSolverPanel;
-import main.java.pddl4gui.gui.panel.ResultPanel;
-import main.java.pddl4gui.gui.panel.SetupSolverPanel;
-import main.java.pddl4gui.gui.panel.StatisticsPanel;
-import main.java.pddl4gui.gui.panel.TokenListPanel;
-import main.java.pddl4gui.gui.tools.TriggerAction;
-import main.java.pddl4gui.gui.tools.WindowsManager;
-import main.java.pddl4gui.token.Queue;
+import pddl4gui.gui.panel.EngineManagerPanel;
+import pddl4gui.gui.panel.MenuSolverPanel;
+import pddl4gui.gui.panel.ResultPanel;
+import pddl4gui.gui.panel.SetupSolverPanel;
+import pddl4gui.gui.panel.StatisticsPanel;
+import pddl4gui.gui.panel.TokenListPanel;
+import pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.gui.tools.WindowsManager;
+import pddl4gui.token.Queue;
 
 import javax.swing.JFrame;
 import java.io.Serializable;

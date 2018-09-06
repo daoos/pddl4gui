@@ -1,8 +1,8 @@
-package main.java.pddl4gui.token;
+package pddl4gui.token;
 
 import fr.uga.pddl4j.planners.Planner;
 import fr.uga.pddl4j.planners.statespace.StateSpacePlanner;
-import main.java.pddl4gui.gui.tools.FileTools;
+import pddl4gui.gui.tools.FileTools;
 
 import java.io.File;
 import java.io.Serializable;

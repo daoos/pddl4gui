@@ -1,8 +1,8 @@
-package main.java.pddl4gui.gui.panel;
+package pddl4gui.gui.panel;
 
-import main.java.pddl4gui.engine.Engine;
-import main.java.pddl4gui.gui.tools.DrawCircle;
-import main.java.pddl4gui.gui.tools.Icons;
+import pddl4gui.engine.Engine;
+import pddl4gui.gui.tools.DrawCircle;
+import pddl4gui.gui.tools.Icons;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;

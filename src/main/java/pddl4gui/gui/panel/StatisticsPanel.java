@@ -1,7 +1,7 @@
-package main.java.pddl4gui.gui.panel;
+package pddl4gui.gui.panel;
 
-import main.java.pddl4gui.gui.tools.TriggerAction;
-import main.java.pddl4gui.token.Statistics;
+import pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.token.Statistics;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;

@@ -1,8 +1,8 @@
-package main.java.pddl4gui.gui.panel;
+package pddl4gui.gui.panel;
 
-import main.java.pddl4gui.engine.Engine;
-import main.java.pddl4gui.engine.EngineManager;
-import main.java.pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.engine.Engine;
+import pddl4gui.engine.EngineManager;
+import pddl4gui.gui.tools.TriggerAction;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;

@@ -1,6 +1,6 @@
-package main.java.pddl4gui.pddl;
+package pddl4gui.pddl;
 
-import main.java.pddl4gui.gui.tools.HighlightText;
+import pddl4gui.gui.tools.HighlightText;
 
 import java.awt.Color;
 import java.io.Serializable;

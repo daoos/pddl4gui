@@ -33,7 +33,10 @@ jar {
                 'Implementation-Version': version,
                 'Gradle-Version':'Gradle 4.8',
                 'Built-By': 'Emmanuel Hermellin',
-                'Main-Class': 'main.java.pddl4gui.Pddl4Gui'
+                'Main-Class': 'pddl4gui.Pddl4Gui'
+    }
+    doFirst {
+        from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
     }
 }
 

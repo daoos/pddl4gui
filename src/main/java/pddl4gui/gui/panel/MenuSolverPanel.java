@@ -1,9 +1,9 @@
-package main.java.pddl4gui.gui.panel;
+package pddl4gui.gui.panel;
 
-import main.java.pddl4gui.gui.VAL;
-import main.java.pddl4gui.gui.tools.FileTools;
-import main.java.pddl4gui.gui.tools.Icons;
-import main.java.pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.gui.VAL;
+import pddl4gui.gui.tools.FileTools;
+import pddl4gui.gui.tools.Icons;
+import pddl4gui.gui.tools.TriggerAction;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;

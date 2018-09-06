@@ -1,4 +1,4 @@
-package main.java.pddl4gui.engine;
+package pddl4gui.engine;
 
 import fr.uga.pddl4j.encoding.CodedProblem;
 import fr.uga.pddl4j.parser.ErrorManager;
@@ -7,10 +7,10 @@ import fr.uga.pddl4j.planners.Planner;
 import fr.uga.pddl4j.planners.ProblemFactory;
 import fr.uga.pddl4j.util.MemoryAgent;
 import fr.uga.pddl4j.util.Plan;
-import main.java.pddl4gui.gui.panel.EnginePanel;
-import main.java.pddl4gui.token.Result;
-import main.java.pddl4gui.token.Statistics;
-import main.java.pddl4gui.token.Token;
+import pddl4gui.gui.panel.EnginePanel;
+import pddl4gui.token.Result;
+import pddl4gui.token.Statistics;
+import pddl4gui.token.Token;
 
 import javax.swing.JProgressBar;
 import javax.swing.Timer;

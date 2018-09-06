@@ -1,12 +1,12 @@
-package main.java.pddl4gui.gui.panel;
+package pddl4gui.gui.panel;
 
 //import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlannerAnytime;
 
 import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
-import main.java.pddl4gui.gui.tools.Icons;
-import main.java.pddl4gui.gui.tools.TriggerAction;
-import main.java.pddl4gui.gui.tools.WindowsManager;
-import main.java.pddl4gui.token.Token;
+import pddl4gui.gui.tools.Icons;
+import pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.gui.tools.WindowsManager;
+import pddl4gui.token.Token;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;

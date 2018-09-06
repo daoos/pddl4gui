@@ -1,7 +1,7 @@
-package main.java.pddl4gui.engine;
+package pddl4gui.engine;
 
-import main.java.pddl4gui.gui.panel.EngineManagerPanel;
-import main.java.pddl4gui.token.Queue;
+import pddl4gui.gui.panel.EngineManagerPanel;
+import pddl4gui.token.Queue;
 
 import java.io.Serializable;
 import java.util.Vector;

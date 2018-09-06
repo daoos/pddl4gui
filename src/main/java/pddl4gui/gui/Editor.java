@@ -1,9 +1,9 @@
-package main.java.pddl4gui.gui;
+package pddl4gui.gui;
 
-import main.java.pddl4gui.gui.panel.EditorMenuToolBar;
-import main.java.pddl4gui.gui.panel.EditorPanel;
-import main.java.pddl4gui.gui.tools.TriggerAction;
-import main.java.pddl4gui.gui.tools.WindowsManager;
+import pddl4gui.gui.panel.EditorMenuToolBar;
+import pddl4gui.gui.panel.EditorPanel;
+import pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.gui.tools.WindowsManager;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;

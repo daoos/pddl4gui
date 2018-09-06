@@ -1,7 +1,7 @@
-package main.java.pddl4gui.gui.tools;
+package pddl4gui.gui.tools;
 
-import main.java.pddl4gui.gui.panel.EditorPanel;
-import main.java.pddl4gui.pddl.PDDLContext;
+import pddl4gui.gui.panel.EditorPanel;
+import pddl4gui.pddl.PDDLContext;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;

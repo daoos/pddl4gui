@@ -1,9 +1,9 @@
-package main.java.pddl4gui.gui;
+package pddl4gui.gui;
 
-import main.java.pddl4gui.gui.tools.FileTools;
-import main.java.pddl4gui.gui.tools.Icons;
-import main.java.pddl4gui.gui.tools.WindowsManager;
-import main.java.pddl4gui.token.Token;
+import pddl4gui.gui.tools.FileTools;
+import pddl4gui.gui.tools.Icons;
+import pddl4gui.gui.tools.WindowsManager;
+import pddl4gui.token.Token;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;

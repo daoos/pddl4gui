@@ -1,8 +1,8 @@
-package main.java.pddl4gui.gui.panel;
+package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
-import main.java.pddl4gui.gui.tools.TriggerAction;
-import main.java.pddl4gui.token.Token;
+import pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.token.Token;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListSelectionModel;

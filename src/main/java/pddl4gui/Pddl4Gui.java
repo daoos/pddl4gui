@@ -1,7 +1,8 @@
-package main.java.pddl4gui;
+package pddl4gui;
 
-import main.java.pddl4gui.gui.Solver;
-import main.java.pddl4gui.token.Queue;
+import com.pagosoft.plaf.PlafOptions;
+import pddl4gui.gui.Solver;
+import pddl4gui.token.Queue;
 
 import java.io.Serializable;
 
@@ -26,11 +27,14 @@ public class Pddl4Gui implements Serializable {
     }
 
     /**
-     * The main.java.pddl4gui main method of <code>PDDL4GUI</code>.
+     * The pddl4gui main method of <code>PDDL4GUI</code>.
      *
      * @param args the arguments of the command line.
      */
     public static void main(String[] args) {
+        PlafOptions.setAsLookAndFeel();
+        PlafOptions.updateAllUIs();
+
         new Pddl4Gui();
     }
 }

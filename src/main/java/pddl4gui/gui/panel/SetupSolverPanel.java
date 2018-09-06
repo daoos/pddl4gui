@@ -1,15 +1,15 @@
-package main.java.pddl4gui.gui.panel;
+package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Planner;
 import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
 import fr.uga.pddl4j.planners.statespace.StateSpacePlannerFactory;
-import main.java.pddl4gui.gui.Editor;
-import main.java.pddl4gui.gui.tools.FileTools;
-import main.java.pddl4gui.gui.tools.Icons;
-import main.java.pddl4gui.gui.tools.TriggerAction;
-import main.java.pddl4gui.gui.tools.WindowsManager;
-import main.java.pddl4gui.token.Token;
+import pddl4gui.gui.Editor;
+import pddl4gui.gui.tools.FileTools;
+import pddl4gui.gui.tools.Icons;
+import pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.gui.tools.WindowsManager;
+import pddl4gui.token.Token;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;

@@ -1,4 +1,4 @@
-package main.java.pddl4gui.token;
+package pddl4gui.token;
 
 import java.io.Serializable;
 import java.util.Vector;

@@ -1,4 +1,4 @@
-package main.java.pddl4gui.gui.tools;
+package pddl4gui.gui.tools;
 
 import javax.swing.ImageIcon;
 import java.io.Serializable;

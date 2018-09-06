@@ -1,4 +1,4 @@
-package main.java.pddl4gui.gui.tools;
+package pddl4gui.gui.tools;
 
 import java.awt.Font;
 import java.awt.Graphics;
