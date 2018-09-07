@@ -199,6 +199,11 @@ public class Token implements Serializable {
 
     /**
      * Creates a new token.
+     *
+     * @param domainFile the domain file.
+     * @param problemFile the problem file.
+     * @param planner the planner to use.
+     * @param plannerName the planner's name.
      */
     public Token(File domainFile, File problemFile, StateSpacePlanner planner, Planner.Name plannerName) {
         this.domainFile = domainFile;

@@ -1,16 +1,27 @@
-# Planification automatique avec PDDL4J et PDDL4GUI 
+# Automated planning and scheduling whith PDDL4J and PDDL4GUI
 
 ### PDDL4J
 
-PDDL4J est une librairie open-source (sous licence LGPL) écrite en Java dont l'objectif est de (1) proposer un outil complet intégrant de nombreux planificateurs basés sur le langage PDDL (*Planning Domain Description Language*) et (2) faciliter le développement de nouveaux outils et logiciels Java dédiés à la planification automatique.
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.45971.svg)](http://dx.doi.org/10.5281/zenodo.45971)
+[![Build Status](http://pddl4j.imag.fr/jenkins/job/PDDL4J%20devel/badge/icon)](http://pddl4j.imag.fr/jenkins/job/PDDL4J%20devel/)
 
-La planification automatique est une branche de l'intelligence artificielle qui se focalise sur la réalisation de stratégies ou de séquences d'action dans le but de résoudre un problème donné, généralement pour l'exécution d'agents intelligents, de robots autonomes ou de véhicules autonomes. La librairie PDDL4J intègre donc des algorithmes innovants pour résoudre des problèmes de planification, *i.e.* d’organisation dans le temps de tâches à accomplir pour résoudre un problème donné. La caractéristique principale de la planification est sa dimension temporelle. Souvent ébauchée par une liste des choses à faire, elle se concrétise ensuite par un plan répondant de façon détaillée et concrète aux principaux aspects opérationnels du type : *qui*, *quoi*, *où*, *quand*, *comment*, *combien*.
+PDDL4J is an open source library under LGPL license.
 
-La librairie PDDL4J fournit :
-  - Un parser pour le langage PDDL (en version 3.1) ainsi qu'un ensemble de classes et méthodes permettant de manipuler tous les concepts relatifs à ce langage.
-  - Un ensemble de mécanismes permettant d'instancier et simplifier des opérateurs en actions basées sur les propriétés d'inertie.
-  - Un ensemble d'heuristiques.
-  - Des nombreux exemples de problèmes de planification pouvant être résolu grâce à PDDL4J.
+The purpose of PDDL4J is to facilitate the development of JAVA tools for
+Automated Planning based on PDDL language (Planning Domain Description
+Language). Automated planning and scheduling, in the relevant literature often
+denoted as simply planning, is a branch of artificial intelligence that concerns
+ the realization of strategies or action sequences, typically for execution by
+intelligent agents, autonomous robots and unmanned vehicles.
+
+The library contains:
+  * A PDDL 3.1 parser and all the classes need to manipulate its
+concepts. The parser can be configured to accept only specified requirements of
+PDDL language.
+  * A set of useful pre-processing mechanisms in order to instantiate and
+simply operators into ground actions based on inertia properties.
+  * A set of already implemented classical heuristics, e.g., h_ff, h_max, etc.
+  * Several examples of planners using PDDL4J.
 
 [PDDL4J on github](https://github.com/pellierd/pddl4j)
 
@@ -18,25 +29,36 @@ La librairie PDDL4J fournit :
 
 ![PDDL4GUI](https://raw.githubusercontent.com/ehermellin/ehermellin.github.io/master/images/projet/pddl4gui.jpg)
 
-PDDL4GUI est une petite application écrite en Java qui fournit une interface graphique à la librairie PDDL4J. PDDL4GUI propose :
-  - Une interface pour la résolution de problèmes de planification grâce à PDDL4J.
-  - Un comportement Anytime pour les planners compatibles (disponible avec PDDL4J 4.0).
-  - L'intégration de VAL (The plan validation system) qui offre la possibilité de tester la validité des solutions fournies par PDDL4J.
-  - Un éditeur PDDL.
+PDDL4GUI is a small application written in Java that provides a graphical interface to the PDDL4J library. PDDL4GUI offers:
+  - A graphical interface for solving planning problems with the PDDL4J library.
+  - Anytime behavior for compatible planners.
+  - The integration of VAL (The plan validation system) which offers the possibility to test the validity of the plans provided by PDDL4J.
+  - A simple PDDL editor.
 
-Fonctionnalités qui vont être integrées par la suite :
-  - Une visualisation des solutions (plans).
+Features that will be integrated later:
+  - A tool to visualize solution plans.
   - ...
   
-#### Comment l'utiliser
-Télécharger ou cloner le repository.
+#### How to use the PDDL4GUI
+Download or clone the repository.
 
-Sous windows avec la ligne de commande :
+With Gradle :
 
-    java -javaagent:libs/pddl4j-3.7.1.jar -server -Xms2048m -Xmx2048m -jar pddl4gui.jar
+    # Build PDDL4GUI (compile, assemble, jar, checkstyle)
+    ./gradlew build
+    # Generate .jar file
+    ./gradlew jar
+    # Generate javadoc
+    ./gradlew javadoc
+    # Run PDDL4GUI
+    ./gradlew run
 
-Sous linux avec le script *pddl4gui.sh* disponible à la racine du repository :
-    
+On linux with the *pddl4gui.sh* script, available at the root of the repository:
+
     ./pddl4gui.sh
-    
-*Note : les dossiers libs et resources sont nécessaires car non intégré dans le jar.*
+
+With java command lines:
+
+    java -javaagent:libs/pddl4j-3.7.1.jar -server -Xms2048m -Xmx2048m -jar pddl4gui-1.0.jar
+
+*Note: the libs and resources folders are needed because not integrated into the jar file.*

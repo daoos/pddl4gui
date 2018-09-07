@@ -40,6 +40,14 @@ jar {
     }
 }
 
+task run (type: JavaExec, dependsOn: build){
+    jvmArgs = ["-javaagent:libs/pddl4j-3.7.1.jar", "-server", "-Xms2048m", "-Xmx2048m"]
+
+    description = "Run PDDL4GUI"
+    main = "pddl4gui.Pddl4Gui"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
 clean{
     delete 'build', 'out', 'pddl4gui-'+version+'.jar'
 }

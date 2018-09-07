@@ -1,5 +1,15 @@
 package pddl4gui.gui.tools;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.io.Serializable;
+import java.util.HashMap;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
@@ -16,16 +26,6 @@ import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.Utilities;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Insets;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.io.Serializable;
-import java.util.HashMap;
 
 /**
  * This class will display line numbers for a related text component. The text
@@ -216,12 +216,12 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        //	Determine the width of the space available to draw the line number
+        //Determine the width of the space available to draw the line number
         final FontMetrics fontMetrics = component.getFontMetrics(component.getFont());
         final Insets insets = getInsets();
         int availableWidth = getSize().width - insets.left - insets.right;
 
-        //  Determine the rows to draw within the clipped bounds.
+        //Determine the rows to draw within the clipped bounds.
 
         final Rectangle clip = g.getClipBounds();
         int rowStartOffset = component.viewToModel(new Point(0, clip.y));
@@ -235,8 +235,8 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
                     g.setColor(getForeground());
                 }
 
-                //  Get the line number as a string and then determine the
-                //  "X" and "Y" offsets for drawing the string.
+                // Get the line number as a string and then determine the
+                // "X" and "Y" offsets for drawing the string.
 
                 final String lineNumber = getTextLineNumber(rowStartOffset);
                 final int stringWidth = fontMetrics.stringWidth(lineNumber);
@@ -244,7 +244,7 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
                 final int y = getOffsetY(rowStartOffset, fontMetrics);
                 g.drawString(lineNumber, x, y);
 
-                //  Move to the next row
+                // Move to the next row
 
                 rowStartOffset = Utilities.getRowEnd(component, rowStartOffset) + 1;
             } catch (Exception e) {
@@ -313,7 +313,8 @@ public class TextLineNumber extends JPanel implements CaretListener, DocumentLis
 
         if (r.height == lineHeight) {
             descent = fontMetrics.getDescent();
-        } else {// We need to check all the attributes for font changes
+        } else {
+            // We need to check all the attributes for font changes
             if (fonts == null) {
                 fonts = new HashMap<>();
             }

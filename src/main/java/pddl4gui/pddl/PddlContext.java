@@ -30,13 +30,13 @@ public class PddlContext implements Serializable {
      * The String list of PDDL keywords.
      */
     private String[] pddlKeywords = {"domain", "assign", "scale-up", "scale-down", "increase", "decrease", "start",
-            "define", "problem", "requirements", "types", "constants", "predicates", "functions", "action", "init",
-            "goal", "objects", "domain", "strips", "typing", "negative-preconditions", "disjunctive-preconditions",
-            "equality", "existential-preconditions", "universal-preconditions", "quantified-preconditions",
-            "conditional-effects", "fluents", "numeric-fluents", "object-fluents", "adl", "durative-actions",
-            "duration-inequalities", "continuous-effects", "derived-predicates", "timed-initial-literals",
-            "preferences", "constraints", "action-costs", "parameters", "duration", "condition", "effect",
-            "precondition"};
+      "define", "problem", "requirements", "types", "constants", "predicates", "functions", "action",
+      "init", "goal", "objects", "domain", "strips", "typing", "negative-preconditions",
+      "disjunctive-preconditions", "equality", "existential-preconditions", "universal-preconditions",
+      "quantified-preconditions", "conditional-effects", "fluents", "numeric-fluents",
+      "object-fluents", "adl", "durative-actions", "duration-inequalities", "continuous-effects",
+      "derived-predicates", "timed-initial-literals", "preferences", "constraints", "action-costs",
+      "parameters", "duration", "condition", "effect", "precondition"};
 
     /**
      * The String list of PDDL syntaxe delimiter (bracket).
