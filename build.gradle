@@ -17,11 +17,10 @@ repositories {
         dirs 'libs'
     }
     mavenCentral()
-    maven { url "https://jitpack.io" }
 }
 
 dependencies {
-    compile("com.github.pellierd:pddl4j:master-SNAPSHOT")
+    compile 'com.github.pellierd:pddl4j:3.7.2'
     compile name: 'pgslookandfeel-1.1.2'
 }
 
@@ -41,7 +40,7 @@ jar {
 }
 
 task run (type: JavaExec, dependsOn: build){
-    jvmArgs = ["-javaagent:libs/pddl4j-3.7.1.jar", "-server", "-Xms2048m", "-Xmx2048m"]
+    jvmArgs = ["-javaagent:libs/pddl4j-3.7.2.jar", "-server", "-Xms2048m", "-Xmx2048m"]
 
     description = "Run PDDL4GUI"
     main = "pddl4gui.Pddl4Gui"
