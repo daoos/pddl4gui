@@ -91,8 +91,8 @@ public class SetupSolverPanel extends JPanel implements Serializable {
     /**
      * The list of search strategies available in PDDL4J.
      */
-    private final String[] searchStrategyList = { "A*", "Enforced Hill Climbing", "Breadth First Search",
-            "Depth First Search", "Greedy Best First Search"};
+    private final String[] searchStrategyList = {"A*", "Enforced Hill Climbing", "Breadth First Search",
+        "Depth First Search", "Greedy Best First Search"};
 
     /**
      * The default search strategy used.

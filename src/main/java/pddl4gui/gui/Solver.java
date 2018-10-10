@@ -1,6 +1,7 @@
 package pddl4gui.gui;
 
 import pddl4gui.gui.panel.EngineManagerPanel;
+import pddl4gui.gui.panel.LogPanel;
 import pddl4gui.gui.panel.MenuSolverPanel;
 import pddl4gui.gui.panel.ResultPanel;
 import pddl4gui.gui.panel.SetupSolverPanel;
@@ -51,7 +52,7 @@ public class Solver extends JFrame implements Serializable {
         TriggerAction.setupSolver(this);
 
         final int width = 1200;
-        final int height = 620;
+        final int height = 800;
         final int marging = 10;
 
         setLayout(null);
@@ -67,6 +68,7 @@ public class Solver extends JFrame implements Serializable {
         final MenuSolverPanel menuSolverPanel;
         final EngineManagerPanel engineManagerPanel;
         final TokenListPanel tokenListPanel;
+        final LogPanel logPanel;
 
         menuSolverPanel = new MenuSolverPanel();
         menuSolverPanel.setBounds(350, marging + 3, 330, 40);
@@ -91,6 +93,10 @@ public class Solver extends JFrame implements Serializable {
         resultPanel = new ResultPanel();
         resultPanel.setBounds(690, marging, 500, 570);
         add(resultPanel);
+
+        logPanel = new LogPanel();
+        logPanel.setBounds(marging, 585, 1180, 175);
+        add(logPanel);
 
         TriggerAction.setupPanel(setupPanel, statisticsPanel, resultPanel, menuSolverPanel, engineManagerPanel,
                 tokenListPanel);
