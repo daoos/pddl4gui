@@ -95,6 +95,11 @@ public class SetupSolverPanel extends JPanel implements Serializable {
             "Depth First Search", "Greedy Best First Search"};
 
     /**
+     * The default search strategy used.
+     */
+    private String strategyName = "A*";
+
+    /**
      * Creates a new SetupSolverPanel associated to the Solver main JFrame.
      */
     public SetupSolverPanel() {
@@ -184,7 +189,24 @@ public class SetupSolverPanel extends JPanel implements Serializable {
         final JComboBox plannerComboBox = new JComboBox<>(plannerList);
         plannerComboBox.setBounds(100, 105, 150, 25);
         plannerComboBox.setSelectedIndex(0);
-        plannerComboBox.addActionListener(e -> plannerName = (String) plannerComboBox.getSelectedItem());
+        plannerComboBox.addActionListener(e -> {
+            plannerName = (String) plannerComboBox.getSelectedItem();
+
+            if (plannerName != null && plannerName.equals("GenericPlanner")) {
+                final JComboBox<String> combo = new JComboBox<>(searchStrategyList);
+
+                final String[] options = { "OK", "Cancel"};
+
+                String title = "GenericPlanner: Select a search strategy";
+                int selection = JOptionPane.showOptionDialog(null, combo, title,
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
+                        options[0]);
+
+                if (selection == 0) {
+                    strategyName = (String) combo.getSelectedItem();
+                }
+            }
+        });
         add(plannerComboBox);
 
         plannerLabel.setBounds(15, 105, 140, 25);
@@ -247,30 +269,18 @@ public class SetupSolverPanel extends JPanel implements Serializable {
         } else if (plannerName.equals("GenericPlanner")) {
 
             StateSpaceStrategy stateSpaceStrategy = null;
-            final JComboBox<String> combo = new JComboBox<>(searchStrategyList);
 
-            final String[] options = { "OK", "Cancel"};
-
-            String title = "GenericPlanner: Select a search strategy";
-            int selection = JOptionPane.showOptionDialog(null, combo, title,
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
-                    options[0]);
-
-            if (selection == 0) {
-                final String searchStrategy = (String) combo.getSelectedItem();
-
-                if (searchStrategy != null) {
-                    if (searchStrategy.equals("A*")) {
-                        stateSpaceStrategy = new AStar((int) timeout, heuristic, weight);
-                    } else if (searchStrategy.equals("Enforced Hill Climbing")) {
-                        stateSpaceStrategy = new EnforcedHillClimbing((int) timeout, heuristic, weight);
-                    } else if (searchStrategy.equals("Breadth First Search")) {
-                        stateSpaceStrategy = new BreadthFirstSearch((int) timeout);
-                    } else if (searchStrategy.equals("Depth First Search")) {
-                        stateSpaceStrategy = new DepthFirstSearch((int) timeout);
-                    } else if (searchStrategy.equals("Greedy Best First Search")) {
-                        stateSpaceStrategy = new GreedyBestFirstSearch((int) timeout, heuristic, weight);
-                    }
+            if (strategyName != null) {
+                if (strategyName.equals("A*")) {
+                    stateSpaceStrategy = new AStar((int) timeout, heuristic, weight);
+                } else if (strategyName.equals("Enforced Hill Climbing")) {
+                    stateSpaceStrategy = new EnforcedHillClimbing((int) timeout, heuristic, weight);
+                } else if (strategyName.equals("Breadth First Search")) {
+                    stateSpaceStrategy = new BreadthFirstSearch((int) timeout);
+                } else if (strategyName.equals("Depth First Search")) {
+                    stateSpaceStrategy = new DepthFirstSearch((int) timeout);
+                } else if (strategyName.equals("Greedy Best First Search")) {
+                    stateSpaceStrategy = new GreedyBestFirstSearch((int) timeout, heuristic, weight);
                 }
             }
 
