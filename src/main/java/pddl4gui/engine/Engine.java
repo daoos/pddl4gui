@@ -118,7 +118,7 @@ public class Engine extends Thread implements Serializable {
                     });
 
                     timer.start();
-                    System.out.println(token.getPlannerName().toString() + " planner on " + this.getName());
+                    System.out.println(token.getPlannerName() + " planner on " + this.getName());
                     token.setSolved(resolve(token));
                     token.setError(error);
                     timer.stop();

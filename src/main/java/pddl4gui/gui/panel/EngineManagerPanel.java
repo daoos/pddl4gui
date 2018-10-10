@@ -96,7 +96,7 @@ public class EngineManagerPanel extends JPanel implements Serializable {
         } while (inc < cores - 1 && inc < 4);
 
         remainingLabel = new JLabel(" -- token(s) remaining");
-        remainingLabel.setBounds(200, 214, 265, 20);
+        remainingLabel.setBounds(190, 214, 265, 20);
         add(remainingLabel);
 
         engineManager.start();

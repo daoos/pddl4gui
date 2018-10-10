@@ -88,13 +88,13 @@ public class ResultPanel extends JPanel implements Serializable {
         add(domainLabel);
         add(domain);
 
-        costLabel.setBounds(210, labMarging, labWidth, labHeight);
-        cost.setBounds(265, labMarging, labWidth / 2, labHeight);
+        costLabel.setBounds(180, labMarging, labWidth, labHeight);
+        cost.setBounds(235, labMarging, labWidth / 2, labHeight);
         add(costLabel);
         add(cost);
 
-        plannerLabel.setBounds(360, labMarging, labWidth, labHeight);
-        planner.setBounds(415, labMarging, labWidth / 2, labHeight);
+        plannerLabel.setBounds(310, labMarging, labWidth, labHeight);
+        planner.setBounds(365, labMarging, labWidth, labHeight);
         add(plannerLabel);
         add(planner);
 
@@ -105,8 +105,8 @@ public class ResultPanel extends JPanel implements Serializable {
         add(problemLabel);
         add(problem);
 
-        depthLabel.setBounds(210, labMarging, labWidth, labHeight);
-        depth.setBounds(265, labMarging, labWidth / 2, labHeight);
+        depthLabel.setBounds(180, labMarging, labWidth, labHeight);
+        depth.setBounds(235, labMarging, labWidth / 2, labHeight);
         add(depthLabel);
         add(depth);
 
@@ -151,7 +151,7 @@ public class ResultPanel extends JPanel implements Serializable {
         depth.setText(String.valueOf(TriggerAction.getDf()
                 .format(token.getResult().getStatistics().getDepth())));
         resultArea.setText(token.getResult().getSolutionString());
-        planner.setText(token.getPlannerName().toString());
+        planner.setText(token.getPlannerName());
     }
 
     /**
@@ -168,7 +168,7 @@ public class ResultPanel extends JPanel implements Serializable {
         problem.setText(token.getProblemFileName());
         cost.setText(String.valueOf(0));
         depth.setText(String.valueOf(0));
-        planner.setText(token.getPlannerName().toString());
+        planner.setText(token.getPlannerName());
         resultArea.setText(token.getError());
     }
 
@@ -186,7 +186,7 @@ public class ResultPanel extends JPanel implements Serializable {
         problem.setText(token.getProblemFileName());
         cost.setText(String.valueOf(0));
         depth.setText(String.valueOf(0));
-        planner.setText(token.getPlannerName().toString());
+        planner.setText(token.getPlannerName());
         resultArea.setText("Token not solved yet !");
     }
 

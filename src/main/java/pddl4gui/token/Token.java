@@ -69,7 +69,7 @@ public class Token implements Serializable {
     /**
      * The name of the planner used.
      */
-    private Planner.Name plannerName;
+    private String plannerName;
 
     /**
      * Sets if a token could be solved by checking if files are not null.
@@ -193,7 +193,7 @@ public class Token implements Serializable {
      *
      * @return Returns the planner name.
      */
-    public Planner.Name getPlannerName() {
+    public String getPlannerName() {
         return plannerName;
     }
 
@@ -205,7 +205,7 @@ public class Token implements Serializable {
      * @param planner the planner to use.
      * @param plannerName the planner's name.
      */
-    public Token(File domainFile, File problemFile, StateSpacePlanner planner, Planner.Name plannerName) {
+    public Token(File domainFile, File problemFile, StateSpacePlanner planner, String plannerName) {
         this.domainFile = domainFile;
         this.domainFileName = FileTools.removeExtension(domainFile.getName());
         this.problemFile = problemFile;

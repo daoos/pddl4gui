@@ -4,6 +4,13 @@ import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Planner;
 import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
 import fr.uga.pddl4j.planners.statespace.StateSpacePlannerFactory;
+import fr.uga.pddl4j.planners.statespace.generic.GenericPlanner;
+import fr.uga.pddl4j.planners.statespace.search.strategy.AStar;
+import fr.uga.pddl4j.planners.statespace.search.strategy.BreadthFirstSearch;
+import fr.uga.pddl4j.planners.statespace.search.strategy.DepthFirstSearch;
+import fr.uga.pddl4j.planners.statespace.search.strategy.EnforcedHillClimbing;
+import fr.uga.pddl4j.planners.statespace.search.strategy.GreedyBestFirstSearch;
+import fr.uga.pddl4j.planners.statespace.search.strategy.StateSpaceStrategy;
 import pddl4gui.gui.Editor;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
@@ -18,6 +25,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -71,9 +79,20 @@ public class SetupSolverPanel extends JPanel implements Serializable {
     private Heuristic.Type heuristic = Heuristic.Type.FAST_FORWARD;
 
     /**
+     * The list of planners available in PDDL4J.
+     */
+    private final String[] plannerList = { "HSP", "FF", "GenericPlanner"};
+
+    /**
      * The default Planner used.
      */
-    private Planner.Name plannerName = Planner.Name.HSP;
+    private String plannerName = "HSP";
+
+    /**
+     * The list of search strategies available in PDDL4J.
+     */
+    private final String[] searchStrategyList = { "A*", "Enforced Hill Climbing", "Breadth First Search",
+            "Depth First Search", "Greedy Best First Search"};
 
     /**
      * Creates a new SetupSolverPanel associated to the Solver main JFrame.
@@ -162,10 +181,10 @@ public class SetupSolverPanel extends JPanel implements Serializable {
         problemLabel.setBounds(15, 65, 140, 25);
         add(problemLabel);
 
-        final JComboBox plannerComboBox = new JComboBox<>(Planner.Name.values());
+        final JComboBox plannerComboBox = new JComboBox<>(plannerList);
         plannerComboBox.setBounds(100, 105, 150, 25);
-        plannerComboBox.setSelectedItem(plannerName);
-        plannerComboBox.addActionListener(e -> plannerName = (Planner.Name) plannerComboBox.getSelectedItem());
+        plannerComboBox.setSelectedIndex(0);
+        plannerComboBox.addActionListener(e -> plannerName = (String) plannerComboBox.getSelectedItem());
         add(plannerComboBox);
 
         plannerLabel.setBounds(15, 105, 140, 25);
@@ -219,22 +238,61 @@ public class SetupSolverPanel extends JPanel implements Serializable {
         final StateSpacePlannerFactory plannerFactory = StateSpacePlannerFactory.getInstance();
         final double weight = (double) weightSpinner.getValue();
         final double timeout = (double) timeoutSpinner.getValue() * 1000;
+        AbstractStateSpacePlanner planner = null;
 
-        final AbstractStateSpacePlanner planner = plannerFactory.getPlanner(plannerName, (int) timeout, heuristic,
-                weight, true, 1);
+        if (plannerName.equals("HSP")) {
+            planner = plannerFactory.getPlanner(Planner.Name.HSP, (int) timeout, heuristic, weight, true, 1);
+        } else if (plannerName.equals("FF")) {
+            planner = plannerFactory.getPlanner(Planner.Name.FF, (int) timeout, heuristic, weight, true, 1);
+        } else if (plannerName.equals("GenericPlanner")) {
 
-        if (problemFiles != null && domainFile != null) {
-            for (File file : problemFiles) {
-                final Token token = new Token(domainFile, file, planner, plannerName);
+            StateSpaceStrategy stateSpaceStrategy = null;
+            final JComboBox<String> combo = new JComboBox<>(searchStrategyList);
 
-                if (token.isRunnable() && TriggerAction.isEngineManagerRunning()) {
-                    if (!TriggerAction.getListModel().contains(token)) {
-                        TriggerAction.getListModel().addElement(token);
-                        TriggerAction.getQueue().addTokenInQueue(token);
+            final String[] options = { "OK", "Cancel"};
+
+            String title = "GenericPlanner: Select a search strategy";
+            int selection = JOptionPane.showOptionDialog(null, combo, title,
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
+                    options[0]);
+
+            if (selection == 0) {
+                final String searchStrategy = (String) combo.getSelectedItem();
+
+                if (searchStrategy != null) {
+                    if (searchStrategy.equals("A*")) {
+                        stateSpaceStrategy = new AStar((int) timeout, heuristic, weight);
+                    } else if (searchStrategy.equals("Enforced Hill Climbing")) {
+                        stateSpaceStrategy = new EnforcedHillClimbing((int) timeout, heuristic, weight);
+                    } else if (searchStrategy.equals("Breadth First Search")) {
+                        stateSpaceStrategy = new BreadthFirstSearch((int) timeout);
+                    } else if (searchStrategy.equals("Depth First Search")) {
+                        stateSpaceStrategy = new DepthFirstSearch((int) timeout);
+                    } else if (searchStrategy.equals("Greedy Best First Search")) {
+                        stateSpaceStrategy = new GreedyBestFirstSearch((int) timeout, heuristic, weight);
                     }
                 }
+            }
 
-                TriggerAction.setTokenRemainingEngineManagerPanel();
+            if (stateSpaceStrategy != null) {
+                planner = new GenericPlanner(true, 1, stateSpaceStrategy);
+            }
+        }
+
+        if (planner != null) {
+            if (problemFiles != null && domainFile != null) {
+                for (File file : problemFiles) {
+                    final Token token = new Token(domainFile, file, planner, plannerName);
+
+                    if (token.isRunnable() && TriggerAction.isEngineManagerRunning()) {
+                        if (!TriggerAction.getListModel().contains(token)) {
+                            TriggerAction.getListModel().addElement(token);
+                            TriggerAction.getQueue().addTokenInQueue(token);
+                        }
+                    }
+
+                    TriggerAction.setTokenRemainingEngineManagerPanel();
+                }
             }
         }
     }
