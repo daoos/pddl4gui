@@ -87,8 +87,25 @@ public class EditorPanel extends JPanel implements Serializable {
 
         add(scrollTextArea, BorderLayout.CENTER);
 
-        displayFileContent(parent.getFileToEdit());
+        if (parent.getFileToEdit() != null) {
+            displayFileContent(parent.getFileToEdit());
+        } else {
+            displayNewFileContent(parent.getTypeOfFile());
+        }
         UndoRedo.addUndoRedo(textArea);
+    }
+
+    /**
+     * Displays the content of a file.
+     */
+    private void displayNewFileContent(int type) {
+        if (type == 0) {
+            textArea.append(pddl.getNewPddlDomainFile());
+            this.enableAutoComplete(new File("domain.pddl"));
+        } else if (type == 1) {
+            textArea.append(pddl.getNewPddlProblemFile());
+            this.enableAutoComplete(new File("problem.pddl"));
+        }
     }
 
     /**

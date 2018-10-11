@@ -2,13 +2,10 @@ package pddl4gui.gui;
 
 import pddl4gui.gui.panel.EditorMenuToolBar;
 import pddl4gui.gui.panel.EditorPanel;
-import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.Serializable;
 import javax.swing.JFrame;
@@ -33,6 +30,11 @@ public class Editor extends JFrame implements Serializable {
     private File fileToEdit;
 
     /**
+     * The type of the file to edit.
+     */
+    private int typeOfFile;
+
+    /**
      * Gets the file to edit in the Editor.
      *
      * @return the file to edit in the Editor.
@@ -42,13 +44,32 @@ public class Editor extends JFrame implements Serializable {
     }
 
     /**
+     * Sets the file to edit in the Editor.
+     * @param fileToEdit the file to edit.
+     */
+    public void setFileToEdit(File fileToEdit) {
+        this.fileToEdit = fileToEdit;
+    }
+
+    /**
+     * Gets the type of the file to edit in the Editor (0: domain ; 1: problem).
+     *
+     * @return the type of the file to edit in the Editor.
+     */
+    public int getTypeOfFile() {
+        return typeOfFile;
+    }
+
+    /**
      * Creates a new Editor.
      *
-     * @param file the file to edit.
-     * @param type the type of the file (0: domain ; 1: problem).
+     * @param file    the file to edit.
+     * @param type    the type of the file (0: domain ; 1: problem).
+     * @param newFile if its new file or not.
      */
-    public Editor(File file, int type) {
-        fileToEdit = file;
+    public Editor(File file, int type, boolean newFile) {
+        typeOfFile = type;
+
         final Container container = getContentPane();
         container.setLayout(new BorderLayout());
 
@@ -56,7 +77,13 @@ public class Editor extends JFrame implements Serializable {
         final int height = 600;
 
         setSize(width, height);
-        setTitle("Editor | " + fileToEdit.getName());
+
+        if (newFile) {
+            setTitle("Editor | New file");
+        } else {
+            fileToEdit = file;
+            setTitle("Editor | " + fileToEdit.getName());
+        }
 
         final EditorPanel editorPanel = new EditorPanel(this);
 
@@ -67,36 +94,6 @@ public class Editor extends JFrame implements Serializable {
         container.add(editorPanel, BorderLayout.CENTER);
 
         setLocation(WindowsManager.setWindowsLocationWidth());
-        addWindowListener(new WindowAdapter() {
-
-            /**
-             * Enable button in the Solver JFrame.
-             *
-             * @param e the window event.
-             */
-            @Override
-            public void windowClosed(WindowEvent e) {
-                if (type == 0) {
-                    TriggerAction.setSetupPanelDomainButton(true);
-                } else if (type == 1) {
-                    TriggerAction.setSetupPanelProblemButton(true);
-                }
-            }
-
-            /**
-             * Enable button in the Solver JFrame.
-             *
-             * @param e the window event.
-             */
-            @Override
-            public void windowClosing(WindowEvent e) {
-                if (type == 0) {
-                    TriggerAction.setSetupPanelDomainButton(true);
-                } else if (type == 1) {
-                    TriggerAction.setSetupPanelProblemButton(true);
-                }
-            }
-        });
         setVisible(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }

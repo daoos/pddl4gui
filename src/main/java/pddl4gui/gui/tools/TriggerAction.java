@@ -182,24 +182,6 @@ public class TriggerAction implements Serializable {
     }
 
     /**
-     * Enables domain button in SetupPanel.
-     *
-     * @param status the status of the button.
-     */
-    public static void setSetupPanelDomainButton(final boolean status) {
-        setupPanel.enableDomainButton(status);
-    }
-
-    /**
-     * Enables problem button in SetupPanel.
-     *
-     * @param status the status of the button.
-     */
-    public static void setSetupPanelProblemButton(final boolean status) {
-        setupPanel.enablePBButton(status);
-    }
-
-    /**
      * Returns the Jlist of the TokenListPanel.
      *
      * @return the Jlist of the TokenListPanel.

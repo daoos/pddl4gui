@@ -136,11 +136,14 @@ public class SetupSolverPanel extends JPanel implements Serializable {
         add(domainButton);
 
         editDomainButton.setBounds(275, 25, 25, 25);
-        editDomainButton.setEnabled(false);
+        editDomainButton.setEnabled(true);
         editDomainButton.addActionListener(e -> {
-            enableDomainButton(false);
-            editDomainButton.setEnabled(false);
-            new Editor(domainFile, 0);
+
+            if (domainFile != null) {
+                new Editor(domainFile, 0, false);
+            } else {
+                new Editor(null, 0, true);
+            }
 
             domainFile = null;
             domainButton.setText("Choose domain");
@@ -172,11 +175,14 @@ public class SetupSolverPanel extends JPanel implements Serializable {
         add(pbButton);
 
         editProblemButton.setBounds(275, 65, 25, 25);
-        editProblemButton.setEnabled(false);
+        editProblemButton.setEnabled(true);
         editProblemButton.addActionListener(e -> {
-            enablePBButton(false);
-            editProblemButton.setEnabled(false);
-            new Editor(problemFiles.firstElement(), 1);
+
+            if (problemFiles != null) {
+                new Editor(problemFiles.firstElement(), 1, false);
+            } else {
+                new Editor(null, 1, true);
+            }
 
             problemFiles = null;
             pbButton.setText("Choose problem");
@@ -305,25 +311,5 @@ public class SetupSolverPanel extends JPanel implements Serializable {
                 }
             }
         }
-    }
-
-    /**
-     * Enables JButton for domain file.
-     *
-     * @param enable status of the buttons.
-     */
-    public void enableDomainButton(boolean enable) {
-        domainButton.setEnabled(enable);
-        planButton.setEnabled(enable);
-    }
-
-    /**
-     * Enables JButton for problem files.
-     *
-     * @param enable status of the buttons.
-     */
-    public void enablePBButton(boolean enable) {
-        pbButton.setEnabled(enable);
-        planButton.setEnabled(enable);
     }
 }

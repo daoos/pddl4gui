@@ -1,9 +1,13 @@
 package pddl4gui;
 
 import com.pagosoft.plaf.PlafOptions;
+import pddl4gui.gui.RestClient;
 import pddl4gui.gui.Solver;
 import pddl4gui.token.Queue;
 
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import java.io.Serializable;
 
 /**
@@ -23,7 +27,29 @@ public class Pddl4Gui implements Serializable {
      * Creates a new main GUI.
      */
     private Pddl4Gui() {
-        new Solver(new Queue());
+        final Object[] options = {"Local solver", "REST solver"};
+        int selection = JOptionPane.showOptionDialog(null,"Which solver do you want to use?","Choose a solver",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        if (selection == 0) {
+            new Solver(new Queue());
+        } else if (selection == 1) {
+            String name = JOptionPane.showInputDialog(null,
+                    "i.e: http://pddl4j-dev.imag.fr/pddl4j-service-1.0/search",
+                    "Enter URL of RESTFull API", JOptionPane.INFORMATION_MESSAGE);
+
+            if (name != null && !name.equals("")) {
+                new RestClient(name);
+            } else {
+                new RestClient("http://pddl4j-dev.imag.fr/pddl4j-service-1.0/search");
+            }
+        } else {
+            System.exit(0);
+        }
     }
 
     /**

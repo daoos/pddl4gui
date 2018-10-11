@@ -66,11 +66,18 @@ public class EditorMenuToolBar extends JToolBar implements Serializable {
         final JButton saveButton = new JButton(Icons.getSaveIcon());
         saveButton.setToolTipText("Save");
         saveButton.addActionListener(e -> {
-            final File tempFile = editor.getFileToEdit();
+            File tempFile = editor.getFileToEdit();
 
             if (tempFile != null) {
                 FileTools.writeInFile(tempFile, parent.getEditorTextArea().getText());
                 parent.enableAutoComplete(tempFile);
+            } else {
+                tempFile = FileTools.saveFile(this, 0);
+                if (FileTools.checkFile(tempFile)) {
+                    FileTools.writeInFile(tempFile, parent.getEditorTextArea().getText());
+                    editor.setFileToEdit(tempFile);
+                    parent.enableAutoComplete(tempFile);
+                }
             }
         });
         this.add(saveButton);

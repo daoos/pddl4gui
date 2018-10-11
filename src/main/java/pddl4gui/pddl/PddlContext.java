@@ -54,6 +54,49 @@ public class PddlContext implements Serializable {
     private String extensionPddlFile = ".pddl";
 
     /**
+     * The template of PDDL domain file.
+     */
+    private String newPddlDomainFile = "(define (domain )\n" +
+            "  (:requirements )\n" +
+            "  (:types )\n" +
+            "  (:predicates )\n" +
+            "\n" +
+            "  (:action pick-up\n" +
+            "    :parameters ()\n" +
+            "    :precondition ()\n" +
+            "    :effect ()\n" +
+            "  )\n" +
+            ")";
+
+    /**
+     * The template of PDDL problem file.
+     */
+    private String newPddlProblemFile = "(define (problem )\n" +
+            "  (:domain )\n" +
+            "  (:objects )\n" +
+            "  (:init )\n" +
+            "  (:goal )\n" +
+            ")";
+
+    /**
+     * Returns the template of PDDL domain file.
+     *
+     * @return the template of PDDL domain file.
+     */
+    public String getNewPddlDomainFile() {
+        return newPddlDomainFile;
+    }
+
+    /**
+     * Returns the template of PDDL problem file.
+     *
+     * @return the template of PDDL problem file.
+     */
+    public String getNewPddlProblemFile() {
+        return newPddlProblemFile;
+    }
+
+    /**
      * Returns the HighlightText object.
      *
      * @return the HighlightText object.

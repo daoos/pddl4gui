@@ -57,7 +57,7 @@ public class Solver extends JFrame implements Serializable {
 
         setLayout(null);
         setSize(width, height);
-        setTitle(WindowsManager.NAME);
+        setTitle(WindowsManager.NAME + " | Local solver");
         WindowsManager.setPoint(this.getLocation());
         WindowsManager.setWidth(width);
         WindowsManager.setHeight(height);
