@@ -2,6 +2,7 @@ package pddl4gui.gui.tools;
 
 import pddl4gui.gui.Solver;
 import pddl4gui.gui.panel.EngineManagerPanel;
+import pddl4gui.gui.panel.InfoRestPanel;
 import pddl4gui.gui.panel.MenuRestPanel;
 import pddl4gui.gui.panel.MenuSolverPanel;
 import pddl4gui.gui.panel.ResultPanel;
@@ -12,6 +13,7 @@ import pddl4gui.gui.panel.TokenListPanel;
 import pddl4gui.token.Queue;
 import pddl4gui.token.Token;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import javax.swing.DefaultListModel;
@@ -76,6 +78,11 @@ public class TriggerAction implements Serializable {
      * The REST MenuRestPanel.
      */
     private static MenuRestPanel menuRestPanel;
+
+    /**
+     * The REST InfoRestPanel.
+     */
+    private static InfoRestPanel infoRestPanel;
 
     /**
      * The DecimalFormat to use in PDDL4GUI.
@@ -150,15 +157,18 @@ public class TriggerAction implements Serializable {
     /**
      * Setups all the panel used in this class (REST).
      *
-     * @param setupRestPanel         the solver SetupRestPanel.
-     * @param resultPanel            the solver ResultPanel.
-     * @param menuRestPanel    the solver MenuSolverPanel.
+     * @param setupRestPanel  the REST SetupRestPanel.
+     * @param resultPanel     the REST ResultPanel.
+     * @param menuRestPanel   the REST MenuSolverPanel.
+     * @param infoRestPanel   the REST InfoRestPanel
+     *
      */
     public static void setupPanel(SetupRestPanel setupRestPanel, ResultPanel resultPanel,
-                                  MenuRestPanel menuRestPanel) {
+                                  MenuRestPanel menuRestPanel, InfoRestPanel infoRestPanel) {
         TriggerAction.setupRestPanel = setupRestPanel;
         TriggerAction.resultPanel = resultPanel;
         TriggerAction.menuRestPanel = menuRestPanel;
+        TriggerAction.infoRestPanel = infoRestPanel;
         TriggerAction.decimalFormat = new DecimalFormat("##.###");
     }
 
@@ -322,5 +332,21 @@ public class TriggerAction implements Serializable {
         return TriggerAction.engineManagerPanel.isRunning();
     }
 
+    /**
+     * Returns the status of the REST API.
+     *
+     * @return the status of the REST API.
+     */
+    public static boolean isRestAlive() {
+        return TriggerAction.infoRestPanel.getRestStatus() == Color.GREEN;
+    }
 
+    /**
+     * Sets the status of the REST API.
+     *
+     * @param status the status of the REST API.
+     */
+    public static void setRestStatus(final String status) {
+        TriggerAction.infoRestPanel.setStatus(status);
+    }
 }

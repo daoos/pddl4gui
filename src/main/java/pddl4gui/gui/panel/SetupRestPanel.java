@@ -2,15 +2,6 @@ package pddl4gui.gui.panel;
 
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Planner;
-import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
-import fr.uga.pddl4j.planners.statespace.StateSpacePlannerFactory;
-import fr.uga.pddl4j.planners.statespace.generic.GenericPlanner;
-import fr.uga.pddl4j.planners.statespace.search.strategy.AStar;
-import fr.uga.pddl4j.planners.statespace.search.strategy.BreadthFirstSearch;
-import fr.uga.pddl4j.planners.statespace.search.strategy.DepthFirstSearch;
-import fr.uga.pddl4j.planners.statespace.search.strategy.EnforcedHillClimbing;
-import fr.uga.pddl4j.planners.statespace.search.strategy.GreedyBestFirstSearch;
-import fr.uga.pddl4j.planners.statespace.search.strategy.StateSpaceStrategy;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
@@ -24,20 +15,18 @@ import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
-import pddl4gui.token.Token;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Vector;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 /**
  * This class implements the SetupRestPanel class of <code>PDDL4GUI</code>.
@@ -207,8 +196,12 @@ public class SetupRestPanel extends JPanel implements Serializable {
         planButton.setBounds(80, 305, 200, 25);
         planButton.setEnabled(true);
         planButton.addActionListener(e -> {
-            if (domainFile != null && problemFile != null) {
-                resolve(url);
+            if (TriggerAction.isRestAlive()) {
+                if (domainFile != null && problemFile != null) {
+                    resolve(url);
+                }
+            } else {
+                TriggerAction.setRestStatus("RESTFull API offline");
             }
         });
         add(planButton);
@@ -274,9 +267,11 @@ public class SetupRestPanel extends JPanel implements Serializable {
             String responseBody = httpclient.execute(httpPost, responseHandler);
             if (responseBody.equals("-1") || responseBody.equals("error")) {
                 System.out.println("[id ? ] Error");
+                TriggerAction.setRestStatus(responseBody);
             } else {
                 TriggerAction.getRestModel().addElement(Integer.parseInt(responseBody));
                 System.out.println("[id " + responseBody + "] New solving problem");
+                TriggerAction.setRestStatus("[id " + responseBody + "] New solving problem");
             }
         } catch (IOException exp) {
             exp.printStackTrace();

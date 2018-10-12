@@ -5,10 +5,8 @@ import pddl4gui.gui.RestClient;
 import pddl4gui.gui.Solver;
 import pddl4gui.token.Queue;
 
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import java.io.Serializable;
+import javax.swing.JOptionPane;
 
 /**
  * This class implements the main class of <code>PDDL4GUI</code>.

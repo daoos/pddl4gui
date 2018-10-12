@@ -1,14 +1,10 @@
 package pddl4gui.gui.panel;
 
-import pddl4gui.gui.VAL;
-import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
-import pddl4gui.gui.tools.TriggerAction;
 
+import java.io.Serializable;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import java.io.File;
-import java.io.Serializable;
 
 /**
  * This class implements the MenuRestPanel class of <code>PDDL4GUI</code>.

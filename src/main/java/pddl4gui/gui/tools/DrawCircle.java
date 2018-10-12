@@ -36,6 +36,15 @@ public class DrawCircle extends JPanel implements Serializable {
     private Color color = Color.RED;
 
     /**
+     * Returns the color of the circle.
+     *
+     * @return the color of the circle.
+     */
+    public Color getColor() {
+        return color;
+    }
+
+    /**
      * Sets the color of the circle.
      *
      * @param color the new color of the circle.

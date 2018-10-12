@@ -8,8 +8,8 @@ import pddl4gui.gui.panel.SetupRestPanel;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 
-import javax.swing.JFrame;
 import java.io.Serializable;
+import javax.swing.JFrame;
 
 public class RestClient extends JFrame implements Serializable {
 
@@ -18,6 +18,11 @@ public class RestClient extends JFrame implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Create a new RestClient.
+     *
+     * @param url the url to the RESTFull API
+     */
     public RestClient(final String url) {
         final int width = 1200;
         final int height = 800;
@@ -56,7 +61,7 @@ public class RestClient extends JFrame implements Serializable {
         logPanel.setBounds(marging, 585, 1180, 175);
         add(logPanel);
 
-        TriggerAction.setupPanel(setupRestPanel, resultPanel, menuRestPanel);
+        TriggerAction.setupPanel(setupRestPanel, resultPanel, menuRestPanel, infoRestPanel);
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

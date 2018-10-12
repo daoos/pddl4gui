@@ -1,51 +1,31 @@
 package pddl4gui.gui.panel;
 
-import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
-import fr.uga.pddl4j.planners.Planner;
-import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import pddl4gui.gui.Editor;
-import pddl4gui.gui.tools.DrawCircle;
-import pddl4gui.gui.tools.FileTools;
-import pddl4gui.gui.tools.Icons;
-import pddl4gui.gui.tools.TriggerAction;
-import pddl4gui.gui.tools.WindowsManager;
 
+import pddl4gui.gui.tools.DrawCircle;
+import pddl4gui.gui.tools.TriggerAction;
+
+import java.awt.Color;
+import java.io.IOException;
+import java.io.Serializable;
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.text.NumberFormatter;
-import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Serializable;
-import java.text.NumberFormat;
-import java.util.Random;
-import java.util.Vector;
 
 /**
  * This class implements the InfoRestPanel class of <code>PDDL4GUI</code>.
@@ -67,7 +47,7 @@ public class InfoRestPanel extends JPanel implements Serializable {
     private final DrawCircle circlePanel;
 
     /**
-     * The url to the RESTFull API
+     * The url to the RESTFull API.
      */
     private String url;
 
@@ -77,10 +57,30 @@ public class InfoRestPanel extends JPanel implements Serializable {
     private JList<Integer> list;
 
     /**
+     * The JTextField to display status.
+     */
+    final JTextField status;
+
+    /**
      * The current computation id.
      */
     private int id = -1;
 
+    /**
+     * Returns the color of the circle corresponding to the status of the REST API.
+     *
+     * @return the color of the circle corresponding to the status of the REST API.
+     */
+    public Color getRestStatus() {
+        return circlePanel.getColor();
+    }
+
+    /**
+     * Sets the status JTextField.
+     */
+    public void setStatus(final String statusString) {
+        status.setText(statusString);
+    }
 
     /**
      * Creates a new SetupRestPanel associated to the RestSolver main JFrame.
@@ -93,7 +93,7 @@ public class InfoRestPanel extends JPanel implements Serializable {
 
         final JLabel statusLabel = new JLabel("REST solver alive ?");
         final JTextField urlRest = new JTextField(this.url, 300);
-        final JTextField status = new JTextField("status", 300);
+        status = new JTextField("status", 300);
 
         circlePanel = new DrawCircle(3, 3, 15);
         circlePanel.setBounds(140, 21, 25, 25);
