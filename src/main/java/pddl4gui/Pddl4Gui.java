@@ -45,7 +45,7 @@ public class Pddl4Gui implements Serializable {
             if (name != null && !name.equals("")) {
                 new RestClient(name);
             } else {
-                new RestClient("http://pddl4j-dev.imag.fr/pddl4j-service-1.0/search");
+                new RestClient("http://localhost:8080/pddl4j-service-1.0/search");
             }
         } else {
             System.exit(0);

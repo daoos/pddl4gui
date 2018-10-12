@@ -11,6 +11,14 @@ import fr.uga.pddl4j.planners.statespace.search.strategy.DepthFirstSearch;
 import fr.uga.pddl4j.planners.statespace.search.strategy.EnforcedHillClimbing;
 import fr.uga.pddl4j.planners.statespace.search.strategy.GreedyBestFirstSearch;
 import fr.uga.pddl4j.planners.statespace.search.strategy.StateSpaceStrategy;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.json.simple.JSONObject;
 import pddl4gui.gui.Editor;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
@@ -27,6 +35,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Vector;
 
@@ -71,7 +80,7 @@ public class SetupRestPanel extends JPanel implements Serializable {
     /**
      * The PDDL problem file.
      */
-    private File problemFiles;
+    private File problemFile;
 
     /**
      * The default Heuristic used by the planner.
@@ -92,7 +101,7 @@ public class SetupRestPanel extends JPanel implements Serializable {
     /**
      * Creates a new SetupRestPanel associated to the RestSolver main JFrame.
      */
-    public SetupRestPanel() {
+    public SetupRestPanel(String url) {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver parameters"));
 
@@ -136,12 +145,12 @@ public class SetupRestPanel extends JPanel implements Serializable {
         pbButton.addActionListener(e -> {
             final Vector<File> problemTempFiles = FileTools.getFiles(this, 0, false, pbButton);
             if (problemTempFiles.size() == 1) {
-                problemFiles = problemTempFiles.firstElement();
-                if (FileTools.checkFile(problemFiles)) {
-                    pbButton.setText(problemFiles.getName());
+                problemFile = problemTempFiles.firstElement();
+                if (FileTools.checkFile(problemFile)) {
+                    pbButton.setText(problemFile.getName());
                 }
             } else {
-                problemFiles = null;
+                problemFile = null;
             }
         });
         add(pbButton);
@@ -197,20 +206,81 @@ public class SetupRestPanel extends JPanel implements Serializable {
         planButton = new JButton("Resolve this problem !");
         planButton.setBounds(80, 305, 200, 25);
         planButton.setEnabled(true);
-        planButton.addActionListener(e -> resolve(domainFile, problemFiles));
+        planButton.addActionListener(e -> {
+            if (domainFile != null && problemFile != null) {
+                resolve(url);
+            }
+        });
         add(planButton);
+    }
+
+    /**
+     * Returns the search strategy to use according to the given parameter.
+     *
+     * @param searchStrategy search strategy.
+     * @return the search strategy as string keyword.
+     */
+    private String getSearchStrategy(String searchStrategy) {
+        if (searchStrategy.equals("Greedy Best First Search")) {
+            return "GBFS";
+        } else if (searchStrategy.equals("Breadth First Search")) {
+            return "BFS";
+        } else if (searchStrategy.equals("Depth First Search")) {
+            return "DFS";
+        } else if (searchStrategy.equals("Enforced Hill Climbing")) {
+            return "EHC";
+        } else {
+            return "A*";
+        }
     }
 
     /**
      * Creates token and send it to the REST solver.
      *
-     * @param domainFile   the PDDL domain file.
-     * @param problemFiles the PDDL problem file.
+     * @param url the url to POST the problem to solve.
      */
-    private void resolve(File domainFile, File problemFiles) {
+    private void resolve(final String url) {
         final double weight = (double) weightSpinner.getValue();
         final double timeout = (double) timeoutSpinner.getValue() * 1000;
-        AbstractStateSpacePlanner planner = null;
+
+        try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+
+            JSONObject json = new JSONObject();
+
+            json.put("domain", FileTools.readFileToString(domainFile));
+            json.put("problem", FileTools.readFileToString(problemFile));
+            json.put("search", getSearchStrategy(strategyName));
+            json.put("heuristic", heuristic.toString());
+            json.put("weight", String.valueOf(weight));
+            json.put("timeout", String.valueOf(timeout));
+
+            HttpPost httpPost = new HttpPost(url);
+            httpPost.setEntity(new StringEntity(json.toString()));
+
+            ResponseHandler<String> responseHandler = response -> {
+                int responseCode = response.getStatusLine().getStatusCode();
+                if (responseCode >= 200 && responseCode < 300) {
+                    System.out.println("[Response Code : " + responseCode
+                            + "] Post solve request succeeded");
+                    //status.setText("[id " + resultID.getValue() + "] Delete succeeded");
+                    HttpEntity entity = response.getEntity();
+                    return entity != null ? EntityUtils.toString(entity) : "error";
+                } else {
+                    System.out.println("[Response Code : " + responseCode
+                            + "] Post solve request failed");
+                    return "error";
+                }
+            };
+            String responseBody = httpclient.execute(httpPost, responseHandler);
+            if (responseBody.equals("-1") || responseBody.equals("error")) {
+                System.out.println("[id ? ] Error");
+            } else {
+                TriggerAction.getRestModel().addElement(Integer.parseInt(responseBody));
+                System.out.println("[id " + responseBody + "] New solving problem");
+            }
+        } catch (IOException exp) {
+            exp.printStackTrace();
+        }
 
     }
 }

@@ -88,6 +88,11 @@ public class TriggerAction implements Serializable {
     private static final DefaultListModel<Token> listModel = new DefaultListModel<>();
 
     /**
+     * The DefaultListModel used in JList in InfoRestPanel class.
+     */
+    private static final DefaultListModel<Integer> listRestModel = new DefaultListModel<>();
+
+    /**
      * Gets the DecimalFormat to use with decimal number.
      *
      * @return the DecimalFormat to use with decimal number.
@@ -103,6 +108,15 @@ public class TriggerAction implements Serializable {
      */
     public static DefaultListModel<Token> getListModel() {
         return listModel;
+    }
+
+    /**
+     * Gets the DefaultListModel (REST).
+     *
+     * @return the DefaultListModel (REST).
+     */
+    public static DefaultListModel<Integer> getRestModel() {
+        return listRestModel;
     }
 
     /**
