@@ -195,7 +195,7 @@ public class SetupRestPanel extends JPanel implements Serializable {
         add(timeLabel);
 
         planButton = new JButton("Resolve this problem !");
-        planButton.setBounds(80, 270, 200, 25);
+        planButton.setBounds(80, 305, 200, 25);
         planButton.setEnabled(true);
         planButton.addActionListener(e -> resolve(domainFile, problemFiles));
         add(planButton);

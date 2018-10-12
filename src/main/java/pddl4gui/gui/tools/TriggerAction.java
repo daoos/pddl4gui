@@ -2,8 +2,10 @@ package pddl4gui.gui.tools;
 
 import pddl4gui.gui.Solver;
 import pddl4gui.gui.panel.EngineManagerPanel;
+import pddl4gui.gui.panel.MenuRestPanel;
 import pddl4gui.gui.panel.MenuSolverPanel;
 import pddl4gui.gui.panel.ResultPanel;
+import pddl4gui.gui.panel.SetupRestPanel;
 import pddl4gui.gui.panel.SetupSolverPanel;
 import pddl4gui.gui.panel.StatisticsPanel;
 import pddl4gui.gui.panel.TokenListPanel;
@@ -14,6 +16,7 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JTextArea;
 
 /**
  * This class implements the TriggerAction class of <code>PDDL4GUI</code>.
@@ -65,6 +68,16 @@ public class TriggerAction implements Serializable {
     private static TokenListPanel tokenListPanel;
 
     /**
+     * The REST SetupRestPanel.
+     */
+    private static SetupRestPanel setupRestPanel;
+
+    /**
+     * The REST MenuRestPanel.
+     */
+    private static MenuRestPanel menuRestPanel;
+
+    /**
      * The DecimalFormat to use in PDDL4GUI.
      */
     private static DecimalFormat decimalFormat;
@@ -99,7 +112,7 @@ public class TriggerAction implements Serializable {
     }
 
     /**
-     * Setups all the panel used in this class.
+     * Setups all the panel used in this class (Local).
      *
      * @param setupPanel         the solver SetupPanel.
      * @param statisticsPanel    the solver StatisticsPanel.
@@ -117,6 +130,21 @@ public class TriggerAction implements Serializable {
         TriggerAction.menuSolverPanel = menuSolverPanel;
         TriggerAction.engineManagerPanel = engineManagerPanel;
         TriggerAction.tokenListPanel = tokenListPanel;
+        TriggerAction.decimalFormat = new DecimalFormat("##.###");
+    }
+
+    /**
+     * Setups all the panel used in this class (REST).
+     *
+     * @param setupRestPanel         the solver SetupRestPanel.
+     * @param resultPanel            the solver ResultPanel.
+     * @param menuRestPanel    the solver MenuSolverPanel.
+     */
+    public static void setupPanel(SetupRestPanel setupRestPanel, ResultPanel resultPanel,
+                                  MenuRestPanel menuRestPanel) {
+        TriggerAction.setupRestPanel = setupRestPanel;
+        TriggerAction.resultPanel = resultPanel;
+        TriggerAction.menuRestPanel = menuRestPanel;
         TriggerAction.decimalFormat = new DecimalFormat("##.###");
     }
 
@@ -140,6 +168,15 @@ public class TriggerAction implements Serializable {
         menuSolverPanel.getValButton().setEnabled(true);
         menuSolverPanel.getSaveJsonButton().setEnabled(true);
         menuSolverPanel.getSaveTxtButton().setEnabled(true);
+    }
+
+    /**
+     * Triggers display action for results of a specified token.
+     *
+     * @param string the string to display.
+     */
+    public static void displayResult(String string) {
+        resultPanel.displayResult(string);
     }
 
     /**
