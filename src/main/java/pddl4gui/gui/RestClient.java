@@ -42,7 +42,7 @@ public class RestClient extends JFrame implements Serializable {
         final LogPanel logPanel;
 
         setupRestPanel = new SetupRestPanel(url);
-        setupRestPanel.setBounds(marging, marging, 360, 350);
+        setupRestPanel.setBounds(marging, marging + 50, 360, 520);
         add(setupRestPanel);
 
         menuRestPanel = new MenuRestPanel();

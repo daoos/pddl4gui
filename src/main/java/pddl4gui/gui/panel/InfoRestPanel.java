@@ -96,16 +96,14 @@ public class InfoRestPanel extends JPanel implements Serializable {
         status = new JTextField("status", 300);
 
         circlePanel = new DrawCircle(3, 3, 15);
-        circlePanel.setBounds(140, 21, 25, 25);
+        circlePanel.setBounds(140, 26, 25, 25);
         add(circlePanel);
 
-        checkRestAlive();
-
-        statusLabel.setBounds(15, 20, 120, 25);
+        statusLabel.setBounds(15, 25, 120, 25);
         add(statusLabel);
 
         urlRest.setEditable(false);
-        urlRest.setBounds(15, 55, 270, 25);
+        urlRest.setBounds(15, 65, 270, 25);
         add(urlRest);
 
         list = new JList<>(TriggerAction.getRestModel());
@@ -121,18 +119,18 @@ public class InfoRestPanel extends JPanel implements Serializable {
         });
         list.setVisibleRowCount(5);
         JScrollPane listScrollPane = new JScrollPane(list);
-        listScrollPane.setBounds(15, 95, 270, 150);
+        listScrollPane.setBounds(15, 105, 270, 150);
         add(listScrollPane);
 
         status.setEditable(false);
-        status.setBounds(15, 255, 270, 25);
+        status.setBounds(15, 305, 270, 25);
         add(status);
 
         final JButton getResultButton = new JButton("Get result (text)");
         final JButton getResultJsonButton = new JButton("Get result (json)");
         final JButton deleteResultButton = new JButton("Delete result");
 
-        getResultButton.setBounds(50, 310, 200, 25);
+        getResultButton.setBounds(50, 360, 200, 25);
         getResultButton.setEnabled(true);
         getResultButton.addActionListener(e -> {
             if (id != -1) {
@@ -169,7 +167,7 @@ public class InfoRestPanel extends JPanel implements Serializable {
         });
         add(getResultButton);
 
-        getResultJsonButton.setBounds(50, 350, 200, 25);
+        getResultJsonButton.setBounds(50, 400, 200, 25);
         getResultJsonButton.setEnabled(true);
         getResultJsonButton.addActionListener(e -> {
             if (id != -1) {
@@ -206,7 +204,7 @@ public class InfoRestPanel extends JPanel implements Serializable {
         });
         add(getResultJsonButton);
 
-        deleteResultButton.setBounds(50, 390, 200, 25);
+        deleteResultButton.setBounds(50, 440, 200, 25);
         deleteResultButton.setEnabled(true);
         deleteResultButton.addActionListener(e -> {
             if (id != -1) {
@@ -244,6 +242,8 @@ public class InfoRestPanel extends JPanel implements Serializable {
             }
         });
         add(deleteResultButton);
+
+        checkRestAlive();
     }
 
     /**
