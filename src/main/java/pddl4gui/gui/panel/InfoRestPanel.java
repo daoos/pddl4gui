@@ -76,6 +76,15 @@ public class InfoRestPanel extends JPanel implements Serializable {
     }
 
     /**
+     * Returns the current computation id.
+     *
+     * @return the current computation id.
+     */
+    public int getCurrentComputationId() {
+        return this.id;
+    }
+
+    /**
      * Sets the status JTextField.
      */
     public void setStatus(final String statusString) {
@@ -117,6 +126,7 @@ public class InfoRestPanel extends JPanel implements Serializable {
                     TriggerAction.clearResult();
                     TriggerAction.enableSaveTxtResultRest(false);
                     TriggerAction.enableSaveJsonResultRest(false);
+                    TriggerAction.enableValRest(false);
                 }
             }
         });
@@ -163,6 +173,7 @@ public class InfoRestPanel extends JPanel implements Serializable {
                         TriggerAction.displayResult(responseBody);
                         TriggerAction.enableSaveTxtResultRest(true);
                         TriggerAction.enableSaveJsonResultRest(false);
+                        TriggerAction.enableValRest(true);
                         status.setText("[id " + id + "] Get result (txt) succeeded");
                     }
                 } catch (IOException exp) {
@@ -202,6 +213,7 @@ public class InfoRestPanel extends JPanel implements Serializable {
                         TriggerAction.displayResult(responseBody);
                         TriggerAction.enableSaveTxtResultRest(false);
                         TriggerAction.enableSaveJsonResultRest(true);
+                        TriggerAction.enableValRest(false);
                         status.setText("[id " + id + "] Get result (json) succeeded");
                     }
                 } catch (IOException exp) {
@@ -240,6 +252,7 @@ public class InfoRestPanel extends JPanel implements Serializable {
                         TriggerAction.clearResult();
                         TriggerAction.enableSaveTxtResultRest(false);
                         TriggerAction.enableSaveJsonResultRest(false);
+                        TriggerAction.enableValRest(false);
                         status.setText("[id " + id + "] Delete succeeded");
                         id = -1;
 

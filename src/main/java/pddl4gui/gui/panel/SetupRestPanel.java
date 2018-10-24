@@ -15,6 +15,7 @@ import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
+import pddl4gui.token.RestToken;
 
 import java.io.File;
 import java.io.IOException;
@@ -269,7 +270,12 @@ public class SetupRestPanel extends JPanel implements Serializable {
                 System.out.println("[id ? ] Error");
                 TriggerAction.setRestStatus(responseBody);
             } else {
-                TriggerAction.getRestModel().addElement(Integer.parseInt(responseBody));
+                final int computationId = Integer.parseInt(responseBody);
+                TriggerAction.getRestModel().addElement(computationId);
+
+                final RestToken restToken = new RestToken(domainFile,problemFile, computationId);
+                TriggerAction.getRestTokenList().add(restToken);
+
                 System.out.println("[id " + responseBody + "] New solving problem");
                 TriggerAction.setRestStatus("[id " + responseBody + "] New solving problem");
             }

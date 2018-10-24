@@ -63,14 +63,18 @@ public class VAL extends JFrame implements Serializable {
     /**
      * Creates a new VAL JFrame.
      *
-     * @param token the token to check with VAL.
+     * @param domain   the domain to validate.
+     * @param problem  the problem to validate.
+     * @param result   the result to validate.
+     * @param isSolved the status of the computation.
      */
-    public VAL(Token token) {
+    public VAL(final File domain, final File problem, final String result, final boolean isSolved) {
         final JButton exitButton;
         final JButton generateTexButton;
         final JButton saveButton;
 
-        setTitle("VAL | " + token.toString());
+        setTitle("VAL | " + FileTools.removeExtension(domain.getName()) + " "
+                + FileTools.removeExtension(problem.getName()));
         setLayout(null);
 
         final int width = 540;
@@ -126,16 +130,16 @@ public class VAL extends JFrame implements Serializable {
         panel.setBorder(BorderFactory.createTitledBorder(
                 "VAL input"));
 
-        domainFile = token.getDomainFile();
-        pbFile = token.getProblemFile();
+        this.domainFile = domain;
+        this.pbFile = problem;
         try {
             planFile = File.createTempFile("result", ".txt");
             try (final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(planFile), StandardCharsets.UTF_8))) {
-                writer.write(token.getResult().getSolutionString());
+                writer.write(result);
             }
 
-            if (FileTools.checkFile(domainFile) && FileTools.checkFile(pbFile) && token.isSolved()) {
+            if (FileTools.checkFile(domainFile) && FileTools.checkFile(pbFile) && isSolved) {
                 try {
                     String target = "./resources/apps/validate -v " + domainFile.getAbsolutePath()
                             + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();

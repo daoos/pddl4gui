@@ -11,11 +11,13 @@ import pddl4gui.gui.panel.SetupSolverPanel;
 import pddl4gui.gui.panel.StatisticsPanel;
 import pddl4gui.gui.panel.TokenListPanel;
 import pddl4gui.token.Queue;
+import pddl4gui.token.RestToken;
 import pddl4gui.token.Token;
 
 import java.awt.Color;
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JTextArea;
@@ -95,9 +97,14 @@ public class TriggerAction implements Serializable {
     private static final DefaultListModel<Token> listModel = new DefaultListModel<>();
 
     /**
-     * The DefaultListModel used in JList in InfoRestPanel class.
+     * The DefaultListModel used in JList in InfoRestPanel class (REST).
      */
     private static final DefaultListModel<Integer> listRestModel = new DefaultListModel<>();
+
+    /**
+     * The Vector list to store RestToken.
+     */
+    private static final Vector<RestToken> restTokenList = new Vector<>();
 
     /**
      * Gets the DecimalFormat to use with decimal number.
@@ -124,6 +131,30 @@ public class TriggerAction implements Serializable {
      */
     public static DefaultListModel<Integer> getRestModel() {
         return listRestModel;
+    }
+
+    /**
+     * Gets the Vector list of RestToken (REST).
+     *
+     * @return the Vector list of RestToken (REST).
+     */
+    public static Vector<RestToken> getRestTokenList() {
+        return restTokenList;
+    }
+
+    /**
+     * Gets the RestToken according to the computation id (REST).
+     *
+     * @return the RestToken according to the computation id (REST).
+     */
+    public static RestToken getRestTokenFromId(final int id) {
+        RestToken returnedToken = null;
+        for(RestToken token : restTokenList) {
+            if(token.getId() == id) {
+                returnedToken = token;
+            }
+        }
+        return returnedToken;
     }
 
     /**
@@ -367,20 +398,38 @@ public class TriggerAction implements Serializable {
     }
 
     /**
-     * Enables or disables the result's save button.
+     * Enables or disables the result's save button (REST).
      *
-     * @param status the status of the save button.
+     * @param status the status of the save button (REST).
      */
     public static void enableSaveTxtResultRest(final boolean status) {
         menuRestPanel.enableSaveTxtButton(status);
     }
 
     /**
-     * Enables or disables the result's save button.
+     * Enables or disables the result's save button (REST).
      *
-     * @param status the status of the save button.
+     * @param status the status of the save button (REST).
      */
     public static void enableSaveJsonResultRest(final boolean status) {
         menuRestPanel.enableSaveJsonButton(status);
+    }
+
+    /**
+     * Enables or disables the Val button (REST).
+     *
+     * @param status the status of the Val button (REST).
+     */
+    public static void enableValRest(final boolean status) {
+        menuRestPanel.enableValButton(status);
+    }
+
+    /**
+     * Gets the current computation id (REST).
+     *
+     * @return the current computation id (REST).
+     */
+    public static int getCurrentComputationId() {
+        return infoRestPanel.getCurrentComputationId();
     }
 }

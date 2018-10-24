@@ -1,6 +1,5 @@
 package pddl4gui.token;
 
-import fr.uga.pddl4j.planners.Planner;
 import fr.uga.pddl4j.planners.statespace.StateSpacePlanner;
 import pddl4gui.gui.tools.FileTools;
 

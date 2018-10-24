@@ -1,8 +1,10 @@
 package pddl4gui.gui.panel;
 
+import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.token.RestToken;
 
 import java.io.File;
 import java.io.Serializable;
@@ -33,10 +35,10 @@ public class MenuRestPanel extends JPanel implements Serializable {
     /**
      * Returns the VAL button.
      *
-     * @return the VAL button.
+     * @param status the status of the button.
      */
-    public JButton getValButton() {
-        return valButton;
+    public void enableValButton(final boolean status) {
+        valButton.setEnabled(status);
     }
 
     /**
@@ -66,7 +68,14 @@ public class MenuRestPanel extends JPanel implements Serializable {
         valButton.setToolTipText("VAL on solution");
         valButton.setEnabled(false);
         valButton.addActionListener(e -> {
-
+            final int id = TriggerAction.getCurrentComputationId();
+            if (id != -1) {
+                final RestToken restToken = TriggerAction.getRestTokenFromId(id);
+                if (restToken != null) {
+                    new VAL(restToken.getDomainFile(), restToken.getProblemFile(),
+                            TriggerAction.getResult(), true);
+                }
+            }
         });
         add(valButton);
 

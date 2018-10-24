@@ -4,6 +4,7 @@ import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.token.Token;
 
 import java.io.File;
 import java.io.Serializable;
@@ -68,7 +69,9 @@ public class MenuSolverPanel extends JPanel implements Serializable {
         valButton.setEnabled(false);
         valButton.addActionListener(e -> {
             if (TriggerAction.isTokenListPanelJListSelectedValueSolved()) {
-                new VAL(TriggerAction.getTokenListPanelJListSelectedValue());
+                final Token token = TriggerAction.getTokenListPanelJListSelectedValue();
+                new VAL(token.getDomainFile(), token.getProblemFile(),
+                        token.getResult().getSolutionString(), token.isSolved());
             }
         });
         add(valButton);
