@@ -36,12 +36,12 @@ public class Pddl4Gui implements Serializable {
         if (selection == 0) {
             new Solver(new Queue());
         } else if (selection == 1) {
-            String name = JOptionPane.showInputDialog(null,
-                    "i.e: http://pddl4j-dev.imag.fr/pddl4j-service-1.0/search",
+            String restService = JOptionPane.showInputDialog(null,
+                    "i.e: http://pddl4j-dev.imag.fr/pddl4j-service-1.0",
                     "Enter URL of RESTFull API", JOptionPane.INFORMATION_MESSAGE);
 
-            if (name != null && !name.equals("")) {
-                new RestClient(name);
+            if (restService != null && !restService.equals("")) {
+                new RestClient(restService + "/search");
             } else {
                 new RestClient("http://localhost:8080/pddl4j-service-1.0/search");
             }

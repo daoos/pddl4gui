@@ -204,6 +204,15 @@ public class TriggerAction implements Serializable {
     }
 
     /**
+     * Triggers display action to get result from the JTextArea.
+     *
+     * @return The String result.
+     */
+    public static String getResult() {
+        return resultPanel.getResult();
+    }
+
+    /**
      * Triggers display action for error of a specified token.
      *
      * @param token the specified token.
@@ -226,10 +235,16 @@ public class TriggerAction implements Serializable {
     }
 
     /**
-     * Triggers clean action for ResultPanel and StatisticsPanel.
+     * Triggers clean action for ResultPanel.
      */
     public static void clearResult() {
         resultPanel.clearResult();
+    }
+
+    /**
+     * Triggers clean action for StatisticsPanel.
+     */
+    public static void clearStats() {
         statisticsPanel.clearStats();
     }
 
@@ -238,6 +253,7 @@ public class TriggerAction implements Serializable {
      */
     public static void resetSolver() {
         TriggerAction.clearResult();
+        TriggerAction.clearStats();
         solver.getQueue().clearList();
         TriggerAction.getListModel().clear();
     }
@@ -348,5 +364,23 @@ public class TriggerAction implements Serializable {
      */
     public static void setRestStatus(final String status) {
         TriggerAction.infoRestPanel.setStatus(status);
+    }
+
+    /**
+     * Enables or disables the result's save button.
+     *
+     * @param status the status of the save button.
+     */
+    public static void enableSaveTxtResultRest(final boolean status) {
+        menuRestPanel.enableSaveTxtButton(status);
+    }
+
+    /**
+     * Enables or disables the result's save button.
+     *
+     * @param status the status of the save button.
+     */
+    public static void enableSaveJsonResultRest(final boolean status) {
+        menuRestPanel.enableSaveJsonButton(status);
     }
 }

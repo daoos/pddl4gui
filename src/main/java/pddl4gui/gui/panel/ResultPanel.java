@@ -144,6 +144,15 @@ public class ResultPanel extends JPanel implements Serializable {
     }
 
     /**
+     * Get the content of the JTextArea.
+     *
+     * @return The String result.
+     */
+    public String getResult() {
+        return resultArea.getText();
+    }
+
+    /**
      * Displays result for a specific token.
      *
      * @param token the token.

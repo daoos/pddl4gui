@@ -1,7 +1,10 @@
 package pddl4gui.gui.panel;
 
+import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
+import pddl4gui.gui.tools.TriggerAction;
 
+import java.io.File;
 import java.io.Serializable;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -25,6 +28,7 @@ public class MenuRestPanel extends JPanel implements Serializable {
      */
     private final JButton valButton;
     private final JButton saveTxtButton;
+    private final JButton saveJsonButton;
 
     /**
      * Returns the VAL button.
@@ -36,12 +40,21 @@ public class MenuRestPanel extends JPanel implements Serializable {
     }
 
     /**
-     * Returns the save to text button.
+     * Enables or disables the "save to text" button.
      *
-     * @return the save to text button.
+     * @param status the status of the button.
      */
-    public JButton getSaveTxtButton() {
-        return saveTxtButton;
+    public void enableSaveTxtButton(final boolean status) {
+        saveTxtButton.setEnabled(status);
+    }
+
+    /**
+     * Enables or disables the "save to json" button.
+     *
+     * @param status the status of the button.
+     */
+    public void enableSaveJsonButton(final boolean status) {
+        saveJsonButton.setEnabled(status);
     }
 
     /**
@@ -61,13 +74,28 @@ public class MenuRestPanel extends JPanel implements Serializable {
         saveTxtButton.setBounds(60, 10, 40, 40);
         saveTxtButton.setToolTipText("Save solution (txt)");
         saveTxtButton.addActionListener(e -> {
-
+            File tempFile = FileTools.saveFile(this, 1);
+            if (FileTools.checkFile(tempFile)) {
+                FileTools.writeInFile(tempFile, TriggerAction.getResult());
+            }
         });
         saveTxtButton.setEnabled(false);
         add(saveTxtButton);
 
+        saveJsonButton = new JButton(Icons.getSaveIcon());
+        saveJsonButton.setBounds(110, 10, 40, 40);
+        saveJsonButton.setToolTipText("Save solution (txt)");
+        saveJsonButton.addActionListener(e -> {
+            File tempFile = FileTools.saveFile(this, 5);
+            if (FileTools.checkFile(tempFile)) {
+                FileTools.writeInFile(tempFile, TriggerAction.getResult());
+            }
+        });
+        saveJsonButton.setEnabled(false);
+        add(saveJsonButton);
+
         final JButton exitButton = new JButton(Icons.getExitIcon());
-        exitButton.setBounds(110, 10, 40, 40);
+        exitButton.setBounds(160, 10, 40, 40);
         exitButton.setToolTipText("Exit");
         exitButton.addActionListener(e -> System.exit(0));
         add(exitButton);

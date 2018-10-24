@@ -114,6 +114,7 @@ public class TokenListPanel extends JPanel implements Serializable {
             if (!e.getValueIsAdjusting()) {
                 if (tokenJList.getSelectedValuesList().size() > 1) {
                     TriggerAction.clearResult();
+                    TriggerAction.clearStats();
                     multipleResults.setEnabled(true);
                 } else if (tokenJList.getSelectedValuesList().size() == 1) {
                     multipleResults.setEnabled(false);
@@ -152,6 +153,7 @@ public class TokenListPanel extends JPanel implements Serializable {
                     TriggerAction.enableMenuSolverPanelButton(false);
                     anytimeSolutionButton.setEnabled(false);
                     TriggerAction.clearResult();
+                    TriggerAction.clearStats();
                 }
             }
         });

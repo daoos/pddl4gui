@@ -49,17 +49,17 @@ public class InfoRestPanel extends JPanel implements Serializable {
     /**
      * The url to the RESTFull API.
      */
-    private String url;
+    private final String url;
 
     /**
      * The list which contains computations' id.
      */
-    private JList<Integer> list;
+    private final JList<Integer> list;
 
     /**
      * The JTextField to display status.
      */
-    final JTextField status;
+    private final JTextField status;
 
     /**
      * The current computation id.
@@ -114,6 +114,9 @@ public class InfoRestPanel extends JPanel implements Serializable {
                 final Integer selectedValue = list.getSelectedValue();
                 if (selectedValue != null) {
                     id = selectedValue;
+                    TriggerAction.clearResult();
+                    TriggerAction.enableSaveTxtResultRest(false);
+                    TriggerAction.enableSaveJsonResultRest(false);
                 }
             }
         });
@@ -158,6 +161,8 @@ public class InfoRestPanel extends JPanel implements Serializable {
 
                     } else {
                         TriggerAction.displayResult(responseBody);
+                        TriggerAction.enableSaveTxtResultRest(true);
+                        TriggerAction.enableSaveJsonResultRest(false);
                         status.setText("[id " + id + "] Get result (txt) succeeded");
                     }
                 } catch (IOException exp) {
@@ -195,6 +200,8 @@ public class InfoRestPanel extends JPanel implements Serializable {
 
                     } else {
                         TriggerAction.displayResult(responseBody);
+                        TriggerAction.enableSaveTxtResultRest(false);
+                        TriggerAction.enableSaveJsonResultRest(true);
                         status.setText("[id " + id + "] Get result (json) succeeded");
                     }
                 } catch (IOException exp) {
@@ -230,6 +237,9 @@ public class InfoRestPanel extends JPanel implements Serializable {
 
                     if (responseBody.startsWith("true")) {
                         TriggerAction.getRestModel().removeElement(id);
+                        TriggerAction.clearResult();
+                        TriggerAction.enableSaveTxtResultRest(false);
+                        TriggerAction.enableSaveJsonResultRest(false);
                         status.setText("[id " + id + "] Delete succeeded");
                         id = -1;
 
