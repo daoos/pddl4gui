@@ -1,6 +1,6 @@
 package pddl4gui.gui.panel;
 
-//import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlannerAnytime;
+import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlannerAnytime;
 
 import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
 import pddl4gui.gui.tools.Icons;
@@ -9,6 +9,7 @@ import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Token;
 
 import java.io.Serializable;
+import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
@@ -202,7 +203,7 @@ public class AnytimePanel extends JFrame implements Serializable {
      * Refresh the JList.
      */
     private void refreshJList() {
-        /*final AbstractStateSpacePlannerAnytime plannerAnytime = (AbstractStateSpacePlannerAnytime) token.getPlanner();
+        final AbstractStateSpacePlannerAnytime plannerAnytime = (AbstractStateSpacePlannerAnytime) token.getPlanner();
         if (plannerAnytime.getSolutionNodes() != null && !plannerAnytime.getSolutionNodes().isEmpty()) {
             final Vector<Node> solutionList = new Vector<>(plannerAnytime.getSolutionNodes());
             if (!solutionList.isEmpty()) {
@@ -213,7 +214,7 @@ public class AnytimePanel extends JFrame implements Serializable {
                 }
                 numberSolutionI = listModel.getSize();
             }
-        }*/
+        }
     }
 
     /**

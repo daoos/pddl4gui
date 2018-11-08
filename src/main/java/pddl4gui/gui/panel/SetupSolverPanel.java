@@ -4,6 +4,7 @@ import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Planner;
 import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
 import fr.uga.pddl4j.planners.statespace.StateSpacePlannerFactory;
+import fr.uga.pddl4j.planners.statespace.ff.FFAnytime;
 import fr.uga.pddl4j.planners.statespace.generic.GenericPlanner;
 import fr.uga.pddl4j.planners.statespace.search.strategy.AStar;
 import fr.uga.pddl4j.planners.statespace.search.strategy.BreadthFirstSearch;
@@ -81,7 +82,7 @@ public class SetupSolverPanel extends JPanel implements Serializable {
     /**
      * The list of planners available in PDDL4J.
      */
-    private final String[] plannerList = { "HSP", "FF", "GenericPlanner"};
+    private final String[] plannerList = { "HSP", "FF", "GenericPlanner", "FFAnytime", "HCAnytime"};
 
     /**
      * The default Planner used.
@@ -293,6 +294,10 @@ public class SetupSolverPanel extends JPanel implements Serializable {
             if (stateSpaceStrategy != null) {
                 planner = new GenericPlanner(true, 1, stateSpaceStrategy);
             }
+        } else if (plannerName.equals("FFAnytime")) {
+            planner = plannerFactory.getPlanner(Planner.Name.FFAnytime, (int) timeout, heuristic, weight, true, 1);
+        } else if (plannerName.equals("HCAnytime")) {
+            planner = plannerFactory.getPlanner(Planner.Name.HCAnytime, (int) timeout, heuristic, weight, true, 1);
         }
 
         if (planner != null) {
