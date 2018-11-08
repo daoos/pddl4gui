@@ -135,21 +135,21 @@ public class ResultPanel extends JPanel implements Serializable {
     }
 
     /**
-     * Fill JTextArea.
-     *
-     * @param string the string to fill the JTextArea.
-     */
-    public void displayResult(String string) {
-        resultArea.setText(string);
-    }
-
-    /**
      * Get the content of the JTextArea.
      *
      * @return The String result.
      */
     public String getResult() {
         return resultArea.getText();
+    }
+
+    /**
+     * Fill JTextArea.
+     *
+     * @param string the string to fill the JTextArea.
+     */
+    public void displayResult(String string) {
+        resultArea.setText(string);
     }
 
     /**

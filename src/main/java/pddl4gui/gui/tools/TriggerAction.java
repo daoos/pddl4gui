@@ -149,8 +149,8 @@ public class TriggerAction implements Serializable {
      */
     public static RestToken getRestTokenFromId(final int id) {
         RestToken returnedToken = null;
-        for(RestToken token : restTokenList) {
-            if(token.getId() == id) {
+        for (RestToken token : restTokenList) {
+            if (token.getId() == id) {
                 returnedToken = token;
             }
         }

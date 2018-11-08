@@ -66,7 +66,7 @@ public class RestToken implements Serializable {
      * @param problem the problem file.
      * @param id      the id of the computation.
      */
-    public RestToken (final File domain, final File problem, final int id){
+    public RestToken(final File domain, final File problem, final int id) {
         this.domainFile = domain;
         this.problemFile = problem;
         this.id = id;
