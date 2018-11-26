@@ -5,12 +5,17 @@ import fr.uga.pddl4j.planners.Planner;
 import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
 import fr.uga.pddl4j.planners.statespace.StateSpacePlannerFactory;
 import fr.uga.pddl4j.planners.statespace.ff.FFAnytime;
+import fr.uga.pddl4j.planners.statespace.generic.GenericAnytimePlanner;
 import fr.uga.pddl4j.planners.statespace.generic.GenericPlanner;
 import fr.uga.pddl4j.planners.statespace.search.strategy.AStar;
+import fr.uga.pddl4j.planners.statespace.search.strategy.AStarAnytime;
+import fr.uga.pddl4j.planners.statespace.search.strategy.AbstractStateSpaceStrategy;
+import fr.uga.pddl4j.planners.statespace.search.strategy.AbstractStateSpaceStrategyAnytime;
 import fr.uga.pddl4j.planners.statespace.search.strategy.BreadthFirstSearch;
 import fr.uga.pddl4j.planners.statespace.search.strategy.DepthFirstSearch;
 import fr.uga.pddl4j.planners.statespace.search.strategy.EnforcedHillClimbing;
 import fr.uga.pddl4j.planners.statespace.search.strategy.GreedyBestFirstSearch;
+import fr.uga.pddl4j.planners.statespace.search.strategy.GreedyBestFirstSearchAnytime;
 import fr.uga.pddl4j.planners.statespace.search.strategy.StateSpaceStrategy;
 import pddl4gui.gui.Editor;
 import pddl4gui.gui.tools.FileTools;
@@ -82,7 +87,8 @@ public class SetupSolverPanel extends JPanel implements Serializable {
     /**
      * The list of planners available in PDDL4J.
      */
-    private final String[] plannerList = { "HSP", "FF", "GenericPlanner", "FFAnytime", "HCAnytime"};
+    private final String[] plannerList = { "HSP", "FF", "GenericPlanner", "FFAnytime", "HCAnytime",
+        "GenericAnytimePlanner"};
 
     /**
      * The default Planner used.
@@ -94,6 +100,11 @@ public class SetupSolverPanel extends JPanel implements Serializable {
      */
     private final String[] searchStrategyList = {"A*", "Enforced Hill Climbing", "Breadth First Search",
         "Depth First Search", "Greedy Best First Search"};
+
+    /**
+     * The list of anytime search strategies available in PDDL4J.
+     */
+    private final String[] anytimeSearchStrategyList = {"A* Anytime", "Greedy Best First Search Anytime"};
 
     /**
      * The default search strategy used.
@@ -212,6 +223,19 @@ public class SetupSolverPanel extends JPanel implements Serializable {
                 if (selection == 0) {
                     strategyName = (String) combo.getSelectedItem();
                 }
+            } else if (plannerName != null && plannerName.equals("GenericAnytimePlanner")) {
+                final JComboBox<String> combo = new JComboBox<>(anytimeSearchStrategyList);
+
+                final String[] options = { "OK", "Cancel"};
+
+                String title = "GenericAnytimePlanner: Select an anytime search strategy";
+                int selection = JOptionPane.showOptionDialog(null, combo, title,
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
+                        options[0]);
+
+                if (selection == 0) {
+                    strategyName = (String) combo.getSelectedItem();
+                }
             }
         });
         add(plannerComboBox);
@@ -275,7 +299,7 @@ public class SetupSolverPanel extends JPanel implements Serializable {
             planner = plannerFactory.getPlanner(Planner.Name.FF, (int) timeout, heuristic, weight, true, 1);
         } else if (plannerName.equals("GenericPlanner")) {
 
-            StateSpaceStrategy stateSpaceStrategy = null;
+            AbstractStateSpaceStrategy stateSpaceStrategy = null;
 
             if (strategyName != null) {
                 if (strategyName.equals("A*")) {
@@ -293,6 +317,21 @@ public class SetupSolverPanel extends JPanel implements Serializable {
 
             if (stateSpaceStrategy != null) {
                 planner = new GenericPlanner(true, 1, stateSpaceStrategy);
+            }
+        } else if (plannerName.equals("GenericAnytimePlanner")) {
+
+            AbstractStateSpaceStrategyAnytime stateSpaceStrategy = null;
+
+            if (strategyName != null) {
+                if (strategyName.equals("A* Anytime")) {
+                    stateSpaceStrategy = new AStarAnytime((int) timeout, heuristic, weight);
+                } else if (strategyName.equals("Greedy Best First Search Anytime")) {
+                    stateSpaceStrategy = new GreedyBestFirstSearchAnytime((int) timeout, heuristic, weight);
+                }
+            }
+
+            if (stateSpaceStrategy != null) {
+                planner = new GenericAnytimePlanner(true, 1, stateSpaceStrategy);
             }
         } else if (plannerName.equals("FFAnytime")) {
             planner = plannerFactory.getPlanner(Planner.Name.FFAnytime, (int) timeout, heuristic, weight, true, 1);
