@@ -37,7 +37,6 @@ public class TokenListPanel extends JPanel implements Serializable {
     /**
      * The JButton of the TokenListPanel.
      */
-    private final JButton anytimeSolutionButton;
     private final JButton multipleResults;
 
     /**
@@ -56,18 +55,18 @@ public class TokenListPanel extends JPanel implements Serializable {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Token list"));
 
-        anytimeSolutionButton = new JButton("Anytime details");
+        final JButton SolutionListButton = new JButton("List of solutions");
         multipleResults = new JButton("Compute cost");
         tokenJList = new JList<>(TriggerAction.getListModel());
 
-        anytimeSolutionButton.setEnabled(false);
-        anytimeSolutionButton.setBounds(20, 220, 140, 25);
-        anytimeSolutionButton.addActionListener(e -> {
+        SolutionListButton.setEnabled(true);
+        SolutionListButton.setBounds(20, 220, 140, 25);
+        SolutionListButton.addActionListener(e -> {
             if (tokenJList.getSelectedValue() != null) {
-                new AnytimePanel(tokenJList.getSelectedValue());
+                new SolutionListPanel(tokenJList.getSelectedValue());
             }
         });
-        add(anytimeSolutionButton);
+        add(SolutionListButton);
 
         multipleResults.setEnabled(false);
         multipleResults.setBounds(170, 220, 140, 25);
@@ -124,7 +123,6 @@ public class TokenListPanel extends JPanel implements Serializable {
                         final AbstractStateSpacePlanner planner =
                                 (AbstractStateSpacePlanner) selectedValue.getPlanner();
                         if (planner.isAnytime()) {
-                            anytimeSolutionButton.setEnabled(true);
                             if (selectedValue.isSolved()) {
                                 TriggerAction.enableMenuSolverPanelButton(true);
                                 TriggerAction.displayResult(selectedValue);
@@ -136,7 +134,6 @@ public class TokenListPanel extends JPanel implements Serializable {
                                 TriggerAction.displayProgress(selectedValue);
                             }
                         } else {
-                            anytimeSolutionButton.setEnabled(false);
                             if (selectedValue.isSolved()) {
                                 TriggerAction.enableMenuSolverPanelButton(true);
                                 TriggerAction.displayResult(selectedValue);
@@ -151,7 +148,6 @@ public class TokenListPanel extends JPanel implements Serializable {
                     }
                 } else {
                     TriggerAction.enableMenuSolverPanelButton(false);
-                    anytimeSolutionButton.setEnabled(false);
                     TriggerAction.clearResult();
                     TriggerAction.clearStats();
                 }

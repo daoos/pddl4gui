@@ -186,6 +186,7 @@ public class Engine extends Thread implements Serializable {
                     return false;
                 }
                 if (pb != null) {
+                    token.setCodedProblem(pb);
                     statistics.setTimeToEncodeInSeconds((System.currentTimeMillis() - begin) / 1000.0);
                     statistics.setNumberOfActions(pb.getOperators().size());
                     statistics.setNumberOfFluents(pb.getRelevantFacts().size());

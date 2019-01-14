@@ -3,6 +3,7 @@ package pddl4gui.gui.panel;
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Planner;
 import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
+import fr.uga.pddl4j.planners.statespace.StateSpacePlanner;
 import fr.uga.pddl4j.planners.statespace.StateSpacePlannerFactory;
 import fr.uga.pddl4j.planners.statespace.ff.FFAnytime;
 import fr.uga.pddl4j.planners.statespace.generic.GenericAnytimePlanner;
@@ -16,6 +17,7 @@ import fr.uga.pddl4j.planners.statespace.search.strategy.DepthFirstSearch;
 import fr.uga.pddl4j.planners.statespace.search.strategy.EnforcedHillClimbing;
 import fr.uga.pddl4j.planners.statespace.search.strategy.GreedyBestFirstSearch;
 import fr.uga.pddl4j.planners.statespace.search.strategy.GreedyBestFirstSearchAnytime;
+import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
 import fr.uga.pddl4j.planners.statespace.search.strategy.StateSpaceStrategy;
 import pddl4gui.gui.Editor;
 import pddl4gui.gui.tools.FileTools;
@@ -26,8 +28,11 @@ import pddl4gui.token.Token;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -291,7 +296,8 @@ public class SetupSolverPanel extends JPanel implements Serializable {
         final StateSpacePlannerFactory plannerFactory = StateSpacePlannerFactory.getInstance();
         final double weight = (double) weightSpinner.getValue();
         final double timeout = (double) timeoutSpinner.getValue() * 1000;
-        AbstractStateSpacePlanner planner = null;
+
+        StateSpacePlanner planner = null;
 
         if (plannerName.equals("HSP")) {
             planner = plannerFactory.getPlanner(Planner.Name.HSP, (int) timeout, heuristic, weight, true, 1);
@@ -343,6 +349,14 @@ public class SetupSolverPanel extends JPanel implements Serializable {
             if (problemFiles != null && domainFile != null) {
                 for (File file : problemFiles) {
                     final Token token = new Token(domainFile, file, planner, plannerName);
+                    List<StateSpaceStrategy> strategyList = token.getPlanner().getStateSpaceStrategies();
+                    final DefaultListModel<Node> listModel = new DefaultListModel<>();
+
+                    for(StateSpaceStrategy stateSpaceStrategy : strategyList){
+                        stateSpaceStrategy.addSolutionListener(e -> listModel.addElement(e.getSolutionNode()));
+                    }
+
+                    token.setSolutioNodeListModel(listModel);
 
                     if (token.isRunnable() && TriggerAction.isEngineManagerRunning()) {
                         if (!TriggerAction.getListModel().contains(token)) {

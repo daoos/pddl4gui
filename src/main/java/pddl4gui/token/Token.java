@@ -1,8 +1,11 @@
 package pddl4gui.token;
 
+import fr.uga.pddl4j.encoding.CodedProblem;
 import fr.uga.pddl4j.planners.statespace.StateSpacePlanner;
+import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
 import pddl4gui.gui.tools.FileTools;
 
+import javax.swing.DefaultListModel;
 import java.io.File;
 import java.io.Serializable;
 
@@ -69,6 +72,16 @@ public class Token implements Serializable {
      * The name of the planner used.
      */
     private String plannerName;
+
+    /**
+     * The CodedProblem associated to the token.
+     */
+    private CodedProblem codedProblem;
+
+    /**
+     * The ListModel for solution node.
+     */
+    private DefaultListModel<Node> solutioNodeListModel;
 
     /**
      * Sets if a token could be solved by checking if files are not null.
@@ -194,6 +207,42 @@ public class Token implements Serializable {
      */
     public String getPlannerName() {
         return plannerName;
+    }
+
+    /**
+     * Returns the CodedProblem associated to the token.
+     *
+     * @return the CodedProblem associated to the token.
+     */
+    public CodedProblem getCodedProblem() {
+        return codedProblem;
+    }
+
+    /**
+     * Sets the CodedProblem associated to the token.
+     *
+     * @param codedProblem the CodedProblem associated to the token.
+     */
+    public void setCodedProblem(CodedProblem codedProblem) {
+        this.codedProblem = codedProblem;
+    }
+
+    /**
+     * Returns the ListModel for solution node.
+     *
+     * @return the ListModel for solution node.
+     */
+    public DefaultListModel<Node> getSolutioNodeListModel() {
+        return solutioNodeListModel;
+    }
+
+    /**
+     * Sets the ListModel for solution node.
+     *
+     * @param solutioNodeListModel the ListModel for solution node.
+     */
+    public void setSolutioNodeListModel(DefaultListModel<Node> solutioNodeListModel) {
+        this.solutioNodeListModel = solutioNodeListModel;
     }
 
     /**
