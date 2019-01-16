@@ -18,7 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 
-
 /**
  * This class implements the SolutionListPanel class of <code>PDDL4GUI</code>.
  * This JFrame displays anytime information for token solved with anytime planner.
@@ -53,33 +52,28 @@ public class SolutionListPanel extends JFrame implements Serializable {
 
         final JPanel panel = new JPanel();
         panel.setLayout(null);
-        panel.setBorder(BorderFactory.createTitledBorder("List of solution nodes"));
+        panel.setBorder(BorderFactory.createTitledBorder("Details of selected solution node"));
 
         final JLabel currentCostLabel = new JLabel("Cost ");
         final JLabel currentDepthLabel = new JLabel("Depth ");
         currentCost = new JLabel("--");
         currentDepth = new JLabel("--");
 
-        final int labWidth = 120;
-        final int labHeight = 20;
-        int labMarging = 20;
-
-        currentCostLabel.setBounds(10, labMarging, labWidth - 20, labHeight);
-        currentCost.setBounds(80, labMarging, labWidth - 20, labHeight);
+        currentCostLabel.setBounds(20, 20, 60, 25);
+        currentCost.setBounds(80, 20, 120, 25);
         panel.add(currentCostLabel);
         panel.add(currentCost);
 
-
-        currentDepthLabel.setBounds(190, labMarging, labWidth - 20, labHeight);
-        currentDepth.setBounds(280, labMarging, labWidth - 20, labHeight);
+        currentDepthLabel.setBounds(200, 20, 60, 25);
+        currentDepth.setBounds(280, 20, 120, 25);
         panel.add(currentDepthLabel);
         panel.add(currentDepth);
 
-        panel.setBounds(110, 10, 380, 90);
+        panel.setBounds(70, 5, 420, 55);
         add(panel);
 
         final JButton exitButton = new JButton(Icons.getExitIcon());
-        exitButton.setBounds(60, 15, 40, 40);
+        exitButton.setBounds(15, 15, 40, 40);
         exitButton.setEnabled(true);
         exitButton.setToolTipText("Exit");
         exitButton.addActionListener(e -> this.dispose());
@@ -129,7 +123,7 @@ public class SolutionListPanel extends JFrame implements Serializable {
             }
         });
         final JScrollPane scrollNodeJList = new JScrollPane(nodeJList);
-        scrollNodeJList.setBounds(10, 110, 480, 200);
+        scrollNodeJList.setBounds(10, 70, 480, 235);
         add(scrollNodeJList);
 
         setLocation(WindowsManager.setWindowsLocationWidth());
