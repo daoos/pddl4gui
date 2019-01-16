@@ -9,7 +9,6 @@ import fr.uga.pddl4j.util.MemoryAgent;
 import fr.uga.pddl4j.util.Plan;
 import pddl4gui.gui.panel.EnginePanel;
 import pddl4gui.gui.tools.TriggerAction;
-import pddl4gui.token.Result;
 import pddl4gui.token.Statistics;
 import pddl4gui.token.Token;
 
@@ -205,7 +204,7 @@ public class Engine extends Thread implements Serializable {
                     statistics.setMemoryUsedToSearchInMBytes(planner.getStatistics()
                             .getMemoryUsedToSearch() / (1024.0 * 1024.0));
 
-                    token.setResult(new Result(statistics, pb, plan));
+                    token.setResult(statistics, plan);
                     if (plan != null) {
                         statistics.setCost(plan.cost());
                         statistics.setDepth(plan.size());

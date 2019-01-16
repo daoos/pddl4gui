@@ -241,7 +241,7 @@ public class TriggerAction implements Serializable {
      */
     public static void displayResult(Token token) {
         resultPanel.displayResult(token);
-        statisticsPanel.displayStats(token.getResult().getStatistics());
+        statisticsPanel.displayStats(token.getStatistics());
         menuSolverPanel.getValButton().setEnabled(true);
         menuSolverPanel.getSaveJsonButton().setEnabled(true);
         menuSolverPanel.getSaveTxtButton().setEnabled(true);

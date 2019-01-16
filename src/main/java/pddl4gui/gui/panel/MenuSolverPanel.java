@@ -71,7 +71,7 @@ public class MenuSolverPanel extends JPanel implements Serializable {
             if (TriggerAction.isTokenListPanelJListSelectedValueSolved()) {
                 final Token token = TriggerAction.getTokenListPanelJListSelectedValue();
                 new VAL(token.getDomainFile(), token.getProblemFile(),
-                        token.getResult().getSolutionString(), token.isSolved());
+                        token.getSolutionString(), token.isSolved());
             }
         });
         add(valButton);
@@ -85,10 +85,10 @@ public class MenuSolverPanel extends JPanel implements Serializable {
                 if (FileTools.checkFile(tempFile)) {
                     if (TriggerAction.isResultPanelDetailedPlan()) {
                         FileTools.writeInFile(tempFile, TriggerAction.getTokenListPanelJListSelectedValue()
-                                .getResult().getSolutionStringDetailed());
+                                .getSolutionStringDetailed());
                     } else {
                         FileTools.writeInFile(tempFile, TriggerAction.getTokenListPanelJListSelectedValue()
-                                .getResult().getSolutionString());
+                                .getSolutionString());
                     }
                 }
             }
@@ -104,7 +104,7 @@ public class MenuSolverPanel extends JPanel implements Serializable {
                 File tempFile = FileTools.saveFile(this, 5);
                 if (FileTools.checkFile(tempFile)) {
                     FileTools.writeInFile(tempFile, TriggerAction.getTokenListPanelJListSelectedValue()
-                            .getResult().getSolutionJson());
+                            .getSolutionJson());
                 }
             }
         });

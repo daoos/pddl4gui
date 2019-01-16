@@ -1,8 +1,10 @@
 package pddl4gui.token;
 
 import fr.uga.pddl4j.encoding.CodedProblem;
+import fr.uga.pddl4j.encoding.JsonAdapter;
 import fr.uga.pddl4j.planners.statespace.StateSpacePlanner;
 import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
+import fr.uga.pddl4j.util.Plan;
 import pddl4gui.gui.tools.FileTools;
 
 import javax.swing.DefaultListModel;
@@ -44,11 +46,6 @@ public class Token implements Serializable {
     private String problemFileName;
 
     /**
-     * The result object containing all the result from the solving step.
-     */
-    private Result result;
-
-    /**
      * The boolean used to check if a token could be solved.
      */
     private boolean runnable;
@@ -82,6 +79,16 @@ public class Token implements Serializable {
      * The ListModel for solution node.
      */
     private DefaultListModel<Node> solutioNodeListModel;
+
+    /**
+     * The Statistics object which contains all the statistics of the solving process.
+     */
+    private Statistics statistics;
+
+    /**
+     * The solution Plan found for a token.
+     */
+    private Plan solutionPlan;
 
     /**
      * Sets if a token could be solved by checking if files are not null.
@@ -126,24 +133,6 @@ public class Token implements Serializable {
      */
     public String getProblemFileName() {
         return problemFileName;
-    }
-
-    /**
-     * Returns the result object of a token.
-     *
-     * @return the result object of a token.
-     */
-    public Result getResult() {
-        return result;
-    }
-
-    /**
-     * Sets the result object of a token.
-     *
-     * @param result the result object of a token.
-     */
-    public void setResult(Result result) {
-        this.result = result;
     }
 
     /**
@@ -233,7 +222,7 @@ public class Token implements Serializable {
      * @return the ListModel for solution node.
      */
     public DefaultListModel<Node> getSolutioNodeListModel() {
-        return solutioNodeListModel;
+        return this.solutioNodeListModel;
     }
 
     /**
@@ -243,6 +232,54 @@ public class Token implements Serializable {
      */
     public void setSolutioNodeListModel(DefaultListModel<Node> solutioNodeListModel) {
         this.solutioNodeListModel = solutioNodeListModel;
+    }
+
+    /**
+     * Returns the Statistics object associated to the Result.
+     *
+     * @return the Statistics object associated to the Result.
+     */
+    public Statistics getStatistics() {
+        return this.statistics;
+    }
+
+    /**
+     * Returns the solution Plan as a String object.
+     *
+     * @return the solution Plan as a String object.
+     */
+    public String getSolutionString() {
+        return this.codedProblem.toString(solutionPlan);
+    }
+
+    /**
+     * Returns a detailed solution Plan as a String object.
+     *
+     * @return a detailed solution Plan as a String object.
+     */
+    public String getSolutionStringDetailed() {
+        return this.codedProblem.toStringCost(solutionPlan);
+    }
+
+    /**
+     * Returns a JSON solution Plan as a String object.
+     *
+     * @return a JSON solution Plan as a String object.
+     */
+    public String getSolutionJson() {
+        final JsonAdapter toJson = new JsonAdapter(this.codedProblem);
+        return toJson.toJsonString(solutionPlan);
+    }
+
+    /**
+     * Sets results (statistics and solution plan) for token.
+     *
+     * @param statistics   the statistics of the solving process.
+     * @param solutionPlan the solution plan.
+     */
+    public void setResult(Statistics statistics, Plan solutionPlan) {
+        this.statistics = statistics;
+        this.solutionPlan = solutionPlan;
     }
 
     /**

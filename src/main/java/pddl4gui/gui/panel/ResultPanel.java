@@ -114,13 +114,11 @@ public class ResultPanel extends JPanel implements Serializable {
         checkbox.setSelected(false);
         checkbox.setEnabled(false);
         checkbox.addItemListener(e -> {
-            if (token != null && token.isSolved()) { //TODO gérer les boutons
+            if (token != null && token.isSolved()) {
                 if (checkbox.isSelected()) {
-                    resultArea.setText(token.getResult().getSolutionStringDetailed());
-                    //solver.getMenuSolverPanel().discardVAL(true);
+                    resultArea.setText(token.getSolutionStringDetailed());
                 } else {
                     displayResult(token);
-                    //solver.getMenuSolverPanel().enableButton(true);
                 }
             }
         });
@@ -165,10 +163,10 @@ public class ResultPanel extends JPanel implements Serializable {
         domain.setText(token.getDomainFileName());
         problem.setText(token.getProblemFileName());
         cost.setText(String.valueOf(TriggerAction.getDf()
-                .format(token.getResult().getStatistics().getCost())));
-        depth.setText(String.valueOf(TriggerAction.getDf()
-                .format(token.getResult().getStatistics().getDepth())));
-        resultArea.setText(token.getResult().getSolutionString());
+                .format(token.getStatistics().getCost())));
+        depth.setText(TriggerAction.getDf()
+                .format(token.getStatistics().getDepth()));
+        resultArea.setText(token.getSolutionString());
         planner.setText(token.getPlannerName());
     }
 
