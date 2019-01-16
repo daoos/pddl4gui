@@ -8,6 +8,7 @@ import fr.uga.pddl4j.planners.ProblemFactory;
 import fr.uga.pddl4j.util.MemoryAgent;
 import fr.uga.pddl4j.util.Plan;
 import pddl4gui.gui.panel.EnginePanel;
+import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.Result;
 import pddl4gui.token.Statistics;
 import pddl4gui.token.Token;
@@ -97,7 +98,7 @@ public class Engine extends Thread implements Serializable {
     @Override
     public void run() {
         final JProgressBar progressBar = enginePanel.getProgressBar();
-        while (enginePanel.isVisible()) {
+        while (TriggerAction.isPDDL4GUIRunning()) {
             try {
                 available = false;
                 if (ownQueue.size() > 0) {

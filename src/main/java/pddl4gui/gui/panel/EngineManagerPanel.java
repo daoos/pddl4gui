@@ -74,7 +74,7 @@ public class EngineManagerPanel extends JPanel implements Serializable {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Engines status"));
 
-        engineManager = new EngineManager(1000, this, TriggerAction.getQueue());
+        engineManager = new EngineManager(1000, TriggerAction.getQueue());
 
         int labHeight = 25;
         final int labMarging = 45;
@@ -95,7 +95,7 @@ public class EngineManagerPanel extends JPanel implements Serializable {
             inc++;
         } while (inc < cores - 1 && inc < 4);
 
-        remainingLabel = new JLabel(" -- token(s) remaining");
+        remainingLabel = new JLabel(TriggerAction.getRemainningTokenInQueue() + " token(s) remaining");
         remainingLabel.setBounds(190, 214, 265, 20);
         add(remainingLabel);
 

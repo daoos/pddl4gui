@@ -1,6 +1,6 @@
 package pddl4gui.engine;
 
-import pddl4gui.gui.panel.EngineManagerPanel;
+import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.Queue;
 
 import java.io.Serializable;
@@ -34,11 +34,6 @@ public class EngineManager extends Thread implements Serializable {
      * The Queue of token.
      */
     private final Queue queue;
-
-    /**
-     * The EngineManagerPanel associated which displays status of EngineManager.
-     */
-    private final EngineManagerPanel engineManagerPanel;
 
     /**
      * Adds an Engine.
@@ -96,12 +91,10 @@ public class EngineManager extends Thread implements Serializable {
      * Creates a new EngineManager which manages Engine.
      *
      * @param refresh            the refresh time of the EngineManager.
-     * @param engineManagerPanel the EngineManagerPanel which displays its status.
      * @param queue              the token Queue which is managed by the EngineManager.
      */
-    public EngineManager(int refresh, EngineManagerPanel engineManagerPanel, Queue queue) {
+    public EngineManager(int refresh, Queue queue) {
         this.refresh = refresh;
-        this.engineManagerPanel = engineManagerPanel;
         this.queue = queue;
         this.engineList = new Vector<>();
     }
@@ -111,12 +104,12 @@ public class EngineManager extends Thread implements Serializable {
      */
     @Override
     public void run() {
-        while (engineManagerPanel.isVisible()) {
+        while (TriggerAction.isPDDL4GUIRunning()) {
             try {
                 if (queue.remainingTokens() > 0) {
                     final Engine engine = getEngine();
                     engine.addTokenInQueue(queue.getToken());
-                    engineManagerPanel.setTokensRemaining();
+                    TriggerAction.setTokenRemainingEngineManagerPanel();
                 }
                 sleep(refresh);
             } catch (InterruptedException e) {

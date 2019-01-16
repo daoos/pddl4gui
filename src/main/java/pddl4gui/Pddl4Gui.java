@@ -3,6 +3,7 @@ package pddl4gui;
 import com.pagosoft.plaf.PlafOptions;
 import pddl4gui.gui.RestClient;
 import pddl4gui.gui.Solver;
+import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.Queue;
 
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public class Pddl4Gui implements Serializable {
      * Creates a new main GUI.
      */
     private Pddl4Gui() {
+        TriggerAction.setPDDL4GUIRunning(true);
         final Object[] options = {"Local solver", "REST solver"};
         int selection = JOptionPane.showOptionDialog(null,"Which solver do you want to use?","Choose a solver",
                 JOptionPane.YES_NO_OPTION,

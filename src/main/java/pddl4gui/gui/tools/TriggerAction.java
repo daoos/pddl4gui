@@ -20,7 +20,6 @@ import java.text.DecimalFormat;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
-import javax.swing.JTextArea;
 
 /**
  * This class implements the TriggerAction class of <code>PDDL4GUI</code>.
@@ -35,6 +34,11 @@ public class TriggerAction implements Serializable {
      * The serial id of the class.
      */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * Status of PDDL4GUI.
+     */
+    private static boolean isRunning = false;
 
     /**
      * The solver JFrame.
@@ -105,6 +109,24 @@ public class TriggerAction implements Serializable {
      * The Vector list to store RestToken.
      */
     private static final Vector<RestToken> restTokenList = new Vector<>();
+
+    /**
+     * Gets status of PDDL4GUI.
+     *
+     * @return the status of PDDL4GUI.
+     */
+    public static boolean isPDDL4GUIRunning() {
+        return isRunning;
+    }
+
+    /**
+     * Sets the status of PDDL4GUI.
+     *
+     * @param isRunning the status of PDDL4GUI.
+     */
+    public static void setPDDL4GUIRunning(boolean isRunning) {
+        TriggerAction.isRunning = isRunning;
+    }
 
     /**
      * Gets the DecimalFormat to use with decimal number.
