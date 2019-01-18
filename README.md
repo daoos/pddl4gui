@@ -3,7 +3,7 @@
 ### PDDL4J
 
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.45971.svg)](http://dx.doi.org/10.5281/zenodo.45971)
-[![Build Status](http://pddl4j.imag.fr/jenkins/job/PDDL4J%20devel/badge/icon)](http://pddl4j.imag.fr/jenkins/job/PDDL4J%20devel/)
+[![Build Status](http://pddl4j.fr/jenkins/job/PDDL4J%20devel/badge/icon)](http://pddl4j.fr/jenkins/job/PDDL4J%20devel/)
 
 PDDL4J is an open source library under LGPL license.
 
@@ -62,6 +62,6 @@ On linux with the *pddl4gui.sh* script, available at the root of the repository:
 
 With java command lines:
 
-    java -javaagent:libs/pddl4j-3.7.3.jar -server -Xms2048m -Xmx2048m -jar pddl4gui-1.0.jar
+    java -javaagent:libs/pddl4j-3.8.jar -server -Xms2048m -Xmx2048m -jar pddl4gui-1.0.jar
 
 *Note: the libs and resources folders are needed because not integrated into the jar file.*
