@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    compile name: 'pddl4j-3.7.3-metric'
+    compile 'com.github.pellierd:pddl4j:3.8'
     compile name: 'pgslookandfeel-1.1.2'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
 }
@@ -41,7 +41,7 @@ jar {
 }
 
 task run (type: JavaExec, dependsOn: build){
-    jvmArgs = ["-javaagent:libs/pddl4j-3.7.3-metric.jar", "-server", "-Xms2048m", "-Xmx2048m"]
+    jvmArgs = ["-javaagent:libs/pddl4j-3.8.jar", "-server", "-Xms2048m", "-Xmx2048m"]
 
     description = "Run PDDL4GUI"
     main = "pddl4gui.Pddl4Gui"
