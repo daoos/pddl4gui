@@ -12,7 +12,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONObject;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.TriggerAction;
-import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.RestToken;
 
 import java.io.File;
@@ -73,12 +72,6 @@ public class SetupRestPanel extends JPanel implements Serializable {
     private Heuristic.Type heuristic = Heuristic.Type.FAST_FORWARD;
 
     /**
-     * The list of search strategies available in PDDL4J.
-     */
-    private final String[] searchStrategyList = {"A*", "Enforced Hill Climbing", "Breadth First Search",
-        "Depth First Search", "Greedy Best First Search"};
-
-    /**
      * The default search strategy used.
      */
     private String strategyName = "A*";
@@ -136,6 +129,8 @@ public class SetupRestPanel extends JPanel implements Serializable {
         problemLabel.setBounds(15, 65, 140, 25);
         add(problemLabel);
 
+        final String[] searchStrategyList = {"A*", "Enforced Hill Climbing", "Breadth First Search",
+            "Depth First Search", "Greedy Best First Search"};
         final JComboBox strategyComboBox = new JComboBox<>(searchStrategyList);
         strategyComboBox.setBounds(140, 105, 150, 25);
         strategyComboBox.setSelectedIndex(0);
@@ -165,11 +160,6 @@ public class SetupRestPanel extends JPanel implements Serializable {
         final SpinnerNumberModel modelTimeout = new SpinnerNumberModel(Planner.DEFAULT_TIMEOUT,
                 0.0, 10000.0, 1);
         timeoutSpinner = new JSpinner(modelTimeout);
-        timeoutSpinner.addChangeListener(e -> {
-            if (Math.abs((double) timeoutSpinner.getValue() - 42.0) < 0.0001) {
-                WindowsManager.h2g2("42 is the answer");
-            }
-        });
         timeoutSpinner.setBounds(140, 225, 150, 25);
         add(timeoutSpinner);
 
@@ -198,16 +188,17 @@ public class SetupRestPanel extends JPanel implements Serializable {
      * @return the search strategy as string keyword.
      */
     private String getSearchStrategy(String searchStrategy) {
-        if (searchStrategy.equals("Greedy Best First Search")) {
-            return "GBFS";
-        } else if (searchStrategy.equals("Breadth First Search")) {
-            return "BFS";
-        } else if (searchStrategy.equals("Depth First Search")) {
-            return "DFS";
-        } else if (searchStrategy.equals("Enforced Hill Climbing")) {
-            return "EHC";
-        } else {
-            return "A*";
+        switch (searchStrategy) {
+            case "Greedy Best First Search":
+                return "GBFS";
+            case "Breadth First Search":
+                return "BFS";
+            case "Depth First Search":
+                return "DFS";
+            case "Enforced Hill Climbing":
+                return "EHC";
+            default:
+                return "A*";
         }
     }
 

@@ -3,7 +3,6 @@ package pddl4gui.gui.panel.local;
 import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.LocalToken;
-import pddl4gui.token.Token;
 
 import java.io.Serializable;
 import javax.swing.BorderFactory;
@@ -93,7 +92,7 @@ public class TokenListPanel extends JPanel implements Serializable {
         tokenJList.addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
 
-                final LocalToken selectedValue = (LocalToken) tokenJList.getSelectedValue();
+                final LocalToken selectedValue = tokenJList.getSelectedValue();
                 if (selectedValue != null) {
                     SolutionListButton.setEnabled(true);
                     final AbstractStateSpacePlanner planner =

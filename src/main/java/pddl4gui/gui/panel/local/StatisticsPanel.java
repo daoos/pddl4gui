@@ -125,22 +125,22 @@ public class StatisticsPanel extends JPanel implements Serializable {
      * @param statistics the Statistics object.
      */
     public void displayStats(Statistics statistics) {
-        timeToParse.setText(String.valueOf(TriggerAction.getDf()
-                .format(statistics.getTimeToParseInSeconds()) + " seconds"));
-        timeToEncode.setText(String.valueOf(TriggerAction.getDf()
-                .format(statistics.getTimeToEncodeInSeconds()) + " seconds"));
-        timeToPlan.setText(String.valueOf(TriggerAction.getDf()
-                .format(statistics.getTimeToPlanInSeconds()) + " seconds"));
-        timeTotal.setText(String.valueOf(TriggerAction.getDf()
-                .format(statistics.getTotalTimeInSeconds()) + " seconds"));
+        timeToParse.setText(TriggerAction.getDf()
+                .format(statistics.getTimeToParseInSeconds()) + " seconds");
+        timeToEncode.setText(TriggerAction.getDf()
+                .format(statistics.getTimeToEncodeInSeconds()) + " seconds");
+        timeToPlan.setText(TriggerAction.getDf()
+                .format(statistics.getTimeToPlanInSeconds()) + " seconds");
+        timeTotal.setText(TriggerAction.getDf()
+                .format(statistics.getTotalTimeInSeconds()) + " seconds");
         numberActions.setText(String.valueOf(statistics.getNumberOfActions()));
         numberFluents.setText(String.valueOf(statistics.getNumberOfFluents()));
-        memoryPb.setText(String.valueOf(TriggerAction.getDf()
-                .format(statistics.getMemoryForProblemInMBytes())) + " MBytes");
-        memorySearch.setText(String.valueOf(TriggerAction.getDf()
-                .format(statistics.getMemoryUsedToSearchInMBytes())) + " MBytes");
-        memoryTotal.setText(String.valueOf(TriggerAction.getDf()
-                .format(statistics.getTotalMemoryInMBytes())) + " MBytes");
+        memoryPb.setText(TriggerAction.getDf()
+                .format(statistics.getMemoryForProblemInMBytes()) + " MBytes");
+        memorySearch.setText(TriggerAction.getDf()
+                .format(statistics.getMemoryUsedToSearchInMBytes()) + " MBytes");
+        memoryTotal.setText(TriggerAction.getDf()
+                .format(statistics.getTotalMemoryInMBytes()) + " MBytes");
     }
 
     /**

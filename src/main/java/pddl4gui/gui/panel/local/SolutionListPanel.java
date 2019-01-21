@@ -25,7 +25,7 @@ import javax.swing.event.ListSelectionEvent;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class SolutionListPanel extends JFrame implements Serializable {
+class SolutionListPanel extends JFrame implements Serializable {
 
     /**
      * The serial id of the class.
@@ -43,7 +43,7 @@ public class SolutionListPanel extends JFrame implements Serializable {
      *
      * @param token the token.
      */
-    public SolutionListPanel(LocalToken token) {
+    SolutionListPanel(LocalToken token) {
 
         setLayout(null);
         setSize(500, 350);

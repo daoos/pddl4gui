@@ -38,7 +38,7 @@ public class EngineManagerPanel extends JPanel implements Serializable {
      *
      * @param engine the Engine to add.
      */
-    public void addEngine(Engine engine) {
+    void addEngine(Engine engine) {
         engineManager.addEngine(engine);
     }
 
@@ -47,7 +47,7 @@ public class EngineManagerPanel extends JPanel implements Serializable {
      *
      * @param engine the Engine to remove.
      */
-    public void removeEngine(Engine engine) {
+    void removeEngine(Engine engine) {
         engineManager.removeEngine(engine);
     }
 

@@ -1,9 +1,9 @@
 package pddl4gui.gui;
 
-import pddl4gui.gui.panel.local.EngineManagerPanel;
 import pddl4gui.gui.panel.LogPanel;
-import pddl4gui.gui.panel.local.MenuSolverPanel;
 import pddl4gui.gui.panel.ResultPanel;
+import pddl4gui.gui.panel.local.EngineManagerPanel;
+import pddl4gui.gui.panel.local.MenuSolverPanel;
 import pddl4gui.gui.panel.local.SetupSolverPanel;
 import pddl4gui.gui.panel.local.StatisticsPanel;
 import pddl4gui.gui.panel.local.TokenListPanel;

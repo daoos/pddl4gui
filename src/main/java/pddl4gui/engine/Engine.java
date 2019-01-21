@@ -66,7 +66,7 @@ public class Engine extends Thread implements Serializable {
      *
      * @param token the token to add.
      */
-    public void addTokenInQueue(Token token) {
+    void addTokenInQueue(Token token) {
         this.ownQueue.add(token);
     }
 
@@ -75,7 +75,7 @@ public class Engine extends Thread implements Serializable {
      *
      * @return if the Engine is available.
      */
-    public boolean isAvailable() {
+    boolean isAvailable() {
         return available;
     }
 

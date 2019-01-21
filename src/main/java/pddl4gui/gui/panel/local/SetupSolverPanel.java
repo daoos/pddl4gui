@@ -19,7 +19,6 @@ import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
 import fr.uga.pddl4j.planners.statespace.search.strategy.StateSpaceStrategy;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.TriggerAction;
-import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.LocalToken;
 
 import java.io.File;
@@ -80,12 +79,6 @@ public class SetupSolverPanel extends JPanel implements Serializable {
      * The default Heuristic used by the planner.
      */
     private Heuristic.Type heuristic = Heuristic.Type.FAST_FORWARD;
-
-    /**
-     * The list of planners available in PDDL4J.
-     */
-    private final String[] plannerList = { "HSP", "FF", "GenericPlanner", "FFAnytime", "HCAnytime",
-        "GenericAnytimePlanner"};
 
     /**
      * The default Planner used.
@@ -164,6 +157,7 @@ public class SetupSolverPanel extends JPanel implements Serializable {
         problemLabel.setBounds(15, 65, 140, 25);
         add(problemLabel);
 
+        final String[] plannerList = {"HSP", "FF", "GenericPlanner", "FFAnytime", "HCAnytime", "GenericAnytimePlanner"};
         final JComboBox plannerComboBox = new JComboBox<>(plannerList);
         plannerComboBox.setBounds(100, 105, 150, 25);
         plannerComboBox.setSelectedIndex(0);
@@ -223,11 +217,6 @@ public class SetupSolverPanel extends JPanel implements Serializable {
         final SpinnerNumberModel modelTimeout = new SpinnerNumberModel(Planner.DEFAULT_TIMEOUT,
                 0.0, 10000.0, 1);
         timeoutSpinner = new JSpinner(modelTimeout);
-        timeoutSpinner.addChangeListener(e -> {
-            if (Math.abs((double) timeoutSpinner.getValue() - 42.0) < 0.0001) {
-                WindowsManager.h2g2("42 is the answer");
-            }
-        });
         timeoutSpinner.setBounds(100, 225, 150, 25);
         add(timeoutSpinner);
 
@@ -254,50 +243,74 @@ public class SetupSolverPanel extends JPanel implements Serializable {
 
         StateSpacePlanner planner = null;
 
-        if (plannerName.equals("HSP")) {
-            planner = plannerFactory.getPlanner(Planner.Name.HSP, (int) timeout, heuristic, weight, true, 1);
-        } else if (plannerName.equals("FF")) {
-            planner = plannerFactory.getPlanner(Planner.Name.FF, (int) timeout, heuristic, weight, true, 1);
-        } else if (plannerName.equals("GenericPlanner")) {
+        switch (plannerName) {
+            case "HSP":
+                planner = plannerFactory.getPlanner(Planner.Name.HSP, (int) timeout, heuristic, weight, true, 1);
+                break;
+            case "FF":
+                planner = plannerFactory.getPlanner(Planner.Name.FF, (int) timeout, heuristic, weight, true, 1);
+                break;
+            case "GenericPlanner":
+                AbstractStateSpaceStrategy stateSpaceStrategy = null;
 
-            AbstractStateSpaceStrategy stateSpaceStrategy = null;
-
-            if (strategyName != null) {
-                if (strategyName.equals("A*")) {
-                    stateSpaceStrategy = new AStar((int) timeout, heuristic, weight);
-                } else if (strategyName.equals("Enforced Hill Climbing")) {
-                    stateSpaceStrategy = new EnforcedHillClimbing((int) timeout, heuristic, weight);
-                } else if (strategyName.equals("Breadth First Search")) {
-                    stateSpaceStrategy = new BreadthFirstSearch((int) timeout);
-                } else if (strategyName.equals("Depth First Search")) {
-                    stateSpaceStrategy = new DepthFirstSearch((int) timeout);
-                } else if (strategyName.equals("Greedy Best First Search")) {
-                    stateSpaceStrategy = new GreedyBestFirstSearch((int) timeout, heuristic, weight);
+                if (strategyName != null) {
+                    switch (strategyName) {
+                        case "A*":
+                            stateSpaceStrategy = new AStar((int) timeout, heuristic, weight);
+                            break;
+                        case "Enforced Hill Climbing":
+                            stateSpaceStrategy = new EnforcedHillClimbing((int) timeout, heuristic, weight);
+                            break;
+                        case "Breadth First Search":
+                            stateSpaceStrategy = new BreadthFirstSearch((int) timeout);
+                            break;
+                        case "Depth First Search":
+                            stateSpaceStrategy = new DepthFirstSearch((int) timeout);
+                            break;
+                        case "Greedy Best First Search":
+                            stateSpaceStrategy = new GreedyBestFirstSearch((int) timeout, heuristic, weight);
+                            break;
+                        default:
+                            stateSpaceStrategy = null;
+                            break;
+                    }
                 }
-            }
 
-            if (stateSpaceStrategy != null) {
-                planner = new GenericPlanner(true, 1, stateSpaceStrategy);
-            }
-        } else if (plannerName.equals("GenericAnytimePlanner")) {
-
-            AbstractStateSpaceStrategyAnytime stateSpaceStrategy = null;
-
-            if (strategyName != null) {
-                if (strategyName.equals("A* Anytime")) {
-                    stateSpaceStrategy = new AStarAnytime((int) timeout, heuristic, weight);
-                } else if (strategyName.equals("Greedy Best First Search Anytime")) {
-                    stateSpaceStrategy = new GreedyBestFirstSearchAnytime((int) timeout, heuristic, weight);
+                if (stateSpaceStrategy != null) {
+                    planner = new GenericPlanner(true, 1, stateSpaceStrategy);
                 }
-            }
+                break;
+            case "GenericAnytimePlanner":
+                AbstractStateSpaceStrategyAnytime stateSpaceStrategyAnytime = null;
 
-            if (stateSpaceStrategy != null) {
-                planner = new GenericAnytimePlanner(true, 1, stateSpaceStrategy);
-            }
-        } else if (plannerName.equals("FFAnytime")) {
-            planner = plannerFactory.getPlanner(Planner.Name.FFAnytime, (int) timeout, heuristic, weight, true, 1);
-        } else if (plannerName.equals("HCAnytime")) {
-            planner = plannerFactory.getPlanner(Planner.Name.HCAnytime, (int) timeout, heuristic, weight, true, 1);
+                if (strategyName != null) {
+                    switch (strategyName) {
+                        case "A* Anytime":
+                            stateSpaceStrategyAnytime = new AStarAnytime((int) timeout, heuristic, weight);
+                            break;
+                        case "Greedy Best First Search Anytime":
+                            stateSpaceStrategyAnytime = new GreedyBestFirstSearchAnytime((int) timeout,
+                                    heuristic, weight);
+                            break;
+                        default:
+                            stateSpaceStrategyAnytime = null;
+                            break;
+                    }
+                }
+
+                if (stateSpaceStrategyAnytime != null) {
+                    planner = new GenericAnytimePlanner(true, 1, stateSpaceStrategyAnytime);
+                }
+                break;
+            case "FFAnytime":
+                planner = plannerFactory.getPlanner(Planner.Name.FFAnytime, (int) timeout, heuristic, weight, true, 1);
+                break;
+            case "HCAnytime":
+                planner = plannerFactory.getPlanner(Planner.Name.HCAnytime, (int) timeout, heuristic, weight, true, 1);
+                break;
+            default:
+                planner = null;
+                break;
         }
 
         if (planner != null) {
@@ -307,7 +320,7 @@ public class SetupSolverPanel extends JPanel implements Serializable {
                     List<StateSpaceStrategy> strategyList = token.getPlanner().getStateSpaceStrategies();
                     final DefaultListModel<Node> listModel = new DefaultListModel<>();
 
-                    for(StateSpaceStrategy stateSpaceStrategy : strategyList){
+                    for (StateSpaceStrategy stateSpaceStrategy : strategyList) {
                         stateSpaceStrategy.addSolutionListener(e -> listModel.addElement(e.getSolutionNode()));
                     }
 

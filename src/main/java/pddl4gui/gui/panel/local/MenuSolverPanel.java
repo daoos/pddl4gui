@@ -69,7 +69,7 @@ public class MenuSolverPanel extends JPanel implements Serializable {
         valButton.setEnabled(false);
         valButton.addActionListener(e -> {
             if (TriggerAction.isTokenListPanelJListSelectedValueSolved()) {
-                final LocalToken token = (LocalToken) TriggerAction.getTokenListPanelJListSelectedValue();
+                final LocalToken token = TriggerAction.getTokenListPanelJListSelectedValue();
                 new VAL(token.getDomainFile(), token.getProblemFile(),
                         token.getSolutionString(), token.isSolved());
             }

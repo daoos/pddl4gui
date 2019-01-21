@@ -7,9 +7,9 @@ import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
 import fr.uga.pddl4j.util.Plan;
 import pddl4gui.gui.tools.FileTools;
 
-import javax.swing.DefaultListModel;
 import java.io.File;
 import java.io.Serializable;
+import javax.swing.DefaultListModel;
 
 /**
  * This class implements the <code>LocalToken</code> for the local solver.

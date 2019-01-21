@@ -1,17 +1,16 @@
 package pddl4gui.gui.tools;
 
 import pddl4gui.gui.Solver;
-import pddl4gui.gui.panel.local.EngineManagerPanel;
-import pddl4gui.gui.panel.rest.InfoRestPanel;
-import pddl4gui.gui.panel.rest.MenuRestPanel;
-import pddl4gui.gui.panel.local.MenuSolverPanel;
 import pddl4gui.gui.panel.ResultPanel;
+import pddl4gui.gui.panel.local.EngineManagerPanel;
+import pddl4gui.gui.panel.local.MenuSolverPanel;
 import pddl4gui.gui.panel.local.StatisticsPanel;
 import pddl4gui.gui.panel.local.TokenListPanel;
+import pddl4gui.gui.panel.rest.InfoRestPanel;
+import pddl4gui.gui.panel.rest.MenuRestPanel;
 import pddl4gui.token.LocalToken;
 import pddl4gui.token.Queue;
 import pddl4gui.token.RestToken;
-import pddl4gui.token.Token;
 
 import java.awt.Color;
 import java.io.Serializable;
@@ -300,7 +299,7 @@ public class TriggerAction implements Serializable {
      * @return the selected token of the JList in the TokenListPanel.
      */
     public static LocalToken getTokenListPanelJListSelectedValue() {
-        return (LocalToken) TriggerAction.tokenListPanel.getTokenJList().getSelectedValue();
+        return TriggerAction.tokenListPanel.getTokenJList().getSelectedValue();
     }
 
     /**
@@ -309,7 +308,7 @@ public class TriggerAction implements Serializable {
      * @return the solving status of the selected token of the JList in the TokenListPanel.
      */
     public static boolean isTokenListPanelJListSelectedValueSolved() {
-        return ((LocalToken) TriggerAction.tokenListPanel.getTokenJList().getSelectedValue()).isSolved();
+        return TriggerAction.tokenListPanel.getTokenJList().getSelectedValue().isSolved();
     }
 
     /**

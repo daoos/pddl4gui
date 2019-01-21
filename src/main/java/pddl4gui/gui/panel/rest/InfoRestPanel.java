@@ -288,7 +288,7 @@ public class InfoRestPanel extends JPanel implements Serializable {
         final long timeInterval = 120000;
         Runnable runnable = () -> {
             try {
-                while (true) {
+                while (TriggerAction.isPDDL4GUIRunning()) {
                     final HttpClient client = HttpClientBuilder.create().build();
                     final HttpGet request = new HttpGet(url + "/alive");
                     final HttpResponse response = client.execute(request);

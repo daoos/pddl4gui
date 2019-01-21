@@ -1,9 +1,9 @@
 package pddl4gui.gui;
 
-import pddl4gui.gui.panel.rest.InfoRestPanel;
 import pddl4gui.gui.panel.LogPanel;
-import pddl4gui.gui.panel.rest.MenuRestPanel;
 import pddl4gui.gui.panel.ResultPanel;
+import pddl4gui.gui.panel.rest.InfoRestPanel;
+import pddl4gui.gui.panel.rest.MenuRestPanel;
 import pddl4gui.gui.panel.rest.SetupRestPanel;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;

@@ -1,6 +1,5 @@
 package pddl4gui.gui.tools;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 
@@ -31,10 +30,9 @@ public class CustomOutputStream extends OutputStream implements Serializable {
     /**
      * Write an output into a JtextArea.
      * @param b the int value of a character
-     * @throws IOException if IO error
      */
     @Override
-    public void write(int b) throws IOException {
+    public void write(int b) {
         // redirects data to the text area
         textArea.append(String.valueOf((char)b));
         // scrolls the text area to the end of data
