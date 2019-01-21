@@ -1,7 +1,7 @@
 package pddl4gui;
 
 import com.pagosoft.plaf.PlafOptions;
-import pddl4gui.gui.RestClient;
+import pddl4gui.gui.RestSolver;
 import pddl4gui.gui.Solver;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.Queue;
@@ -43,9 +43,9 @@ public class Pddl4Gui implements Serializable {
                     "Enter URL of RESTFull API", JOptionPane.INFORMATION_MESSAGE);
 
             if (restService != null && !restService.equals("")) {
-                new RestClient(restService + "/search");
+                new RestSolver(restService + "/search");
             } else {
-                new RestClient("http://localhost:8080/pddl4j-service-1.0/search");
+                new RestSolver("http://localhost:8080/pddl4j-service-1.0/search");
             }
         } else {
             System.exit(0);

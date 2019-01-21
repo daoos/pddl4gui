@@ -1,4 +1,4 @@
-package pddl4gui.gui.panel;
+package pddl4gui.gui.panel.rest;
 
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Planner;
@@ -10,9 +10,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONObject;
-import pddl4gui.gui.Editor;
 import pddl4gui.gui.tools.FileTools;
-import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.RestToken;
@@ -58,9 +56,6 @@ public class SetupRestPanel extends JPanel implements Serializable {
      */
     private final JButton domainButton;
     private final JButton pbButton;
-    private final JButton newDomainButton;
-    private final JButton newProblemButton;
-    private final JButton planButton;
 
     /**
      * The PDDL domain file.
@@ -104,8 +99,6 @@ public class SetupRestPanel extends JPanel implements Serializable {
 
         domainButton = new JButton("Choose domain");
         pbButton = new JButton("Choose problem");
-        newDomainButton = new JButton(Icons.getEditorIcon());
-        newProblemButton = new JButton(Icons.getEditorIcon());
 
         domainButton.setBounds(140, 25, 150, 25);
         domainButton.setEnabled(true);
@@ -121,11 +114,6 @@ public class SetupRestPanel extends JPanel implements Serializable {
             }
         });
         add(domainButton);
-
-        newDomainButton.setBounds(315, 25, 25, 25);
-        newDomainButton.setEnabled(true);
-        newDomainButton.addActionListener(e -> new Editor(null, 0, true));
-        add(newDomainButton);
 
         domainLabel.setBounds(15, 25, 140, 25);
         add(domainLabel);
@@ -144,11 +132,6 @@ public class SetupRestPanel extends JPanel implements Serializable {
             }
         });
         add(pbButton);
-
-        newProblemButton.setBounds(315, 65, 25, 25);
-        newProblemButton.setEnabled(true);
-        newProblemButton.addActionListener(e -> new Editor(null, 1, true));
-        add(newProblemButton);
 
         problemLabel.setBounds(15, 65, 140, 25);
         add(problemLabel);
@@ -193,7 +176,7 @@ public class SetupRestPanel extends JPanel implements Serializable {
         timeLabel.setBounds(15, 225, 150, 25);
         add(timeLabel);
 
-        planButton = new JButton("Resolve this problem !");
+        final JButton planButton = new JButton("Resolve this problem !");
         planButton.setBounds(80, 305, 200, 25);
         planButton.setEnabled(true);
         planButton.addActionListener(e -> {
@@ -273,7 +256,7 @@ public class SetupRestPanel extends JPanel implements Serializable {
                 final int computationId = Integer.parseInt(responseBody);
                 TriggerAction.getRestModel().addElement(computationId);
 
-                final RestToken restToken = new RestToken(domainFile,problemFile, computationId);
+                final RestToken restToken = new RestToken(domainFile, problemFile, computationId);
                 TriggerAction.getRestTokenList().add(restToken);
 
                 System.out.println("[id " + responseBody + "] New solving problem");

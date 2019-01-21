@@ -1,11 +1,9 @@
-package pddl4gui.gui.panel;
+package pddl4gui.gui.panel.local;
 
 import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
 import fr.uga.pddl4j.planners.Planner;
-import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
 import fr.uga.pddl4j.planners.statespace.StateSpacePlanner;
 import fr.uga.pddl4j.planners.statespace.StateSpacePlannerFactory;
-import fr.uga.pddl4j.planners.statespace.ff.FFAnytime;
 import fr.uga.pddl4j.planners.statespace.generic.GenericAnytimePlanner;
 import fr.uga.pddl4j.planners.statespace.generic.GenericPlanner;
 import fr.uga.pddl4j.planners.statespace.search.strategy.AStar;
@@ -19,16 +17,13 @@ import fr.uga.pddl4j.planners.statespace.search.strategy.GreedyBestFirstSearch;
 import fr.uga.pddl4j.planners.statespace.search.strategy.GreedyBestFirstSearchAnytime;
 import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
 import fr.uga.pddl4j.planners.statespace.search.strategy.StateSpaceStrategy;
-import pddl4gui.gui.Editor;
 import pddl4gui.gui.tools.FileTools;
-import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
-import pddl4gui.token.Token;
+import pddl4gui.token.LocalToken;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.BorderFactory;
@@ -70,9 +65,6 @@ public class SetupSolverPanel extends JPanel implements Serializable {
      */
     private final JButton domainButton;
     private final JButton pbButton;
-    private final JButton editDomainButton;
-    private final JButton editProblemButton;
-    private final JButton planButton;
 
     /**
      * The PDDL domain file.
@@ -132,8 +124,6 @@ public class SetupSolverPanel extends JPanel implements Serializable {
 
         domainButton = new JButton("Choose domain");
         pbButton = new JButton("Choose problem");
-        editDomainButton = new JButton(Icons.getEditorIcon());
-        editProblemButton = new JButton(Icons.getEditorIcon());
 
         domainButton.setBounds(100, 25, 150, 25);
         domainButton.setEnabled(true);
@@ -143,29 +133,12 @@ public class SetupSolverPanel extends JPanel implements Serializable {
                 domainFile = domainTempFiles.firstElement();
                 if (FileTools.checkFile(domainFile)) {
                     domainButton.setText(domainFile.getName());
-                    editDomainButton.setEnabled(true);
                 }
             } else {
                 domainFile = null;
-                editDomainButton.setEnabled(false);
             }
         });
         add(domainButton);
-
-        editDomainButton.setBounds(275, 25, 25, 25);
-        editDomainButton.setEnabled(true);
-        editDomainButton.addActionListener(e -> {
-
-            if (domainFile != null) {
-                new Editor(domainFile, 0, false);
-            } else {
-                new Editor(null, 0, true);
-            }
-
-            domainFile = null;
-            domainButton.setText("Choose domain");
-        });
-        add(editDomainButton);
 
         domainLabel.setBounds(15, 25, 140, 25);
         add(domainLabel);
@@ -178,33 +151,15 @@ public class SetupSolverPanel extends JPanel implements Serializable {
                 problemFiles = problemTempFiles;
                 if (FileTools.checkFile(problemFiles.firstElement())) {
                     pbButton.setText(problemFiles.firstElement().getName());
-                    editProblemButton.setEnabled(true);
                 }
             } else if (problemTempFiles.size() >= 1) {
                 problemFiles = problemTempFiles;
                 pbButton.setText(problemFiles.size() + " problems");
-                editProblemButton.setEnabled(false);
             } else {
                 problemFiles = null;
-                editProblemButton.setEnabled(false);
             }
         });
         add(pbButton);
-
-        editProblemButton.setBounds(275, 65, 25, 25);
-        editProblemButton.setEnabled(true);
-        editProblemButton.addActionListener(e -> {
-
-            if (problemFiles != null) {
-                new Editor(problemFiles.firstElement(), 1, false);
-            } else {
-                new Editor(null, 1, true);
-            }
-
-            problemFiles = null;
-            pbButton.setText("Choose problem");
-        });
-        add(editProblemButton);
 
         problemLabel.setBounds(15, 65, 140, 25);
         add(problemLabel);
@@ -279,7 +234,7 @@ public class SetupSolverPanel extends JPanel implements Serializable {
         timeLabel.setBounds(15, 225, 150, 25);
         add(timeLabel);
 
-        planButton = new JButton("Resolve this problem !");
+        final JButton planButton = new JButton("Resolve this problem !");
         planButton.setBounds(65, 270, 200, 25);
         planButton.setEnabled(true);
         planButton.addActionListener(e -> resolve(domainFile, problemFiles));
@@ -348,7 +303,7 @@ public class SetupSolverPanel extends JPanel implements Serializable {
         if (planner != null) {
             if (problemFiles != null && domainFile != null) {
                 for (File file : problemFiles) {
-                    final Token token = new Token(domainFile, file, planner, plannerName);
+                    final LocalToken token = new LocalToken(domainFile, file, planner, plannerName);
                     List<StateSpaceStrategy> strategyList = token.getPlanner().getStateSpaceStrategies();
                     final DefaultListModel<Node> listModel = new DefaultListModel<>();
 

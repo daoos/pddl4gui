@@ -4,13 +4,13 @@ import java.io.File;
 import java.io.Serializable;
 
 /**
- * This class implements the <code>RestToken</code>.
+ * This class implements the <code>RestToken</code> for the REST solver.
  * A token is an object (domain and problem files, etc) solved by a REST planner.
  *
  * @author E. Hermellin
  * @version 1.0 - 24.10.2018
  */
-public class RestToken implements Serializable {
+public class RestToken extends Token implements Serializable {
 
     /**
      * The serial id of the class.
@@ -18,37 +18,14 @@ public class RestToken implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The domain file.
-     */
-    private File domainFile;
-
-    /**
-     * The problem file.
-     */
-    private File problemFile;
-
-    /**
      * The id of the computation.
      */
     private int id;
 
     /**
-     * Returns the domain file of the token.
-     *
-     * @return the domain file of the token.
+     * The solution plan of this RestToken.
      */
-    public File getDomainFile() {
-        return domainFile;
-    }
-
-    /**
-     * Returns the problem file of the token.
-     *
-     * @return the problem file of the token.
-     */
-    public File getProblemFile() {
-        return problemFile;
-    }
+    private String solutionPlan;
 
     /**
      * Returns the id of the computation.
@@ -60,6 +37,24 @@ public class RestToken implements Serializable {
     }
 
     /**
+     * Returns the solution plan of this RestToken.
+     *
+     * @return the solution plan of this RestToken.
+     */
+    public String getSolutionPlan() {
+        return solutionPlan;
+    }
+
+    /**
+     * Sets the solution plan of this RestToken.
+     *
+     * @param solutionPlan the solution plan of this RestToken.
+     */
+    public void setSolutionPlan(String solutionPlan) {
+        this.solutionPlan = solutionPlan;
+    }
+
+    /**
      * Creates a new REST token.
      *
      * @param domain  the domain file.
@@ -67,8 +62,7 @@ public class RestToken implements Serializable {
      * @param id      the id of the computation.
      */
     public RestToken(final File domain, final File problem, final int id) {
-        this.domainFile = domain;
-        this.problemFile = problem;
+        super(domain, problem);
         this.id = id;
     }
 }

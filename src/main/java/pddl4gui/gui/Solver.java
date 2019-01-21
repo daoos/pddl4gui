@@ -1,12 +1,12 @@
 package pddl4gui.gui;
 
-import pddl4gui.gui.panel.EngineManagerPanel;
+import pddl4gui.gui.panel.local.EngineManagerPanel;
 import pddl4gui.gui.panel.LogPanel;
-import pddl4gui.gui.panel.MenuSolverPanel;
+import pddl4gui.gui.panel.local.MenuSolverPanel;
 import pddl4gui.gui.panel.ResultPanel;
-import pddl4gui.gui.panel.SetupSolverPanel;
-import pddl4gui.gui.panel.StatisticsPanel;
-import pddl4gui.gui.panel.TokenListPanel;
+import pddl4gui.gui.panel.local.SetupSolverPanel;
+import pddl4gui.gui.panel.local.StatisticsPanel;
+import pddl4gui.gui.panel.local.TokenListPanel;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Queue;
@@ -98,8 +98,7 @@ public class Solver extends JFrame implements Serializable {
         logPanel.setBounds(marging, 585, 1180, 175);
         add(logPanel);
 
-        TriggerAction.setupPanel(setupPanel, statisticsPanel, resultPanel, menuSolverPanel, engineManagerPanel,
-                tokenListPanel);
+        TriggerAction.setupPanel(statisticsPanel, resultPanel, menuSolverPanel, engineManagerPanel, tokenListPanel);
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

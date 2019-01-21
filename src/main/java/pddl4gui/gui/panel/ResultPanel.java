@@ -1,7 +1,7 @@
 package pddl4gui.gui.panel;
 
 import pddl4gui.gui.tools.TriggerAction;
-import pddl4gui.token.Token;
+import pddl4gui.token.LocalToken;
 
 import java.io.Serializable;
 import javax.swing.BorderFactory;
@@ -47,7 +47,7 @@ public class ResultPanel extends JPanel implements Serializable {
     /**
      * The Token.
      */
-    private Token token = null;
+    private LocalToken token = null;
 
     /**
      * Returns if JCheckbox is selected (display detailed plan) or not.
@@ -155,7 +155,7 @@ public class ResultPanel extends JPanel implements Serializable {
      *
      * @param token the token.
      */
-    public void displayResult(Token token) {
+    public void displayResult(LocalToken token) {
         this.token = token;
         checkbox.setEnabled(true);
         checkbox.setSelected(false);
@@ -175,7 +175,7 @@ public class ResultPanel extends JPanel implements Serializable {
      *
      * @param token the token.
      */
-    public void displayError(Token token) {
+    public void displayError(LocalToken token) {
         this.token = token;
         checkbox.setEnabled(false);
         checkbox.setSelected(false);
@@ -193,7 +193,7 @@ public class ResultPanel extends JPanel implements Serializable {
      *
      * @param token the token.
      */
-    public void diplayProgress(Token token) {
+    public void diplayProgress(LocalToken token) {
         this.token = token;
         checkbox.setEnabled(false);
         checkbox.setSelected(false);

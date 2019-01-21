@@ -1,7 +1,8 @@
-package pddl4gui.gui.panel;
+package pddl4gui.gui.panel.local;
 
 import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
 import pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.token.LocalToken;
 import pddl4gui.token.Token;
 
 import java.io.Serializable;
@@ -31,14 +32,14 @@ public class TokenListPanel extends JPanel implements Serializable {
     /**
      * The JList displaying tokens from the Queue.
      */
-    private final JList<Token> tokenJList;
+    private final JList<LocalToken> tokenJList;
 
     /**
      * Returns the JList object.
      *
      * @return the JList object.
      */
-    public JList<Token> getTokenJList() {
+    public JList<LocalToken> getTokenJList() {
         return tokenJList;
     }
 
@@ -92,7 +93,7 @@ public class TokenListPanel extends JPanel implements Serializable {
         tokenJList.addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {
 
-                final Token selectedValue = tokenJList.getSelectedValue();
+                final LocalToken selectedValue = (LocalToken) tokenJList.getSelectedValue();
                 if (selectedValue != null) {
                     SolutionListButton.setEnabled(true);
                     final AbstractStateSpacePlanner planner =

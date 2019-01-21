@@ -1,4 +1,4 @@
-package pddl4gui.gui.panel;
+package pddl4gui.gui.panel.rest;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -13,6 +13,7 @@ import org.apache.http.util.EntityUtils;
 
 import pddl4gui.gui.tools.DrawCircle;
 import pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.token.RestToken;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -123,10 +124,18 @@ public class InfoRestPanel extends JPanel implements Serializable {
                 final Integer selectedValue = list.getSelectedValue();
                 if (selectedValue != null) {
                     id = selectedValue;
-                    TriggerAction.clearResult();
-                    TriggerAction.enableSaveTxtResultRest(false);
-                    TriggerAction.enableSaveJsonResultRest(false);
-                    TriggerAction.enableValRest(false);
+                    final RestToken token = TriggerAction.getRestTokenFromId(id);
+                    if (token != null && token.getSolutionPlan() != null) {
+                        TriggerAction.displayResult(token.getSolutionPlan());
+                        TriggerAction.enableSaveTxtResultRest(true);
+                        TriggerAction.enableSaveJsonResultRest(false);
+                        TriggerAction.enableValRest(true);
+                    } else {
+                        TriggerAction.clearResult();
+                        TriggerAction.enableSaveTxtResultRest(false);
+                        TriggerAction.enableSaveJsonResultRest(false);
+                        TriggerAction.enableValRest(false);
+                    }
                 }
             }
         });
@@ -171,6 +180,9 @@ public class InfoRestPanel extends JPanel implements Serializable {
 
                     } else {
                         TriggerAction.displayResult(responseBody);
+                        final RestToken token = TriggerAction.getRestTokenFromId(id);
+                        token.setSolutionPlan(responseBody);
+
                         TriggerAction.enableSaveTxtResultRest(true);
                         TriggerAction.enableSaveJsonResultRest(false);
                         TriggerAction.enableValRest(true);

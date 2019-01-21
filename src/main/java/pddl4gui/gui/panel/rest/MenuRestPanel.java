@@ -1,4 +1,4 @@
-package pddl4gui.gui.panel;
+package pddl4gui.gui.panel.rest;
 
 import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;

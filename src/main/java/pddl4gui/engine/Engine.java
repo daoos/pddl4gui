@@ -7,8 +7,9 @@ import fr.uga.pddl4j.planners.Planner;
 import fr.uga.pddl4j.planners.ProblemFactory;
 import fr.uga.pddl4j.util.MemoryAgent;
 import fr.uga.pddl4j.util.Plan;
-import pddl4gui.gui.panel.EnginePanel;
+import pddl4gui.gui.panel.local.EnginePanel;
 import pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.token.LocalToken;
 import pddl4gui.token.Statistics;
 import pddl4gui.token.Token;
 
@@ -102,7 +103,7 @@ public class Engine extends Thread implements Serializable {
                 available = false;
                 if (ownQueue.size() > 0) {
                     error = "";
-                    final Token token = ownQueue.firstElement();
+                    final LocalToken token = (LocalToken) ownQueue.firstElement();
                     ownQueue.remove(token);
                     enginePanel.getEngineLabel().setText(token.toString());
                     enginePanel.getCirclePanel().setColor(Color.ORANGE);
@@ -151,7 +152,7 @@ public class Engine extends Thread implements Serializable {
      * @return true if the token is solved. False otherwise.
      * @throws IOException if there is issues with PDDL files.
      */
-    private boolean resolve(final Token token) throws IOException {
+    private boolean resolve(final LocalToken token) throws IOException {
         if (token.isRunnable()) {
             final Statistics statistics = new Statistics();
             final ProblemFactory factory = new ProblemFactory();

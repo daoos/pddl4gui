@@ -1,15 +1,14 @@
 package pddl4gui.gui.tools;
 
 import pddl4gui.gui.Solver;
-import pddl4gui.gui.panel.EngineManagerPanel;
-import pddl4gui.gui.panel.InfoRestPanel;
-import pddl4gui.gui.panel.MenuRestPanel;
-import pddl4gui.gui.panel.MenuSolverPanel;
+import pddl4gui.gui.panel.local.EngineManagerPanel;
+import pddl4gui.gui.panel.rest.InfoRestPanel;
+import pddl4gui.gui.panel.rest.MenuRestPanel;
+import pddl4gui.gui.panel.local.MenuSolverPanel;
 import pddl4gui.gui.panel.ResultPanel;
-import pddl4gui.gui.panel.SetupRestPanel;
-import pddl4gui.gui.panel.SetupSolverPanel;
-import pddl4gui.gui.panel.StatisticsPanel;
-import pddl4gui.gui.panel.TokenListPanel;
+import pddl4gui.gui.panel.local.StatisticsPanel;
+import pddl4gui.gui.panel.local.TokenListPanel;
+import pddl4gui.token.LocalToken;
 import pddl4gui.token.Queue;
 import pddl4gui.token.RestToken;
 import pddl4gui.token.Token;
@@ -19,7 +18,6 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 
 /**
  * This class implements the TriggerAction class of <code>PDDL4GUI</code>.
@@ -44,11 +42,6 @@ public class TriggerAction implements Serializable {
      * The solver JFrame.
      */
     private static Solver solver;
-
-    /**
-     * The solver SetupPanel.
-     */
-    private static SetupSolverPanel setupPanel;
 
     /**
      * The solver StatisticsPanel.
@@ -76,11 +69,6 @@ public class TriggerAction implements Serializable {
     private static TokenListPanel tokenListPanel;
 
     /**
-     * The REST SetupRestPanel.
-     */
-    private static SetupRestPanel setupRestPanel;
-
-    /**
      * The REST MenuRestPanel.
      */
     private static MenuRestPanel menuRestPanel;
@@ -98,7 +86,7 @@ public class TriggerAction implements Serializable {
     /**
      * The DefaultListModel used in JList in TokenList class.
      */
-    private static final DefaultListModel<Token> listModel = new DefaultListModel<>();
+    private static final DefaultListModel<LocalToken> listModel = new DefaultListModel<>();
 
     /**
      * The DefaultListModel used in JList in InfoRestPanel class (REST).
@@ -142,7 +130,7 @@ public class TriggerAction implements Serializable {
      *
      * @return the DefaultListModel.
      */
-    public static DefaultListModel<Token> getListModel() {
+    public static DefaultListModel<LocalToken> getListModel() {
         return listModel;
     }
 
@@ -188,17 +176,15 @@ public class TriggerAction implements Serializable {
     /**
      * Setups all the panel used in this class (Local).
      *
-     * @param setupPanel         the solver SetupPanel.
      * @param statisticsPanel    the solver StatisticsPanel.
      * @param resultPanel        the solver ResultPanel.
      * @param menuSolverPanel    the solver MenuSolverPanel.
      * @param engineManagerPanel the solver EngineManagerPanel.
      * @param tokenListPanel     the solver TokenListPanel.
      */
-    public static void setupPanel(SetupSolverPanel setupPanel, StatisticsPanel statisticsPanel,
-                                  ResultPanel resultPanel, MenuSolverPanel menuSolverPanel,
-                                  EngineManagerPanel engineManagerPanel, TokenListPanel tokenListPanel) {
-        TriggerAction.setupPanel = setupPanel;
+    public static void setupPanel(StatisticsPanel statisticsPanel, ResultPanel resultPanel,
+                                  MenuSolverPanel menuSolverPanel, EngineManagerPanel engineManagerPanel,
+                                  TokenListPanel tokenListPanel) {
         TriggerAction.statisticsPanel = statisticsPanel;
         TriggerAction.resultPanel = resultPanel;
         TriggerAction.menuSolverPanel = menuSolverPanel;
@@ -210,15 +196,12 @@ public class TriggerAction implements Serializable {
     /**
      * Setups all the panel used in this class (REST).
      *
-     * @param setupRestPanel  the REST SetupRestPanel.
      * @param resultPanel     the REST ResultPanel.
      * @param menuRestPanel   the REST MenuSolverPanel.
      * @param infoRestPanel   the REST InfoRestPanel
      *
      */
-    public static void setupPanel(SetupRestPanel setupRestPanel, ResultPanel resultPanel,
-                                  MenuRestPanel menuRestPanel, InfoRestPanel infoRestPanel) {
-        TriggerAction.setupRestPanel = setupRestPanel;
+    public static void setupPanel(ResultPanel resultPanel, MenuRestPanel menuRestPanel, InfoRestPanel infoRestPanel) {
         TriggerAction.resultPanel = resultPanel;
         TriggerAction.menuRestPanel = menuRestPanel;
         TriggerAction.infoRestPanel = infoRestPanel;
@@ -239,7 +222,7 @@ public class TriggerAction implements Serializable {
      *
      * @param token the specified token.
      */
-    public static void displayResult(Token token) {
+    public static void displayResult(LocalToken token) {
         resultPanel.displayResult(token);
         statisticsPanel.displayStats(token.getStatistics());
         menuSolverPanel.getValButton().setEnabled(true);
@@ -270,7 +253,7 @@ public class TriggerAction implements Serializable {
      *
      * @param token the specified token.
      */
-    public static void displayError(Token token) {
+    public static void displayError(LocalToken token) {
         statisticsPanel.clearStats();
         resultPanel.clearResult();
         resultPanel.displayError(token);
@@ -281,7 +264,7 @@ public class TriggerAction implements Serializable {
      *
      * @param token the specified token.
      */
-    public static void displayProgress(Token token) {
+    public static void displayProgress(LocalToken token) {
         statisticsPanel.clearStats();
         resultPanel.clearResult();
         resultPanel.diplayProgress(token);
@@ -312,21 +295,12 @@ public class TriggerAction implements Serializable {
     }
 
     /**
-     * Returns the Jlist of the TokenListPanel.
-     *
-     * @return the Jlist of the TokenListPanel.
-     */
-    public static JList<Token> getTokenListPanelJList() {
-        return TriggerAction.tokenListPanel.getTokenJList();
-    }
-
-    /**
      * Returns the selected token of the JList in the TokenListPanel.
      *
      * @return the selected token of the JList in the TokenListPanel.
      */
-    public static Token getTokenListPanelJListSelectedValue() {
-        return TriggerAction.tokenListPanel.getTokenJList().getSelectedValue();
+    public static LocalToken getTokenListPanelJListSelectedValue() {
+        return (LocalToken) TriggerAction.tokenListPanel.getTokenJList().getSelectedValue();
     }
 
     /**
@@ -335,7 +309,7 @@ public class TriggerAction implements Serializable {
      * @return the solving status of the selected token of the JList in the TokenListPanel.
      */
     public static boolean isTokenListPanelJListSelectedValueSolved() {
-        return TriggerAction.tokenListPanel.getTokenJList().getSelectedValue().isSolved();
+        return ((LocalToken) TriggerAction.tokenListPanel.getTokenJList().getSelectedValue()).isSolved();
     }
 
     /**
@@ -356,15 +330,6 @@ public class TriggerAction implements Serializable {
         TriggerAction.menuSolverPanel.getValButton().setEnabled(state);
         TriggerAction.menuSolverPanel.getSaveTxtButton().setEnabled(state);
         TriggerAction.menuSolverPanel.getSaveJsonButton().setEnabled(state);
-    }
-
-    /**
-     * Enables VAL button in the MenuSolverPanel.
-     *
-     * @param state the status of the button.
-     */
-    public static void enableMenuSolverPanelValButton(boolean state) {
-        TriggerAction.menuSolverPanel.getValButton().setEnabled(state);
     }
 
     /**

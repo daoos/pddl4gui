@@ -1,4 +1,4 @@
-package pddl4gui.gui.panel;
+package pddl4gui.gui.panel.local;
 
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.Statistics;

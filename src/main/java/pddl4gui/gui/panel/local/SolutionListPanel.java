@@ -1,10 +1,10 @@
-package pddl4gui.gui.panel;
+package pddl4gui.gui.panel.local;
 
 import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
 import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
-import pddl4gui.token.Token;
+import pddl4gui.token.LocalToken;
 
 import java.io.Serializable;
 import javax.swing.BorderFactory;
@@ -43,7 +43,7 @@ public class SolutionListPanel extends JFrame implements Serializable {
      *
      * @param token the token.
      */
-    public SolutionListPanel(Token token) {
+    public SolutionListPanel(LocalToken token) {
 
         setLayout(null);
         setSize(500, 350);

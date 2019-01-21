@@ -1,4 +1,4 @@
-package pddl4gui.gui.panel;
+package pddl4gui.gui.panel.local;
 
 import pddl4gui.engine.Engine;
 import pddl4gui.engine.EngineManager;
