@@ -8,7 +8,6 @@ import fr.uga.pddl4j.util.Plan;
 import pddl4gui.gui.tools.FileTools;
 
 import java.io.File;
-import java.io.Serializable;
 import javax.swing.DefaultListModel;
 
 /**
@@ -18,7 +17,7 @@ import javax.swing.DefaultListModel;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class LocalToken extends Token implements Serializable {
+public class LocalToken extends Token {
 
     /**
      * The serial id of the class.

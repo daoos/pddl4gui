@@ -41,6 +41,10 @@ jar {
 }
 
 task run (type: JavaExec, dependsOn: build){
+    if (project.hasProperty("Args")) {
+        println("arguments list : " + Args)
+        args(Args.split(','))
+    }
     jvmArgs = ["-javaagent:libs/pddl4j-3.8.jar", "-server", "-Xms2048m", "-Xmx2048m"]
 
     description = "Run PDDL4GUI"

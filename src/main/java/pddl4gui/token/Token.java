@@ -51,7 +51,7 @@ public class Token implements Serializable {
      * @param domainFile the domain file.
      * @param problemFile the problem file.
      */
-    protected Token(File domainFile, File problemFile) {
+    Token(File domainFile, File problemFile) {
         this.domainFile = domainFile;
         this.problemFile = problemFile;
     }

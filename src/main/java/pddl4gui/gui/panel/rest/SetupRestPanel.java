@@ -79,7 +79,7 @@ public class SetupRestPanel extends JPanel implements Serializable {
     /**
      * Creates a new SetupRestPanel associated to the RestSolver main JFrame.
      */
-    public SetupRestPanel(String url) {
+    public SetupRestPanel() {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver parameters"));
 
@@ -172,7 +172,7 @@ public class SetupRestPanel extends JPanel implements Serializable {
         planButton.addActionListener(e -> {
             if (TriggerAction.isRestAlive()) {
                 if (domainFile != null && problemFile != null) {
-                    resolve(url);
+                    resolve(TriggerAction.getRestURL());
                 }
             } else {
                 TriggerAction.setRestStatus("RESTFull API offline");

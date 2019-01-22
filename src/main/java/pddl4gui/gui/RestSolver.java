@@ -27,11 +27,9 @@ public class RestSolver extends JFrame implements Serializable {
 
     /**
      * Create a new RestSolver.
-     *
-     * @param url the url to the RESTFull API
      */
-    public RestSolver(final String url) {
-        final int width = 1200;
+    public RestSolver() {
+        final int width = 1235;
         final int height = 800;
         final int marging = 10;
 
@@ -48,24 +46,24 @@ public class RestSolver extends JFrame implements Serializable {
         final ResultPanel resultPanel;
         final LogPanel logPanel;
 
-        setupRestPanel = new SetupRestPanel(url);
-        setupRestPanel.setBounds(marging, marging + 50, 360, 520);
+        setupRestPanel = new SetupRestPanel();
+        setupRestPanel.setBounds(marging, marging, 310, 570);
         add(setupRestPanel);
 
         menuRestPanel = new MenuRestPanel();
-        menuRestPanel.setBounds(380, marging + 3, 300, 40);
+        menuRestPanel.setBounds(1150, marging + 3, 65, 280);
         add(menuRestPanel);
 
-        infoRestPanel = new InfoRestPanel(url);
-        infoRestPanel.setBounds(380, marging + 50, 300, 520);
+        infoRestPanel = new InfoRestPanel();
+        infoRestPanel.setBounds(330, marging, 300, 570);
         add(infoRestPanel);
 
         resultPanel = new ResultPanel();
-        resultPanel.setBounds(690, marging, 500, 570);
+        resultPanel.setBounds(640, marging, 500, 570);
         add(resultPanel);
 
         logPanel = new LogPanel();
-        logPanel.setBounds(marging, 585, 1180, 175);
+        logPanel.setBounds(marging, 585, 1215, 175);
         add(logPanel);
 
         TriggerAction.setupPanel(resultPanel, menuRestPanel, infoRestPanel);

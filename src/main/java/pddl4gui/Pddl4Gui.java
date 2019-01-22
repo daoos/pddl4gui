@@ -7,7 +7,6 @@ import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.Queue;
 
 import java.io.Serializable;
-import javax.swing.JOptionPane;
 
 /**
  * This class implements the main class of <code>PDDL4GUI</code>.
@@ -25,29 +24,19 @@ public class Pddl4Gui implements Serializable {
     /**
      * Creates a new main GUI.
      */
-    private Pddl4Gui() {
+    private Pddl4Gui(final String[] args) {
         TriggerAction.setPDDL4GUIRunning(true);
-        final Object[] options = {"Local solver", "REST solver"};
-        int selection = JOptionPane.showOptionDialog(null,"Which solver do you want to use?","Choose a solver",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[0]);
 
-        if (selection == 0) {
+        if (args.length > 0 && args[0].equals("-REST")) {
+            new RestSolver();
+        } else if (args.length > 0 && args[0].equals("-LOCAL")) {
             new Solver(new Queue());
-        } else if (selection == 1) {
-            String restService = JOptionPane.showInputDialog(null,
-                    "i.e: http://pddl4j-dev.imag.fr/pddl4j-service-1.0",
-                    "Enter URL of RESTFull API", JOptionPane.INFORMATION_MESSAGE);
-
-            if (restService != null && !restService.equals("")) {
-                new RestSolver(restService + "/search");
-            } else {
-                new RestSolver("http://localhost:8080/pddl4j-service-1.0/search");
-            }
         } else {
+            System.out.println("** PDDL4GUI **");
+            System.out.println("* java -jar pddl4gui-1.0.jar -LOCAL -> use local solver");
+            System.out.println("* java -jar pddl4gui-1.0.jar -REST  -> use REST solver");
+            System.out.println("**");
+            TriggerAction.setPDDL4GUIRunning(false);
             System.exit(0);
         }
     }
@@ -61,6 +50,6 @@ public class Pddl4Gui implements Serializable {
         PlafOptions.setAsLookAndFeel();
         PlafOptions.updateAllUIs();
 
-        new Pddl4Gui();
+        new Pddl4Gui(args);
     }
 }

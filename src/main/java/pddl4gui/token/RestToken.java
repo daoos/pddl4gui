@@ -1,7 +1,6 @@
 package pddl4gui.token;
 
 import java.io.File;
-import java.io.Serializable;
 
 /**
  * This class implements the <code>RestToken</code> for the REST solver.
@@ -10,7 +9,7 @@ import java.io.Serializable;
  * @author E. Hermellin
  * @version 1.0 - 24.10.2018
  */
-public class RestToken extends Token implements Serializable {
+public class RestToken extends Token {
 
     /**
      * The serial id of the class.

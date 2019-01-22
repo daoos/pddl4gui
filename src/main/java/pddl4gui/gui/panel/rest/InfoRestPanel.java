@@ -22,6 +22,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -50,7 +51,12 @@ public class InfoRestPanel extends JPanel implements Serializable {
     /**
      * The url to the RESTFull API.
      */
-    private final String url;
+    private String url;
+
+    /**
+     * The JTextField for the REST URL.
+     */
+    private final JTextField urlRest;
 
     /**
      * The list which contains computations' id.
@@ -66,6 +72,15 @@ public class InfoRestPanel extends JPanel implements Serializable {
      * The current computation id.
      */
     private int id = -1;
+
+    /**
+     * Returns the URL of the REST service (REST).
+     *
+     * @return the URL of the REST service (REST).
+     */
+    public String getUrl() {
+        return url;
+    }
 
     /**
      * Returns the color of the circle corresponding to the status of the REST API.
@@ -95,14 +110,14 @@ public class InfoRestPanel extends JPanel implements Serializable {
     /**
      * Creates a new SetupRestPanel associated to the RestSolver main JFrame.
      */
-    public InfoRestPanel(final String url) {
-        this.url = url;
-
+    public InfoRestPanel() {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Solver informations"));
 
         final JLabel statusLabel = new JLabel("REST solver alive ?");
-        final JTextField urlRest = new JTextField(this.url, 300);
+        final JButton updateUrlButton = new JButton("Update URL");
+        urlRest = new JTextField(this.url, 300);
+
         status = new JTextField("status", 300);
 
         circlePanel = new DrawCircle(3, 3, 15);
@@ -111,6 +126,11 @@ public class InfoRestPanel extends JPanel implements Serializable {
 
         statusLabel.setBounds(15, 25, 120, 25);
         add(statusLabel);
+
+        updateUrlButton.setEnabled(true);
+        updateUrlButton.addActionListener(e -> updateRestURL());
+        updateUrlButton.setBounds(175, 25, 110, 25);
+        add(updateUrlButton);
 
         urlRest.setEditable(false);
         urlRest.setBounds(15, 65, 270, 25);
@@ -141,7 +161,7 @@ public class InfoRestPanel extends JPanel implements Serializable {
         });
         list.setVisibleRowCount(5);
         JScrollPane listScrollPane = new JScrollPane(list);
-        listScrollPane.setBounds(15, 105, 270, 150);
+        listScrollPane.setBounds(15, 105, 270, 145);
         add(listScrollPane);
 
         status.setEditable(false);
@@ -278,6 +298,29 @@ public class InfoRestPanel extends JPanel implements Serializable {
         });
         add(deleteResultButton);
 
+        updateRestURL();
+    }
+
+    private void updateRestURL() {
+        final String oldUrl = this.url;
+        final String restService = JOptionPane.showInputDialog(null,
+                "i.e: http://pddl4j-dev.imag.fr/pddl4j-service-1.0",
+                "Enter URL of RESTFull API", JOptionPane.INFORMATION_MESSAGE);
+
+        if (restService != null && !restService.equals("")) {
+            this.url = restService + "/search";
+            System.out.println("[URL] " + restService);
+        } else {
+            if (oldUrl != null && !oldUrl.equals("")) {
+                this.url = oldUrl;
+                System.out.println("[URL] " + this.url + " (old URL)");
+            } else {
+                this.url = "http://pddl4j-dev.imag.fr/pddl4j-service-1.0" + "/search";
+                System.out.println("[URL] " + this.url + " (default URL)");
+            }
+        }
+
+        urlRest.setText(this.url);
         checkRestAlive();
     }
 

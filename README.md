@@ -53,15 +53,19 @@ With Gradle :
     ./gradlew jar
     # Generate javadoc
     ./gradlew javadoc
-    # Run PDDL4GUI
-    ./gradlew run
+    # Run PDDL4GUI (LOCAL)
+    ./gradlew run -PArgs=-LOCAL
+    # Run PDDL4GUI (REST)
+    ./gradlew run -PArgs=-REST
 
-On linux with the *pddl4gui.sh* script, available at the root of the repository:
+On linux with *pddl4gui_xxx.sh* scripts, available at the root of the repository:
 
-    ./pddl4gui.sh
+    ./pddl4gui_loc.sh  # Run PDDL4GUI (LOCAL)
+    ./pddl4gui_rest.sh # Run PDDL4GUI (REST)
 
 With java command lines:
 
-    java -javaagent:libs/pddl4j-3.8.jar -server -Xms2048m -Xmx2048m -jar pddl4gui-1.0.jar
+    java -javaagent:libs/pddl4j-3.8.jar -server -Xms2048m -Xmx2048m -jar pddl4gui-1.0.jar -LOCAL
+    java -javaagent:libs/pddl4j-3.8.jar -server -Xms2048m -Xmx2048m -jar pddl4gui-1.0.jar -REST
 
 *Note: the libs and resources folders are needed because not integrated into the jar file.*

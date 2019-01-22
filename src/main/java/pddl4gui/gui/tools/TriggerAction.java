@@ -418,4 +418,13 @@ public class TriggerAction implements Serializable {
     public static int getCurrentComputationId() {
         return infoRestPanel.getCurrentComputationId();
     }
+
+    /**
+     * Returns the URL of the REST service (REST).
+     *
+     * @return the URL of the REST service (REST).
+     */
+    public static String getRestURL() {
+        return infoRestPanel.getUrl();
+    }
 }

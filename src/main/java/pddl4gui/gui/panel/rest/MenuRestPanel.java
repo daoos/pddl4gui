@@ -80,7 +80,7 @@ public class MenuRestPanel extends JPanel implements Serializable {
         add(valButton);
 
         saveTxtButton = new JButton(Icons.getSaveIcon());
-        saveTxtButton.setBounds(60, 10, 40, 40);
+        saveTxtButton.setBounds(10, 60, 40, 40);
         saveTxtButton.setToolTipText("Save solution (txt)");
         saveTxtButton.addActionListener(e -> {
             File tempFile = FileTools.saveFile(this, 1);
@@ -92,7 +92,7 @@ public class MenuRestPanel extends JPanel implements Serializable {
         add(saveTxtButton);
 
         saveJsonButton = new JButton(Icons.getSaveIcon());
-        saveJsonButton.setBounds(110, 10, 40, 40);
+        saveJsonButton.setBounds(10, 110, 40, 40);
         saveJsonButton.setToolTipText("Save solution (txt)");
         saveJsonButton.addActionListener(e -> {
             File tempFile = FileTools.saveFile(this, 5);
@@ -104,7 +104,7 @@ public class MenuRestPanel extends JPanel implements Serializable {
         add(saveJsonButton);
 
         final JButton exitButton = new JButton(Icons.getExitIcon());
-        exitButton.setBounds(160, 10, 40, 40);
+        exitButton.setBounds(10, 160, 40, 40);
         exitButton.setToolTipText("Exit");
         exitButton.addActionListener(e -> System.exit(0));
         add(exitButton);
