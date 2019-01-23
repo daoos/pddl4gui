@@ -52,7 +52,7 @@ public class Solver extends JFrame implements Serializable {
         TriggerAction.setupSolver(this);
 
         final int width = 1200;
-        final int height = 800;
+        final int height = 835;
         final int marging = 10;
 
         setLayout(null);
@@ -71,15 +71,14 @@ public class Solver extends JFrame implements Serializable {
         final LogPanel logPanel;
 
         menuSolverPanel = new MenuSolverPanel();
-        menuSolverPanel.setBounds(350, marging + 3, 330, 40);
-        add(menuSolverPanel);
+        this.setJMenuBar(menuSolverPanel);
 
         setupPanel = new SetupSolverPanel();
         setupPanel.setBounds(marging, marging, 330, 320);
         add(setupPanel);
 
         tokenListPanel = new TokenListPanel();
-        tokenListPanel.setBounds(350, 60, 330, 270);
+        tokenListPanel.setBounds(350, marging, 330, 320);
         add(tokenListPanel);
 
         engineManagerPanel = new EngineManagerPanel();

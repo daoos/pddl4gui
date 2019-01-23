@@ -20,7 +20,7 @@ public class Queue implements Serializable {
     /**
      * The list of Token.
      */
-    private Vector<Token> tokenListToSolve;
+    private Vector<LocalToken> tokenListToSolve;
 
     /**
      * Creates a new Queue object.
@@ -34,7 +34,7 @@ public class Queue implements Serializable {
      *
      * @param token the token to add.
      */
-    public void addTokenInQueue(Token token) {
+    public void addTokenInQueue(LocalToken token) {
         tokenListToSolve.add(token);
     }
 
@@ -43,8 +43,8 @@ public class Queue implements Serializable {
      *
      * @return the first token of the Queue.
      */
-    public Token getToken() {
-        final Token token = tokenListToSolve.firstElement();
+    public LocalToken getToken() {
+        final LocalToken token = tokenListToSolve.firstElement();
         removeTokenFromQueue(token);
         return token;
     }
@@ -70,7 +70,7 @@ public class Queue implements Serializable {
      *
      * @param token the token to remove from the Queue.
      */
-    public void removeTokenFromQueue(Token token) {
+    private void removeTokenFromQueue(LocalToken token) {
         tokenListToSolve.remove(token);
     }
 }

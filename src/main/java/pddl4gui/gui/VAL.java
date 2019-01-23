@@ -105,7 +105,7 @@ public class VAL extends JFrame implements Serializable {
         generateTexButton.setEnabled(true);
         add(generateTexButton);
 
-        saveButton = new JButton(Icons.getSaveIcon());
+        saveButton = new JButton(Icons.getSaveTxtIcon());
         saveButton.setBounds(10, 60, 40, 40);
         saveButton.setToolTipText("Save report");
         saveButton.addActionListener(e -> {

@@ -93,7 +93,7 @@ public class EngineManager extends Thread implements Serializable {
      * @param refresh            the refresh time of the EngineManager.
      * @param queue              the token Queue which is managed by the EngineManager.
      */
-    public EngineManager(int refresh, Queue queue) {
+    public EngineManager(final int refresh, final Queue queue) {
         this.refresh = refresh;
         this.queue = queue;
         this.engineList = new Vector<>();

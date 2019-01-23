@@ -11,7 +11,6 @@ import pddl4gui.gui.panel.local.EnginePanel;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.LocalToken;
 import pddl4gui.token.Statistics;
-import pddl4gui.token.Token;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -44,7 +43,7 @@ public class Engine extends Thread implements Serializable {
     /**
      * The list of tokens to solve.
      */
-    private final Vector<Token> ownQueue;
+    private final Vector<LocalToken> ownQueue;
 
     /**
      * The error String containing error which appears during solving process.
@@ -66,7 +65,7 @@ public class Engine extends Thread implements Serializable {
      *
      * @param token the token to add.
      */
-    void addTokenInQueue(Token token) {
+    void addTokenInQueue(LocalToken token) {
         this.ownQueue.add(token);
     }
 
@@ -103,7 +102,7 @@ public class Engine extends Thread implements Serializable {
                 available = false;
                 if (ownQueue.size() > 0) {
                     error = "";
-                    final LocalToken token = (LocalToken) ownQueue.firstElement();
+                    final LocalToken token = ownQueue.firstElement();
                     ownQueue.remove(token);
                     enginePanel.getEngineLabel().setText(token.toString());
                     enginePanel.getCirclePanel().setColor(Color.ORANGE);

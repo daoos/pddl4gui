@@ -301,6 +301,9 @@ public class InfoRestPanel extends JPanel implements Serializable {
         updateRestURL();
     }
 
+    /**
+     * Updates the URL of the REST service.
+     */
     private void updateRestURL() {
         final String oldUrl = this.url;
         final String restService = JOptionPane.showInputDialog(null,

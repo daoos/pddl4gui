@@ -6,10 +6,16 @@ import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.RestToken;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.Serializable;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.AbstractAction;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 /**
  * This class implements the MenuRestPanel class of <code>PDDL4GUI</code>.
@@ -18,7 +24,7 @@ import javax.swing.JPanel;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class MenuRestPanel extends JPanel implements Serializable {
+public class MenuRestPanel extends JMenuBar implements Serializable {
 
     /**
      * The serial id of the class.
@@ -28,9 +34,9 @@ public class MenuRestPanel extends JPanel implements Serializable {
     /**
      * The JButton of the MenuSolverPanel.
      */
-    private final JButton valButton;
-    private final JButton saveTxtButton;
-    private final JButton saveJsonButton;
+    private final JMenuItem valItem;
+    private final JMenuItem saveResultTxt;
+    private final JMenuItem saveResultJson;
 
     /**
      * Returns the VAL button.
@@ -38,7 +44,7 @@ public class MenuRestPanel extends JPanel implements Serializable {
      * @param status the status of the button.
      */
     public void enableValButton(final boolean status) {
-        valButton.setEnabled(status);
+        valItem.setEnabled(status);
     }
 
     /**
@@ -47,7 +53,7 @@ public class MenuRestPanel extends JPanel implements Serializable {
      * @param status the status of the button.
      */
     public void enableSaveTxtButton(final boolean status) {
-        saveTxtButton.setEnabled(status);
+        saveResultTxt.setEnabled(status);
     }
 
     /**
@@ -56,18 +62,21 @@ public class MenuRestPanel extends JPanel implements Serializable {
      * @param status the status of the button.
      */
     public void enableSaveJsonButton(final boolean status) {
-        saveJsonButton.setEnabled(status);
+        saveResultJson.setEnabled(status);
     }
 
     /**
      * Creates a new MenuSolverPanel.
      */
     public MenuRestPanel() {
-        valButton = new JButton(Icons.getValidateIcon());
-        valButton.setBounds(10, 10, 40, 40);
-        valButton.setToolTipText("VAL on solution");
-        valButton.setEnabled(false);
-        valButton.addActionListener(e -> {
+
+        JMenu resultMenu = new JMenu("Result");
+        resultMenu.setIcon(Icons.getResultIcon());
+
+        valItem = new JMenuItem(new MenuItemAction("Validate result", Icons.getValidateIcon(),
+                KeyEvent.VK_V));
+        valItem.setEnabled(false);
+        valItem.addActionListener(e -> {
             final int id = TriggerAction.getCurrentComputationId();
             if (id != -1) {
                 final RestToken restToken = TriggerAction.getRestTokenFromId(id);
@@ -77,36 +86,87 @@ public class MenuRestPanel extends JPanel implements Serializable {
                 }
             }
         });
-        add(valButton);
 
-        saveTxtButton = new JButton(Icons.getSaveIcon());
-        saveTxtButton.setBounds(10, 60, 40, 40);
-        saveTxtButton.setToolTipText("Save solution (txt)");
-        saveTxtButton.addActionListener(e -> {
+        saveResultTxt = new JMenuItem(new MenuItemAction("Save in txt", Icons.getSaveTxtIcon(),
+                KeyEvent.VK_T));
+        saveResultTxt.setEnabled(false);
+        saveResultTxt.addActionListener(e -> {
             File tempFile = FileTools.saveFile(this, 1);
             if (FileTools.checkFile(tempFile)) {
                 FileTools.writeInFile(tempFile, TriggerAction.getResult());
             }
         });
-        saveTxtButton.setEnabled(false);
-        add(saveTxtButton);
 
-        saveJsonButton = new JButton(Icons.getSaveIcon());
-        saveJsonButton.setBounds(10, 110, 40, 40);
-        saveJsonButton.setToolTipText("Save solution (txt)");
-        saveJsonButton.addActionListener(e -> {
+        saveResultJson = new JMenuItem(new MenuItemAction("Save in json", Icons.getSaveJsonIcon(),
+                KeyEvent.VK_J));
+        saveResultJson.setEnabled(false);
+        saveResultJson.addActionListener(e -> {
             File tempFile = FileTools.saveFile(this, 5);
             if (FileTools.checkFile(tempFile)) {
                 FileTools.writeInFile(tempFile, TriggerAction.getResult());
             }
         });
-        saveJsonButton.setEnabled(false);
-        add(saveJsonButton);
 
-        final JButton exitButton = new JButton(Icons.getExitIcon());
-        exitButton.setBounds(10, 160, 40, 40);
-        exitButton.setToolTipText("Exit");
-        exitButton.addActionListener(e -> System.exit(0));
-        add(exitButton);
+        resultMenu.add(valItem);
+        resultMenu.addSeparator();
+        resultMenu.add(saveResultTxt);
+        resultMenu.add(saveResultJson);
+
+        JMenu solverMenu = new JMenu("Solver");
+        solverMenu.setIcon(Icons.getSolverIcon());
+
+        final JMenuItem exitItem = new JMenuItem(new MenuItemAction("Exit solver", Icons.getExitIcon(),
+                KeyEvent.VK_E));
+        exitItem.addActionListener(e -> System.exit(0));
+
+        solverMenu.add(exitItem);
+
+        JMenu helpMenu = new JMenu("help");
+        helpMenu.setIcon(Icons.getInfoIcon());
+
+        final JMenuItem howToItem = new JMenuItem(new MenuItemAction("How to ?", Icons.getHelpIcon(),
+                KeyEvent.VK_H));
+
+        final JMenuItem aboutItem = new JMenuItem(new MenuItemAction("About PDDL4GUI", Icons.getAboutIcon(),
+                KeyEvent.VK_A));
+
+        helpMenu.add(howToItem);
+        helpMenu.addSeparator();
+        helpMenu.add(aboutItem);
+
+        this.add(resultMenu);
+        this.add(solverMenu);
+        this.add(Box.createHorizontalGlue());
+        this.add(helpMenu);
+    }
+
+    /**
+     * MenuItemAction for JMenuItem.
+     */
+    private class MenuItemAction extends AbstractAction {
+
+        /**
+         * Creates new MenuItemAction for JMenuItem.
+         * @param text     the text of JMenuItem.
+         * @param icon     the icon of JMenuItem.
+         * @param mnemonic the mnemonic of JMenuItem.
+         */
+        MenuItemAction(String text, ImageIcon icon,
+                       Integer mnemonic) {
+            super(text);
+
+            putValue(SMALL_ICON, icon);
+            putValue(MNEMONIC_KEY, mnemonic);
+        }
+
+        /**
+         * Event on click for JMenuItem.
+         *
+         * @param e the event.
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("[Action performed] " + e.getActionCommand());
+        }
     }
 }

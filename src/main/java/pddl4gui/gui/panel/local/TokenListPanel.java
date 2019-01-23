@@ -53,7 +53,7 @@ public class TokenListPanel extends JPanel implements Serializable {
         tokenJList = new JList<>(TriggerAction.getListModel());
 
         SolutionListButton.setEnabled(false);
-        SolutionListButton.setBounds(20, 220, 290, 25);
+        SolutionListButton.setBounds(20, 270, 290, 25);
         SolutionListButton.addActionListener(e -> {
             if (tokenJList.getSelectedValue() != null) {
                 new SolutionListPanel(tokenJList.getSelectedValue());
@@ -129,7 +129,7 @@ public class TokenListPanel extends JPanel implements Serializable {
             }
         });
         final JScrollPane scrollTokenJList = new JScrollPane(tokenJList);
-        scrollTokenJList.setBounds(20, 25, 290, 175);
+        scrollTokenJList.setBounds(20, 25, 290, 225);
         add(scrollTokenJList);
     }
 }

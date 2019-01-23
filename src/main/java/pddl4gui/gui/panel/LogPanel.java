@@ -54,7 +54,7 @@ public class LogPanel extends JPanel implements Serializable {
         scrollTextPane.setBounds(15, 25, 1090, 130);
         add(scrollTextPane);
 
-        final JButton saveButton = new JButton(Icons.getSaveIcon());
+        final JButton saveButton = new JButton(Icons.getSaveTxtIcon());
         saveButton.setBounds(1120, 25, 45, 55);
         saveButton.setToolTipText("Save logs");
         saveButton.addActionListener(e -> {

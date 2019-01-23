@@ -224,9 +224,9 @@ public class TriggerAction implements Serializable {
     public static void displayResult(LocalToken token) {
         resultPanel.displayResult(token);
         statisticsPanel.displayStats(token.getStatistics());
-        menuSolverPanel.getValButton().setEnabled(true);
-        menuSolverPanel.getSaveJsonButton().setEnabled(true);
-        menuSolverPanel.getSaveTxtButton().setEnabled(true);
+        menuSolverPanel.enableValButton(true);
+        menuSolverPanel.enableSaveTxtButton(true);
+        menuSolverPanel.enableSaveJsonButton(true);
     }
 
     /**
@@ -326,9 +326,9 @@ public class TriggerAction implements Serializable {
      * @param state the status of the button.
      */
     public static void enableMenuSolverPanelButton(boolean state) {
-        TriggerAction.menuSolverPanel.getValButton().setEnabled(state);
-        TriggerAction.menuSolverPanel.getSaveTxtButton().setEnabled(state);
-        TriggerAction.menuSolverPanel.getSaveJsonButton().setEnabled(state);
+        TriggerAction.menuSolverPanel.enableValButton(state);
+        TriggerAction.menuSolverPanel.enableSaveTxtButton(state);
+        TriggerAction.menuSolverPanel.enableSaveJsonButton(state);
     }
 
     /**

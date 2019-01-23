@@ -20,30 +20,27 @@ public class Icons implements Serializable {
     /**
      * The ImageIcon used in PDDL4GUI.
      */
-    private static final ImageIcon saveIcon = new ImageIcon("resources/icons/save.png");
-    private static final ImageIcon resetIcon = new ImageIcon("resources/icons/reset.png");
-    private static final ImageIcon generateIcon = new ImageIcon("resources/icons/generate.png");
+    private static final ImageIcon aboutIcon = new ImageIcon("resources/icons/about.png");
     private static final ImageIcon exitIcon = new ImageIcon("resources/icons/exit.png");
-    private static final ImageIcon validateIcon = new ImageIcon("resources/icons/validate.png");
+    private static final ImageIcon generateIcon = new ImageIcon("resources/icons/generate.png");
+    private static final ImageIcon helpIcon = new ImageIcon("resources/icons/help.png");
+    private static final ImageIcon infoIcon = new ImageIcon("resources/icons/helpMenu.png");
+    private static final ImageIcon resetIcon = new ImageIcon("resources/icons/reset.png");
+    private static final ImageIcon resultIcon = new ImageIcon("resources/icons/resultMenu.png");
+    private static final ImageIcon saveJsonIcon = new ImageIcon("resources/icons/saveJson.png");
+    private static final ImageIcon saveTxtIcon = new ImageIcon("resources/icons/saveTxt.png");
+    private static final ImageIcon solverIcon = new ImageIcon("resources/icons/solverMenu.png");
     private static final ImageIcon startIcon = new ImageIcon("resources/icons/start.png");
     private static final ImageIcon stopIcon = new ImageIcon("resources/icons/stop.png");
+    private static final ImageIcon validateIcon = new ImageIcon("resources/icons/val.png");
 
     /**
-     * Returns the save icon.
+     * Returns the about icon.
      *
-     * @return the save icon.
+     * @return the about icon.
      */
-    public static ImageIcon getSaveIcon() {
-        return saveIcon;
-    }
-
-    /**
-     * Returns the generate report icon.
-     *
-     * @return the generate report icon.
-     */
-    public static ImageIcon getGenerateIcon() {
-        return generateIcon;
+    public static ImageIcon getAboutIcon() {
+        return aboutIcon;
     }
 
     /**
@@ -56,6 +53,33 @@ public class Icons implements Serializable {
     }
 
     /**
+     * Returns the generate report icon.
+     *
+     * @return the generate report icon.
+     */
+    public static ImageIcon getGenerateIcon() {
+        return generateIcon;
+    }
+
+    /**
+     * Returns the help icon.
+     *
+     * @return the help icon.
+     */
+    public static ImageIcon getHelpIcon() {
+        return helpIcon;
+    }
+
+    /**
+     * Returns the info icon.
+     *
+     * @return the info icon.
+     */
+    public static ImageIcon getInfoIcon() {
+        return infoIcon;
+    }
+
+    /**
      * Returns the reset icon.
      *
      * @return the reset icon.
@@ -65,12 +89,39 @@ public class Icons implements Serializable {
     }
 
     /**
-     * Returns the VAL icon.
+     * Returns the result icon.
      *
-     * @return the VAL icon.
+     * @return the result icon.
      */
-    public static ImageIcon getValidateIcon() {
-        return validateIcon;
+    public static ImageIcon getResultIcon() {
+        return resultIcon;
+    }
+
+    /**
+     * Returns the save json icon.
+     *
+     * @return the save json icon.
+     */
+    public static ImageIcon getSaveJsonIcon() {
+        return saveJsonIcon;
+    }
+
+    /**
+     * Returns the save txt icon.
+     *
+     * @return the save txt icon.
+     */
+    public static ImageIcon getSaveTxtIcon() {
+        return saveTxtIcon;
+    }
+
+    /**
+     * Returns the solver icon.
+     *
+     * @return the solver icon.
+     */
+    public static ImageIcon getSolverIcon() {
+        return solverIcon;
     }
 
     /**
@@ -89,5 +140,14 @@ public class Icons implements Serializable {
      */
     public static ImageIcon getStopIcon() {
         return stopIcon;
+    }
+
+    /**
+     * Returns the VAL icon.
+     *
+     * @return the VAL icon.
+     */
+    public static ImageIcon getValidateIcon() {
+        return validateIcon;
     }
 }
