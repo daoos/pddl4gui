@@ -153,7 +153,7 @@ public class MenuSolverPanel extends JMenuBar implements Serializable {
                 KeyEvent.VK_H));
         howToItem.setEnabled(true);
         howToItem.addActionListener(e -> {
-            try{
+            try {
                 WebPage.openWebpage(new URL("https://github.com/pellierd/pddl4j/wiki"));
             } catch (MalformedURLException exc) {
                 System.out.println(exc.getMessage());

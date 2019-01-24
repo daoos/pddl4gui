@@ -134,7 +134,7 @@ public class MenuRestPanel extends JMenuBar implements Serializable {
 
         howToItem.setEnabled(true);
         howToItem.addActionListener(e -> {
-            try{
+            try {
                 WebPage.openWebpage(new URL("https://github.com/pellierd/pddl4j/wiki"));
             } catch (MalformedURLException exc) {
                 System.out.println(exc.getMessage());
