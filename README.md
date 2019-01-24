@@ -3,7 +3,6 @@
 ### PDDL4J
 
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.45971.svg)](http://dx.doi.org/10.5281/zenodo.45971)
-[![Build Status](http://pddl4j.fr/jenkins/job/PDDL4J%20devel/badge/icon)](http://pddl4j.fr/jenkins/job/PDDL4J%20devel/)
 
 PDDL4J is an open source library under LGPL license.
 
@@ -41,6 +40,20 @@ PDDL4GUI is a small application written in Java that provides a graphical interf
 Features that will be integrated later:
   - A tool to visualize solution plans.
   - ...
+
+#### Dependency
+
+Java JDK 8 must be installed on the computer that will run PDDL4J:
+
+**On windows**
+
+Go to Oracle website and download the JDk corresponding to your computer architecture (x64 or x86): [Java](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+
+After the installation, you have to add java in the *PATH*.
+
+**On Linux (Debian / Ubuntu)**
+
+    sudo apt-get install openjdk-8-jdk
   
 #### How to use the PDDL4GUI
 Download or clone the repository.

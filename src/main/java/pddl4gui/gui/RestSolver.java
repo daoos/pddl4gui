@@ -29,16 +29,10 @@ public class RestSolver extends JFrame implements Serializable {
      * Create a new RestSolver.
      */
     public RestSolver() {
-        final int width = 1200;
-        final int height = 835;
-        final int marging = 10;
-
         setLayout(null);
-        setSize(width, height);
+        setSize(WindowsManager.getWidth(), WindowsManager.getHeight());
         setTitle(WindowsManager.NAME + " | REST solver");
         WindowsManager.setPoint(this.getLocation());
-        WindowsManager.setWidth(width);
-        WindowsManager.setHeight(height);
 
         final SetupRestPanel setupRestPanel;
         final MenuRestPanel menuRestPanel;
@@ -47,22 +41,22 @@ public class RestSolver extends JFrame implements Serializable {
         final LogPanel logPanel;
 
         setupRestPanel = new SetupRestPanel();
-        setupRestPanel.setBounds(marging, marging, 360, 570);
+        setupRestPanel.setBounds(10, 10, 360, 570);
         add(setupRestPanel);
 
         menuRestPanel = new MenuRestPanel();
         this.setJMenuBar(menuRestPanel);
 
         infoRestPanel = new InfoRestPanel();
-        infoRestPanel.setBounds(380, marging, 300, 570);
+        infoRestPanel.setBounds(380, 10, 300, 570);
         add(infoRestPanel);
 
         resultPanel = new ResultPanel();
-        resultPanel.setBounds(690, marging, 500, 570);
+        resultPanel.setBounds(690, 10, 500, 570);
         add(resultPanel);
 
         logPanel = new LogPanel();
-        logPanel.setBounds(marging, 585, 1180, 175);
+        logPanel.setBounds(10, 585, 1180, 175);
         add(logPanel);
 
         TriggerAction.setupPanel(resultPanel, menuRestPanel, infoRestPanel);

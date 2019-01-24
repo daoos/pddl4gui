@@ -51,16 +51,10 @@ public class Solver extends JFrame implements Serializable {
         this.queue = queue;
         TriggerAction.setupSolver(this);
 
-        final int width = 1200;
-        final int height = 835;
-        final int marging = 10;
-
         setLayout(null);
-        setSize(width, height);
+        setSize(WindowsManager.getWidth(), WindowsManager.getHeight());
         setTitle(WindowsManager.NAME + " | Local solver");
         WindowsManager.setPoint(this.getLocation());
-        WindowsManager.setWidth(width);
-        WindowsManager.setHeight(height);
 
         final SetupSolverPanel setupPanel;
         final StatisticsPanel statisticsPanel;
@@ -74,15 +68,15 @@ public class Solver extends JFrame implements Serializable {
         this.setJMenuBar(menuSolverPanel);
 
         setupPanel = new SetupSolverPanel();
-        setupPanel.setBounds(marging, marging, 330, 320);
+        setupPanel.setBounds(10, 10, 330, 320);
         add(setupPanel);
 
         tokenListPanel = new TokenListPanel();
-        tokenListPanel.setBounds(350, marging, 330, 320);
+        tokenListPanel.setBounds(350, 10, 330, 320);
         add(tokenListPanel);
 
         engineManagerPanel = new EngineManagerPanel();
-        engineManagerPanel.setBounds(marging, 340, 330, 240);
+        engineManagerPanel.setBounds(10, 340, 330, 240);
         add(engineManagerPanel);
 
         statisticsPanel = new StatisticsPanel();
@@ -90,11 +84,11 @@ public class Solver extends JFrame implements Serializable {
         add(statisticsPanel);
 
         resultPanel = new ResultPanel();
-        resultPanel.setBounds(690, marging, 500, 570);
+        resultPanel.setBounds(690, 10, 500, 570);
         add(resultPanel);
 
         logPanel = new LogPanel();
-        logPanel.setBounds(marging, 585, 1180, 175);
+        logPanel.setBounds(10, 585, 1180, 175);
         add(logPanel);
 
         TriggerAction.setupPanel(statisticsPanel, resultPanel, menuSolverPanel, engineManagerPanel, tokenListPanel);

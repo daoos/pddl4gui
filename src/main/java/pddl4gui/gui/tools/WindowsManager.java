@@ -26,17 +26,27 @@ public class WindowsManager implements Serializable {
     /**
      * The width of PDDL4GUI main frame.
      */
-    private static int width;
+    private static int width = 1200;
 
     /**
      * The height of PDDL4GUI main frame.
      */
-    private static int height;
+    private static int height = 835;
 
     /**
      * The title of PDDL4GUI main frame.
      */
-    public static final String NAME = "PDDL 4 GUI";
+    public static final String NAME = "PDDL4GUI";
+
+    /**
+     * The version of PDDL4GUI Local.
+     */
+    public static final String LOCAL_VERSION = "PDDL4GUI v1.0 | Local solver based on PDDL4J v3.8";
+
+    /**
+     * The version of PDDL4GUI REST.
+     */
+    public static final String REST_VERSION = "PDDL4GUI v1.0 | REST solver based on PDDL4J WebApps v3.7.2";
 
     /**
      * Sets the origin point of PDDL4GUI.
@@ -48,21 +58,21 @@ public class WindowsManager implements Serializable {
     }
 
     /**
-     * Sets the width of PDDL4GUI main frame.
+     * Gets the width of PDDL4GUI main frame.
      *
-     * @param width the width of PDDL4GUI main frame.
+     * @return the width of PDDL4GUI main frame.
      */
-    public static void setWidth(int width) {
-        WindowsManager.width = width;
+    public static int getWidth() {
+        return WindowsManager.width;
     }
 
     /**
-     * Sets the height of PDDL4GUI main frame.
+     * Gets the height of PDDL4GUI main frame.
      *
-     * @param height the height of PDDL4GUI main frame.
+     * @return the height of PDDL4GUI main frame.
      */
-    public static void setHeight(int height) {
-        WindowsManager.height = height;
+    public static int getHeight() {
+        return WindowsManager.height;
     }
 
     /**

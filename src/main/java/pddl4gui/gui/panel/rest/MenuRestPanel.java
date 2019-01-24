@@ -4,18 +4,23 @@ import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.gui.tools.WebPage;
+import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.RestToken;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import javax.swing.AbstractAction;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  * This class implements the MenuRestPanel class of <code>PDDL4GUI</code>.
@@ -124,11 +129,25 @@ public class MenuRestPanel extends JMenuBar implements Serializable {
         JMenu helpMenu = new JMenu("help");
         helpMenu.setIcon(Icons.getInfoIcon());
 
-        final JMenuItem howToItem = new JMenuItem(new MenuItemAction("How to ?", Icons.getHelpIcon(),
+        final JMenuItem howToItem = new JMenuItem(new MenuItemAction("Wiki PDDL4J", Icons.getHelpIcon(),
                 KeyEvent.VK_H));
+
+        howToItem.setEnabled(true);
+        howToItem.addActionListener(e -> {
+            try{
+                WebPage.openWebpage(new URL("https://github.com/pellierd/pddl4j/wiki"));
+            } catch (MalformedURLException exc) {
+                System.out.println(exc.getMessage());
+            }
+        });
 
         final JMenuItem aboutItem = new JMenuItem(new MenuItemAction("About PDDL4GUI", Icons.getAboutIcon(),
                 KeyEvent.VK_A));
+
+        aboutItem.setEnabled(true);
+        aboutItem.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, WindowsManager.REST_VERSION);
+        });
 
         helpMenu.add(howToItem);
         helpMenu.addSeparator();
