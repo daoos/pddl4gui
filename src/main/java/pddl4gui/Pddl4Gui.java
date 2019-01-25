@@ -37,7 +37,6 @@ public class Pddl4Gui implements Serializable {
             System.out.println("* java -jar pddl4gui-1.0.jar -REST  -> use REST solver");
             System.out.println("**");
             TriggerAction.setPDDL4GUIRunning(false);
-            System.exit(0);
         }
     }
 

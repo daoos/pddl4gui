@@ -18,7 +18,7 @@ import javax.swing.JTextArea;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class ResultPanel extends JPanel implements Serializable {
+public class ResultPanel extends JPanel {
 
     /**
      * The serial id of the class.

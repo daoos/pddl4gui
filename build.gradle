@@ -6,6 +6,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
 
 version '1.0'
 
@@ -64,6 +65,12 @@ checkstyleMain.onlyIf() { project.hasProperty('checkstyle') }
 
 checkstyleMain.doLast() {
     printCheckstyleVersion()
+}
+
+findbugs {
+    effort= "max"
+    reportLevel = "low"
+    excludeFilter = file("$rootProject.projectDir/config/findbugs/excludeFilter.xml")
 }
 
 tasks.withType(Jar) {

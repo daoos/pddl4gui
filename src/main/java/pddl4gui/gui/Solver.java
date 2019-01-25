@@ -21,7 +21,7 @@ import javax.swing.JFrame;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class Solver extends JFrame implements Serializable {
+public class Solver extends JFrame {
 
     /**
      * The serial id of the class.
@@ -95,5 +95,6 @@ public class Solver extends JFrame implements Serializable {
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        engineManagerPanel.startEngineManager();
     }
 }

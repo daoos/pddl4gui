@@ -3,7 +3,6 @@ package pddl4gui.gui.panel.local;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.Statistics;
 
-import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,7 +14,7 @@ import javax.swing.JPanel;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class StatisticsPanel extends JPanel implements Serializable {
+public class StatisticsPanel extends JPanel {
 
     /**
      * The serial id of the class.

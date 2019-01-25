@@ -3,20 +3,17 @@ package pddl4gui.gui.panel.local;
 import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
+import pddl4gui.gui.tools.MenuItemAction;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WebPage;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.LocalToken;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
-import javax.swing.AbstractAction;
 import javax.swing.Box;
-import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -29,7 +26,7 @@ import javax.swing.JOptionPane;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class MenuSolverPanel extends JMenuBar implements Serializable {
+public class MenuSolverPanel extends JMenuBar {
 
     /**
      * The serial id of the class.
@@ -177,36 +174,4 @@ public class MenuSolverPanel extends JMenuBar implements Serializable {
         this.add(Box.createHorizontalGlue());
         this.add(helpMenu);
     }
-
-    /**
-     * MenuItemAction for JMenuItem.
-     */
-    private class MenuItemAction extends AbstractAction {
-
-        /**
-         * Creates new MenuItemAction for JMenuItem.
-         * @param text     the text of JMenuItem.
-         * @param icon     the icon of JMenuItem.
-         * @param mnemonic the mnemonic of JMenuItem.
-         */
-        MenuItemAction(String text, ImageIcon icon,
-                              Integer mnemonic) {
-            super(text);
-
-            putValue(SMALL_ICON, icon);
-            putValue(MNEMONIC_KEY, mnemonic);
-        }
-
-        /**
-         * Event on click for JMenuItem.
-         *
-         * @param e the event.
-         */
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("[Action performed] " + e.getActionCommand());
-        }
-    }
-
-
 }

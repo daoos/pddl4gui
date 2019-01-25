@@ -22,7 +22,6 @@ import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.LocalToken;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.BorderFactory;
@@ -42,7 +41,7 @@ import javax.swing.SpinnerNumberModel;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class SetupSolverPanel extends JPanel implements Serializable {
+public class SetupSolverPanel extends JPanel {
 
     /**
      * The serial id of the class.

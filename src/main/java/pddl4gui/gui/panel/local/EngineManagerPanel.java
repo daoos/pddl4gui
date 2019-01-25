@@ -4,7 +4,6 @@ import pddl4gui.engine.Engine;
 import pddl4gui.engine.EngineManager;
 import pddl4gui.gui.tools.TriggerAction;
 
-import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,7 +15,7 @@ import javax.swing.JPanel;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class EngineManagerPanel extends JPanel implements Serializable {
+public class EngineManagerPanel extends JPanel {
 
     /**
      * The serial id of the class.
@@ -98,7 +97,12 @@ public class EngineManagerPanel extends JPanel implements Serializable {
         remainingLabel = new JLabel(TriggerAction.getRemainningTokenInQueue() + " token(s) remaining");
         remainingLabel.setBounds(190, 214, 265, 20);
         add(remainingLabel);
+    }
 
+    /**
+     * Starts the EngineManager.
+     */
+    public void startEngineManager() {
         engineManager.start();
     }
 }

@@ -17,7 +17,6 @@ import pddl4gui.token.RestToken;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -36,7 +35,7 @@ import javax.swing.event.ListSelectionEvent;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class InfoRestPanel extends JPanel implements Serializable {
+public class InfoRestPanel extends JPanel {
 
     /**
      * The serial id of the class.

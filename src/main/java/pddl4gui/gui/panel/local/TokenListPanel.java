@@ -1,10 +1,10 @@
 package pddl4gui.gui.panel.local;
 
 import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
+import pddl4gui.gui.tools.OwnListSelectionModel;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.LocalToken;
 
-import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
@@ -21,7 +21,7 @@ import javax.swing.event.ListSelectionEvent;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class TokenListPanel extends JPanel implements Serializable {
+public class TokenListPanel extends JPanel {
 
     /**
      * The serial id of the class.
@@ -63,31 +63,7 @@ public class TokenListPanel extends JPanel implements Serializable {
 
         tokenJList.setLayoutOrientation(JList.VERTICAL);
         tokenJList.setVisibleRowCount(20);
-        tokenJList.setSelectionModel(new DefaultListSelectionModel() {
-
-            @Override
-            public void setSelectionInterval(int index0, int index1) {
-                if (index0 == index1) {
-                    if (isSelectedIndex(index0)) {
-                        removeSelectionInterval(index0, index0);
-                        return;
-                    }
-                }
-                super.setSelectionInterval(index0, index1);
-            }
-
-            @Override
-            public void addSelectionInterval(int index0, int index1) {
-                if (index0 == index1) {
-                    if (isSelectedIndex(index0)) {
-                        removeSelectionInterval(index0, index0);
-                        return;
-                    }
-                    super.addSelectionInterval(index0, index1);
-                }
-            }
-
-        });
+        tokenJList.setSelectionModel(new OwnListSelectionModel());
         tokenJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tokenJList.addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {

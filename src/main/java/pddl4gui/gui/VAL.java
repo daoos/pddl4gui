@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -28,7 +29,7 @@ import javax.swing.JTextArea;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class VAL extends JFrame implements Serializable {
+public class VAL extends JFrame {
 
     /**
      * The serial id of the class.
@@ -176,13 +177,20 @@ public class VAL extends JFrame implements Serializable {
             final Runtime rt = Runtime.getRuntime();
             final Process proc = rt.exec(target);
             proc.waitFor();
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                output.append(line).append("\n");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream(),
+                    StandardCharsets.UTF_8));
+            try {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    output.append(line).append("\n");
+                }
+            } catch (IOException ioex) {
+                ioex.printStackTrace();
+            } finally {
+                reader.close();
             }
             return output;
-        } catch (Throwable t) {
+        } catch (IOException | InterruptedException t) {
             t.printStackTrace();
             return output.append(" Error during validation !");
         }

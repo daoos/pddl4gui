@@ -2,7 +2,6 @@ package pddl4gui.gui.tools;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.Serializable;
 import javax.swing.JPanel;
 
 /**
@@ -12,7 +11,7 @@ import javax.swing.JPanel;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class DrawCircle extends JPanel implements Serializable {
+public class DrawCircle extends JPanel {
 
     /**
      * The serial id of the class.

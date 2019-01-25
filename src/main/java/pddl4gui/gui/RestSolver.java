@@ -8,7 +8,6 @@ import pddl4gui.gui.panel.rest.SetupRestPanel;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 
-import java.io.Serializable;
 import javax.swing.JFrame;
 
 /**
@@ -18,7 +17,7 @@ import javax.swing.JFrame;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class RestSolver extends JFrame implements Serializable {
+public class RestSolver extends JFrame {
 
     /**
      * The serial id of the class.

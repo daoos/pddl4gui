@@ -7,6 +7,7 @@ import pddl4gui.gui.tools.Icons;
 import java.io.File;
 import java.io.PrintStream;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -20,7 +21,7 @@ import javax.swing.JTextArea;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class LogPanel extends JPanel implements Serializable {
+public class LogPanel extends JPanel {
 
     /**
      * The serial id of the class.
@@ -40,14 +41,6 @@ public class LogPanel extends JPanel implements Serializable {
         setBorder(BorderFactory.createTitledBorder("Log output"));
 
         logArea = new JTextArea();
-        PrintStream printStream = new PrintStream(new CustomOutputStream(logArea));
-
-        // keeps reference of standard output stream
-        //standardOut = System.out;
-
-        // re-assigns standard output stream and error output stream
-        System.setOut(printStream);
-        System.setErr(printStream);
 
         logArea.setEditable(false);
         final JScrollPane scrollTextPane = new JScrollPane(logArea);
@@ -73,5 +66,18 @@ public class LogPanel extends JPanel implements Serializable {
         resetButton.setEnabled(true);
         resetButton.addActionListener(e -> logArea.setText(""));
         add(resetButton);
+
+        try {
+            PrintStream printStream = new PrintStream(new CustomOutputStream(logArea), false, "UTF-8");
+
+            // keeps reference of standard output stream
+            //standardOut = System.out;
+
+            // re-assigns standard output stream and error output stream
+            System.setOut(printStream);
+            System.setErr(printStream);
+        } catch (UnsupportedEncodingException unex) {
+            unex.printStackTrace();
+        }
     }
 }

@@ -16,7 +16,6 @@ import pddl4gui.token.RestToken;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -33,7 +32,7 @@ import javax.swing.SpinnerNumberModel;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class SetupRestPanel extends JPanel implements Serializable {
+public class SetupRestPanel extends JPanel {
 
     /**
      * The serial id of the class.

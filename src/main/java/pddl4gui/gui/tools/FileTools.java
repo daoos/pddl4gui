@@ -4,8 +4,11 @@ import java.awt.Component;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Vector;
@@ -30,7 +33,7 @@ public class FileTools implements Serializable {
     /**
      * The last file path used.
      */
-    private static File staticLastPath;
+    private static File staticLastPath = new File(".");
 
     /**
      * The file extensions used in PDDL4GUI.
@@ -48,7 +51,7 @@ public class FileTools implements Serializable {
      * @param file the file to check.
      * @return true if the file is not null, false otherwise.
      */
-    public static boolean checkFile(File file) {
+    public static boolean checkFile(final File file) {
         return (file != null);
     }
 
@@ -58,11 +61,8 @@ public class FileTools implements Serializable {
      * @param fileName the filename with the extension.
      * @return the filename without the extension.
      */
-    public static String removeExtension(String fileName) {
-        if (fileName.indexOf(".") > 0) {
-            fileName = fileName.substring(0, fileName.lastIndexOf("."));
-        }
-        return fileName;
+    public static String removeExtension(final String fileName) {
+        return fileName.substring(0, fileName.lastIndexOf('.'));
     }
 
     /**
@@ -76,11 +76,7 @@ public class FileTools implements Serializable {
      */
     public static Vector<File> getFiles(Component component, int integer, boolean multiple, JButton button) {
         final JFileChooser fileChooser = new JFileChooser();
-        if (staticLastPath != null) {
-            fileChooser.setCurrentDirectory(staticLastPath);
-        } else {
-            fileChooser.setCurrentDirectory(new File("."));
-        }
+        fileChooser.setCurrentDirectory(staticLastPath);
 
         if (integer == 0) {
             fileChooser.setFileFilter(pddl);
@@ -144,7 +140,7 @@ public class FileTools implements Serializable {
      */
     private static Scanner readFileToScanner(File file) {
         try {
-            return new Scanner(file);
+            return new Scanner(file, "UTF8");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;
@@ -160,11 +156,7 @@ public class FileTools implements Serializable {
      */
     public static File saveFile(Component component, int integer) {
         final JFileChooser fileChooser = new JFileChooser();
-        if (staticLastPath != null) {
-            fileChooser.setCurrentDirectory(staticLastPath);
-        } else {
-            fileChooser.setCurrentDirectory(new File("."));
-        }
+        fileChooser.setCurrentDirectory(staticLastPath);
 
         File saveFile = null;
 
@@ -208,21 +200,18 @@ public class FileTools implements Serializable {
      * @param string the content to write.
      */
     public static void writeInFile(File file, String string) {
-        BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new FileWriter(file));
-
-            writer.write(string);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+            final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, false),
+                    StandardCharsets.UTF_8));
             try {
-                if (writer != null) {
-                    writer.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+                writer.write(string);
+            } catch (IOException ioex) {
+                ioex.printStackTrace();
+            } finally {
+                writer.close();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

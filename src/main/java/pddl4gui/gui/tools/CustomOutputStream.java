@@ -15,6 +15,11 @@ import javax.swing.JTextArea;
 public class CustomOutputStream extends OutputStream implements Serializable {
 
     /**
+     * The serial id of the class.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * The JTextArea which contains the output.
      */
     private JTextArea textArea;

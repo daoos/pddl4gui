@@ -2,11 +2,11 @@ package pddl4gui.gui.panel.local;
 
 import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
 import pddl4gui.gui.tools.Icons;
+import pddl4gui.gui.tools.OwnListSelectionModel;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.LocalToken;
 
-import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
@@ -25,7 +25,7 @@ import javax.swing.event.ListSelectionEvent;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-class SolutionListPanel extends JFrame implements Serializable {
+class SolutionListPanel extends JFrame {
 
     /**
      * The serial id of the class.
@@ -82,31 +82,7 @@ class SolutionListPanel extends JFrame implements Serializable {
         final JList<Node> nodeJList = new JList<>(token.getSolutioNodeListModel());
         nodeJList.setLayoutOrientation(JList.VERTICAL);
         nodeJList.setVisibleRowCount(20);
-        nodeJList.setSelectionModel(new DefaultListSelectionModel() {
-
-            @Override
-            public void setSelectionInterval(int index0, int index1) {
-                if (index0 == index1) {
-                    if (isSelectedIndex(index0)) {
-                        removeSelectionInterval(index0, index0);
-                        return;
-                    }
-                }
-                super.setSelectionInterval(index0, index1);
-            }
-
-            @Override
-            public void addSelectionInterval(int index0, int index1) {
-                if (index0 == index1) {
-                    if (isSelectedIndex(index0)) {
-                        removeSelectionInterval(index0, index0);
-                        return;
-                    }
-                    super.addSelectionInterval(index0, index1);
-                }
-            }
-
-        });
+        nodeJList.setSelectionModel(new OwnListSelectionModel());
         nodeJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         nodeJList.addListSelectionListener((ListSelectionEvent e) -> {
             if (!e.getValueIsAdjusting()) {

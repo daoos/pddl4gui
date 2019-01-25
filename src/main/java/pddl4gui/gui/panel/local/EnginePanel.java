@@ -5,7 +5,6 @@ import pddl4gui.gui.tools.DrawCircle;
 import pddl4gui.gui.tools.Icons;
 
 import java.awt.Color;
-import java.io.Serializable;
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,7 +19,7 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class EnginePanel extends JPanel implements Serializable {
+public class EnginePanel extends JPanel {
 
     /**
      * The serial id of the class.
@@ -130,15 +129,6 @@ public class EnginePanel extends JPanel implements Serializable {
         progressBar.setValue(0);
         progressBar.setVisible(true);
         progressBar.setStringPainted(true);
-        progressBar.setUI(new BasicProgressBarUI() {
-            protected Color getSelectionBackground() {
-                return Color.black;
-            }
-
-            protected Color getSelectionForeground() {
-                return Color.black;
-            }
-        });
         progressBar.setString("");
         progressBar.setBounds(60, 5, 245, 20);
         add(progressBar);
