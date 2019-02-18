@@ -33,6 +33,7 @@ public class Icons implements Serializable {
     private static final ImageIcon startIcon = new ImageIcon("resources/icons/start.png");
     private static final ImageIcon stopIcon = new ImageIcon("resources/icons/stop.png");
     private static final ImageIcon validateIcon = new ImageIcon("resources/icons/val.png");
+    private static final ImageIcon display = new ImageIcon("resources/icons/display.png");
 
     /**
      * Returns the about icon.
@@ -149,5 +150,14 @@ public class Icons implements Serializable {
      */
     public static ImageIcon getValidateIcon() {
         return validateIcon;
+    }
+
+    /**
+     * Returns the display icon.
+     *
+     * @return the display icon.
+     */
+    public static ImageIcon getDisplayIcon() {
+        return display;
     }
 }

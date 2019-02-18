@@ -1,5 +1,6 @@
 package pddl4gui.gui.panel.local;
 
+import pddl4gui.gui.Display;
 import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
@@ -117,10 +118,19 @@ public class MenuSolverPanel extends JMenuBar {
             }
         });
 
+        JMenuItem displaySolution = new JMenuItem(new MenuItemAction("Display solution", Icons.getDisplayIcon(),
+                KeyEvent.VK_D));
+        displaySolution.setEnabled(true);
+        displaySolution.addActionListener(e -> {
+            new Display();
+        });
+
         resultMenu.add(valItem);
         resultMenu.addSeparator();
         resultMenu.add(saveResultTxt);
         resultMenu.add(saveResultJson);
+        resultMenu.addSeparator();
+        resultMenu.add(displaySolution);
 
         JMenu solverMenu = new JMenu("Solver");
         solverMenu.setIcon(Icons.getSolverIcon());

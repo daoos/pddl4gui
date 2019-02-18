@@ -215,6 +215,15 @@ public class LocalToken extends Token {
     }
 
     /**
+     * Returns the solution Plan.
+     *
+     * @return the solution Plan.
+     */
+    public Plan getSolutionPlan() {
+        return this.solutionPlan;
+    }
+
+    /**
      * Returns the solution Plan as a String object.
      *
      * @return the solution Plan as a String object.
