@@ -123,14 +123,13 @@ public class Engine extends Thread implements Serializable {
                     token.setSolved(resolve(token));
                     token.setError(error);
                     timer.stop();
-                } else {
-                    available = true;
-                    progressBar.setValue(0);
-                    progressBar.setString("Ready !");
-                    enginePanel.getEngineLabel().setText("Waiting for token");
-                    enginePanel.getCirclePanel().setColor(Color.GREEN);
-                    enginePanel.getCirclePanel().repaint();
                 }
+                available = true;
+                progressBar.setValue(0);
+                progressBar.setString("Ready !");
+                enginePanel.getEngineLabel().setText("Waiting for token");
+                enginePanel.getCirclePanel().setColor(Color.GREEN);
+                enginePanel.getCirclePanel().repaint();
                 sleep(refresh);
             } catch (InterruptedException | IOException e) {
                 available = false;
