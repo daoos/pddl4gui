@@ -79,7 +79,7 @@ public class ResultPanel extends JPanel {
         checkbox = new JCheckBox("Detailed plan");
         resultArea = new JTextArea();
 
-        final int labWidth = 120;
+        final int labWidth = 150;
         final int labHeight = 20;
         int labMarging = 20;
 
@@ -88,15 +88,10 @@ public class ResultPanel extends JPanel {
         add(domainLabel);
         add(domain);
 
-        costLabel.setBounds(180, labMarging, labWidth, labHeight);
-        cost.setBounds(235, labMarging, labWidth / 2, labHeight);
+        costLabel.setBounds(250, labMarging, labWidth, labHeight);
+        cost.setBounds(305, labMarging, labWidth / 2, labHeight);
         add(costLabel);
         add(cost);
-
-        plannerLabel.setBounds(310, labMarging, labWidth, labHeight);
-        planner.setBounds(365, labMarging, labWidth, labHeight);
-        add(plannerLabel);
-        add(planner);
 
         labMarging += labHeight;
 
@@ -105,12 +100,19 @@ public class ResultPanel extends JPanel {
         add(problemLabel);
         add(problem);
 
-        depthLabel.setBounds(180, labMarging, labWidth, labHeight);
-        depth.setBounds(235, labMarging, labWidth / 2, labHeight);
+        depthLabel.setBounds(250, labMarging, labWidth, labHeight);
+        depth.setBounds(305, labMarging, labWidth / 2, labHeight);
         add(depthLabel);
         add(depth);
 
-        checkbox.setBounds(360, labMarging, labWidth, labHeight);
+        labMarging += labHeight;
+
+        plannerLabel.setBounds(15, labMarging, labWidth, labHeight);
+        planner.setBounds(70, labMarging, labWidth, labHeight);
+        add(plannerLabel);
+        add(planner);
+
+        checkbox.setBounds(375, labMarging, (labWidth / 2) + 40, labHeight);
         checkbox.setSelected(false);
         checkbox.setEnabled(false);
         checkbox.addItemListener(e -> {
@@ -124,11 +126,11 @@ public class ResultPanel extends JPanel {
         });
         add(checkbox);
 
-        labMarging += labHeight * 1.75;
+        labMarging += labHeight * 1.50;
 
         resultArea.setEditable(false);
         final JScrollPane scrollTextPane = new JScrollPane(resultArea);
-        scrollTextPane.setBounds(15, labMarging, 470, 470);
+        scrollTextPane.setBounds(15, labMarging, 470, 460);
         add(scrollTextPane);
     }
 

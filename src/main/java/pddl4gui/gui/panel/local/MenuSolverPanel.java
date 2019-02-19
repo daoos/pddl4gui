@@ -122,7 +122,7 @@ public class MenuSolverPanel extends JMenuBar {
                 KeyEvent.VK_D));
         displaySolution.setEnabled(true);
         displaySolution.addActionListener(e -> {
-            new Display();
+            //new Display();
         });
 
         resultMenu.add(valItem);
