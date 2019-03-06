@@ -1,10 +1,11 @@
 package pddl4gui.engine;
 
+import pddl4gui.gui.panel.local.EngineManagerPanel;
+import pddl4gui.gui.panel.local.EnginePanel;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.Queue;
 
 import java.io.Serializable;
-import java.util.Vector;
 
 /**
  * This class implements the EngineManager class of <code>PDDL4GUI</code>.
@@ -21,14 +22,24 @@ public class EngineManager extends Thread implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * The EngineManagerPanel which displays the EnginPanel.
+     */
+    private final EngineManagerPanel engineManagerPanel;
+
+    /**
      * The refresh time of the EngineManager.
      */
     private final int refresh;
 
     /**
-     * The list of all Engine.
+     * The maximum number of running Engines.
      */
-    private final Vector<Engine> engineList;
+    private int numberEngineMax = 1;
+
+    /**
+     * The current number of running Engines.
+     */
+    private int numberEngineRunning = 0;
 
     /**
      * The Queue of token.
@@ -36,21 +47,26 @@ public class EngineManager extends Thread implements Serializable {
     private final Queue queue;
 
     /**
-     * Adds an Engine.
+     * Sets the maximum number of running Engines.
      *
-     * @param engine the Engine to add.
+     * @param numberEngineMax the maximum number of running Engines.
      */
-    public void addEngine(Engine engine) {
-        engineList.add(engine);
+    public void setNumberEngineMax(int numberEngineMax) {
+        this.numberEngineMax = numberEngineMax;
     }
 
     /**
-     * Removes an Engine.
-     *
-     * @param engine the Engine to remove.
+     * Increases the current number of running Engines.
      */
-    public void removeEngine(Engine engine) {
-        engineList.remove(engine);
+    public void increaseNumberEngineRunning() {
+        this.numberEngineRunning++;
+    }
+
+    /**
+     * Decreases the current number of running Engines.
+     */
+    public void decreaseNumberEngineRunning() {
+        this.numberEngineRunning--;
     }
 
     /**
@@ -63,55 +79,30 @@ public class EngineManager extends Thread implements Serializable {
     }
 
     /**
-     * Gets an available Engine.
-     *
-     * @return the first available Engine.
-     */
-    private Engine getEngine() {
-        boolean engineIsAvailable = false;
-        Engine engineTemp = new Engine(refresh, null);
-        while (!engineIsAvailable) {
-            try {
-                for (Engine engine : engineList) {
-                    if (engine.isAvailable()) {
-                        engineIsAvailable = true;
-                        engineTemp = engine;
-                    }
-                }
-                sleep(refresh);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                break;
-            }
-        }
-        return engineTemp;
-    }
-
-    /**
      * Creates a new EngineManager which manages Engine.
      *
      * @param refresh            the refresh time of the EngineManager.
      * @param queue              the token Queue which is managed by the EngineManager.
      */
-    public EngineManager(final int refresh, final Queue queue) {
+    public EngineManager(final int refresh, final Queue queue, final EngineManagerPanel engineManagerPanel) {
         this.refresh = refresh;
         this.queue = queue;
-        this.engineList = new Vector<>();
+        this.engineManagerPanel = engineManagerPanel;
     }
 
     /**
      * The process of the EngineManager.
      */
-    @Override
     public void run() {
         while (TriggerAction.isPDDL4GUIRunning()) {
             try {
-                if (queue.remainingTokens() > 0) {
-                    final Engine engine = getEngine();
-                    engine.addTokenInQueue(queue.getToken());
-                    TriggerAction.setTokenRemainingEngineManagerPanel();
+                if (this.queue.remainingTokens() > 0 && this.numberEngineRunning < this.numberEngineMax) {
+                    final EnginePanel enginePanel = this.engineManagerPanel.addEnginePanel(this.queue.getToken());
+                    enginePanel.startEngine();
+                    this.engineManagerPanel.setTokensRemaining();
+                    this.increaseNumberEngineRunning();
                 }
-                sleep(refresh);
+                sleep(this.refresh);
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 break;

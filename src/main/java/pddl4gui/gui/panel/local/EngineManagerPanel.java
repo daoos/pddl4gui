@@ -1,12 +1,15 @@
 package pddl4gui.gui.panel.local;
 
-import pddl4gui.engine.Engine;
 import pddl4gui.engine.EngineManager;
 import pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.token.LocalToken;
 
+import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 /**
  * This class implements the EngineManagerPanel class of <code>PDDL4GUI</code>.
@@ -28,26 +31,22 @@ public class EngineManagerPanel extends JPanel {
     private final EngineManager engineManager;
 
     /**
+     * The HashMap used to sort the EnginePanel.
+     */
+    private final HashMap<Integer, Boolean> engineStatus = initHashMap();
+
+    /**
      * The JLabel for remaining tokens to solve.
      */
     private final JLabel remainingLabel;
 
     /**
-     * Adds an Engine in the EngineManager.
+     * Returns the EngineManager which manages Engine.
      *
-     * @param engine the Engine to add.
+     * @return the EngineManager which manages Engine.
      */
-    void addEngine(Engine engine) {
-        engineManager.addEngine(engine);
-    }
-
-    /**
-     * Removes an Engine from the EngineManager.
-     *
-     * @param engine the Engine to remove.
-     */
-    void removeEngine(Engine engine) {
-        engineManager.removeEngine(engine);
+    public EngineManager getEngineManager() {
+        return engineManager;
     }
 
     /**
@@ -73,36 +72,97 @@ public class EngineManagerPanel extends JPanel {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Engines status"));
 
-        engineManager = new EngineManager(1000, TriggerAction.getQueue());
+        this.engineManager = new EngineManager(2000, TriggerAction.getQueue(), this);
+        int cores = Runtime.getRuntime().availableProcessors();
+        if (cores > 4) {
+            cores = 4;
+        }
 
-        int labHeight = 25;
+        final SpinnerNumberModel numberCoreModel = new SpinnerNumberModel(1, 1, cores - 1, 1);
+        final JSpinner coreSpinner = new JSpinner(numberCoreModel);
+        coreSpinner.setBounds(165, 185, 150, 25);
+        coreSpinner.addChangeListener(e -> this.engineManager.setNumberEngineMax((Integer) coreSpinner.getValue()));
+        add(coreSpinner);
+
+        final JLabel coreLabel = new JLabel("Number of engines");
+        coreLabel.setBounds(15, 185, 150, 25);
+        add(coreLabel);
+
+        this.remainingLabel = new JLabel(TriggerAction.getRemainningTokenInQueue() + " token(s) remaining");
+        this.remainingLabel.setBounds(185, 214, 265, 20);
+        add(this.remainingLabel);
+    }
+
+    /**
+     * Adds a new EnginPanel.
+     *
+     * @return the EnginePanel created.
+     */
+    public EnginePanel addEnginePanel(final LocalToken token) {
         final int labMarging = 45;
-        final int cores = Runtime.getRuntime().availableProcessors();
+        final EnginePanel enginePanel = new EnginePanel(this.getId(),this, token);
+        enginePanel.setBounds(10, 25 + labMarging * enginePanel.getId(), 310, 50);
+        add(enginePanel);
 
-        boolean activeEngine = true;
-        int inc = 0;
-        do {
-            if (inc > 0) {
-                activeEngine = false;
-            }
+        this.repaint();
 
-            final EnginePanel enginePanel = new EnginePanel(this, activeEngine);
-            enginePanel.setBounds(10, labHeight, 310, 50);
-            add(enginePanel);
+        return enginePanel;
+    }
 
-            labHeight += labMarging;
-            inc++;
-        } while (inc < cores - 1 && inc < 4);
-
-        remainingLabel = new JLabel(TriggerAction.getRemainningTokenInQueue() + " token(s) remaining");
-        remainingLabel.setBounds(190, 214, 265, 20);
-        add(remainingLabel);
+    /**
+     * Removes the given EnginePanel.
+     *
+     * @param enginePanel the EnginePanel to remove.
+     */
+    public void removeEnginePanel(final EnginePanel enginePanel) {
+        this.freeId(enginePanel.getId());
+        this.remove(enginePanel);
+        this.repaint();
     }
 
     /**
      * Starts the EngineManager.
      */
     public void startEngineManager() {
-        engineManager.start();
+        this.engineManager.start();
+    }
+
+    /**
+     * Initializes the HashMap.
+     *
+     * @return an initialized HashMap.
+     */
+    private HashMap<Integer, Boolean> initHashMap() {
+        HashMap<Integer, Boolean> hashMap = new HashMap<>();
+        hashMap.put(0, true);
+        hashMap.put(1, true);
+        hashMap.put(2, true);
+        return hashMap;
+    }
+
+    /**
+     * Returns the id of a free spot in the HashMap (free = true in value).
+     *
+     * @return the id of a free spot in the HashMap.
+     */
+    private int getId() {
+        int id = 0;
+        for (HashMap.Entry<Integer, Boolean> entry : this.engineStatus.entrySet()) {
+            if (entry.getValue()) {
+                entry.setValue(false);
+                id = entry.getKey();
+                break;
+            }
+        }
+        return id;
+    }
+
+    /**
+     * Free the id (set the value to true).
+     *
+     * @param id the id to free.
+     */
+    private void freeId(final int id) {
+        this.engineStatus.put(id, true);
     }
 }

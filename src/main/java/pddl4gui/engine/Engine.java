@@ -8,7 +8,6 @@ import fr.uga.pddl4j.planners.ProblemFactory;
 import fr.uga.pddl4j.util.MemoryAgent;
 import fr.uga.pddl4j.util.Plan;
 import pddl4gui.gui.panel.local.EnginePanel;
-import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.LocalToken;
 import pddl4gui.token.Statistics;
 
@@ -16,7 +15,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Vector;
+import java.util.Objects;
 import javax.swing.JProgressBar;
 import javax.swing.Timer;
 
@@ -41,9 +40,14 @@ public class Engine extends Thread implements Serializable {
     private final EnginePanel enginePanel;
 
     /**
+     * The EngineManager which manages Engine.
+     */
+    private final EngineManager engineManager;
+
+    /**
      * The list of tokens to solve.
      */
-    private final Vector<LocalToken> ownQueue;
+    private LocalToken localToken;
 
     /**
      * The error String containing error which appears during solving process.
@@ -51,44 +55,17 @@ public class Engine extends Thread implements Serializable {
     private String error = "";
 
     /**
-     * The refresh time of the Engine.
-     */
-    private int refresh;
-
-    /**
-     * The availability of the Engine.
-     */
-    private boolean available;
-
-    /**
-     * Adds token in the queue.
-     *
-     * @param token the token to add.
-     */
-    void addTokenInQueue(LocalToken token) {
-        this.ownQueue.add(token);
-    }
-
-    /**
-     * If the Engine is available : true. False otherwise.
-     *
-     * @return if the Engine is available.
-     */
-    boolean isAvailable() {
-        return available;
-    }
-
-    /**
      * Creates a new Engine. Its role is to solve tokens.
      *
-     * @param refresh     the refresh time of the Engine.
-     * @param enginePanel the EnginePanel which displays its status.
+     * @param enginePanel   the EnginePanel which displays its status.
+     * @param engineManager the EngineManager which manages Engine.
+     * @param token         the LocalToken to be solved by the engine.
      */
-    public Engine(int refresh, EnginePanel enginePanel) {
-        this.refresh = refresh;
+    public Engine(final EnginePanel enginePanel, final EngineManager engineManager, final LocalToken token) {
+        Objects.requireNonNull(token);
         this.enginePanel = enginePanel;
-        this.ownQueue = new Vector<>();
-        this.available = false;
+        this.engineManager = engineManager;
+        this.localToken = token;
     }
 
     /**
@@ -96,52 +73,34 @@ public class Engine extends Thread implements Serializable {
      */
     @Override
     public void run() {
-        final JProgressBar progressBar = enginePanel.getProgressBar();
-        while (TriggerAction.isPDDL4GUIRunning()) {
-            try {
-                available = false;
-                if (ownQueue.size() > 0) {
-                    error = "";
-                    final LocalToken token = ownQueue.firstElement();
-                    ownQueue.remove(token);
-                    enginePanel.getEngineLabel().setText(token.toString());
-                    enginePanel.getCirclePanel().setColor(Color.ORANGE);
-                    enginePanel.getCirclePanel().repaint();
+        final JProgressBar progressBar = this.enginePanel.getProgressBar();
+        try {
+            this.error = "";
+            this.enginePanel.getEngineLabel().setText(this.localToken.toString());
+            this.enginePanel.getCirclePanel().setColor(Color.ORANGE);
+            this.enginePanel.getCirclePanel().repaint();
 
-                    final int timeout = token.getPlanner().getStateSpaceStrategies().size() *
-                            (token.getPlanner().getStateSpaceStrategies().get(0).getTimeout() / 1000);
-                    progressBar.setValue(0);
-                    progressBar.setMaximum(timeout);
-                    progressBar.setString(progressBar.getValue() + "/" + timeout);
-                    final Timer timer = new Timer(1000, (ActionEvent evt) -> {
-                        progressBar.setValue(progressBar.getValue() + 1);
-                        progressBar.setString(progressBar.getValue() + "/" + timeout);
-                    });
+            final int timeout = this.localToken.getPlanner().getStateSpaceStrategies().size()
+                    * (this.localToken.getPlanner().getStateSpaceStrategies().get(0).getTimeout() / 1000);
+            progressBar.setValue(0);
+            progressBar.setMaximum(timeout);
+            progressBar.setString(progressBar.getValue() + "/" + timeout);
+            final Timer timer = new Timer(1000, (ActionEvent evt) -> {
+                progressBar.setValue(progressBar.getValue() + 1);
+                progressBar.setString(progressBar.getValue() + "/" + timeout);
+            });
 
-                    timer.start();
-                    System.out.println(token.getPlannerName() + " planner on " + this.getName());
-                    token.setSolved(resolve(token));
-                    token.setError(error);
-                    timer.stop();
-                }
-                available = true;
-                progressBar.setValue(0);
-                progressBar.setString("Ready !");
-                enginePanel.getEngineLabel().setText("Waiting for token");
-                enginePanel.getCirclePanel().setColor(Color.GREEN);
-                enginePanel.getCirclePanel().repaint();
-                sleep(refresh);
-            } catch (InterruptedException | IOException e) {
-                available = false;
-                progressBar.setString("");
-                enginePanel.getEngineLabel().setText("Engine crash, restart it !");
-                enginePanel.getCirclePanel().setColor(Color.RED);
-                enginePanel.getCirclePanel().repaint();
-                enginePanel.getInitButton().setEnabled(true);
-                e.printStackTrace();
-                break;
-            }
+            timer.start();
+            System.out.println(localToken.getPlannerName() + " planner on " + this.getName());
+            this.localToken.setSolved(resolve(this.localToken));
+            this.localToken.setError(this.error);
+            timer.stop();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        this.engineManager.decreaseNumberEngineRunning();
+        this.enginePanel.exit();
     }
 
     /**
@@ -160,15 +119,15 @@ public class Engine extends Thread implements Serializable {
             ErrorManager errorManager = factory.parse(token.getDomainFile(), token.getProblemFile());
             if (!errorManager.isEmpty()) {
                 if (!errorManager.getMessages(token.getDomainFile()).isEmpty()) {
-                    error = error.concat("Error in " + token.getDomainFileName() + "\n");
+                    this.error = this.error.concat("Error in " + token.getDomainFileName() + "\n");
                     for (Message message : errorManager.getMessages(token.getDomainFile())) {
-                        error = error.concat(message.getContent() + "\n");
+                        this.error = this.error.concat(message.getContent() + "\n");
                     }
                 }
                 if (!errorManager.getMessages(token.getProblemFile()).isEmpty()) {
-                    error = error.concat("Error in " + token.getProblemFileName() + "\n");
+                    this.error = this.error.concat("Error in " + token.getProblemFileName() + "\n");
                     for (Message message : errorManager.getMessages(token.getProblemFile())) {
-                        error = error.concat(message.getContent() + "\n");
+                        this.error = this.error.concat(message.getContent() + "\n");
                     }
                 }
                 return false;
@@ -181,7 +140,7 @@ public class Engine extends Thread implements Serializable {
                 try {
                     pb = factory.encode();
                 } catch (IllegalArgumentException e) {
-                    error = ("Error during encoding process.\n Check the :requirements part of the domain !");
+                    this.error = ("Error during encoding process.\n Check the :requirements part of the domain !");
                     e.printStackTrace();
                     return false;
                 }
@@ -192,7 +151,7 @@ public class Engine extends Thread implements Serializable {
                     statistics.setNumberOfFluents(pb.getRelevantFacts().size());
                     statistics.setMemoryForProblemInMBytes(MemoryAgent.getDeepSizeOf(pb) / (1024.0 * 1024.0));
                     if (!pb.isSolvable()) {
-                        error = ("Goal can be simplified to FALSE.\n"
+                        this.error = ("Goal can be simplified to FALSE.\n"
                                 + "No search will solve it !");
                         return false;
                     }
@@ -210,22 +169,22 @@ public class Engine extends Thread implements Serializable {
                         statistics.setDepth(plan.size());
                         return true;
                     } else {
-                        error = ("No plan found !");
+                        this.error = ("No plan found !");
                         statistics.setCost(0);
                         statistics.setDepth(0);
                         return false;
                     }
                 } else {
-                    error = ("Encoding problem failed !");
+                    this.error = ("Encoding problem failed !");
                     return false;
                 }
             } catch (NullPointerException e) {
-                error = ("Error during solving process.\n Check the problem.pddl file !");
+                this.error = ("Error during solving process.\n Check the problem.pddl file !");
                 e.printStackTrace();
                 return false;
             }
         } else {
-            error = ("Domain or Problem not defined !");
+            this.error = ("Domain or Problem not defined !");
             return false;
         }
     }

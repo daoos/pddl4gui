@@ -1,6 +1,5 @@
 package pddl4gui.gui.panel.local;
 
-import pddl4gui.gui.Display;
 import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
@@ -171,9 +170,7 @@ public class MenuSolverPanel extends JMenuBar {
                 KeyEvent.VK_A));
 
         aboutItem.setEnabled(true);
-        aboutItem.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, WindowsManager.LOCAL_VERSION);
-        });
+        aboutItem.addActionListener(e -> JOptionPane.showMessageDialog(null, WindowsManager.LOCAL_VERSION));
 
         helpMenu.add(howToItem);
         helpMenu.addSeparator();

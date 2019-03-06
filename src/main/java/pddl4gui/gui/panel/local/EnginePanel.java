@@ -2,15 +2,11 @@ package pddl4gui.gui.panel.local;
 
 import pddl4gui.engine.Engine;
 import pddl4gui.gui.tools.DrawCircle;
-import pddl4gui.gui.tools.Icons;
+import pddl4gui.token.LocalToken;
 
-import java.awt.Color;
-import java.util.Random;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.plaf.basic.BasicProgressBarUI;
 
 /**
  * This class implements the EnginePanel class of <code>PDDL4GUI</code>.
@@ -27,19 +23,19 @@ public class EnginePanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
     /**
+     * The id of the EnginePanel (must be 0, 1 or 2).
+     */
+    private final int id;
+
+    /**
+     * The EngineManagerPanel of the EnginePanel.
+     */
+    private EngineManagerPanel engineManagerPanel;
+
+    /**
      * The Engine associated to this EnginePanel.
      */
     private Engine engine;
-
-    /**
-     * The Buttons to init Engine.
-     */
-    private final JButton initButton;
-
-    /**
-     * The Buttons to stop Engine.
-     */
-    private final JButton stopButton;
 
     /**
      * The JLabel to display Engine status.
@@ -57,12 +53,12 @@ public class EnginePanel extends JPanel {
     private final JProgressBar progressBar;
 
     /**
-     * Returns the init button.
+     * Returns the id of the EnginePanel.
      *
-     * @return the init button.
+     * @return the id of the EnginePanel.
      */
-    public JButton getInitButton() {
-        return initButton;
+    public int getId() {
+        return id;
     }
 
     /**
@@ -71,7 +67,7 @@ public class EnginePanel extends JPanel {
      * @return the Engine label.
      */
     public JLabel getEngineLabel() {
-        return engineLabel;
+        return this.engineLabel;
     }
 
     /**
@@ -80,7 +76,7 @@ public class EnginePanel extends JPanel {
      * @return Engine circle status.
      */
     public DrawCircle getCirclePanel() {
-        return circlePanel;
+        return this.circlePanel;
     }
 
     /**
@@ -89,62 +85,55 @@ public class EnginePanel extends JPanel {
      * @return Engine progress bar.
      */
     public JProgressBar getProgressBar() {
-        return progressBar;
+        return this.progressBar;
     }
 
     /**
      * Creates a new EnginePanel associated to an EngineManagerPanel.
      *
-     * @param engineManagerPanel the EngineManagerPanel.
-     * @param active             the status of the associated Engine.
+     * @param id                 the id of the EnginePanel.
+     * @param engineManagerPanel the EngineManagerPanel of the EnginePanel.
+     * @param token              the LocalToken to solve by the Engine attached to the EnginePanel.
      */
-    EnginePanel(EngineManagerPanel engineManagerPanel, boolean active) {
+    EnginePanel(final int id, final EngineManagerPanel engineManagerPanel, final LocalToken token) {
+        this.id = id;
+        this.engineManagerPanel = engineManagerPanel;
         setLayout(null);
 
-        initButton = new JButton(Icons.getStartIcon());
-        stopButton = new JButton(Icons.getStopIcon());
+        final JLabel engineId = new JLabel("Engine " + this.id);
+        engineId.setBounds(0, 5, 80, 20);
+        add(engineId);
 
-        Random random = new Random();
-        initButton.setBounds(30, 5, 20, 20);
-        initButton.setEnabled(!active);
-        initButton.addActionListener(e -> {
-            initButton.setEnabled(false);
-            stopButton.setEnabled(true);
-            engine = new Engine(random.nextInt(500) + 500, this);
-            engineManagerPanel.addEngine(engine);
-            engine.start();
-        });
-        add(initButton);
+        this.progressBar = new JProgressBar(0, 100);
+        this.progressBar.setValue(0);
+        this.progressBar.setVisible(true);
+        this.progressBar.setStringPainted(true);
+        this.progressBar.setString("");
+        this.progressBar.setBounds(60, 5, 245, 20);
+        add(this.progressBar);
 
-        stopButton.setBounds(5, 5, 20, 20);
-        stopButton.setEnabled(active);
-        stopButton.addActionListener(e -> {
-            engine.interrupt();
-            engineManagerPanel.removeEngine(engine);
-            stopButton.setEnabled(false);
-        });
-        add(stopButton);
+        this.circlePanel = new DrawCircle(3, 3, 15);
+        this.circlePanel.setBounds(60, 25, 25, 25);
+        add(this.circlePanel);
 
-        progressBar = new JProgressBar(0, 100);
-        progressBar.setValue(0);
-        progressBar.setVisible(true);
-        progressBar.setStringPainted(true);
-        progressBar.setString("");
-        progressBar.setBounds(60, 5, 245, 20);
-        add(progressBar);
+        this.engineLabel = new JLabel(" -- ");
+        this.engineLabel.setBounds(90, 25, 265, 20);
+        add(this.engineLabel);
 
-        circlePanel = new DrawCircle(3, 3, 15);
-        circlePanel.setBounds(60, 25, 25, 25);
-        add(circlePanel);
+        this.engine = new Engine(this, this.engineManagerPanel.getEngineManager(), token);
+    }
 
-        engineLabel = new JLabel(" -- ");
-        engineLabel.setBounds(90, 25, 265, 20);
-        add(engineLabel);
+    /**
+     * Starts the Engine attached to the EnginePanel.
+     */
+    public void startEngine() {
+        this.engine.start();
+    }
 
-        if (active) {
-            engine = new Engine(random.nextInt(500) + 500, this);
-            engineManagerPanel.addEngine(engine);
-            engine.start();
-        }
+    /**
+     * Removes the EnginePanel from the EngineManagerPanel.
+     */
+    public void exit() {
+        this.engineManagerPanel.removeEnginePanel(this);
     }
 }
