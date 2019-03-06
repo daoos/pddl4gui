@@ -26,9 +26,9 @@ simply operators into ground actions based on inertia properties.
 
 ### PDDL4GUI
 
-![PDDL4GUI](https://raw.githubusercontent.com/ehermellin/ehermellin.github.io/master/images/projet/pddl4gui.jpg)
+![PDDL4GUI](PDDL4GUI.png)
 
-![PDDL4GUI](https://raw.githubusercontent.com/ehermellin/ehermellin.github.io/master/images/projet/pddl4gui_rest.jpg)
+![PDDL4GUI](PDDL4GUI_REST.png)
 
 PDDL4GUI is a small application written in Java that provides a graphical interface to the PDDL4J library. PDDL4GUI offers:
   - A graphical interface for solving planning problems with the PDDL4J library.
