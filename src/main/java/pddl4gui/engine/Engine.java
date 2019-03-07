@@ -195,12 +195,4 @@ public class Engine implements Runnable, Serializable {
             return false;
         }
     }
-
-    /**
-     * Calling the Java Garbage Collector.
-     */
-    public static void gc() {
-        Runtime r = Runtime.getRuntime();
-        r.gc();
-    }
 }

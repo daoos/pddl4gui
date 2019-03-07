@@ -2,6 +2,7 @@ package pddl4gui.gui.panel.local;
 
 import pddl4gui.engine.Engine;
 import pddl4gui.gui.tools.DrawCircle;
+import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.LocalToken;
 
 import javax.swing.JLabel;
@@ -135,6 +136,6 @@ public class EnginePanel extends JPanel {
      */
     public void exit() {
         this.engineManagerPanel.removeEnginePanel(this);
-        Engine.gc();
+        TriggerAction.gc();
     }
 }

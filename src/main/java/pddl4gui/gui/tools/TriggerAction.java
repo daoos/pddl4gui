@@ -427,4 +427,11 @@ public class TriggerAction implements Serializable {
     public static String getRestURL() {
         return infoRestPanel.getUrl();
     }
+
+    /**
+     * Calling the Java Garbage Collector.
+     */
+    public static void gc() {
+        Runtime.getRuntime().gc();
+    }
 }

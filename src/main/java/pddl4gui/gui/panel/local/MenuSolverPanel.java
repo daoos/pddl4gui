@@ -144,11 +144,17 @@ public class MenuSolverPanel extends JMenuBar {
             TriggerAction.resetSolver();
         });
 
+        final JMenuItem garbageItem = new JMenuItem(new MenuItemAction("Garbage Collector", Icons.getGarbageIcon(),
+                KeyEvent.VK_G));
+        garbageItem.addActionListener(e -> TriggerAction.gc());
+
         final JMenuItem exitItem = new JMenuItem(new MenuItemAction("Exit solver", Icons.getExitIcon(),
                 KeyEvent.VK_E));
         exitItem.addActionListener(e -> System.exit(0));
 
         solverMenu.add(resetItem);
+        solverMenu.addSeparator();
+        solverMenu.add(garbageItem);
         solverMenu.addSeparator();
         solverMenu.add(exitItem);
 

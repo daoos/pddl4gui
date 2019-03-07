@@ -25,7 +25,7 @@ public class Icons implements Serializable {
     private static final ImageIcon generateIcon = new ImageIcon("resources/icons/generate.png");
     private static final ImageIcon helpIcon = new ImageIcon("resources/icons/help.png");
     private static final ImageIcon infoIcon = new ImageIcon("resources/icons/helpMenu.png");
-    private static final ImageIcon resetIcon = new ImageIcon("resources/icons/reset.png");
+    private static final ImageIcon resetIcon = new ImageIcon("resources/icons/clean.png");
     private static final ImageIcon resultIcon = new ImageIcon("resources/icons/resultMenu.png");
     private static final ImageIcon saveJsonIcon = new ImageIcon("resources/icons/saveJson.png");
     private static final ImageIcon saveTxtIcon = new ImageIcon("resources/icons/saveTxt.png");
@@ -33,7 +33,8 @@ public class Icons implements Serializable {
     private static final ImageIcon startIcon = new ImageIcon("resources/icons/start.png");
     private static final ImageIcon stopIcon = new ImageIcon("resources/icons/stop.png");
     private static final ImageIcon validateIcon = new ImageIcon("resources/icons/val.png");
-    private static final ImageIcon display = new ImageIcon("resources/icons/display.png");
+    private static final ImageIcon displayIcon = new ImageIcon("resources/icons/display.png");
+    private static final ImageIcon garbageIcon = new ImageIcon("resources/icons/garbage.png");
 
     /**
      * Returns the about icon.
@@ -158,6 +159,15 @@ public class Icons implements Serializable {
      * @return the display icon.
      */
     public static ImageIcon getDisplayIcon() {
-        return display;
+        return displayIcon;
+    }
+
+    /**
+     * Returns the garbage icon.
+     *
+     * @return the garbage icon.
+     */
+    public static ImageIcon getGarbageIcon() {
+        return garbageIcon;
     }
 }
