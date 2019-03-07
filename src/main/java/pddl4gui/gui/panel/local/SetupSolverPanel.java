@@ -13,7 +13,6 @@ import fr.uga.pddl4j.planners.statespace.search.strategy.DepthFirstSearch;
 import fr.uga.pddl4j.planners.statespace.search.strategy.EnforcedHillClimbing;
 import fr.uga.pddl4j.planners.statespace.search.strategy.GreedyBestFirstSearch;
 import fr.uga.pddl4j.planners.statespace.search.strategy.GreedyBestFirstSearchAnytime;
-import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
 import fr.uga.pddl4j.planners.statespace.search.strategy.StateSpaceStrategy;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.TriggerAction;
@@ -228,16 +227,14 @@ public class SetupSolverPanel extends JPanel {
     }
 
     /**
-     * Creates token and adds it into the Queue.
+     * Return a planner according to the parameters given.
      *
-     * @param domainFile   the PDDL domain file.
-     * @param problemFiles the list of PDDL problem files.
+     * @param weight  the weight of the heuristic.
+     * @param timeout the timeout of the heuristic.
+     * @return the planner to use.
      */
-    private void resolve(File domainFile, Vector<File> problemFiles) {
+    private StateSpacePlanner getPlanner(final double weight, final double timeout) {
         final StateSpacePlannerFactory plannerFactory = StateSpacePlannerFactory.getInstance();
-        final double weight = (double) weightSpinner.getValue();
-        final double timeout = (double) timeoutSpinner.getValue() * 1000;
-
         StateSpacePlanner planner;
 
         switch (plannerName) {
@@ -301,19 +298,31 @@ public class SetupSolverPanel extends JPanel {
                 planner = null;
                 break;
         }
+        return planner;
+    }
 
-        if (planner != null) {
-            if (problemFiles != null && domainFile != null) {
-                for (File file : problemFiles) {
+    /**
+     * Creates token and adds it into the Queue.
+     *
+     * @param domainFile   the PDDL domain file.
+     * @param problemFiles the list of PDDL problem files.
+     */
+    private void resolve(final File domainFile, final Vector<File> problemFiles) {
+        final double weight = (double) weightSpinner.getValue();
+        final double timeout = (double) timeoutSpinner.getValue() * 1000;
+
+        if (problemFiles != null && domainFile != null) {
+            for (File file : problemFiles) {
+                final StateSpacePlanner planner = getPlanner(weight, timeout);
+                if (planner != null) {
                     final LocalToken token = new LocalToken(domainFile, file, planner, plannerName);
                     List<StateSpaceStrategy> strategyList = token.getPlanner().getStateSpaceStrategies();
-                    final DefaultListModel<Node> listModel = new DefaultListModel<>();
+                    token.setSolutioNodeListModel(new DefaultListModel<>());
 
                     for (StateSpaceStrategy stateSpaceStrategy : strategyList) {
-                        stateSpaceStrategy.addSolutionListener(e -> listModel.addElement(e.getSolutionNode()));
+                        stateSpaceStrategy.addSolutionListener(e -> token.getSolutioNodeListModel()
+                                .addElement(e.getSolutionNode()));
                     }
-
-                    token.setSolutioNodeListModel(listModel);
 
                     if (token.isRunnable() && TriggerAction.isEngineManagerRunning()) {
                         if (!TriggerAction.getListModel().contains(token)) {
