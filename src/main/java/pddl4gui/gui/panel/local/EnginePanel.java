@@ -135,5 +135,6 @@ public class EnginePanel extends JPanel {
      */
     public void exit() {
         this.engineManagerPanel.removeEnginePanel(this);
+        Engine.gc();
     }
 }

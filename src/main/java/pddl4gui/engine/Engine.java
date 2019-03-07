@@ -19,7 +19,6 @@ import java.util.Objects;
 import javax.swing.JProgressBar;
 import javax.swing.Timer;
 
-
 /**
  * This class implements the Engine class of <code>PDDL4GUI</code>.
  * This object extends a thread and is used by EngineManager to solve token.
@@ -27,7 +26,7 @@ import javax.swing.Timer;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class Engine extends Thread implements Serializable {
+public class Engine implements Runnable, Serializable {
 
     /**
      * The serial id of the class.
@@ -69,9 +68,16 @@ public class Engine extends Thread implements Serializable {
     }
 
     /**
+     * Starts the Thread.
+     */
+    public void start() {
+        Thread worker = new Thread(this);
+        worker.start();
+    }
+
+    /**
      * The process of the Engine.
      */
-    @Override
     public void run() {
         final JProgressBar progressBar = this.enginePanel.getProgressBar();
         try {
@@ -91,12 +97,13 @@ public class Engine extends Thread implements Serializable {
             });
 
             timer.start();
-            System.out.println(localToken.getPlannerName() + " planner on " + this.getName());
+            System.out.println(localToken.getPlannerName() + " planner");
             this.localToken.setSolved(resolve(this.localToken));
             this.localToken.setError(this.error);
             timer.stop();
 
         } catch (IOException e) {
+            Thread.currentThread().interrupt();
             e.printStackTrace();
         }
         this.engineManager.decreaseNumberEngineRunning();
@@ -187,5 +194,13 @@ public class Engine extends Thread implements Serializable {
             this.error = ("Domain or Problem not defined !");
             return false;
         }
+    }
+
+    /**
+     * Calling the Java Garbage Collector.
+     */
+    public static void gc() {
+        Runtime r = Runtime.getRuntime();
+        r.gc();
     }
 }

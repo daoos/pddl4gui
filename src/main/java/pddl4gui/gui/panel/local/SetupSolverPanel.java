@@ -8,8 +8,6 @@ import fr.uga.pddl4j.planners.statespace.generic.GenericAnytimePlanner;
 import fr.uga.pddl4j.planners.statespace.generic.GenericPlanner;
 import fr.uga.pddl4j.planners.statespace.search.strategy.AStar;
 import fr.uga.pddl4j.planners.statespace.search.strategy.AStarAnytime;
-import fr.uga.pddl4j.planners.statespace.search.strategy.AbstractStateSpaceStrategy;
-import fr.uga.pddl4j.planners.statespace.search.strategy.AbstractStateSpaceStrategyAnytime;
 import fr.uga.pddl4j.planners.statespace.search.strategy.BreadthFirstSearch;
 import fr.uga.pddl4j.planners.statespace.search.strategy.DepthFirstSearch;
 import fr.uga.pddl4j.planners.statespace.search.strategy.EnforcedHillClimbing;
@@ -240,7 +238,7 @@ public class SetupSolverPanel extends JPanel {
         final double weight = (double) weightSpinner.getValue();
         final double timeout = (double) timeoutSpinner.getValue() * 1000;
 
-        StateSpacePlanner planner = null;
+        StateSpacePlanner planner;
 
         switch (plannerName) {
             case "HSP":
@@ -250,55 +248,47 @@ public class SetupSolverPanel extends JPanel {
                 planner = plannerFactory.getPlanner(Planner.Name.FF, (int) timeout, heuristic, weight, true, 1);
                 break;
             case "GenericPlanner":
-                AbstractStateSpaceStrategy stateSpaceStrategy = null;
-
-                if (strategyName != null) {
-                    switch (strategyName) {
-                        case "A*":
-                            stateSpaceStrategy = new AStar((int) timeout, heuristic, weight);
-                            break;
-                        case "Enforced Hill Climbing":
-                            stateSpaceStrategy = new EnforcedHillClimbing((int) timeout, heuristic, weight);
-                            break;
-                        case "Breadth First Search":
-                            stateSpaceStrategy = new BreadthFirstSearch((int) timeout);
-                            break;
-                        case "Depth First Search":
-                            stateSpaceStrategy = new DepthFirstSearch((int) timeout);
-                            break;
-                        case "Greedy Best First Search":
-                            stateSpaceStrategy = new GreedyBestFirstSearch((int) timeout, heuristic, weight);
-                            break;
-                        default:
-                            stateSpaceStrategy = null;
-                            break;
-                    }
-                }
-
-                if (stateSpaceStrategy != null) {
-                    planner = new GenericPlanner(true, 1, stateSpaceStrategy);
+                System.out.println(strategyName);
+                switch (strategyName) {
+                    case "A*":
+                        planner = new GenericPlanner(true, 1,
+                                new AStar((int) timeout, heuristic, weight));
+                        break;
+                    case "Enforced Hill Climbing":
+                        planner = new GenericPlanner(true, 1,
+                                new EnforcedHillClimbing((int) timeout, heuristic, weight));
+                        break;
+                    case "Breadth First Search":
+                        planner = new GenericPlanner(true, 1,
+                                new BreadthFirstSearch((int) timeout));
+                        break;
+                    case "Depth First Search":
+                        planner = new GenericPlanner(true, 1,
+                                new DepthFirstSearch((int) timeout));
+                        break;
+                    case "Greedy Best First Search":
+                        planner = new GenericPlanner(true, 1,
+                                new GreedyBestFirstSearch((int) timeout, heuristic, weight));
+                        break;
+                    default:
+                        planner = null;
+                        break;
                 }
                 break;
             case "GenericAnytimePlanner":
-                AbstractStateSpaceStrategyAnytime stateSpaceStrategyAnytime = null;
-
-                if (strategyName != null) {
-                    switch (strategyName) {
-                        case "A* Anytime":
-                            stateSpaceStrategyAnytime = new AStarAnytime((int) timeout, heuristic, weight);
-                            break;
-                        case "Greedy Best First Search Anytime":
-                            stateSpaceStrategyAnytime = new GreedyBestFirstSearchAnytime((int) timeout,
-                                    heuristic, weight);
-                            break;
-                        default:
-                            stateSpaceStrategyAnytime = null;
-                            break;
-                    }
-                }
-
-                if (stateSpaceStrategyAnytime != null) {
-                    planner = new GenericAnytimePlanner(true, 1, stateSpaceStrategyAnytime);
+                System.out.println(strategyName);
+                switch (strategyName) {
+                    case "A* Anytime":
+                        planner = new GenericAnytimePlanner(true, 1,
+                                new AStarAnytime((int) timeout, heuristic, weight));
+                        break;
+                    case "Greedy Best First Search Anytime":
+                        planner = new GenericAnytimePlanner(true, 1,
+                                new GreedyBestFirstSearchAnytime((int) timeout, heuristic, weight));
+                        break;
+                    default:
+                        planner = null;
+                        break;
                 }
                 break;
             case "FFAnytime":

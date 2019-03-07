@@ -78,7 +78,7 @@ On linux with *pddl4gui_xxx.sh* scripts, available at the root of the repository
 
 With java command lines:
 
-    java -javaagent:libs/pddl4j-3.8.jar -server -Xms2048m -Xmx2048m -jar pddl4gui-1.0.jar -LOCAL
-    java -javaagent:libs/pddl4j-3.8.jar -server -Xms2048m -Xmx2048m -jar pddl4gui-1.0.jar -REST
+    java -javaagent:libs/pddl4j-3.8.2.jar -server -Xms2048m -Xmx2048m -jar pddl4gui-1.0.jar -LOCAL
+    java -javaagent:libs/pddl4j-3.8.2.jar -server -Xms2048m -Xmx2048m -jar pddl4gui-1.0.jar -REST
 
 *Note: the libs and resources folders are needed because not integrated into the jar file.*
