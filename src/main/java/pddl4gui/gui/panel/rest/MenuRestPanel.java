@@ -1,5 +1,6 @@
 package pddl4gui.gui.panel.rest;
 
+import pddl4gui.gui.LOG;
 import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
@@ -117,10 +118,20 @@ public class MenuRestPanel extends JMenuBar {
         JMenu solverMenu = new JMenu("Solver");
         solverMenu.setIcon(Icons.getSolverIcon());
 
+        final JMenuItem logItem = new JMenuItem(new MenuItemAction("LOG", Icons.getLogIcon(),
+                KeyEvent.VK_L));
+        logItem.setEnabled(true);
+        logItem.addActionListener(e -> {
+            logItem.setEnabled(false);
+            new LOG(logItem);
+        });
+
         final JMenuItem exitItem = new JMenuItem(new MenuItemAction("Exit solver", Icons.getExitIcon(),
                 KeyEvent.VK_E));
         exitItem.addActionListener(e -> System.exit(0));
 
+        solverMenu.add(logItem);
+        solverMenu.addSeparator();
         solverMenu.add(exitItem);
 
         JMenu helpMenu = new JMenu("help");

@@ -1,5 +1,6 @@
 package pddl4gui.gui.panel.local;
 
+import pddl4gui.gui.LOG;
 import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
@@ -134,6 +135,14 @@ public class MenuSolverPanel extends JMenuBar {
         JMenu solverMenu = new JMenu("Solver");
         solverMenu.setIcon(Icons.getSolverIcon());
 
+        final JMenuItem logItem = new JMenuItem(new MenuItemAction("LOG", Icons.getLogIcon(),
+                KeyEvent.VK_L));
+        logItem.setEnabled(true);
+        logItem.addActionListener(e -> {
+            logItem.setEnabled(false);
+            new LOG(logItem);
+        });
+
         final JMenuItem resetItem = new JMenuItem(new MenuItemAction("Reset solver", Icons.getResetIcon(),
                 KeyEvent.VK_R));
         resetItem.setEnabled(true);
@@ -152,6 +161,8 @@ public class MenuSolverPanel extends JMenuBar {
                 KeyEvent.VK_E));
         exitItem.addActionListener(e -> System.exit(0));
 
+        solverMenu.add(logItem);
+        solverMenu.addSeparator();
         solverMenu.add(resetItem);
         solverMenu.addSeparator();
         solverMenu.add(garbageItem);

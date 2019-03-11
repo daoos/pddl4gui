@@ -1,6 +1,5 @@
 package pddl4gui.gui;
 
-import pddl4gui.gui.panel.LogPanel;
 import pddl4gui.gui.panel.ResultPanel;
 import pddl4gui.gui.panel.local.EngineManagerPanel;
 import pddl4gui.gui.panel.local.MenuSolverPanel;
@@ -11,7 +10,6 @@ import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.Queue;
 
-import java.io.Serializable;
 import javax.swing.JFrame;
 
 /**
@@ -62,7 +60,6 @@ public class Solver extends JFrame {
         final MenuSolverPanel menuSolverPanel;
         final EngineManagerPanel engineManagerPanel;
         final TokenListPanel tokenListPanel;
-        final LogPanel logPanel;
 
         menuSolverPanel = new MenuSolverPanel();
         this.setJMenuBar(menuSolverPanel);
@@ -84,12 +81,8 @@ public class Solver extends JFrame {
         add(statisticsPanel);
 
         resultPanel = new ResultPanel();
-        resultPanel.setBounds(690, 10, 500, 570);
+        resultPanel.setBounds(690, 10, 630, 570);
         add(resultPanel);
-
-        logPanel = new LogPanel();
-        logPanel.setBounds(10, 585, 1180, 175);
-        add(logPanel);
 
         TriggerAction.setupPanel(statisticsPanel, resultPanel, menuSolverPanel, engineManagerPanel, tokenListPanel);
 

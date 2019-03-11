@@ -1,27 +1,27 @@
-package pddl4gui.gui.panel;
+package pddl4gui.gui;
 
 import pddl4gui.gui.tools.CustomOutputStream;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
+import pddl4gui.gui.tools.WindowsManager;
 
+import java.awt.Component;
 import java.io.File;
 import java.io.PrintStream;
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 /**
- * This class implements the LogPanel class of <code>PDDL4GUI</code>.
+ * This class implements the LOG class of <code>PDDL4GUI</code>.
  * This JPanel displays log and standard output in a JTextArea.
  *
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class LogPanel extends JPanel {
+public class LOG extends JFrame {
 
     /**
      * The serial id of the class.
@@ -34,21 +34,22 @@ public class LogPanel extends JPanel {
     private final JTextArea logArea;
 
     /**
-     * Creates a new LogPanel which displays standard output.
+     * Creates a new LOG which displays standard output.
      */
-    public LogPanel() {
+    public LOG(final Component component) {
         setLayout(null);
-        setBorder(BorderFactory.createTitledBorder("Log output"));
+        setSize(WindowsManager.getWidth() / 3 + 60, WindowsManager.getHeight() / 2);
+        setTitle(WindowsManager.NAME + " | Log");
+        setLocation(WindowsManager.setWindowsLocationWidth());
 
         logArea = new JTextArea();
-
         logArea.setEditable(false);
         final JScrollPane scrollTextPane = new JScrollPane(logArea);
-        scrollTextPane.setBounds(15, 25, 1090, 130);
+        scrollTextPane.setBounds(10, 10, WindowsManager.getWidth() / 3 - 10, WindowsManager.getHeight() / 2 - 60);
         add(scrollTextPane);
 
         final JButton saveButton = new JButton(Icons.getSaveTxtIcon());
-        saveButton.setBounds(1120, 25, 45, 55);
+        saveButton.setBounds((WindowsManager.getWidth() / 3) + 10, 10, 40, 40);
         saveButton.setToolTipText("Save logs");
         saveButton.addActionListener(e -> {
             File tempFile = FileTools.saveFile(this, 1);
@@ -61,11 +62,24 @@ public class LogPanel extends JPanel {
         add(saveButton);
 
         final JButton resetButton = new JButton(Icons.getResetIcon());
-        resetButton.setBounds(1120, 100, 45, 55);
+        resetButton.setBounds((WindowsManager.getWidth() / 3) + 10, 60, 40, 40);
         resetButton.setToolTipText("Clear the logs");
         resetButton.setEnabled(true);
         resetButton.addActionListener(e -> logArea.setText(""));
         add(resetButton);
+
+        final JButton exitButton = new JButton(Icons.getExitIcon());
+        exitButton.setBounds((WindowsManager.getWidth() / 3) + 10, 110, 40, 40);
+        exitButton.setToolTipText("Exit LOG");
+        exitButton.setEnabled(true);
+        exitButton.addActionListener(e -> {
+            component.setEnabled(true);
+            this.dispose();
+        });
+        add(exitButton);
+
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         try {
             PrintStream printStream = new PrintStream(new CustomOutputStream(logArea), false, "UTF-8");

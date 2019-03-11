@@ -16,6 +16,8 @@ import java.io.Serializable;
  */
 public class Pddl4Gui implements Serializable {
 
+    //TODO LOG dans tout le logiciel
+
     /**
      * The serial id of the class.
      */

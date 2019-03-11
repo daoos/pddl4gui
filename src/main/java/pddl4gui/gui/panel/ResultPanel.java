@@ -3,7 +3,6 @@ package pddl4gui.gui.panel;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.LocalToken;
 
-import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -130,7 +129,7 @@ public class ResultPanel extends JPanel {
 
         resultArea.setEditable(false);
         final JScrollPane scrollTextPane = new JScrollPane(resultArea);
-        scrollTextPane.setBounds(15, labMarging, 470, 460);
+        scrollTextPane.setBounds(15, labMarging, 600, 460);
         add(scrollTextPane);
     }
 
