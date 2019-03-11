@@ -42,7 +42,7 @@ jar {
     }
 }
 
-task run (type: JavaExec, dependsOn: build){
+task run (type: JavaExec, dependsOn: jar){
     if (project.hasProperty("Args")) {
         println("arguments list : " + Args)
         args(Args.split(','))
