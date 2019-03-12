@@ -60,6 +60,11 @@ public class LocalToken extends Token {
     private String plannerName;
 
     /**
+     * The name of the planner used.
+     */
+    private String strategyName;
+
+    /**
      * The CodedProblem associated to the token.
      */
     private CodedProblem codedProblem;
@@ -170,6 +175,15 @@ public class LocalToken extends Token {
     }
 
     /**
+     * Returns the strategy name.
+     *
+     * @return Returns the strategy name.
+     */
+    public String getStrategyName() {
+        return strategyName;
+    }
+
+    /**
      * Returns the CodedProblem associated to the token.
      *
      * @return the CodedProblem associated to the token.
@@ -257,7 +271,7 @@ public class LocalToken extends Token {
      * @param statistics   the statistics of the solving process.
      * @param solutionPlan the solution plan.
      */
-    public void setResult(Statistics statistics, Plan solutionPlan) {
+    public void setResult(final Statistics statistics, final Plan solutionPlan) {
         this.statistics = statistics;
         this.solutionPlan = solutionPlan;
     }
@@ -270,12 +284,14 @@ public class LocalToken extends Token {
      * @param planner the planner to use.
      * @param plannerName the planner's name.
      */
-    public LocalToken(File domainFile, File problemFile, StateSpacePlanner planner, String plannerName) {
+    public LocalToken(final File domainFile, final File problemFile, final StateSpacePlanner planner,
+                      final String plannerName, final String strategyName) {
         super(domainFile, problemFile);
         this.domainFileName = FileTools.removeExtension(domainFile.getName());
         this.problemFileName = FileTools.removeExtension(problemFile.getName());
         this.planner = planner;
         this.plannerName = plannerName;
+        this.strategyName = strategyName;
         this.runnable = isTokenRunnable();
         this.solved = false;
         this.error = "";

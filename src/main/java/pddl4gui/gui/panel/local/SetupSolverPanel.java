@@ -315,7 +315,7 @@ public class SetupSolverPanel extends JPanel {
             for (File file : problemFiles) {
                 final StateSpacePlanner planner = getPlanner(weight, timeout);
                 if (planner != null) {
-                    final LocalToken token = new LocalToken(domainFile, file, planner, plannerName);
+                    final LocalToken token = new LocalToken(domainFile, file, planner, plannerName, strategyName);
                     List<StateSpaceStrategy> strategyList = token.getPlanner().getStateSpaceStrategies();
                     token.setSolutioNodeListModel(new DefaultListModel<>());
 

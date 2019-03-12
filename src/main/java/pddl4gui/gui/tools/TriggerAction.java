@@ -15,6 +15,7 @@ import pddl4gui.token.RestToken;
 import java.awt.Color;
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.Locale;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 
@@ -254,6 +255,7 @@ public class TriggerAction implements Serializable {
      */
     public static void displayError(LocalToken token) {
         statisticsPanel.clearStats();
+        statisticsPanel.displayStats(token.getStatistics());
         resultPanel.clearResult();
         resultPanel.displayError(token);
     }
@@ -433,5 +435,14 @@ public class TriggerAction implements Serializable {
      */
     public static void gc() {
         Runtime.getRuntime().gc();
+    }
+
+    /**
+     * Check if the OS is Windows.
+     *
+     * @return true if the OS is Windows, false otherwise.
+     */
+    public static boolean isWindows() {
+        return System.getProperty("os.name").toLowerCase(new Locale("en", "EN")).contains("win");
     }
 }

@@ -171,7 +171,7 @@ public class Engine implements Runnable, Serializable {
                     begin = System.currentTimeMillis();
                     final StateSpacePlanner planner = token.getPlanner();
                     System.out.println("[Engine " + this.enginePanel.getId() + "] Solving problem with "
-                            + planner.toString() + " and " + planner.getStateSpaceStrategies().get(0).toString());
+                            + token.getPlannerName() + " and " + token.getStrategyName());
                     final Plan plan = planner.search(pb);
                     statistics.setTimeToPlanInSeconds((System.currentTimeMillis() - begin) / 1000.0);
                     statistics.setMemoryUsedToSearchInMBytes(planner.getStatistics()
@@ -182,7 +182,7 @@ public class Engine implements Runnable, Serializable {
                     token.setResult(statistics, plan);
                     if (plan != null) {
                         System.out.println("[Engine " + this.enginePanel.getId() + "] Plan found (cost: "
-                                + plan.cost() + " | depth: " + plan.size());
+                                + plan.cost() + " | depth: " + plan.size() + ")");
                         statistics.setCost(plan.cost());
                         statistics.setDepth(plan.size());
                         return true;

@@ -2,6 +2,7 @@ package pddl4gui.gui;
 
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
+import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 
 import java.io.BufferedReader;
@@ -32,6 +33,11 @@ public class VAL extends JFrame {
      * The serial id of the class.
      */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * The path to VAL.
+     */
+    private static final String valPath = "resources" + File.separator + "apps" + File.separator + "validate";
 
     /**
      * The JTextArea containing VAL result.
@@ -91,8 +97,14 @@ public class VAL extends JFrame {
         generateTexButton.setToolTipText("Generate TeX report");
         generateTexButton.addActionListener(e -> {
             if (isValide) {
-                String target = "./resources/apps/validate -l " + domainFile.getAbsolutePath()
-                        + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
+                String target;
+                if (TriggerAction.isWindows()) {
+                    target = valPath + ".exe -l " + domainFile.getAbsolutePath()
+                            + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
+                } else {
+                    target = valPath + " -l " + domainFile.getAbsolutePath()
+                            + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
+                }
                 StringBuilder output = this.getValResult(target);
                 File tempFile = FileTools.saveFile(this, 2);
                 if (FileTools.checkFile(tempFile)) {
@@ -139,8 +151,14 @@ public class VAL extends JFrame {
 
             if (FileTools.checkFile(domainFile) && FileTools.checkFile(pbFile) && isSolved) {
                 try {
-                    String target = "./resources/apps/validate -v " + domainFile.getAbsolutePath()
-                            + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
+                    String target;
+                    if (TriggerAction.isWindows()) {
+                        target = valPath + ".exe -v " + domainFile.getAbsolutePath()
+                                + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
+                    } else {
+                        target = valPath + " -v " + domainFile.getAbsolutePath()
+                                + " " + pbFile.getAbsolutePath() + " " + planFile.getAbsolutePath();
+                    }
                     StringBuilder output = this.getValResult(target);
 
                     textArea.setText(output.toString());
