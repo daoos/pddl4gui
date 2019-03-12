@@ -43,18 +43,18 @@ public class LOG extends JFrame {
      */
     public LOG(final Component component) {
         setLayout(null);
-        setSize(WindowsManager.getWidth() / 3 + 60, WindowsManager.getHeight() / 2);
+        setSize(WindowsManager.getWidth() / 2 + 60, WindowsManager.getHeight() / 2);
         setTitle(WindowsManager.NAME + " | Log");
         setLocation(WindowsManager.setWindowsLocationWidth());
 
         logArea = new JTextArea();
         logArea.setEditable(false);
         final JScrollPane scrollTextPane = new JScrollPane(logArea);
-        scrollTextPane.setBounds(10, 10, WindowsManager.getWidth() / 3 - 10, WindowsManager.getHeight() / 2 - 60);
+        scrollTextPane.setBounds(10, 10, (WindowsManager.getWidth() / 2) - 10, WindowsManager.getHeight() / 2 - 60);
         add(scrollTextPane);
 
         final JButton saveButton = new JButton(Icons.getSaveTxtIcon());
-        saveButton.setBounds((WindowsManager.getWidth() / 3) + 10, 10, 40, 40);
+        saveButton.setBounds((WindowsManager.getWidth() / 2) + 10, 10, 40, 40);
         saveButton.setToolTipText("Save logs");
         saveButton.addActionListener(e -> {
             File tempFile = FileTools.saveFile(this, 1);
@@ -67,14 +67,14 @@ public class LOG extends JFrame {
         add(saveButton);
 
         final JButton resetButton = new JButton(Icons.getResetIcon());
-        resetButton.setBounds((WindowsManager.getWidth() / 3) + 10, 60, 40, 40);
+        resetButton.setBounds((WindowsManager.getWidth() / 2) + 10, 60, 40, 40);
         resetButton.setToolTipText("Clear the logs");
         resetButton.setEnabled(true);
         resetButton.addActionListener(e -> logArea.setText(""));
         add(resetButton);
 
         final JButton exitButton = new JButton(Icons.getExitIcon());
-        exitButton.setBounds((WindowsManager.getWidth() / 3) + 10, 110, 40, 40);
+        exitButton.setBounds((WindowsManager.getWidth() / 2) + 10, 110, 40, 40);
         exitButton.setToolTipText("Exit LOG");
         exitButton.setEnabled(true);
         exitButton.addActionListener(e -> {
@@ -85,9 +85,6 @@ public class LOG extends JFrame {
         });
         add(exitButton);
 
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
         try {
             final PrintStream printStream = new PrintStream(new CustomOutputStream(logArea), false, "UTF-8");
             System.setOut(printStream);
@@ -95,5 +92,19 @@ public class LOG extends JFrame {
         } catch (UnsupportedEncodingException unex) {
             System.err.println(unex.getMessage());
         }
+
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+        final JFrame frame = this;
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                System.setOut(standardOut);
+                System.setErr(standardOut);
+                component.setEnabled(true);
+                frame.dispose();
+            }
+        });
     }
 }

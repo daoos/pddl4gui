@@ -190,7 +190,8 @@ public class MenuSolverPanel extends JMenuBar {
                 KeyEvent.VK_A));
 
         aboutItem.setEnabled(true);
-        aboutItem.addActionListener(e -> JOptionPane.showMessageDialog(null, WindowsManager.LOCAL_VERSION));
+        aboutItem.addActionListener(e -> JOptionPane.showMessageDialog(null, WindowsManager.LOCAL_VERSION,
+                    "PDDL4GUI v1.0 (LOCAL)", JOptionPane.INFORMATION_MESSAGE, Icons.getInfoIcon()));
 
         helpMenu.add(howToItem);
         helpMenu.addSeparator();

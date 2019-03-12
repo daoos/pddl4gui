@@ -178,6 +178,13 @@ public class VAL extends JFrame {
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        final JFrame frame = this;
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                frame.dispose();
+            }
+        });
     }
 
     /**

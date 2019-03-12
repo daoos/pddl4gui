@@ -153,9 +153,8 @@ public class MenuRestPanel extends JMenuBar {
                 KeyEvent.VK_A));
 
         aboutItem.setEnabled(true);
-        aboutItem.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, WindowsManager.REST_VERSION);
-        });
+        aboutItem.addActionListener(e -> JOptionPane.showMessageDialog(null, WindowsManager.REST_VERSION,
+                "PDDL4GUI v1.0 (REST)", JOptionPane.INFORMATION_MESSAGE, Icons.getInfoIcon()));
 
         helpMenu.add(howToItem);
         helpMenu.addSeparator();
