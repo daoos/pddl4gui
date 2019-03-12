@@ -135,14 +135,6 @@ public class MenuSolverPanel extends JMenuBar {
         JMenu solverMenu = new JMenu("Solver");
         solverMenu.setIcon(Icons.getSolverIcon());
 
-        final JMenuItem logItem = new JMenuItem(new MenuItemAction("LOG", Icons.getLogIcon(),
-                KeyEvent.VK_L));
-        logItem.setEnabled(true);
-        logItem.addActionListener(e -> {
-            logItem.setEnabled(false);
-            new LOG(logItem);
-        });
-
         final JMenuItem resetItem = new JMenuItem(new MenuItemAction("Reset solver", Icons.getResetIcon(),
                 KeyEvent.VK_R));
         resetItem.setEnabled(true);
@@ -153,21 +145,32 @@ public class MenuSolverPanel extends JMenuBar {
             TriggerAction.resetSolver();
         });
 
-        final JMenuItem garbageItem = new JMenuItem(new MenuItemAction("Garbage Collector", Icons.getGarbageIcon(),
-                KeyEvent.VK_G));
-        garbageItem.addActionListener(e -> TriggerAction.gc());
-
         final JMenuItem exitItem = new JMenuItem(new MenuItemAction("Exit solver", Icons.getExitIcon(),
                 KeyEvent.VK_E));
         exitItem.addActionListener(e -> System.exit(0));
 
-        solverMenu.add(logItem);
-        solverMenu.addSeparator();
         solverMenu.add(resetItem);
         solverMenu.addSeparator();
-        solverMenu.add(garbageItem);
-        solverMenu.addSeparator();
         solverMenu.add(exitItem);
+
+        JMenu toolsMenu = new JMenu("Tools");
+        toolsMenu.setIcon(Icons.getToolsIcon());
+
+        final JMenuItem logItem = new JMenuItem(new MenuItemAction("LOG", Icons.getLogIcon(),
+                KeyEvent.VK_L));
+        logItem.setEnabled(true);
+        logItem.addActionListener(e -> {
+            logItem.setEnabled(false);
+            new LOG(logItem);
+        });
+
+        final JMenuItem garbageItem = new JMenuItem(new MenuItemAction("Garbage Collector", Icons.getGarbageIcon(),
+                KeyEvent.VK_G));
+        garbageItem.addActionListener(e -> TriggerAction.gc());
+
+        toolsMenu.add(logItem);
+        toolsMenu.addSeparator();
+        toolsMenu.add(garbageItem);
 
         JMenu helpMenu = new JMenu("help");
         helpMenu.setIcon(Icons.getInfoIcon());
@@ -179,7 +182,7 @@ public class MenuSolverPanel extends JMenuBar {
             try {
                 WebPage.openWebpage(new URL("https://github.com/pellierd/pddl4j/wiki"));
             } catch (MalformedURLException exc) {
-                System.out.println(exc.getMessage());
+                System.err.println(exc.getMessage());
             }
         });
 
@@ -195,6 +198,7 @@ public class MenuSolverPanel extends JMenuBar {
 
         this.add(resultMenu);
         this.add(solverMenu);
+        this.add(toolsMenu);
         this.add(Box.createHorizontalGlue());
         this.add(helpMenu);
     }

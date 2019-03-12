@@ -34,6 +34,11 @@ public class LOG extends JFrame {
     private final JTextArea logArea;
 
     /**
+     *
+     */
+    private static final PrintStream standardOut = System.out;
+
+    /**
      * Creates a new LOG which displays standard output.
      */
     public LOG(final Component component) {
@@ -73,6 +78,8 @@ public class LOG extends JFrame {
         exitButton.setToolTipText("Exit LOG");
         exitButton.setEnabled(true);
         exitButton.addActionListener(e -> {
+            System.setOut(standardOut);
+            System.setErr(standardOut);
             component.setEnabled(true);
             this.dispose();
         });
@@ -82,16 +89,11 @@ public class LOG extends JFrame {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         try {
-            PrintStream printStream = new PrintStream(new CustomOutputStream(logArea), false, "UTF-8");
-
-            // keeps reference of standard output stream
-            //standardOut = System.out;
-
-            // re-assigns standard output stream and error output stream
+            final PrintStream printStream = new PrintStream(new CustomOutputStream(logArea), false, "UTF-8");
             System.setOut(printStream);
             System.setErr(printStream);
         } catch (UnsupportedEncodingException unex) {
-            unex.printStackTrace();
+            System.err.println(unex.getMessage());
         }
     }
 }

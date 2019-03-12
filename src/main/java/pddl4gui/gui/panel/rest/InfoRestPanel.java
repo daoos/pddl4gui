@@ -208,7 +208,7 @@ public class InfoRestPanel extends JPanel {
                         status.setText("[id " + id + "] Get result (txt) succeeded");
                     }
                 } catch (IOException exp) {
-                    exp.printStackTrace();
+                    System.err.println(exp.getMessage());
                 }
             }
         });
@@ -248,7 +248,7 @@ public class InfoRestPanel extends JPanel {
                         status.setText("[id " + id + "] Get result (json) succeeded");
                     }
                 } catch (IOException exp) {
-                    exp.printStackTrace();
+                    System.err.println(exp.getMessage());
                 }
             }
         });
@@ -291,7 +291,7 @@ public class InfoRestPanel extends JPanel {
                         status.setText("[id " + id + "] Delete failed");
                     }
                 } catch (IOException exp) {
-                    exp.printStackTrace();
+                    System.err.println(exp.getMessage());
                 }
             }
         });
@@ -352,11 +352,11 @@ public class InfoRestPanel extends JPanel {
                     try {
                         Thread.sleep(timeInterval);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        System.err.println(e.getMessage());
                     }
                 }
             } catch (IOException exception) {
-                exception.printStackTrace();
+                System.err.println(exception.getMessage());
             }
         };
 

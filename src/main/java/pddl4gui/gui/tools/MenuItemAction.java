@@ -38,6 +38,6 @@ public class MenuItemAction extends AbstractAction {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("[Action performed] " + e.getActionCommand());
+        System.out.println("[Menu] " + e.getActionCommand());
     }
 }

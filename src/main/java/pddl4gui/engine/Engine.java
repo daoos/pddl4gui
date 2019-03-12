@@ -3,8 +3,8 @@ package pddl4gui.engine;
 import fr.uga.pddl4j.encoding.CodedProblem;
 import fr.uga.pddl4j.parser.ErrorManager;
 import fr.uga.pddl4j.parser.Message;
-import fr.uga.pddl4j.planners.Planner;
 import fr.uga.pddl4j.planners.ProblemFactory;
+import fr.uga.pddl4j.planners.statespace.StateSpacePlanner;
 import fr.uga.pddl4j.util.MemoryAgent;
 import fr.uga.pddl4j.util.Plan;
 import pddl4gui.gui.panel.local.EnginePanel;
@@ -73,6 +73,7 @@ public class Engine implements Runnable, Serializable {
     public void start() {
         Thread worker = new Thread(this);
         worker.start();
+        System.out.println("[Engine] start Engine with id " + enginePanel.getId() + " on thread " + worker.getName());
     }
 
     /**
@@ -97,17 +98,17 @@ public class Engine implements Runnable, Serializable {
             });
 
             timer.start();
-            System.out.println(localToken.getPlannerName() + " planner");
             this.localToken.setSolved(resolve(this.localToken));
             this.localToken.setError(this.error);
             timer.stop();
 
         } catch (IOException e) {
             Thread.currentThread().interrupt();
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         this.engineManager.decreaseNumberEngineRunning();
         this.enginePanel.exit();
+        System.out.println("[Engine] Engine with id " + enginePanel.getId() + " stop");
     }
 
     /**
@@ -119,6 +120,7 @@ public class Engine implements Runnable, Serializable {
      */
     private boolean resolve(final LocalToken token) throws IOException {
         if (token.isRunnable()) {
+            System.out.println("[Engine " + this.enginePanel.getId() + "] Token " + token.toString() + " runnable");
             final Statistics statistics = new Statistics();
             final ProblemFactory factory = new ProblemFactory();
 
@@ -137,18 +139,21 @@ public class Engine implements Runnable, Serializable {
                         this.error = this.error.concat(message.getContent() + "\n");
                     }
                 }
+                System.out.println("[Engine " + this.enginePanel.getId() + "] Error during parsing Token " + token);
                 return false;
             }
+            System.out.println("[Engine " + this.enginePanel.getId() + "] Parsing Token " + token);
             statistics.setTimeToParseInSeconds((System.currentTimeMillis() - begin) / 1000.0);
 
             final CodedProblem pb;
             try {
                 begin = System.currentTimeMillis();
                 try {
+                    System.out.println("[Engine " + this.enginePanel.getId() + "] Encoding problem");
                     pb = factory.encode();
                 } catch (IllegalArgumentException e) {
                     this.error = ("Error during encoding process.\n Check the :requirements part of the domain !");
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                     return false;
                 }
                 if (pb != null) {
@@ -164,7 +169,9 @@ public class Engine implements Runnable, Serializable {
                     }
 
                     begin = System.currentTimeMillis();
-                    final Planner planner = token.getPlanner();
+                    final StateSpacePlanner planner = token.getPlanner();
+                    System.out.println("[Engine " + this.enginePanel.getId() + "] Solving problem with "
+                            + planner.toString() + " and " + planner.getStateSpaceStrategies().get(0).toString());
                     final Plan plan = planner.search(pb);
                     statistics.setTimeToPlanInSeconds((System.currentTimeMillis() - begin) / 1000.0);
                     statistics.setMemoryUsedToSearchInMBytes(planner.getStatistics()
@@ -172,6 +179,8 @@ public class Engine implements Runnable, Serializable {
 
                     token.setResult(statistics, plan);
                     if (plan != null) {
+                        System.out.println("[Engine " + this.enginePanel.getId() + "] Plan found (cost: "
+                                + plan.cost() + " | depth: " + plan.size());
                         statistics.setCost(plan.cost());
                         statistics.setDepth(plan.size());
                         return true;
@@ -187,7 +196,7 @@ public class Engine implements Runnable, Serializable {
                 }
             } catch (NullPointerException e) {
                 this.error = ("Error during solving process.\n Check the problem.pddl file !");
-                e.printStackTrace();
+                System.err.println(e.getMessage());
                 return false;
             }
         } else {

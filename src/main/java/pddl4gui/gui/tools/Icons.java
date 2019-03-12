@@ -36,6 +36,7 @@ public class Icons implements Serializable {
     private static final ImageIcon displayIcon = new ImageIcon("resources/icons/display.png");
     private static final ImageIcon garbageIcon = new ImageIcon("resources/icons/garbage.png");
     private static final ImageIcon logIcon = new ImageIcon("resources/icons/log.png");
+    private static final ImageIcon toolsIcon = new ImageIcon("resources/icons/tools.png");
 
     /**
      * Returns the about icon.
@@ -179,5 +180,14 @@ public class Icons implements Serializable {
      */
     public static ImageIcon getLogIcon() {
         return logIcon;
+    }
+
+    /**
+     * Returns the tools icon.
+     *
+     * @return the tools icon.
+     */
+    public static ImageIcon getToolsIcon() {
+        return toolsIcon;
     }
 }

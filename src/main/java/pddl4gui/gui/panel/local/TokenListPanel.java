@@ -6,7 +6,6 @@ import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.LocalToken;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;

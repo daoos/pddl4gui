@@ -145,7 +145,7 @@ public class MenuRestPanel extends JMenuBar {
             try {
                 WebPage.openWebpage(new URL("https://github.com/pellierd/pddl4j/wiki"));
             } catch (MalformedURLException exc) {
-                System.out.println(exc.getMessage());
+                System.err.println(exc.getMessage());
             }
         });
 

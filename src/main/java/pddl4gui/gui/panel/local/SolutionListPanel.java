@@ -8,7 +8,6 @@ import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.LocalToken;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;

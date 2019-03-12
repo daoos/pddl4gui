@@ -3,7 +3,6 @@ package pddl4gui.gui;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.WindowsManager;
-import pddl4gui.token.Token;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,8 +11,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Serializable;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -150,13 +147,13 @@ public class VAL extends JFrame {
                     isValide = true;
 
                 } catch (Throwable t) {
-                    t.printStackTrace();
+                    System.err.println(t.getMessage());
                 }
             } else {
                 textArea.setText("One (or many) of the selected file are null or incorrect ! ");
             }
         } catch (IOException exception) {
-            exception.printStackTrace();
+            System.err.println(exception.getMessage());
         }
 
         setLocation(WindowsManager.setWindowsLocationWidth());
@@ -185,13 +182,13 @@ public class VAL extends JFrame {
                     output.append(line).append("\n");
                 }
             } catch (IOException ioex) {
-                ioex.printStackTrace();
+                System.err.println(ioex.getMessage());
             } finally {
                 reader.close();
             }
             return output;
         } catch (IOException | InterruptedException t) {
-            t.printStackTrace();
+            System.err.println(t.getMessage());
             return output.append(" Error during validation !");
         }
     }

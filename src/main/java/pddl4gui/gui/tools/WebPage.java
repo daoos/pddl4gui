@@ -33,7 +33,7 @@ public class WebPage implements Serializable {
                 desktop.browse(uri);
                 return true;
             } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         }
         return false;
@@ -49,7 +49,7 @@ public class WebPage implements Serializable {
         try {
             return openWebpage(url.toURI());
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         return false;
     }

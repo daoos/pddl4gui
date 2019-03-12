@@ -100,7 +100,7 @@ public class FileTools implements Serializable {
                     openFiles.add(file);
                 }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                System.err.println(ex.getMessage());
             }
         }
         if (option == JFileChooser.CANCEL_OPTION) {
@@ -127,7 +127,7 @@ public class FileTools implements Serializable {
                 }
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.err.println(ex.getMessage());
         }
         return fileContent.toString();
     }
@@ -142,7 +142,7 @@ public class FileTools implements Serializable {
         try {
             return new Scanner(file, "UTF8");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             return null;
         }
     }
@@ -187,7 +187,7 @@ public class FileTools implements Serializable {
                 saveFile = fileChooser.getSelectedFile();
                 staticLastPath = saveFile;
             } catch (Exception ex) {
-                ex.printStackTrace();
+                System.err.println(ex.getMessage());
             }
         }
         return saveFile;
@@ -206,12 +206,12 @@ public class FileTools implements Serializable {
             try {
                 writer.write(string);
             } catch (IOException ioex) {
-                ioex.printStackTrace();
+                System.err.println(ioex.getMessage());
             } finally {
                 writer.close();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 }

@@ -253,7 +253,7 @@ public class SetupRestPanel extends JPanel {
                 TriggerAction.setRestStatus("[id " + responseBody + "] New solving problem");
             }
         } catch (IOException exp) {
-            exp.printStackTrace();
+            System.err.println(exp.getMessage());
         }
 
     }

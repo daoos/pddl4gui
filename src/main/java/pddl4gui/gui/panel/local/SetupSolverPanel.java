@@ -326,10 +326,13 @@ public class SetupSolverPanel extends JPanel {
 
                     if (token.isRunnable() && TriggerAction.isEngineManagerRunning()) {
                         if (!TriggerAction.getListModel().contains(token)) {
+                            System.out.println("[SetupSolver] Token " + token.toString() + "created and added to the Queue");
                             TriggerAction.getListModel().addElement(token);
                             TriggerAction.getQueue().addTokenInQueue(token);
                         }
                     }
+
+                    System.out.println("[SetupSolver] " + TriggerAction.getQueue().remainingTokens() + " in Queue");
 
                     TriggerAction.setTokenRemainingEngineManagerPanel();
                 }
