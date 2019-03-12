@@ -84,8 +84,9 @@ public class MenuRestPanel extends JMenuBar {
             if (id != -1) {
                 final RestToken restToken = TriggerAction.getRestTokenFromId(id);
                 if (restToken != null) {
-                    new VAL(restToken.getDomainFile(), restToken.getProblemFile(),
+                    final VAL val = new VAL(restToken.getDomainFile(), restToken.getProblemFile(),
                             TriggerAction.getResult(), true);
+                    VAL.setFrame(val);
                 }
             }
         });
@@ -123,7 +124,9 @@ public class MenuRestPanel extends JMenuBar {
         logItem.setEnabled(true);
         logItem.addActionListener(e -> {
             logItem.setEnabled(false);
-            new LOG(logItem);
+            final LOG log = new LOG(logItem);
+            LOG.setFrame(log);
+            LOG.setComponent(logItem);
         });
 
         final JMenuItem exitItem = new JMenuItem(new MenuItemAction("Exit solver", Icons.getExitIcon(),

@@ -266,13 +266,20 @@ public class LocalToken extends Token {
     }
 
     /**
-     * Sets results (statistics and solution plan) for token.
+     * Sets statistics for token.
      *
      * @param statistics   the statistics of the solving process.
+     */
+    public void setStatistics(Statistics statistics) {
+        this.statistics = statistics;
+    }
+
+    /**
+     * Sets solution plan for token.
+     *
      * @param solutionPlan the solution plan.
      */
-    public void setResult(final Statistics statistics, final Plan solutionPlan) {
-        this.statistics = statistics;
+    public void setSolutionPlan(Plan solutionPlan) {
         this.solutionPlan = solutionPlan;
     }
 

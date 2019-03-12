@@ -82,8 +82,9 @@ public class MenuSolverPanel extends JMenuBar {
         valItem.addActionListener(e -> {
             if (TriggerAction.isTokenListPanelJListSelectedValueSolved()) {
                 final LocalToken token = TriggerAction.getTokenListPanelJListSelectedValue();
-                new VAL(token.getDomainFile(), token.getProblemFile(),
+                final VAL val = new VAL(token.getDomainFile(), token.getProblemFile(),
                         token.getSolutionString(), token.isSolved());
+                VAL.setFrame(val);
             }
         });
 
@@ -161,7 +162,9 @@ public class MenuSolverPanel extends JMenuBar {
         logItem.setEnabled(true);
         logItem.addActionListener(e -> {
             logItem.setEnabled(false);
-            new LOG(logItem);
+            final LOG log = new LOG(logItem);
+            LOG.setFrame(log);
+            LOG.setComponent(logItem);
         });
 
         final JMenuItem garbageItem = new JMenuItem(new MenuItemAction("Garbage Collector", Icons.getGarbageIcon(),

@@ -123,6 +123,7 @@ public class Engine implements Runnable, Serializable {
             System.out.println("[Engine " + this.enginePanel.getId() + "] Token " + token.toString() + " runnable");
             final Statistics statistics = new Statistics();
             final ProblemFactory factory = new ProblemFactory();
+            token.setStatistics(statistics);
 
             long begin = System.currentTimeMillis();
             ErrorManager errorManager = factory.parse(token.getDomainFile(), token.getProblemFile());
@@ -179,8 +180,8 @@ public class Engine implements Runnable, Serializable {
                     statistics.setCreatedNode(planner.getStateSpaceStrategies().get(0).getCreatedNodes());
                     statistics.setExploredNode(planner.getStateSpaceStrategies().get(0).getExploredNodes());
                     statistics.setPendingNode(planner.getStateSpaceStrategies().get(0).getPendingNodes());
-                    token.setResult(statistics, plan);
                     if (plan != null) {
+                        token.setSolutionPlan(plan);
                         System.out.println("[Engine " + this.enginePanel.getId() + "] Plan found (cost: "
                                 + plan.cost() + " | depth: " + plan.size() + ")");
                         statistics.setCost(plan.cost());

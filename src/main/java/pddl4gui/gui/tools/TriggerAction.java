@@ -255,6 +255,7 @@ public class TriggerAction implements Serializable {
      */
     public static void displayError(LocalToken token) {
         statisticsPanel.clearStats();
+        statisticsPanel.displayStats(token.getStatistics());
         resultPanel.clearResult();
         resultPanel.displayError(token);
     }

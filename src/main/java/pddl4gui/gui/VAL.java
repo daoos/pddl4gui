@@ -5,6 +5,8 @@ import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -33,6 +35,20 @@ public class VAL extends JFrame {
      * The serial id of the class.
      */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * The reference to the frame.
+     */
+    private static JFrame frame;
+
+    /**
+     * Sets the reference to the JFrame.
+     *
+     * @param frame the JFrame.
+     */
+    public static void setFrame(final JFrame frame) {
+        VAL.frame = frame;
+    }
 
     /**
      * The path to VAL.
@@ -178,13 +194,7 @@ public class VAL extends JFrame {
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        final JFrame frame = this;
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                frame.dispose();
-            }
-        });
+        addWindowListener(new OnClose());
     }
 
     /**
@@ -215,6 +225,16 @@ public class VAL extends JFrame {
         } catch (IOException | InterruptedException t) {
             System.err.println(t.getMessage());
             return output.append(" Error during validation !");
+        }
+    }
+
+    /**
+     * The method to call on window closing.
+     */
+    static class OnClose extends WindowAdapter {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            VAL.frame.dispose();
         }
     }
 }

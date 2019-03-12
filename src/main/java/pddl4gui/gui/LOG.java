@@ -6,6 +6,8 @@ import pddl4gui.gui.tools.Icons;
 import pddl4gui.gui.tools.WindowsManager;
 
 import java.awt.Component;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
@@ -27,6 +29,34 @@ public class LOG extends JFrame {
      * The serial id of the class.
      */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * The reference to the frame.
+     */
+    private static JFrame frame;
+
+    /**
+     * Sets the reference to the JFrame.
+     *
+     * @param frame the JFrame.
+     */
+    public static void setFrame(final JFrame frame) {
+        LOG.frame = frame;
+    }
+
+    /**
+     * The reference to the parent component.
+     */
+    private static Component component;
+
+    /**
+     * Sets the reference to the Component.
+     *
+     * @param component the Component.
+     */
+    public static void setComponent(final Component component) {
+        LOG.component = component;
+    }
 
     /**
      * The JTextArea containing solving result of selected token.
@@ -95,16 +125,19 @@ public class LOG extends JFrame {
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        addWindowListener(new OnClose());
+    }
 
-        final JFrame frame = this;
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                System.setOut(standardOut);
-                System.setErr(standardOut);
-                component.setEnabled(true);
-                frame.dispose();
-            }
-        });
+    /**
+     * The method to call on window closing.
+     */
+    static class OnClose extends WindowAdapter {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            System.setOut(standardOut);
+            System.setErr(standardOut);
+            LOG.component.setEnabled(true);
+            LOG.frame.dispose();
+        }
     }
 }

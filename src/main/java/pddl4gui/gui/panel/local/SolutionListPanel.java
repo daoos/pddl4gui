@@ -7,6 +7,8 @@ import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.LocalToken;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,6 +34,20 @@ class SolutionListPanel extends JFrame {
     private static final long serialVersionUID = 1L;
 
     /**
+     * The reference to the frame.
+     */
+    private static JFrame frame;
+
+    /**
+     * Sets the reference to the JFrame.
+     *
+     * @param frame the JFrame.
+     */
+    public static void setFrame(final JFrame frame) {
+        SolutionListPanel.frame = frame;
+    }
+
+    /**
      * The labels in the JFrame.
      */
     private final JLabel currentCost;
@@ -42,8 +58,7 @@ class SolutionListPanel extends JFrame {
      *
      * @param token the token.
      */
-    SolutionListPanel(LocalToken token) {
-
+    SolutionListPanel(final LocalToken token) {
         setLayout(null);
         setSize(500, 350);
         setTitle(token.getDomainFileName()
@@ -105,12 +120,16 @@ class SolutionListPanel extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-        final JFrame frame = this;
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                frame.dispose();
-            }
-        });
+        addWindowListener(new OnClose());
+    }
+
+    /**
+     * The method to call on window closing.
+     */
+    static class OnClose extends WindowAdapter {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            SolutionListPanel.frame.dispose();
+        }
     }
 }
