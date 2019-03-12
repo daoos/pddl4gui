@@ -38,18 +38,18 @@ public class RestSolver extends JFrame {
         final ResultPanel resultPanel;
 
         setupRestPanel = new SetupRestPanel();
-        setupRestPanel.setBounds(10, 10, 360, 570);
+        setupRestPanel.setBounds(10, 10, 360, 600);
         add(setupRestPanel);
 
         menuRestPanel = new MenuRestPanel();
         this.setJMenuBar(menuRestPanel);
 
         infoRestPanel = new InfoRestPanel();
-        infoRestPanel.setBounds(380, 10, 300, 570);
+        infoRestPanel.setBounds(380, 10, 300, 600);
         add(infoRestPanel);
 
         resultPanel = new ResultPanel();
-        resultPanel.setBounds(690, 10, 630, 570);
+        resultPanel.setBounds(690, 10, 630, 600);
         add(resultPanel);
 
         TriggerAction.setupPanel(resultPanel, menuRestPanel, infoRestPanel);

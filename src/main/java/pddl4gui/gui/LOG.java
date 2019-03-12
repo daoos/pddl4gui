@@ -34,7 +34,7 @@ public class LOG extends JFrame {
     private final JTextArea logArea;
 
     /**
-     *
+     * The reference to the standard output stream.
      */
     private static final PrintStream standardOut = System.out;
 

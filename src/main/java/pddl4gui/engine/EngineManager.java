@@ -100,10 +100,10 @@ public class EngineManager extends Thread implements Serializable {
                     final EnginePanel enginePanel = this.engineManagerPanel.addEnginePanel(this.queue.getToken());
                     enginePanel.startEngine();
                     System.out.println("[EngineManager] create Engine with id " + enginePanel.getId());
-                    System.out.println("[EngineManager] " + this.numberEngineRunning + "/"
-                            + this.numberEngineMax + " Engine(s)");
                     this.engineManagerPanel.setTokensRemaining();
                     this.increaseNumberEngineRunning();
+                    System.out.println("[EngineManager] " + this.numberEngineRunning + "/"
+                            + this.numberEngineMax + " Engine(s)");
                 }
                 sleep(this.refresh);
             } catch (InterruptedException e) {

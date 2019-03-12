@@ -80,16 +80,16 @@ public class EngineManagerPanel extends JPanel {
 
         final SpinnerNumberModel numberCoreModel = new SpinnerNumberModel(1, 1, cores - 1, 1);
         final JSpinner coreSpinner = new JSpinner(numberCoreModel);
-        coreSpinner.setBounds(165, 185, 150, 25);
+        coreSpinner.setBounds(165, 215, 150, 25);
         coreSpinner.addChangeListener(e -> this.engineManager.setNumberEngineMax((Integer) coreSpinner.getValue()));
         add(coreSpinner);
 
         final JLabel coreLabel = new JLabel("Number of engines");
-        coreLabel.setBounds(15, 185, 150, 25);
+        coreLabel.setBounds(15, 215, 150, 25);
         add(coreLabel);
 
         this.remainingLabel = new JLabel(TriggerAction.getRemainningTokenInQueue() + " token(s) remaining");
-        this.remainingLabel.setBounds(185, 214, 265, 20);
+        this.remainingLabel.setBounds(185, 244, 265, 20);
         add(this.remainingLabel);
     }
 

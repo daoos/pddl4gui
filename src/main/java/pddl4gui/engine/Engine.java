@@ -176,7 +176,9 @@ public class Engine implements Runnable, Serializable {
                     statistics.setTimeToPlanInSeconds((System.currentTimeMillis() - begin) / 1000.0);
                     statistics.setMemoryUsedToSearchInMBytes(planner.getStatistics()
                             .getMemoryUsedToSearch() / (1024.0 * 1024.0));
-
+                    statistics.setCreatedNode(planner.getStateSpaceStrategies().get(0).getCreatedNodes());
+                    statistics.setExploredNode(planner.getStateSpaceStrategies().get(0).getExploredNodes());
+                    statistics.setPendingNode(planner.getStateSpaceStrategies().get(0).getPendingNodes());
                     token.setResult(statistics, plan);
                     if (plan != null) {
                         System.out.println("[Engine " + this.enginePanel.getId() + "] Plan found (cost: "

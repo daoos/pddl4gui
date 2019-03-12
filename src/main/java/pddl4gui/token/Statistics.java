@@ -72,6 +72,21 @@ public class Statistics implements Serializable {
     private double cost;
 
     /**
+     * The number of created Nodes.
+     */
+    private int createdNode;
+
+    /**
+     * The number of explored Nodes.
+     */
+    private int exploredNode;
+
+    /**
+     * The number of pending Nodes.
+     */
+    private int pendingNode;
+
+    /**
      * Returns the parsing time in s.
      *
      * @return the parsing time in s.
@@ -271,6 +286,60 @@ public class Statistics implements Serializable {
     }
 
     /**
+     * Gets the number of created Nodes.
+     *
+     * @return the number of created Nodes.
+     */
+    public int getCreatedNode() {
+        return createdNode;
+    }
+
+    /**
+     * Sets the number of created Nodes.
+     *
+     * @param createdNode the number of created Nodes.
+     */
+    public void setCreatedNode(int createdNode) {
+        this.createdNode = createdNode;
+    }
+
+    /**
+     * Gets the number of explored Nodes.
+     *
+     * @return the number of explored Nodes.
+     */
+    public int getExploredNode() {
+        return exploredNode;
+    }
+
+    /**
+     * Sets the number of explored Nodes.
+     *
+     * @param exploredNode the number of explored Nodes.
+     */
+    public void setExploredNode(int exploredNode) {
+        this.exploredNode = exploredNode;
+    }
+
+    /**
+     * Gets the number of pending Nodes.
+     *
+     * @return the number of pending Nodes.
+     */
+    public int getPendingNode() {
+        return pendingNode;
+    }
+
+    /**
+     * Sets the number of pending Nodes.
+     *
+     * @param pendingNode the number of pending Nodes.
+     */
+    public void setPendingNode(int pendingNode) {
+        this.pendingNode = pendingNode;
+    }
+
+    /**
      * Creates a new statistics object to store statistical information about planner performances.
      * The default statistic values are set to 0.
      */
@@ -286,5 +355,8 @@ public class Statistics implements Serializable {
         this.totalMemoryInMBytes = 0.0;
         this.depth = 0;
         this.cost = 0.0;
+        this.createdNode = 0;
+        this.exploredNode = 0;
+        this.pendingNode = 0;
     }
 }

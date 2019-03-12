@@ -73,15 +73,15 @@ public class Solver extends JFrame {
         add(tokenListPanel);
 
         engineManagerPanel = new EngineManagerPanel();
-        engineManagerPanel.setBounds(10, 340, 330, 240);
+        engineManagerPanel.setBounds(10, 340, 330, 270);
         add(engineManagerPanel);
 
         statisticsPanel = new StatisticsPanel();
-        statisticsPanel.setBounds(350, 340, 330, 240);
+        statisticsPanel.setBounds(350, 340, 330, 270);
         add(statisticsPanel);
 
         resultPanel = new ResultPanel();
-        resultPanel.setBounds(690, 10, 630, 570);
+        resultPanel.setBounds(690, 10, 630, 600);
         add(resultPanel);
 
         TriggerAction.setupPanel(statisticsPanel, resultPanel, menuSolverPanel, engineManagerPanel, tokenListPanel);

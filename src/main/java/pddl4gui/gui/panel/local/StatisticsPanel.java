@@ -30,6 +30,9 @@ public class StatisticsPanel extends JPanel {
     private final JLabel timeTotal;
     private final JLabel numberActions;
     private final JLabel numberFluents;
+    private final JLabel numberCreatedNodes;
+    private final JLabel numberExploredNodes;
+    private final JLabel numberPendingNodes;
     private final JLabel memoryPb;
     private final JLabel memorySearch;
     private final JLabel memoryTotal;
@@ -47,6 +50,9 @@ public class StatisticsPanel extends JPanel {
         final JLabel timeTotalLabel = new JLabel("Total time");
         final JLabel numberActionsLabel = new JLabel("Number of actions");
         final JLabel numberFluentsLabel = new JLabel("Number of facts");
+        final JLabel numberCreatedNodesLabel = new JLabel("Created nodes");
+        final JLabel numberExploredNodesLabel = new JLabel("Explored nodes");
+        final JLabel numberPendingNodesLabel = new JLabel("Pending nodes");
         final JLabel memoryPBLabel = new JLabel("Memory for problem");
         final JLabel memorySearchLabel = new JLabel("Memory for search");
         final JLabel memoryTotalLabel = new JLabel("Total memory used");
@@ -56,13 +62,16 @@ public class StatisticsPanel extends JPanel {
         timeTotal = new JLabel("-- seconds");
         numberActions = new JLabel("--");
         numberFluents = new JLabel("--");
+        numberCreatedNodes = new JLabel("--");
+        numberExploredNodes = new JLabel("--");
+        numberPendingNodes = new JLabel("--");
         memoryPb = new JLabel("-- MBytes");
         memorySearch = new JLabel("-- MBytes");
         memoryTotal = new JLabel("-- MBytes");
 
         final int labWidth = 140;
-        final int labHeight = 22;
-        int labMarging = 22;
+        final int labHeight = 20;
+        int labMarging = 20;
 
         timeToParseLabel.setBounds(15, labMarging, labWidth, labHeight);
         add(timeToParseLabel);
@@ -100,6 +109,24 @@ public class StatisticsPanel extends JPanel {
         add(numberFluents);
         labMarging += labHeight;
 
+        numberCreatedNodesLabel.setBounds(15, labMarging, labWidth, labHeight);
+        add(numberCreatedNodesLabel);
+        numberCreatedNodes.setBounds(155, labMarging, labWidth, labHeight);
+        add(numberCreatedNodes);
+        labMarging += labHeight;
+
+        numberExploredNodesLabel.setBounds(15, labMarging, labWidth, labHeight);
+        add(numberExploredNodesLabel);
+        numberExploredNodes.setBounds(155, labMarging, labWidth, labHeight);
+        add(numberExploredNodes);
+        labMarging += labHeight;
+
+        numberPendingNodesLabel.setBounds(15, labMarging, labWidth, labHeight);
+        add(numberPendingNodesLabel);
+        numberPendingNodes.setBounds(155, labMarging, labWidth, labHeight);
+        add(numberPendingNodes);
+        labMarging += labHeight;
+
         memoryPBLabel.setBounds(15, labMarging, labWidth, labHeight);
         add(memoryPBLabel);
         memoryPb.setBounds(155, labMarging, labWidth, labHeight);
@@ -134,6 +161,9 @@ public class StatisticsPanel extends JPanel {
                 .format(statistics.getTotalTimeInSeconds()) + " seconds");
         numberActions.setText(String.valueOf(statistics.getNumberOfActions()));
         numberFluents.setText(String.valueOf(statistics.getNumberOfFluents()));
+        numberCreatedNodes.setText(String.valueOf(statistics.getCreatedNode()));
+        numberExploredNodes.setText(String.valueOf(statistics.getExploredNode()));
+        numberPendingNodes.setText(String.valueOf(statistics.getPendingNode()));
         memoryPb.setText(TriggerAction.getDf()
                 .format(statistics.getMemoryForProblemInMBytes()) + " MBytes");
         memorySearch.setText(TriggerAction.getDf()
@@ -152,6 +182,9 @@ public class StatisticsPanel extends JPanel {
         timeTotal.setText("-- seconds");
         numberActions.setText("--");
         numberFluents.setText("--");
+        numberCreatedNodes.setText("--");
+        numberExploredNodes.setText("--");
+        numberPendingNodes.setText("--");
         memoryPb.setText("-- MBytes");
         memorySearch.setText("-- MBytes");
         memoryTotal.setText("-- MBytes");
