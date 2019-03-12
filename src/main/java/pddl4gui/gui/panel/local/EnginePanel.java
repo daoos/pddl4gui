@@ -114,11 +114,11 @@ public class EnginePanel extends JPanel {
         add(this.progressBar);
 
         this.circlePanel = new DrawCircle(3, 3, 15);
-        this.circlePanel.setBounds(60, 25, 25, 25);
+        this.circlePanel.setBounds(15, 25, 25, 25);
         add(this.circlePanel);
 
         this.engineLabel = new JLabel(" -- ");
-        this.engineLabel.setBounds(90, 25, 265, 20);
+        this.engineLabel.setBounds(60, 25, 245, 20);
         add(this.engineLabel);
 
         this.engine = new Engine(this, this.engineManagerPanel.getEngineManager(), token);

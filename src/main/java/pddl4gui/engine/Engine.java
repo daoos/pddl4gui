@@ -73,7 +73,7 @@ public class Engine implements Runnable, Serializable {
     public void start() {
         Thread worker = new Thread(this);
         worker.start();
-        System.out.println("[Engine] start Engine with id " + enginePanel.getId() + " on thread " + worker.getName());
+        System.out.println("[Engine " + this.enginePanel.getId() + "] Engine start on thread " + worker.getName());
     }
 
     /**
@@ -108,7 +108,7 @@ public class Engine implements Runnable, Serializable {
         }
         this.engineManager.decreaseNumberEngineRunning();
         this.enginePanel.exit();
-        System.out.println("[Engine] Engine with id " + enginePanel.getId() + " stop");
+        System.out.println("[Engine " + this.enginePanel.getId() + "] Engine stop");
     }
 
     /**

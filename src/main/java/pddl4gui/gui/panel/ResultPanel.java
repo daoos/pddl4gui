@@ -83,31 +83,31 @@ public class ResultPanel extends JPanel {
         int labMarging = 20;
 
         domainLabel.setBounds(15, labMarging, labWidth, labHeight);
-        domain.setBounds(70, labMarging, labWidth, labHeight);
+        domain.setBounds(70, labMarging, labWidth * 2, labHeight);
         add(domainLabel);
         add(domain);
 
-        costLabel.setBounds(250, labMarging, labWidth, labHeight);
-        cost.setBounds(305, labMarging, labWidth / 2, labHeight);
+        costLabel.setBounds(375, labMarging, labWidth, labHeight);
+        cost.setBounds(425, labMarging, labWidth / 2, labHeight);
         add(costLabel);
         add(cost);
 
         labMarging += labHeight;
 
         problemLabel.setBounds(15, labMarging, labWidth, labHeight);
-        problem.setBounds(70, labMarging, labWidth, labHeight);
+        problem.setBounds(70, labMarging, labWidth * 2, labHeight);
         add(problemLabel);
         add(problem);
 
-        depthLabel.setBounds(250, labMarging, labWidth, labHeight);
-        depth.setBounds(305, labMarging, labWidth / 2, labHeight);
+        depthLabel.setBounds(375, labMarging, labWidth, labHeight);
+        depth.setBounds(425, labMarging, labWidth / 2, labHeight);
         add(depthLabel);
         add(depth);
 
         labMarging += labHeight;
 
         plannerLabel.setBounds(15, labMarging, labWidth, labHeight);
-        planner.setBounds(70, labMarging, labWidth, labHeight);
+        planner.setBounds(70, labMarging, labWidth * 2, labHeight);
         add(plannerLabel);
         add(planner);
 
@@ -168,7 +168,9 @@ public class ResultPanel extends JPanel {
         depth.setText(TriggerAction.getDf()
                 .format(token.getStatistics().getDepth()));
         resultArea.setText(token.getSolutionString());
-        planner.setText(token.getPlannerName());
+        planner.setText(token.getPlannerName() + " with " + token.getStrategyName() + " ( "
+                + token.getPlanner().getStateSpaceStrategies().get(0).getWeight() + " | "
+                + token.getPlanner().getStateSpaceStrategies().get(0).getTimeout() / 1000 + " )");
     }
 
     /**
@@ -185,7 +187,9 @@ public class ResultPanel extends JPanel {
         problem.setText(token.getProblemFileName());
         cost.setText(String.valueOf(0));
         depth.setText(String.valueOf(0));
-        planner.setText(token.getPlannerName());
+        planner.setText(token.getPlannerName() + " with " + token.getStrategyName() + " ( "
+                + token.getPlanner().getStateSpaceStrategies().get(0).getWeight() + " | "
+                + token.getPlanner().getStateSpaceStrategies().get(0).getTimeout() / 1000 + " )");
         resultArea.setText(token.getError());
     }
 
@@ -203,7 +207,9 @@ public class ResultPanel extends JPanel {
         problem.setText(token.getProblemFileName());
         cost.setText(String.valueOf(0));
         depth.setText(String.valueOf(0));
-        planner.setText(token.getPlannerName());
+        planner.setText(token.getPlannerName() + " with " + token.getStrategyName() + " ( "
+                + token.getPlanner().getStateSpaceStrategies().get(0).getWeight() + " | "
+                + token.getPlanner().getStateSpaceStrategies().get(0).getTimeout() / 1000 + " )");
         resultArea.setText("Token not solved yet !");
     }
 
