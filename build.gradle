@@ -35,6 +35,7 @@ jar {
                 'Implementation-Version': version,
                 'Gradle-Version':'Gradle 4.8',
                 'Built-By': 'Emmanuel Hermellin',
+                'Premain-Class': 'fr.uga.pddl4j.util.MemoryAgent',
                 'Main-Class': 'pddl4gui.Pddl4Gui'
     }
     doFirst {
@@ -47,7 +48,7 @@ task run (type: JavaExec, dependsOn: jar){
         println("arguments list : " + Args)
         args(Args.split(','))
     }
-    jvmArgs = ["-javaagent:libs/pddl4j-3.8.2.jar", "-server", "-Xms2048m", "-Xmx2048m"]
+    jvmArgs = ["-javaagent:pddl4gui-1.0.jar", "-server", "-Xms2048m", "-Xmx2048m"]
 
     description = "Run PDDL4GUI"
     main = "pddl4gui.Pddl4Gui"
