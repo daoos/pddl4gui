@@ -248,7 +248,7 @@ public class Result extends JFrame {
         checkbox.setEnabled(false);
         checkbox.setSelected(false);
 
-        domain.setText("--");
+        domain.setText("---");
         problem.setText("---");
         cost.setText("---");
         depth.setText("---");

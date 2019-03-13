@@ -36,14 +36,14 @@ public class RestSolver extends JFrame {
         final InfoRestPanel infoRestPanel;
 
         setupRestPanel = new SetupRestPanel();
-        setupRestPanel.setBounds(0, 0, 340, 600);
+        setupRestPanel.setBounds(0, 0, 340, 590);
         add(setupRestPanel);
 
         menuRestPanel = new MenuRestPanel();
         this.setJMenuBar(menuRestPanel);
 
         infoRestPanel = new InfoRestPanel();
-        infoRestPanel.setBounds(360, 0, 300, 600);
+        infoRestPanel.setBounds(360, 0, 300, 590);
         add(infoRestPanel);
 
         final Result result = new Result();

@@ -35,7 +35,6 @@ PDDL4GUI is a small application written in Java that provides a graphical interf
   - A graphical interface for solving planning problems through PDDL4J webservice and RESTFull API.
   - Anytime behavior for compatible planners.
   - The integration of VAL (The plan validation system) which offers the possibility to test the validity of the plans provided by PDDL4J.
-  - A simple PDDL editor.
 
 Features that will be integrated later:
   - A tool to visualize solution plans.

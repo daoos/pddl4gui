@@ -73,18 +73,18 @@ public class LOG extends JFrame {
      */
     public LOG() {
         setLayout(null);
-        setSize(WindowsManager.getWidth() / 2 + 60, 200);
+        setSize(WindowsManager.getWidth(), 200);
         setTitle(WindowsManager.NAME + " | Log");
         setLocation(WindowsManager.setWindowsLocationWidth());
 
         logArea = new JTextArea();
         logArea.setEditable(false);
         final JScrollPane scrollTextPane = new JScrollPane(logArea);
-        scrollTextPane.setBounds(10, 10, (WindowsManager.getWidth() / 2) - 10, 140);
+        scrollTextPane.setBounds(10, 10, WindowsManager.getWidth() - 70, 140);
         add(scrollTextPane);
 
         final JButton saveButton = new JButton(Icons.getSaveTxtIcon());
-        saveButton.setBounds((WindowsManager.getWidth() / 2) + 10, 10, 40, 40);
+        saveButton.setBounds((WindowsManager.getWidth() - 70) + 20, 10, 40, 40);
         saveButton.setToolTipText("Save logs");
         saveButton.addActionListener(e -> {
             File tempFile = FileTools.saveFile(this, 1);
@@ -97,14 +97,14 @@ public class LOG extends JFrame {
         add(saveButton);
 
         final JButton resetButton = new JButton(Icons.getResetIcon());
-        resetButton.setBounds((WindowsManager.getWidth() / 2) + 10, 60, 40, 40);
+        resetButton.setBounds((WindowsManager.getWidth() - 70) + 20, 60, 40, 40);
         resetButton.setToolTipText("Clear the logs");
         resetButton.setEnabled(true);
         resetButton.addActionListener(e -> logArea.setText(""));
         add(resetButton);
 
         final JButton exitButton = new JButton(Icons.getExitIcon());
-        exitButton.setBounds((WindowsManager.getWidth() / 2) + 10, 110, 40, 40);
+        exitButton.setBounds((WindowsManager.getWidth() - 70) + 20, 110, 40, 40);
         exitButton.setToolTipText("Exit LOG");
         exitButton.setEnabled(true);
         exitButton.addActionListener(e -> {
@@ -123,6 +123,7 @@ public class LOG extends JFrame {
             System.err.println(unex.getMessage());
         }
 
+        setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         addWindowListener(new OnClose());

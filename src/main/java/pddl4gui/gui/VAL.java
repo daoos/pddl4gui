@@ -191,7 +191,7 @@ public class VAL extends JFrame {
         }
 
         setLocation(WindowsManager.setWindowsLocationWidth());
-
+        setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         addWindowListener(new OnClose());

@@ -71,11 +71,11 @@ public class Solver extends JFrame {
         add(tokenListPanel);
 
         engineManagerPanel = new EngineManagerPanel();
-        engineManagerPanel.setBounds(0, 330, 330, 270);
+        engineManagerPanel.setBounds(0, 320, 330, 270);
         add(engineManagerPanel);
 
         statisticsPanel = new StatisticsPanel();
-        statisticsPanel.setBounds(340, 330, 330, 270);
+        statisticsPanel.setBounds(340, 320, 330, 270);
         add(statisticsPanel);
 
         final Result result = new Result();

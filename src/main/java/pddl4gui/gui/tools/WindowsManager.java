@@ -31,7 +31,7 @@ public class WindowsManager implements Serializable {
     /**
      * The height of PDDL4GUI main frame.
      */
-    private static int height = 670;
+    private static int height = 660;
 
     /**
      * The title of PDDL4GUI main frame.
