@@ -55,8 +55,7 @@ public class TokenListPanel extends JPanel {
         SolutionListButton.setBounds(20, 270, 290, 25);
         SolutionListButton.addActionListener(e -> {
             if (tokenJList.getSelectedValue() != null) {
-                final SolutionListPanel solutionListPanel = new SolutionListPanel(tokenJList.getSelectedValue());
-                SolutionListPanel.setFrame(solutionListPanel);
+                SolutionListPanel.setFrame(new SolutionListPanel(tokenJList.getSelectedValue()));
             }
         });
         add(SolutionListButton);

@@ -1,7 +1,7 @@
 package pddl4gui.gui.tools;
 
+import pddl4gui.gui.Result;
 import pddl4gui.gui.Solver;
-import pddl4gui.gui.panel.ResultPanel;
 import pddl4gui.gui.panel.local.EngineManagerPanel;
 import pddl4gui.gui.panel.local.MenuSolverPanel;
 import pddl4gui.gui.panel.local.StatisticsPanel;
@@ -51,7 +51,7 @@ public class TriggerAction implements Serializable {
     /**
      * The solver ResultPanel.
      */
-    private static ResultPanel resultPanel;
+    private static Result resultFrame;
 
     /**
      * The solver MenuSolverPanel.
@@ -177,16 +177,16 @@ public class TriggerAction implements Serializable {
      * Setups all the panel used in this class (Local).
      *
      * @param statisticsPanel    the solver StatisticsPanel.
-     * @param resultPanel        the solver ResultPanel.
+     * @param resultFrame        the solver ResultPanel.
      * @param menuSolverPanel    the solver MenuSolverPanel.
      * @param engineManagerPanel the solver EngineManagerPanel.
      * @param tokenListPanel     the solver TokenListPanel.
      */
-    public static void setupPanel(StatisticsPanel statisticsPanel, ResultPanel resultPanel,
+    public static void setupPanel(StatisticsPanel statisticsPanel, Result resultFrame,
                                   MenuSolverPanel menuSolverPanel, EngineManagerPanel engineManagerPanel,
                                   TokenListPanel tokenListPanel) {
         TriggerAction.statisticsPanel = statisticsPanel;
-        TriggerAction.resultPanel = resultPanel;
+        TriggerAction.resultFrame = resultFrame;
         TriggerAction.menuSolverPanel = menuSolverPanel;
         TriggerAction.engineManagerPanel = engineManagerPanel;
         TriggerAction.tokenListPanel = tokenListPanel;
@@ -196,13 +196,13 @@ public class TriggerAction implements Serializable {
     /**
      * Setups all the panel used in this class (REST).
      *
-     * @param resultPanel     the REST ResultPanel.
+     * @param resultFrame     the REST ResultPanel.
      * @param menuRestPanel   the REST MenuSolverPanel.
      * @param infoRestPanel   the REST InfoRestPanel
      *
      */
-    public static void setupPanel(ResultPanel resultPanel, MenuRestPanel menuRestPanel, InfoRestPanel infoRestPanel) {
-        TriggerAction.resultPanel = resultPanel;
+    public static void setupPanel(Result resultFrame, MenuRestPanel menuRestPanel, InfoRestPanel infoRestPanel) {
+        TriggerAction.resultFrame = resultFrame;
         TriggerAction.menuRestPanel = menuRestPanel;
         TriggerAction.infoRestPanel = infoRestPanel;
         TriggerAction.decimalFormat = new DecimalFormat("##.###");
@@ -223,7 +223,7 @@ public class TriggerAction implements Serializable {
      * @param token the specified token.
      */
     public static void displayResult(LocalToken token) {
-        resultPanel.displayResult(token);
+        resultFrame.displayResult(token);
         statisticsPanel.displayStats(token.getStatistics());
         menuSolverPanel.enableValButton(true);
         menuSolverPanel.enableSaveTxtButton(true);
@@ -236,7 +236,7 @@ public class TriggerAction implements Serializable {
      * @param string the string to display.
      */
     public static void displayResult(String string) {
-        resultPanel.displayResult(string);
+        resultFrame.displayResult(string);
     }
 
     /**
@@ -245,7 +245,7 @@ public class TriggerAction implements Serializable {
      * @return The String result.
      */
     public static String getResult() {
-        return resultPanel.getResult();
+        return resultFrame.getResult();
     }
 
     /**
@@ -256,8 +256,8 @@ public class TriggerAction implements Serializable {
     public static void displayError(LocalToken token) {
         statisticsPanel.clearStats();
         statisticsPanel.displayStats(token.getStatistics());
-        resultPanel.clearResult();
-        resultPanel.displayError(token);
+        resultFrame.clearResult();
+        resultFrame.displayError(token);
     }
 
     /**
@@ -267,15 +267,15 @@ public class TriggerAction implements Serializable {
      */
     public static void displayProgress(LocalToken token) {
         statisticsPanel.clearStats();
-        resultPanel.clearResult();
-        resultPanel.diplayProgress(token);
+        resultFrame.clearResult();
+        resultFrame.diplayProgress(token);
     }
 
     /**
      * Triggers clean action for ResultPanel.
      */
     public static void clearResult() {
-        resultPanel.clearResult();
+        resultFrame.clearResult();
     }
 
     /**
@@ -319,7 +319,7 @@ public class TriggerAction implements Serializable {
      * @return the status of the ResultPanel checkbox for detailed plan.
      */
     public static boolean isResultPanelDetailedPlan() {
-        return TriggerAction.resultPanel.isCheckboxSelected();
+        return TriggerAction.resultFrame.isCheckboxSelected();
     }
 
     /**

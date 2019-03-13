@@ -1,6 +1,5 @@
 package pddl4gui.gui;
 
-import pddl4gui.gui.panel.ResultPanel;
 import pddl4gui.gui.panel.rest.InfoRestPanel;
 import pddl4gui.gui.panel.rest.MenuRestPanel;
 import pddl4gui.gui.panel.rest.SetupRestPanel;
@@ -35,25 +34,24 @@ public class RestSolver extends JFrame {
         final SetupRestPanel setupRestPanel;
         final MenuRestPanel menuRestPanel;
         final InfoRestPanel infoRestPanel;
-        final ResultPanel resultPanel;
 
         setupRestPanel = new SetupRestPanel();
-        setupRestPanel.setBounds(10, 10, 360, 600);
+        setupRestPanel.setBounds(0, 0, 340, 600);
         add(setupRestPanel);
 
         menuRestPanel = new MenuRestPanel();
         this.setJMenuBar(menuRestPanel);
 
         infoRestPanel = new InfoRestPanel();
-        infoRestPanel.setBounds(380, 10, 300, 600);
+        infoRestPanel.setBounds(360, 0, 300, 600);
         add(infoRestPanel);
 
-        resultPanel = new ResultPanel();
-        resultPanel.setBounds(690, 10, 630, 600);
-        add(resultPanel);
+        final Result result = new Result();
+        Result.setFrame(result);
 
-        TriggerAction.setupPanel(resultPanel, menuRestPanel, infoRestPanel);
+        TriggerAction.setupPanel(result, menuRestPanel, infoRestPanel);
 
+        setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

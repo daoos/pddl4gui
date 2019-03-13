@@ -1,6 +1,5 @@
 package pddl4gui.gui;
 
-import pddl4gui.gui.panel.ResultPanel;
 import pddl4gui.gui.panel.local.EngineManagerPanel;
 import pddl4gui.gui.panel.local.MenuSolverPanel;
 import pddl4gui.gui.panel.local.SetupSolverPanel;
@@ -56,7 +55,6 @@ public class Solver extends JFrame {
 
         final SetupSolverPanel setupPanel;
         final StatisticsPanel statisticsPanel;
-        final ResultPanel resultPanel;
         final MenuSolverPanel menuSolverPanel;
         final EngineManagerPanel engineManagerPanel;
         final TokenListPanel tokenListPanel;
@@ -65,27 +63,27 @@ public class Solver extends JFrame {
         this.setJMenuBar(menuSolverPanel);
 
         setupPanel = new SetupSolverPanel();
-        setupPanel.setBounds(10, 10, 330, 320);
+        setupPanel.setBounds(0, 0, 330, 320);
         add(setupPanel);
 
         tokenListPanel = new TokenListPanel();
-        tokenListPanel.setBounds(350, 10, 330, 320);
+        tokenListPanel.setBounds(340, 0, 330, 320);
         add(tokenListPanel);
 
         engineManagerPanel = new EngineManagerPanel();
-        engineManagerPanel.setBounds(10, 340, 330, 270);
+        engineManagerPanel.setBounds(0, 330, 330, 270);
         add(engineManagerPanel);
 
         statisticsPanel = new StatisticsPanel();
-        statisticsPanel.setBounds(350, 340, 330, 270);
+        statisticsPanel.setBounds(340, 330, 330, 270);
         add(statisticsPanel);
 
-        resultPanel = new ResultPanel();
-        resultPanel.setBounds(690, 10, 630, 600);
-        add(resultPanel);
+        final Result result = new Result();
+        Result.setFrame(result);
 
-        TriggerAction.setupPanel(statisticsPanel, resultPanel, menuSolverPanel, engineManagerPanel, tokenListPanel);
+        TriggerAction.setupPanel(statisticsPanel, result, menuSolverPanel, engineManagerPanel, tokenListPanel);
 
+        setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         engineManagerPanel.startEngineManager();

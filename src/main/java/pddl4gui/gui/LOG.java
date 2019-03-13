@@ -71,16 +71,16 @@ public class LOG extends JFrame {
     /**
      * Creates a new LOG which displays standard output.
      */
-    public LOG(final Component component) {
+    public LOG() {
         setLayout(null);
-        setSize(WindowsManager.getWidth() / 2 + 60, WindowsManager.getHeight() / 2);
+        setSize(WindowsManager.getWidth() / 2 + 60, 200);
         setTitle(WindowsManager.NAME + " | Log");
         setLocation(WindowsManager.setWindowsLocationWidth());
 
         logArea = new JTextArea();
         logArea.setEditable(false);
         final JScrollPane scrollTextPane = new JScrollPane(logArea);
-        scrollTextPane.setBounds(10, 10, (WindowsManager.getWidth() / 2) - 10, WindowsManager.getHeight() / 2 - 60);
+        scrollTextPane.setBounds(10, 10, (WindowsManager.getWidth() / 2) - 10, 140);
         add(scrollTextPane);
 
         final JButton saveButton = new JButton(Icons.getSaveTxtIcon());
@@ -110,7 +110,7 @@ public class LOG extends JFrame {
         exitButton.addActionListener(e -> {
             System.setOut(standardOut);
             System.setErr(standardOut);
-            component.setEnabled(true);
+            LOG.component.setEnabled(true);
             this.dispose();
         });
         add(exitButton);

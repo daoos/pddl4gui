@@ -1,10 +1,15 @@
-package pddl4gui.gui.panel;
+package pddl4gui.gui;
 
 import pddl4gui.gui.tools.TriggerAction;
+import pddl4gui.gui.tools.WindowsManager;
 import pddl4gui.token.LocalToken;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,12 +22,34 @@ import javax.swing.JTextArea;
  * @author E. Hermellin
  * @version 1.0 - 12.02.2018
  */
-public class ResultPanel extends JPanel {
+public class Result extends JFrame {
 
     /**
      * The serial id of the class.
      */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * The reference to the frame.
+     */
+    private static JFrame frame;
+
+    /**
+     * Sets the reference to the JFrame.
+     *
+     * @param frame the JFrame.
+     */
+    public static void setFrame(final JFrame frame) {
+        Result.frame = frame;
+    }
+
+    /**
+     * Sets the JFrame visible.
+     */
+    public static void setVisible() {
+        Result.frame.setVisible(true);
+    }
+
 
     /**
      * The JLabel of the ResultPanel.
@@ -60,58 +87,52 @@ public class ResultPanel extends JPanel {
     /**
      * Creates a new ResultPanel which displays token's result.
      */
-    public ResultPanel() {
-        setLayout(null);
-        setBorder(BorderFactory.createTitledBorder("Solver result"));
+    public Result() {
+        setTitle("PDDL4GUI | Result");
+        setSize(WindowsManager.getWidth(), WindowsManager.getHeight());
 
+        final JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BorderLayout());
+        contentPanel.setBorder(BorderFactory.createTitledBorder("Solver result"));
+
+        resultArea = new JTextArea();
+        resultArea.setEditable(false);
+        final JScrollPane scrollTextPane = new JScrollPane(resultArea);
+
+        final JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new GridLayout(0,2));
+
+        final JPanel domainPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         final JLabel domainLabel = new JLabel("Domain");
-        final JLabel problemLabel = new JLabel("Problem");
-        final JLabel depthLabel = new JLabel("Depth");
-        final JLabel costLabel = new JLabel("Cost");
-        final JLabel plannerLabel = new JLabel("Planner");
         domain = new JLabel("---");
+        domainPanel.add(domainLabel);
+        domainPanel.add(domain);
+
+        final JPanel problemPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        final JLabel problemLabel = new JLabel("Problem");
         problem = new JLabel("---");
-        cost = new JLabel("---");
+        problemPanel.add(problemLabel);
+        problemPanel.add(problem);
+
+        final JPanel depthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        final JLabel depthLabel = new JLabel("Depth");
         depth = new JLabel("---");
+        depthPanel.add(depthLabel);
+        depthPanel.add(depth);
+
+        final JPanel costPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        final JLabel costLabel = new JLabel("Cost");
+        cost = new JLabel("---");
+        costPanel.add(costLabel);
+        costPanel.add(cost);
+
+        final JPanel plannerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        final JLabel plannerLabel = new JLabel("Planner");
         planner = new JLabel("---");
+        plannerPanel.add(plannerLabel);
+        plannerPanel.add(planner);
 
         checkbox = new JCheckBox("Detailed plan");
-        resultArea = new JTextArea();
-
-        final int labWidth = 150;
-        final int labHeight = 20;
-        int labMarging = 20;
-
-        domainLabel.setBounds(15, labMarging, labWidth, labHeight);
-        domain.setBounds(70, labMarging, labWidth * 2, labHeight);
-        add(domainLabel);
-        add(domain);
-
-        costLabel.setBounds(375, labMarging, labWidth, labHeight);
-        cost.setBounds(425, labMarging, labWidth / 2, labHeight);
-        add(costLabel);
-        add(cost);
-
-        labMarging += labHeight;
-
-        problemLabel.setBounds(15, labMarging, labWidth, labHeight);
-        problem.setBounds(70, labMarging, labWidth * 2, labHeight);
-        add(problemLabel);
-        add(problem);
-
-        depthLabel.setBounds(375, labMarging, labWidth, labHeight);
-        depth.setBounds(425, labMarging, labWidth / 2, labHeight);
-        add(depthLabel);
-        add(depth);
-
-        labMarging += labHeight;
-
-        plannerLabel.setBounds(15, labMarging, labWidth, labHeight);
-        planner.setBounds(70, labMarging, labWidth * 2, labHeight);
-        add(plannerLabel);
-        add(planner);
-
-        checkbox.setBounds(375, labMarging, (labWidth / 2) + 40, labHeight);
         checkbox.setSelected(false);
         checkbox.setEnabled(false);
         checkbox.addItemListener(e -> {
@@ -123,14 +144,21 @@ public class ResultPanel extends JPanel {
                 }
             }
         });
-        add(checkbox);
+        infoPanel.add(domainPanel);
+        infoPanel.add(problemPanel);
+        infoPanel.add(depthPanel);
+        infoPanel.add(costPanel);
+        infoPanel.add(plannerPanel);
+        infoPanel.add(checkbox);
 
-        labMarging += labHeight * 1.50;
+        contentPanel.add(infoPanel, BorderLayout.NORTH);
+        contentPanel.add(scrollTextPane, BorderLayout.CENTER);
 
-        resultArea.setEditable(false);
-        final JScrollPane scrollTextPane = new JScrollPane(resultArea);
-        scrollTextPane.setBounds(15, labMarging, 600, 490);
-        add(scrollTextPane);
+        setContentPane(contentPanel);
+        setLocation(WindowsManager.setWindowsLocationWidth());
+
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
     /**

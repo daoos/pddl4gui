@@ -26,17 +26,16 @@ public class Icons implements Serializable {
     private static final ImageIcon helpIcon = new ImageIcon("resources/icons/help.png");
     private static final ImageIcon infoIcon = new ImageIcon("resources/icons/helpMenu.png");
     private static final ImageIcon resetIcon = new ImageIcon("resources/icons/clean.png");
-    private static final ImageIcon resultIcon = new ImageIcon("resources/icons/resultMenu.png");
+    private static final ImageIcon editIcon = new ImageIcon("resources/icons/edit.png");
     private static final ImageIcon saveJsonIcon = new ImageIcon("resources/icons/saveJson.png");
     private static final ImageIcon saveTxtIcon = new ImageIcon("resources/icons/saveTxt.png");
     private static final ImageIcon solverIcon = new ImageIcon("resources/icons/solverMenu.png");
-    private static final ImageIcon startIcon = new ImageIcon("resources/icons/start.png");
-    private static final ImageIcon stopIcon = new ImageIcon("resources/icons/stop.png");
     private static final ImageIcon validateIcon = new ImageIcon("resources/icons/val.png");
     private static final ImageIcon displayIcon = new ImageIcon("resources/icons/display.png");
     private static final ImageIcon garbageIcon = new ImageIcon("resources/icons/garbage.png");
     private static final ImageIcon logIcon = new ImageIcon("resources/icons/log.png");
     private static final ImageIcon toolsIcon = new ImageIcon("resources/icons/tools.png");
+    private static final ImageIcon resultIcon = new ImageIcon("resources/icons/result.png");
 
     /**
      * Returns the about icon.
@@ -129,24 +128,6 @@ public class Icons implements Serializable {
     }
 
     /**
-     * Returns the start icon.
-     *
-     * @return the start icon.
-     */
-    public static ImageIcon getStartIcon() {
-        return startIcon;
-    }
-
-    /**
-     * Returns the stop icon.
-     *
-     * @return the stop icon.
-     */
-    public static ImageIcon getStopIcon() {
-        return stopIcon;
-    }
-
-    /**
      * Returns the VAL icon.
      *
      * @return the VAL icon.
@@ -189,5 +170,14 @@ public class Icons implements Serializable {
      */
     public static ImageIcon getToolsIcon() {
         return toolsIcon;
+    }
+
+    /**
+     * Returns the edit icon.
+     *
+     * @return the edit icon.
+     */
+    public static ImageIcon getEditIcon() {
+        return editIcon;
     }
 }

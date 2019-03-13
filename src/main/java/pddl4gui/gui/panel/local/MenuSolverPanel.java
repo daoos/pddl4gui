@@ -1,6 +1,7 @@
 package pddl4gui.gui.panel.local;
 
 import pddl4gui.gui.LOG;
+import pddl4gui.gui.Result;
 import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
@@ -74,7 +75,7 @@ public class MenuSolverPanel extends JMenuBar {
     public MenuSolverPanel() {
 
         JMenu resultMenu = new JMenu("Result");
-        resultMenu.setIcon(Icons.getResultIcon());
+        resultMenu.setIcon(Icons.getEditIcon());
 
         valItem = new JMenuItem(new MenuItemAction("Validate result", Icons.getValidateIcon(),
                 KeyEvent.VK_V));
@@ -82,9 +83,8 @@ public class MenuSolverPanel extends JMenuBar {
         valItem.addActionListener(e -> {
             if (TriggerAction.isTokenListPanelJListSelectedValueSolved()) {
                 final LocalToken token = TriggerAction.getTokenListPanelJListSelectedValue();
-                final VAL val = new VAL(token.getDomainFile(), token.getProblemFile(),
-                        token.getSolutionString(), token.isSolved());
-                VAL.setFrame(val);
+                VAL.setFrame(new VAL(token.getDomainFile(), token.getProblemFile(),
+                        token.getSolutionString(), token.isSolved()));
             }
         });
 
@@ -119,6 +119,11 @@ public class MenuSolverPanel extends JMenuBar {
             }
         });
 
+        JMenuItem resultFrame = new JMenuItem(new MenuItemAction("Result Window", Icons.getResultIcon(),
+                KeyEvent.VK_F));
+        resultFrame.setEnabled(true);
+        resultFrame.addActionListener(e -> Result.setVisible());
+
         JMenuItem displaySolution = new JMenuItem(new MenuItemAction("Display solution", Icons.getDisplayIcon(),
                 KeyEvent.VK_D));
         displaySolution.setEnabled(true);
@@ -126,6 +131,8 @@ public class MenuSolverPanel extends JMenuBar {
             //new Display();
         });
 
+        resultMenu.add(resultFrame);
+        resultMenu.addSeparator();
         resultMenu.add(valItem);
         resultMenu.addSeparator();
         resultMenu.add(saveResultTxt);
@@ -162,9 +169,8 @@ public class MenuSolverPanel extends JMenuBar {
         logItem.setEnabled(true);
         logItem.addActionListener(e -> {
             logItem.setEnabled(false);
-            final LOG log = new LOG(logItem);
-            LOG.setFrame(log);
             LOG.setComponent(logItem);
+            LOG.setFrame(new LOG());
         });
 
         final JMenuItem garbageItem = new JMenuItem(new MenuItemAction("Garbage Collector", Icons.getGarbageIcon(),

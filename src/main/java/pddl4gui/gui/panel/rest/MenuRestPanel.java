@@ -1,6 +1,7 @@
 package pddl4gui.gui.panel.rest;
 
 import pddl4gui.gui.LOG;
+import pddl4gui.gui.Result;
 import pddl4gui.gui.VAL;
 import pddl4gui.gui.tools.FileTools;
 import pddl4gui.gui.tools.Icons;
@@ -74,7 +75,7 @@ public class MenuRestPanel extends JMenuBar {
     public MenuRestPanel() {
 
         JMenu resultMenu = new JMenu("Result");
-        resultMenu.setIcon(Icons.getResultIcon());
+        resultMenu.setIcon(Icons.getEditIcon());
 
         valItem = new JMenuItem(new MenuItemAction("Validate result", Icons.getValidateIcon(),
                 KeyEvent.VK_V));
@@ -84,9 +85,8 @@ public class MenuRestPanel extends JMenuBar {
             if (id != -1) {
                 final RestToken restToken = TriggerAction.getRestTokenFromId(id);
                 if (restToken != null) {
-                    final VAL val = new VAL(restToken.getDomainFile(), restToken.getProblemFile(),
-                            TriggerAction.getResult(), true);
-                    VAL.setFrame(val);
+                    VAL.setFrame(new VAL(restToken.getDomainFile(), restToken.getProblemFile(),
+                            TriggerAction.getResult(), true));
                 }
             }
         });
@@ -111,6 +111,15 @@ public class MenuRestPanel extends JMenuBar {
             }
         });
 
+        JMenuItem resultFrame = new JMenuItem(new MenuItemAction("Result Window", Icons.getResultIcon(),
+                KeyEvent.VK_F));
+        resultFrame.setEnabled(true);
+        resultFrame.addActionListener(e -> {
+            Result.setVisible();
+        });
+
+        resultMenu.add(resultFrame);
+        resultMenu.addSeparator();
         resultMenu.add(valItem);
         resultMenu.addSeparator();
         resultMenu.add(saveResultTxt);
@@ -124,9 +133,8 @@ public class MenuRestPanel extends JMenuBar {
         logItem.setEnabled(true);
         logItem.addActionListener(e -> {
             logItem.setEnabled(false);
-            final LOG log = new LOG(logItem);
-            LOG.setFrame(log);
             LOG.setComponent(logItem);
+            LOG.setFrame(new LOG());
         });
 
         final JMenuItem exitItem = new JMenuItem(new MenuItemAction("Exit solver", Icons.getExitIcon(),
