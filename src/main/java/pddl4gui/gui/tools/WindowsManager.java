@@ -41,7 +41,7 @@ public class WindowsManager implements Serializable {
     /**
      * The version of PDDL4GUI Local.
      */
-    public static final String LOCAL_VERSION = "Local solver based on PDDL4J v3.8.2";
+    public static final String LOCAL_VERSION = "Local solver based on PDDL4J v3.8.3";
 
     /**
      * The version of PDDL4GUI REST.

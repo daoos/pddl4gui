@@ -22,7 +22,7 @@ repositories {
 
 dependencies {
     compile 'org.jfree:jfreechart:1.0.19'
-    compile 'com.github.pellierd:pddl4j:3.8.2'
+    compile 'com.github.pellierd:pddl4j:3.8.3'
     compile name: 'pgslookandfeel-1.1.2'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
 }

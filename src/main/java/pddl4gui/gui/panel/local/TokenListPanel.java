@@ -1,6 +1,6 @@
 package pddl4gui.gui.panel.local;
 
-import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
+import fr.uga.pddl4j.planners.statespace.StateSpacePlanner;
 import pddl4gui.gui.tools.OwnListSelectionModel;
 import pddl4gui.gui.tools.TriggerAction;
 import pddl4gui.token.LocalToken;
@@ -70,8 +70,7 @@ public class TokenListPanel extends JPanel {
                 final LocalToken selectedValue = tokenJList.getSelectedValue();
                 if (selectedValue != null) {
                     SolutionListButton.setEnabled(true);
-                    final AbstractStateSpacePlanner planner =
-                            (AbstractStateSpacePlanner) selectedValue.getPlanner();
+                    final StateSpacePlanner planner = selectedValue.getPlanner();
                     if (planner.isAnytime()) {
                         if (selectedValue.isSolved()) {
                             TriggerAction.enableMenuSolverPanelButton(true);
